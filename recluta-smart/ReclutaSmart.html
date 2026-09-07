@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recluta Smart — Evaluación docente por competencias</title>
+<meta name="description" content="Herramienta educativa de reclutamiento y selección docente: evalúa candidatos con una pauta transparente basada en el Marco para la Buena Enseñanza, genera entrevistas estructuradas y revisa avisos de empleo para detectar requisitos discriminatorios.">
+<meta name="author" content="Equipo Recluta Smart — IV°A Administración mención RR.HH.">
+<meta name="theme-color" content="#0F2747">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Recluta Smart — Evaluación docente por competencias">
+<meta property="og:description" content="El talento correcto para el aula correcta. Pauta de evaluación transparente, entrevista estructurada y revisión de avisos.">
+<meta property="og:locale" content="es_CL">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230F2747'/%3E%3Ccircle cx='17' cy='16' r='7' fill='none' stroke='%2338BDF8' stroke-width='3'/%3E%3Cpath d='M22 21l8 8' stroke='%2338BDF8' stroke-width='3.5' stroke-linecap='round'/%3E%3Cpath d='M13.5 16l2.5 2.5 4.5-4.5' stroke='%235FA9A5' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<style>
+/* ==========================================================================
+   Recluta Smart — hoja de estilos propia.
+   Todo vive dentro de este archivo: funciona sin internet y sin CDN.
+   Los colores de la identidad del equipo se definen una sola vez, aquí.
+   ========================================================================== */
+:root{
+  --navy:#0F2747;
+  --navy-2:#1b3a63;
+  --blue:#2563EB;
+  --blue-osc:#1d4fd0;
+  --sky:#38BDF8;
+  --teal:#3d8b87;
+  --warm:#b56a1e;
+
+  --papel:#f5f8fc;
+  --hoja:#ffffff;
+  --banda:#eef3fa;
+  --tinta:#16233a;
+  --tinta-2:#465a76;
+  --tinta-3:#5c7089;
+  --linea:#d8e2ee;
+  --linea-2:#b8c8dc;
+
+  --ok:#12734f;
+  --ok-suave:#e6f5ee;
+  --alerta:#8a5a12;
+  --alerta-suave:#fdf4e3;
+  --stop:#b3261e;
+  --stop-suave:#fdecea;
+
+  --radio:16px;
+  --sombra:0 1px 2px rgba(15,39,71,.05), 0 10px 30px -12px rgba(15,39,71,.18);
+  --sombra-alta:0 2px 6px rgba(15,39,71,.08), 0 24px 48px -20px rgba(15,39,71,.3);
+  --fuente:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:76px;}
+body{
+  margin:0;font-family:var(--fuente);font-size:16px;line-height:1.6;
+  color:var(--tinta);background:var(--papel);-webkit-text-size-adjust:100%;
+}
+h1,h2,h3,h4{margin:0;line-height:1.18;color:var(--navy);font-weight:800;letter-spacing:-.015em;}
+p{margin:0 0 .85rem;}
+p:last-child{margin-bottom:0;}
+a{color:var(--blue);}
+img,svg{max-width:100%;}
+.num{font-variant-numeric:tabular-nums;}
+
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+  outline:3px solid var(--sky);outline-offset:2px;border-radius:6px;
+}
+.saltar{position:absolute;left:-9999px;top:0;z-index:100;background:var(--blue);color:#fff;padding:.8rem 1.3rem;font-weight:700;border-radius:0 0 10px 0;}
+.saltar:focus{left:0;}
+
+.wrap{max-width:1140px;margin:0 auto;padding:0 1.25rem;}
+.seccion{padding:3.5rem 0;scroll-margin-top:5rem;}
+.seccion--alt{background:var(--hoja);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);}
+.cabecera-seccion{max-width:62ch;margin-bottom:2rem;}
+.cabecera-seccion h2{font-size:clamp(1.55rem,3.4vw,2.15rem);margin-bottom:.6rem;}
+.cabecera-seccion p{color:var(--tinta-2);}
+.eyebrow{
+  display:inline-block;font-size:.73rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--blue);background:rgba(37,99,235,.09);padding:.35rem .8rem;border-radius:999px;margin-bottom:.75rem;
+}
+
+/* ============================== Barra superior ============================== */
+.barra{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--linea);}
+.barra__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.65rem 0;}
+.marca{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit;}
+.marca b{font-size:1.1rem;font-weight:800;color:var(--navy);letter-spacing:-.02em;}
+.marca small{display:block;font-size:.68rem;color:var(--tinta-3);line-height:1.3;}
+.nav{display:flex;gap:.15rem;align-items:center;}
+.nav a{padding:.5rem .85rem;border-radius:999px;text-decoration:none;font-size:.88rem;font-weight:600;color:var(--tinta-2);}
+.nav a:hover{background:var(--banda);color:var(--navy);}
+.nav a.activo{background:var(--blue);color:#fff;}
+.nav a.activo:hover{background:var(--blue-osc);color:#fff;}
+.btn-menu{display:none;}
+@media (max-width:900px){
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;
+       background:var(--hoja);border-bottom:1px solid var(--linea);padding:.5rem 1.25rem 1rem;box-shadow:var(--sombra);}
+  .nav.abierto{display:flex;}
+  .nav a{border-radius:10px;padding:.75rem 1rem;}
+  .btn-menu{display:inline-flex;align-items:center;gap:.45rem;background:var(--banda);border:1px solid var(--linea);
+            color:var(--navy);font:inherit;font-weight:700;font-size:.88rem;padding:.5rem .85rem;border-radius:10px;cursor:pointer;}
+  .marca small{display:none;}
+}
+
+/* ================================== Aviso ================================== */
+.franja{background:var(--alerta-suave);border-bottom:1px solid #eedcb8;color:var(--alerta);font-size:.84rem;}
+.franja .wrap{display:flex;gap:.55rem;align-items:flex-start;padding-top:.55rem;padding-bottom:.55rem;}
+.franja b{font-weight:700;}
+
+/* =================================== Hero =================================== */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 55%,#26548f 100%);color:#fff;}
+.hero__grid{display:grid;gap:2.5rem;align-items:center;padding:3rem 0 3.5rem;}
+@media (min-width:920px){.hero__grid{grid-template-columns:1.05fr .95fr;}}
+.hero h1{color:#fff;font-size:clamp(2rem,5vw,2.9rem);margin-bottom:.85rem;}
+.hero h1 em{font-style:normal;color:var(--sky);}
+.hero__bajada{color:#c9dcf2;font-size:1.05rem;max-width:46ch;margin-bottom:1.6rem;}
+.hero__acciones{display:flex;flex-wrap:wrap;gap:.7rem;}
+.pildora{display:inline-flex;align-items:center;gap:.45rem;font-size:.76rem;font-weight:700;
+         background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);border-radius:999px;
+         padding:.35rem .8rem;margin-bottom:1rem;}
+
+/* ================================= Botones ================================= */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:inherit;font-weight:700;
+     font-size:.93rem;padding:.72rem 1.25rem;border-radius:11px;border:1px solid transparent;cursor:pointer;
+     text-decoration:none;transition:background-color .15s ease;}
+.btn--pri{background:var(--blue);color:#fff;}
+.btn--pri:hover{background:var(--blue-osc);}
+.btn--fantasma{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff;}
+.btn--fantasma:hover{background:rgba(255,255,255,.2);}
+.btn--claro{background:var(--hoja);border-color:var(--linea-2);color:var(--navy);}
+.btn--claro:hover{background:var(--banda);}
+.btn--bloque{width:100%;}
+.btn--sm{font-size:.83rem;padding:.48rem .85rem;border-radius:9px;}
+
+/* ================================= Tarjetas ================================= */
+.tarjeta{background:var(--hoja);border:1px solid var(--linea);border-radius:var(--radio);box-shadow:var(--sombra);padding:1.2rem;}
+.rejilla{display:grid;gap:1rem;grid-template-columns:1fr;}
+@media (min-width:700px){.rejilla--2{grid-template-columns:1fr 1fr;} .rejilla--3{grid-template-columns:repeat(3,1fr);}}
+.ico{font-size:1.5rem;line-height:1;margin-bottom:.5rem;display:block;}
+.tarjeta h3{font-size:1.02rem;margin-bottom:.35rem;}
+.tarjeta p{font-size:.9rem;color:var(--tinta-2);}
+
+/* ============================== Formularios ============================== */
+.campo{display:block;font-size:.87rem;margin-bottom:.9rem;}
+.campo>span:first-child,.campo__lab{display:block;color:var(--tinta-2);font-weight:600;margin-bottom:.3rem;}
+.campo input,.campo select,.campo textarea{
+  font:inherit;font-size:.93rem;color:var(--tinta);width:100%;padding:.58rem .7rem;
+  border:1px solid var(--linea-2);border-radius:10px;background:#fff;
+}
+.campo textarea{min-height:7rem;resize:vertical;line-height:1.55;}
+.campo select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235c7089' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+              background-repeat:no-repeat;background-position:right .7rem center;padding-right:2rem;}
+.ayuda{display:block;font-size:.78rem;color:var(--tinta-3);margin-top:.28rem;line-height:1.45;}
+.form-rejilla{display:grid;gap:0 1rem;grid-template-columns:1fr;}
+@media (min-width:640px){.form-rejilla{grid-template-columns:1fr 1fr;} .form-rejilla .ancho{grid-column:1/-1;}}
+
+/* ================================== Notas ================================== */
+.nota{display:flex;gap:.6rem;border-radius:12px;padding:.75rem .95rem;font-size:.86rem;line-height:1.5;margin-bottom:1rem;}
+.nota b{font-weight:700;}
+.nota--info{background:var(--banda);border:1px solid var(--linea-2);color:var(--tinta-2);}
+.nota--ok{background:var(--ok-suave);border:1px solid #b6e0cb;color:var(--ok);}
+.nota--alerta{background:var(--alerta-suave);border:1px solid #eedcb8;color:var(--alerta);}
+.nota--stop{background:var(--stop-suave);border:1px solid #f2c4c0;color:var(--stop);}
+.oculto{display:none !important;}
+
+/* ============================ Evaluador: rúbrica ============================ */
+.evaluador{display:grid;gap:1.5rem;grid-template-columns:1fr;align-items:start;}
+@media (min-width:1040px){.evaluador{grid-template-columns:minmax(0,1fr) 350px;}}
+
+.criterio{border:1px solid var(--linea);border-radius:12px;background:var(--hoja);padding:.95rem 1.05rem;margin-bottom:.85rem;}
+.criterio__cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem;margin-bottom:.15rem;}
+.criterio__cab h4{font-size:.97rem;flex:1 1 14rem;}
+.criterio__peso{font-family:var(--mono);font-size:.75rem;color:var(--tinta-3);background:var(--banda);padding:.1rem .45rem;border-radius:4px;}
+.criterio__fuente{font-size:.76rem;color:var(--tinta-3);margin-bottom:.6rem;}
+.escala{display:grid;gap:.4rem;grid-template-columns:1fr;}
+@media (min-width:560px){.escala{grid-template-columns:repeat(4,1fr);}}
+.nivel{position:relative;}
+.nivel input{position:absolute;opacity:0;width:0;height:0;}
+.nivel span{
+  display:block;border:1.5px solid var(--linea-2);border-radius:9px;padding:.45rem .55rem;cursor:pointer;
+  font-size:.78rem;line-height:1.35;color:var(--tinta-2);background:#fff;height:100%;
+}
+.nivel span b{display:block;font-family:var(--mono);font-size:.9rem;color:var(--navy);margin-bottom:.15rem;}
+.nivel input:checked+span{border-color:var(--blue);background:rgba(37,99,235,.07);color:var(--tinta);box-shadow:inset 0 0 0 1px var(--blue);}
+.nivel input:focus-visible+span{outline:3px solid var(--sky);outline-offset:2px;}
+
+/* Requisitos habilitantes */
+.habilitante{display:flex;gap:.6rem;align-items:flex-start;padding:.5rem 0;border-bottom:1px dashed var(--linea);font-size:.88rem;}
+.habilitante:last-child{border-bottom:0;}
+.habilitante input{margin-top:.3rem;width:1.05rem;height:1.05rem;flex-shrink:0;}
+
+/* ============================ Panel de resultado ============================ */
+.resultado{position:sticky;top:5.2rem;border-radius:var(--radio);overflow:hidden;border:1px solid var(--linea);
+           box-shadow:var(--sombra-alta);background:var(--hoja);}
+@media (max-width:1039px){.resultado{position:static;}}
+.resultado__cab{background:var(--navy);color:#fff;padding:1rem 1.15rem;}
+.resultado__cab p:first-child{font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:#9fbede;font-weight:700;margin-bottom:.1rem;}
+.resultado__cab p:last-child{font-size:1.05rem;font-weight:800;margin:0;}
+.resultado__cuerpo{padding:1.1rem 1.15rem 1.25rem;}
+.marcador{text-align:center;padding:.6rem 0 .9rem;}
+.marcador__valor{font-size:3rem;font-weight:800;line-height:1;color:var(--navy);font-variant-numeric:tabular-nums;}
+.marcador__valor small{font-size:1.1rem;font-weight:700;color:var(--tinta-3);}
+.marcador__banda{display:inline-block;margin-top:.5rem;font-size:.8rem;font-weight:700;padding:.3rem .8rem;border-radius:999px;}
+.banda-alta{background:var(--ok-suave);color:var(--ok);}
+.banda-media{background:rgba(37,99,235,.1);color:var(--blue-osc);}
+.banda-baja{background:var(--alerta-suave);color:var(--alerta);}
+.banda-stop{background:var(--stop-suave);color:var(--stop);}
+
+.desglose{font-size:.85rem;border-top:1px solid var(--linea);padding-top:.7rem;}
+.desglose__fila{display:flex;justify-content:space-between;gap:.8rem;padding:.28rem 0;align-items:baseline;}
+.desglose__fila span:first-child{color:var(--tinta-2);}
+.desglose__fila span:last-child{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.barrita{height:5px;border-radius:3px;background:var(--banda);overflow:hidden;margin-top:.1rem;}
+.barrita i{display:block;height:100%;background:var(--blue);border-radius:3px;transition:width .3s ease;}
+
+/* ============================== Comparador ============================== */
+.tabla-caja{overflow-x:auto;border:1px solid var(--linea);border-radius:12px;background:var(--hoja);}
+table.datos{border-collapse:collapse;width:100%;font-size:.86rem;min-width:40rem;}
+table.datos th,table.datos td{padding:.55rem .75rem;text-align:left;border-bottom:1px solid var(--linea);vertical-align:middle;}
+table.datos thead th{background:var(--banda);color:var(--navy);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;}
+table.datos td.n,table.datos th.n{text-align:right;font-variant-numeric:tabular-nums;}
+table.datos tbody tr:last-child td{border-bottom:0;}
+table.datos tbody tr.destaca{background:rgba(37,99,235,.05);}
+.orden{display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;border-radius:50%;
+       background:var(--navy);color:#fff;font-size:.75rem;font-weight:800;}
+
+/* =========================== Verificador de avisos =========================== */
+.marcado{background:#ffe8a3;border-bottom:2px solid var(--alerta);border-radius:2px;padding:0 .1em;font-weight:600;}
+.hallazgo-aviso{border-left:3px solid var(--stop);background:var(--stop-suave);border-radius:0 8px 8px 0;padding:.7rem .9rem;margin-bottom:.7rem;font-size:.87rem;}
+.hallazgo-aviso b{display:block;color:var(--stop);margin-bottom:.15rem;}
+.hallazgo-aviso .cita{font-family:var(--mono);font-size:.83rem;background:#fff;border:1px solid #f2c4c0;border-radius:5px;padding:.15rem .4rem;display:inline-block;margin:.2rem 0;}
+.hallazgo-aviso .arreglo{display:block;margin-top:.35rem;color:var(--tinta-2);}
+
+/* ============================== Pauta / imprimible ============================== */
+.pregunta{border:1px solid var(--linea);border-radius:10px;padding:.8rem .95rem;margin-bottom:.6rem;background:var(--hoja);}
+.pregunta__dom{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:.2rem;}
+.pregunta p{font-size:.92rem;margin:0;}
+.pregunta .busca{display:block;font-size:.8rem;color:var(--tinta-3);margin-top:.35rem;}
+
+/* ============================ Explorador de cargos ============================ */
+.cargo-chip{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--linea-2);background:var(--hoja);
+            border-radius:999px;padding:.4rem .85rem;font-size:.85rem;font-weight:600;color:var(--tinta-2);cursor:pointer;font-family:inherit;}
+.cargo-chip:hover{border-color:var(--blue);color:var(--navy);background:var(--banda);}
+.cargo-chip.activo{background:var(--navy);color:#fff;border-color:var(--navy);}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem;}
+.lista-cargos{display:grid;gap:.7rem;grid-template-columns:1fr;}
+@media (min-width:700px){.lista-cargos{grid-template-columns:1fr 1fr;}}
+.cargo-item{text-align:left;font:inherit;background:var(--hoja);border:1px solid var(--linea);border-radius:12px;
+            padding:.8rem .95rem;cursor:pointer;display:flex;justify-content:space-between;gap:.8rem;align-items:center;}
+.cargo-item:hover{border-color:var(--blue);box-shadow:var(--sombra);}
+.cargo-item b{display:block;font-size:.94rem;color:var(--navy);}
+.cargo-item small{color:var(--tinta-3);font-size:.8rem;}
+
+/* ================================= Detalle ================================= */
+.ficha dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:.88rem;margin:0 0 1rem;}
+.ficha dt{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-3);font-weight:700;padding-top:.2rem;}
+.ficha dd{margin:0;color:var(--tinta-2);}
+.ficha ul{margin:.3rem 0 1rem;padding-left:1.15rem;font-size:.88rem;color:var(--tinta-2);line-height:1.65;}
+.etiquetas{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem;}
+.etiqueta{background:var(--banda);border:1px solid var(--linea);color:var(--tinta-2);font-size:.78rem;padding:.2rem .6rem;border-radius:6px;}
+
+/* ================================== Diálogo ================================== */
+dialog{border:0;border-radius:var(--radio);padding:0;max-width:640px;width:calc(100% - 2rem);box-shadow:var(--sombra-alta);background:var(--hoja);color:var(--tinta);}
+dialog::backdrop{background:rgba(15,39,71,.55);}
+.dlg__cab{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1.1rem 1.25rem .5rem;}
+.dlg__cab h3{font-size:1.15rem;}
+.dlg__cuerpo{padding:0 1.25rem 1.25rem;max-height:70vh;overflow-y:auto;}
+.cerrar{background:var(--banda);border:1px solid var(--linea);border-radius:8px;width:2rem;height:2rem;cursor:pointer;
+        font-size:1rem;line-height:1;color:var(--tinta-2);flex-shrink:0;}
+.cerrar:hover{background:var(--linea);}
+
+/* ================================ Utilidades ================================ */
+.medida{max-width:64ch;}
+.fuente-legal{font-size:.8rem;color:var(--tinta-3);border-left:2px solid var(--linea-2);padding-left:.75rem;margin-top:.6rem;}
+.pie{background:var(--navy);color:#b9cde5;font-size:.87rem;}
+.pie .wrap{padding-top:2rem;padding-bottom:2rem;}
+.pie h4{color:#fff;font-size:.95rem;margin-bottom:.5rem;}
+.pie a{color:var(--sky);}
+.pie__grid{display:grid;gap:1.5rem;grid-template-columns:1fr;}
+@media (min-width:760px){.pie__grid{grid-template-columns:2fr 1fr 1fr;}}
+.pie__abajo{border-top:1px solid rgba(255,255,255,.15);margin-top:1.5rem;padding-top:1rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;font-size:.8rem;}
+
+@media print{
+  .no-imprimir{display:none !important;}
+  body{background:#fff;}
+  .seccion{padding:0;}
+  .resultado{box-shadow:none;position:static;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<a class="saltar" href="#evaluador">Saltar al evaluador de candidatos</a>
+
+<div class="franja no-imprimir">
+  <div class="wrap">
+    <span aria-hidden="true">🔒</span>
+    <p style="margin:0"><b>Herramienta educativa.</b> Trabaja con cargos y candidatos ficticios. Todo se calcula en tu navegador: no se envía ni se guarda información en ningún servidor. No es un sistema de contratación ni reemplaza la decisión de la persona a cargo del proceso.</p>
+  </div>
+</div>
+
+<header class="barra no-imprimir">
+  <div class="wrap barra__in">
+    <a class="marca" href="#inicio">
+      <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true">
+        <rect width="40" height="40" rx="9" fill="#0F2747"/>
+        <circle cx="17" cy="16" r="7" fill="none" stroke="#38BDF8" stroke-width="3"/>
+        <path d="M22 21l8 8" stroke="#38BDF8" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M13.5 16l2.5 2.5 4.5-4.5" stroke="#5FA9A5" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span><b>Recluta Smart</b><small>Selección docente por competencias</small></span>
+    </a>
+    <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="navPrincipal">☰ Menú</button>
+    <nav class="nav" id="navPrincipal" aria-label="Navegación principal">
+      <a href="#evaluador" class="activo">Evaluador</a>
+      <a href="#comparador">Comparar</a>
+      <a href="#entrevista">Entrevista</a>
+      <a href="#avisos">Revisar aviso</a>
+      <a href="#cargos">Cargos</a>
+      <a href="#marco">Marco legal</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- ================================== HERO ================================== -->
+<section class="hero no-imprimir">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="pildora"><span aria-hidden="true">⚖️</span> Criterios de idoneidad, nunca de identidad</span>
+      <h1>El talento correcto para <em>el aula correcta</em>.</h1>
+      <p class="hero__bajada">Recluta Smart evalúa candidatos docentes con una pauta transparente: cada punto se explica, los criterios se declaran antes de empezar y la decisión final sigue siendo de una persona.</p>
+      <div class="hero__acciones">
+        <a class="btn btn--pri" href="#evaluador"><span aria-hidden="true">📋</span> Evaluar un candidato</a>
+        <a class="btn btn--fantasma" href="#avisos"><span aria-hidden="true">🔍</span> Revisar un aviso de empleo</a>
+      </div>
+    </div>
+
+    <div class="tarjeta" style="padding:1.1rem">
+      <p style="font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-3);font-weight:800;margin-bottom:.5rem">Lo que hace distinta esta herramienta</p>
+      <div style="display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.7rem">
+        <span aria-hidden="true" style="font-size:1.2rem">📖</span>
+        <p style="font-size:.88rem;color:var(--tinta-2);margin:0"><b style="color:var(--navy)">La pauta se muestra antes de evaluar.</b> Los pesos de cada criterio están a la vista y se pueden discutir.</p>
+      </div>
+      <div style="display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.7rem">
+        <span aria-hidden="true" style="font-size:1.2rem">🧾</span>
+        <p style="font-size:.88rem;color:var(--tinta-2);margin:0"><b style="color:var(--navy)">Cada puntaje se explica.</b> El resultado dice de dónde salió cada punto y qué le faltó al candidato.</p>
+      </div>
+      <div style="display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.7rem">
+        <span aria-hidden="true" style="font-size:1.2rem">🚫</span>
+        <p style="font-size:.88rem;color:var(--tinta-2);margin:0"><b style="color:var(--navy)">No pide edad, sexo, comuna ni foto.</b> Ninguno de esos datos entra al cálculo, por decisión y por ley.</p>
+      </div>
+      <div style="display:flex;gap:.7rem;align-items:flex-start">
+        <span aria-hidden="true" style="font-size:1.2rem">👤</span>
+        <p style="font-size:.88rem;color:var(--tinta-2);margin:0"><b style="color:var(--navy)">No descarta a nadie sola.</b> Ordena y argumenta; contratar o no lo decide la encargada de área.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ PROBLEMA ================================ -->
+<section id="problema" class="seccion no-imprimir">
+  <div class="wrap">
+    <div class="cabecera-seccion">
+      <span class="eyebrow">El desafío</span>
+      <h2>Seleccionar sin una pauta común</h2>
+      <p>Cuando cada proceso de selección usa criterios distintos, comparar candidatos se vuelve una impresión personal en vez de una decisión argumentada. Ese es el problema que Recluta Smart aborda.</p>
+    </div>
+
+    <div class="rejilla rejilla--3">
+      <div class="tarjeta">
+        <span class="ico" aria-hidden="true">🧭</span>
+        <h3>Criterios que cambian</h3>
+        <p>Sin una pauta escrita, dos personas pueden evaluar al mismo candidato con estándares distintos y llegar a conclusiones opuestas.</p>
+      </div>
+      <div class="tarjeta">
+        <span class="ico" aria-hidden="true">⏱️</span>
+        <h3>Revisión lenta</h3>
+        <p>Revisar muchas postulaciones sin un orden definido consume tiempo del equipo que hace falta en el aula.</p>
+      </div>
+      <div class="tarjeta">
+        <span class="ico" aria-hidden="true">🗂️</span>
+        <h3>Decisiones sin registro</h3>
+        <p>Si no queda escrito por qué se eligió a alguien, la decisión no se puede revisar, explicar ni mejorar el año siguiente.</p>
+      </div>
+    </div>
+
+    <div class="nota nota--info" style="margin-top:1.5rem;max-width:64ch">
+      <span aria-hidden="true">⚠️</span>
+      <p style="margin:0"><b>Una precisión importante.</b> Se suele decir que una mala selección causa rotación docente. Puede influir, pero la rotación también depende de las condiciones laborales, el clima del establecimiento, la carga de trabajo y el proyecto de vida de cada persona. <b>Este proyecto no afirma esa relación:</b> la plantea como hipótesis y propone medirla. Cómo hacerlo está en la sección <a href="#medicion">cómo sabremos si funciona</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ EVALUADOR ================================ -->
+<section id="evaluador" class="seccion seccion--alt">
+  <div class="wrap">
+    <div class="cabecera-seccion no-imprimir">
+      <span class="eyebrow">Herramienta 1</span>
+      <h2>Evaluador de candidatos</h2>
+      <p>Elige un cargo, evalúa al candidato criterio por criterio y obtén un puntaje que se explica solo. La pauta está a la vista antes de empezar: eso es lo que permite discutirla y corregirla.</p>
+    </div>
+
+    <div class="evaluador">
+      <div>
+        <div class="tarjeta no-imprimir" style="margin-bottom:1.2rem">
+          <div class="form-rejilla">
+            <label class="campo">
+              <span>Cargo a evaluar</span>
+              <select id="selCargo"></select>
+              <span class="ayuda" id="ayudaCargo"></span>
+            </label>
+            <label class="campo">
+              <span>Nombre del candidato o candidata <span style="font-weight:400;color:var(--tinta-3)">(ficticio)</span></span>
+              <input type="text" id="candNombre" placeholder="Ej.: Candidata A" autocomplete="off">
+              <span class="ayuda">Usa nombres de fantasía o códigos. No escribas datos de personas reales.</span>
+            </label>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.2rem">
+            <button type="button" class="btn btn--claro btn--sm" id="btnCasos"><span aria-hidden="true">👥</span> Cargar 3 candidatos de ejemplo</button>
+            <button type="button" class="btn btn--claro btn--sm" id="btnLimpiar"><span aria-hidden="true">🧹</span> Limpiar</button>
+            <button type="button" class="btn btn--claro btn--sm" id="btnPruebas"><span aria-hidden="true">✅</span> Verificar el motor</button>
+          </div>
+          <p id="salidaPruebas" class="nota nota--ok oculto" role="status" style="margin:.8rem 0 0"><span></span></p>
+        </div>
+
+        <!-- Requisitos habilitantes -->
+        <div class="tarjeta" style="margin-bottom:1.2rem">
+          <h3 style="font-size:1rem;margin-bottom:.15rem">Requisitos habilitantes del cargo</h3>
+          <p class="ayuda" style="margin-bottom:.7rem">Son condiciones mínimas definidas en el perfil. No suman puntaje: si falta alguna, el resultado lo advierte de forma visible en vez de descartar en silencio.</p>
+          <div id="listaHabilitantes"></div>
+        </div>
+
+        <!-- Criterios puntuados -->
+        <div id="listaCriterios"></div>
+
+        <!-- Pesos -->
+        <details class="tarjeta no-imprimir" style="margin-top:.4rem">
+          <summary style="cursor:pointer;font-weight:700;color:var(--navy);font-size:.95rem">Ajustar los pesos de la pauta</summary>
+          <p class="ayuda" style="margin:.6rem 0 .8rem">Cada área puede decidir qué pesa más para un cargo determinado. Lo importante es acordarlo <b>antes</b> de evaluar y dejarlo escrito. La suma debe dar 100&nbsp;%.</p>
+          <div class="form-rejilla" id="listaPesos"></div>
+          <p id="avisoPesos" class="nota nota--alerta oculto" role="status" style="margin:.5rem 0 0"><span></span></p>
+        </details>
+      </div>
+
+      <!-- Panel de resultado -->
+      <aside>
+        <div class="resultado">
+          <div class="resultado__cab">
+            <p>Resultado de la evaluación</p>
+            <p id="resNombre">Sin candidato</p>
+          </div>
+          <div class="resultado__cuerpo">
+            <div aria-live="polite">
+              <div class="marcador">
+                <div class="marcador__valor"><span id="resPuntaje">0</span><small> / 100</small></div>
+                <div><span id="resBanda" class="marcador__banda banda-baja">Sin evaluar</span></div>
+              </div>
+
+              <p id="resHabilitante" class="nota nota--stop oculto" role="alert" style="font-size:.83rem"><span></span></p>
+
+              <div class="desglose" id="resDesglose"></div>
+
+              <details style="margin-top:.8rem">
+                <summary style="cursor:pointer;font-size:.85rem;font-weight:700;color:var(--navy)">¿De dónde sale cada punto?</summary>
+                <ol id="resExplicacion" style="font-size:.8rem;color:var(--tinta-2);padding-left:1.1rem;margin:.6rem 0 0;line-height:1.6"></ol>
+              </details>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:1rem" class="no-imprimir">
+              <button type="button" class="btn btn--pri btn--bloque" id="btnGuardar"><span aria-hidden="true">➕</span> Agregar al comparador</button>
+              <button type="button" class="btn btn--claro btn--bloque btn--sm" id="btnImprimir"><span aria-hidden="true">🖨️</span> Imprimir acta de evaluación</button>
+            </div>
+
+            <p class="ayuda" style="margin-top:.9rem">Este puntaje ordena candidatos y documenta el porqué. <b>No decide la contratación:</b> esa responsabilidad es de la encargada de área y del equipo directivo.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ COMPARADOR ================================ -->
+<section id="comparador" class="seccion">
+  <div class="wrap">
+    <div class="cabecera-seccion">
+      <span class="eyebrow">Herramienta 2</span>
+      <h2>Comparador de candidatos</h2>
+      <p>Los candidatos evaluados aparecen aquí ordenados por puntaje, con el detalle de cada criterio. Al empatar, la regla de desempate también está declarada.</p>
+    </div>
+    <div id="zonaComparador">
+      <div class="nota nota--info" style="max-width:60ch">
+        <span aria-hidden="true">📋</span>
+        <p style="margin:0">Todavía no hay candidatos evaluados. Usa el botón <b>Cargar 3 candidatos de ejemplo</b> en el evaluador para ver cómo funciona.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ ENTREVISTA ================================ -->
+<section id="entrevista" class="seccion seccion--alt">
+  <div class="wrap">
+    <div class="cabecera-seccion no-imprimir">
+      <span class="eyebrow">Herramienta 3</span>
+      <h2>Pauta de entrevista estructurada</h2>
+      <p>Una entrevista estructurada hace la misma pregunta a todos los candidatos y define qué se busca en la respuesta. Eso la vuelve comparable y reduce el margen para que decidan las impresiones personales.</p>
+    </div>
+    <div class="nota nota--info no-imprimir" style="max-width:64ch">
+      <span aria-hidden="true">⭐</span>
+      <p style="margin:0"><b>Método STAR.</b> Cada pregunta pide una <b>S</b>ituación concreta, la <b>T</b>area que le tocaba, la <b>A</b>cción que tomó y el <b>R</b>esultado. Preguntar por hechos vividos, y no por opiniones, es lo que distingue una entrevista por competencias de una conversación.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0" class="no-imprimir">
+      <button type="button" class="btn btn--claro btn--sm" id="btnImprimirPauta"><span aria-hidden="true">🖨️</span> Imprimir la pauta</button>
+    </div>
+    <div id="zonaEntrevista"></div>
+  </div>
+</section>
+
+<!-- ============================= VERIFICADOR DE AVISOS ============================= -->
+<section id="avisos" class="seccion">
+  <div class="wrap">
+    <div class="cabecera-seccion">
+      <span class="eyebrow">Herramienta 4</span>
+      <h2>Revisor de avisos de empleo</h2>
+      <p>El artículo 2 del Código del Trabajo señala expresamente que son actos de discriminación las ofertas de trabajo que exijan condiciones ajenas a la capacidad o idoneidad de la persona. Pega aquí un aviso y revisa si contiene alguna.</p>
+    </div>
+
+    <div class="rejilla rejilla--2" style="align-items:start">
+      <div>
+        <label class="campo">
+          <span>Texto del aviso</span>
+          <textarea id="textoAviso" style="min-height:11rem" placeholder="Pega o escribe aquí el aviso de la vacante..."></textarea>
+        </label>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+          <button type="button" class="btn btn--pri btn--sm" id="btnRevisarAviso"><span aria-hidden="true">🔍</span> Revisar el aviso</button>
+          <button type="button" class="btn btn--claro btn--sm" id="btnAvisoEjemplo">Cargar un aviso de ejemplo</button>
+        </div>
+      </div>
+      <div id="zonaResultadoAviso">
+        <div class="nota nota--info">
+          <span aria-hidden="true">📝</span>
+          <p style="margin:0">Escribe un aviso y presiona <b>Revisar</b>. La herramienta marca las expresiones problemáticas, indica qué criterio del artículo 2 involucran y propone una redacción alternativa.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="fuente-legal" style="max-width:66ch">Esta revisión es asistida y educativa: detecta expresiones frecuentes, no todas las formas posibles de discriminación. No reemplaza la revisión de una persona ni la asesoría jurídica.</p>
+  </div>
+</section>
+
+<!-- ============================== CATÁLOGO DE CARGOS ============================== -->
+<section id="cargos" class="seccion seccion--alt">
+  <div class="wrap">
+    <div class="cabecera-seccion">
+      <span class="eyebrow">Catálogo</span>
+      <h2>Perfiles de cargo del establecimiento</h2>
+      <p>Veintiséis cargos organizados en seis estamentos, cada uno con su propósito, funciones, requisitos y competencias. Este catálogo es la base sobre la que trabajan las cuatro herramientas.</p>
+    </div>
+    <div class="chips" id="chipsEstamentos" role="tablist" aria-label="Estamentos"></div>
+    <p id="descEstamento" class="ayuda" style="margin:-.6rem 0 1rem;font-size:.87rem"></p>
+    <div class="lista-cargos" id="listaCargos"></div>
+  </div>
+</section>
+
+<!-- ================================= MARCO LEGAL ================================= -->
+<section id="marco" class="seccion">
+  <div class="wrap">
+    <div class="cabecera-seccion">
+      <span class="eyebrow">Marco de referencia</span>
+      <h2>Qué criterios usamos y cuáles nunca</h2>
+      <p>Un proceso de selección se defiende por los criterios que declara de antemano. Estos son los nuestros y su fundamento.</p>
+    </div>
+
+    <div class="rejilla rejilla--2" style="align-items:start">
+      <div class="tarjeta">
+        <h3 style="margin-bottom:.6rem"><span aria-hidden="true">✅</span> Criterios que sí evaluamos</h3>
+        <p style="font-size:.88rem;color:var(--tinta-2);margin-bottom:.8rem">Todos se relacionan con la capacidad o la idoneidad para el cargo, que son los únicos motivos lícitos de distinción según el artículo 2 del Código del Trabajo.</p>
+        <ul style="font-size:.89rem;color:var(--tinta-2);padding-left:1.15rem;line-height:1.75;margin:0">
+          <li><b>Formación profesional</b> pertinente al cargo.</li>
+          <li><b>Experiencia</b> docente, general y en el nivel o asignatura del cargo.</li>
+          <li><b>Preparación de la enseñanza</b> — Dominio A del MBE.</li>
+          <li><b>Ambiente propicio para el aprendizaje</b> — Dominio B.</li>
+          <li><b>Enseñanza para el aprendizaje de todos</b> — Dominio C.</li>
+          <li><b>Responsabilidades profesionales</b> — Dominio D.</li>
+        </ul>
+        <p class="fuente-legal">Los cuatro dominios provienen del Marco para la Buena Enseñanza actualizado en 2021, aprobado por el Consejo Nacional de Educación y publicado por el CPEIP. Sus 12 estándares se distribuyen así: 1 a 4 en el Dominio A, 5 y 6 en el B, 7 a 9 en el C, y 10 a 12 en el D.</p>
+      </div>
+
+      <div class="tarjeta" style="border-color:#f2c4c0;background:var(--stop-suave)">
+        <h3 style="margin-bottom:.6rem;color:var(--stop)"><span aria-hidden="true">🚫</span> Criterios que nunca pedimos</h3>
+        <p style="font-size:.88rem;color:var(--tinta-2);margin-bottom:.8rem">Ninguno de estos datos aparece en el formulario ni entra en el cálculo. No es solo una decisión de diseño: exigirlos en una oferta de trabajo constituye un acto de discriminación.</p>
+        <div class="etiquetas" id="etiquetasProhibidas"></div>
+        <p class="fuente-legal" style="border-color:#f2c4c0">El artículo 2 del Código del Trabajo establece que los únicos motivos lícitos de distinción de trato son la capacidad o la idoneidad personal, y declara actos de discriminación las ofertas de trabajo que señalen como requisito alguna de estas condiciones. Se suman la Ley 20.609, que establece medidas contra la discriminación, y la Ley 21.015, sobre inclusión laboral de personas con discapacidad.</p>
+      </div>
+    </div>
+
+    <div class="nota nota--info" style="margin-top:1.2rem;max-width:70ch">
+      <span aria-hidden="true">💡</span>
+      <p style="margin:0"><b>El dato que se pide, se termina usando.</b> Por eso la protección más efectiva no es prometer que no se discrimina, sino <b>no recolectar</b> la información que permitiría hacerlo. Es la misma idea que en protección de datos se llama minimización.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================== MEDICIÓN ================================== -->
+<section id="medicion" class="seccion seccion--alt">
+  <div class="wrap">
+    <div class="cabecera-seccion">
+      <span class="eyebrow">Evidencia</span>
+      <h2>Cómo sabremos si funciona</h2>
+      <p>Un proyecto no se evalúa por lo que promete sino por lo que puede demostrar. Estos son los indicadores que este equipo se compromete a medir, con el dato de partida que hay que levantar primero.</p>
+    </div>
+
+    <div class="tabla-caja">
+      <table class="datos">
+        <caption class="ayuda" style="text-align:left;padding:.7rem .75rem">Indicadores propuestos. La columna «línea base» está vacía a propósito: es el primer dato que hay que conseguir.</caption>
+        <thead>
+          <tr><th scope="col">Qué queremos saber</th><th scope="col">Cómo se mide</th><th scope="col">Línea base</th><th scope="col">Meta</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>¿La pauta hace las decisiones más comparables?</td><td>Dos evaluadores puntúan al mismo candidato ficticio por separado; se compara la diferencia</td><td>Por levantar</td><td>Diferencia menor a 10 puntos</td></tr>
+          <tr><td>¿Ahorra tiempo?</td><td>Minutos que toma revisar y ordenar 10 postulaciones, con pauta y sin ella</td><td>Por levantar</td><td>Reducción medible</td></tr>
+          <tr><td>¿Queda registro de la decisión?</td><td>Porcentaje de procesos con acta de evaluación firmada</td><td>0 %</td><td>100 %</td></tr>
+          <tr><td>¿Los avisos publicados cumplen la ley?</td><td>Avisos revisados con la herramienta antes de publicarse</td><td>Por levantar</td><td>100 % revisados</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="nota nota--alerta" style="margin-top:1.2rem;max-width:70ch">
+      <span aria-hidden="true">📌</span>
+      <p style="margin:0"><b>Lo que este proyecto no puede afirmar todavía.</b> No hay datos que permitan sostener que una mejor selección reduce la rotación docente en este establecimiento. Es una hipótesis razonable, no un resultado. Afirmarla sin medirla sería el error más fácil de detectar por un jurado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================== CONTACTO ================================== -->
+<section id="solicitud" class="seccion no-imprimir">
+  <div class="wrap">
+    <div class="cabecera-seccion">
+      <span class="eyebrow">Uso interno</span>
+      <h2>Solicitud de proceso de selección</h2>
+      <p>Formulario para que un área describa la necesidad de un cargo. Genera un texto ordenado que se puede copiar y enviar por correo a Recursos Humanos.</p>
+    </div>
+
+    <div class="nota nota--info" style="max-width:64ch">
+      <span aria-hidden="true">📮</span>
+      <p style="margin:0">Esta página <b>no envía correos</b>: no tiene servidor. Al completar el formulario se arma el texto de la solicitud para que lo copies y lo pegues en tu correo. Decirlo es más honesto que mostrar un «solicitud recibida» que no ocurrió.</p>
+    </div>
+
+    <div class="rejilla rejilla--2" style="align-items:start;margin-top:1.2rem">
+      <form id="formSolicitud" novalidate>
+        <div class="form-rejilla">
+          <label class="campo"><span>Área o departamento</span><input type="text" id="solArea" placeholder="Matemática, Convivencia, UTP..." autocomplete="off"></label>
+          <label class="campo"><span>Cargo requerido</span><select id="solCargo"></select></label>
+          <label class="campo"><span>Solicitado por</span><input type="text" id="solPersona" placeholder="Nombre y cargo" autocomplete="off"></label>
+          <label class="campo"><span>Fecha en que se necesita</span><input type="date" id="solFecha"></label>
+          <label class="campo ancho"><span>Motivo de la vacante</span>
+            <select id="solMotivo">
+              <option value="Cargo nuevo">Cargo nuevo</option>
+              <option value="Reemplazo por licencia">Reemplazo por licencia</option>
+              <option value="Reemplazo por renuncia">Reemplazo por renuncia</option>
+              <option value="Aumento de horas del área">Aumento de horas del área</option>
+            </select>
+          </label>
+          <label class="campo ancho"><span>Descripción de la necesidad</span><textarea id="solDetalle" placeholder="¿Qué necesita el área y por qué? ¿Qué pasaría si el cargo no se cubre?"></textarea></label>
+        </div>
+        <button type="submit" class="btn btn--pri"><span aria-hidden="true">📝</span> Generar la solicitud</button>
+        <p id="errSolicitud" class="nota nota--stop oculto" role="alert" style="margin-top:.8rem"><span></span></p>
+      </form>
+
+      <div>
+        <label class="campo"><span>Texto generado</span>
+          <textarea id="salidaSolicitud" style="min-height:15rem;font-family:var(--mono);font-size:.83rem" readonly placeholder="Aquí aparecerá la solicitud lista para copiar."></textarea>
+        </label>
+        <button type="button" class="btn btn--claro btn--sm" id="btnCopiar"><span aria-hidden="true">📋</span> Copiar al portapapeles</button>
+        <span id="avisoCopiado" class="ayuda oculto" style="display:inline-block;margin-left:.5rem;color:var(--ok);font-weight:600">Copiado.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie no-imprimir">
+  <div class="wrap">
+    <div class="pie__grid">
+      <div>
+        <h4>RECLUTA SMART</h4>
+        <p style="margin-bottom:.6rem">«El talento correcto para el aula correcta.»</p>
+        <p style="font-size:.82rem;opacity:.85">Proyecto de Reclutamiento y Selección Docente · Feria Técnico Profesional 2026 · IV°A, Administración de Empresas mención Recursos Humanos · Colegio Cardenal José María Caro, Fundación Belén Educa.</p>
+      </div>
+      <div>
+        <h4>Herramientas</h4>
+        <p style="line-height:2"><a href="#evaluador">Evaluador</a><br><a href="#comparador">Comparador</a><br><a href="#entrevista">Entrevista</a><br><a href="#avisos">Revisor de avisos</a></p>
+      </div>
+      <div>
+        <h4>Fundamento</h4>
+        <p style="line-height:2"><a href="#cargos">Perfiles de cargo</a><br><a href="#marco">Marco legal</a><br><a href="#medicion">Cómo se mide</a></p>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.15);margin-top:1.4rem;padding-top:1rem;font-size:.82rem;line-height:1.7">
+      <b style="color:#fff">Fuentes:</b>
+      Marco para la Buena Enseñanza actualizado 2021, <a href="https://estandaresdocentes.mineduc.cl">Estándares de la Profesión Docente</a> (CPEIP · Mineduc), aprobado por el Consejo Nacional de Educación en marzo de 2021 ·
+      Código del Trabajo, artículo 2, <a href="https://www.dt.gob.cl">Dirección del Trabajo</a> ·
+      Ley 20.609 sobre medidas contra la discriminación ·
+      Ley 21.015 de inclusión laboral ·
+      Ley 19.070, Estatuto de los Profesionales de la Educación.
+    </div>
+    <div class="pie__abajo">
+      <span>Herramienta educativa. No constituye asesoría legal ni laboral.</span>
+      <span>© 2026 Recluta Smart</span>
+    </div>
+  </div>
+</footer>
+
+<dialog id="dlgCargo">
+  <div class="dlg__cab">
+    <div><span class="eyebrow" id="dlgEstamento" style="margin-bottom:.3rem"></span><h3 id="dlgTitulo"></h3></div>
+    <button class="cerrar" id="dlgCerrar" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="dlg__cuerpo ficha" id="dlgCuerpo"></div>
+</dialog>
+
+<script>
+"use strict";
+/* ==========================================================================
+   Recluta Smart — motor de evaluación
+   --------------------------------------------------------------------------
+   Tres capas separadas, y conviene mantenerlas así:
+
+     1. DATOS     → el catálogo de cargos y la pauta de evaluación.
+     2. CÁLCULO   → funciones que reciben datos y devuelven resultados.
+                    No tocan la página, por eso se pueden probar solas.
+     3. PANTALLA  → lee los controles, llama al cálculo y pinta.
+
+   El catálogo de cargos que viene a continuación es el que escribió el
+   equipo: 26 cargos en 6 estamentos. Se conserva tal cual.
+   ========================================================================== */
+
+/* ============================ 1. DATOS: CARGOS ============================ */
+
+  const ESTAMENTOS = {
+    directivo: { label: 'Equipo Directivo', icon: '🏫',
+      desc: 'Cargos que participan en la gestión general del establecimiento y en la toma de decisiones institucionales.' },
+    docentes: { label: 'Docentes', icon: '🧑‍🏫',
+      desc: 'Cargos responsables directamente del proceso de enseñanza y aprendizaje de los estudiantes.' },
+    area: { label: 'Encargadas/os de Área', icon: '👩‍💼',
+      desc: 'Cargos que acompañan y coordinan el trabajo pedagógico de los docentes de una asignatura o área.' },
+    pie: { label: 'Equipo PIE', icon: '🧩',
+      desc: 'Cargos que apoyan los procesos de inclusión y aprendizaje de estudiantes con necesidades educativas especiales.' },
+    convivencia: { label: 'Equipo de Convivencia', icon: '🤝',
+      desc: 'Cargos que contribuyen al desarrollo de una convivencia escolar adecuada y al bienestar de la comunidad.' },
+    asistentes: { label: 'Asistentes de la Educación', icon: '📋',
+      desc: 'Cargos que entregan apoyo a las actividades pedagógicas, formativas y administrativas del establecimiento.' }
+  };
+
+  /* ---------- Generadores auxiliares para cargos repetitivos ---------- */
+  function crearDocente(id, materia, jefatura) {
+    return {
+      id, nombre: 'Profesor/a de ' + materia, estamento: 'docentes', area: materia,
+      proposito: 'Planificar, implementar y evaluar el proceso de enseñanza-aprendizaje de ' + materia + ', favoreciendo el logro de los objetivos de aprendizaje del nivel correspondiente.',
+      funciones: [
+        'Planificar unidades y clases de ' + materia + ' de acuerdo con el currículum vigente.',
+        'Implementar estrategias pedagógicas pertinentes a las necesidades del curso.',
+        'Evaluar los aprendizajes y retroalimentar oportunamente a los estudiantes.',
+        'Participar en reuniones de departamento y consejos de profesores.',
+        'Mantener comunicación con familias y apoderados sobre el proceso educativo.'
+      ],
+      reqObligatorios: [
+        'Título profesional de Profesor/a de ' + materia + ' o carrera afín.',
+        'Licencia de Educación Media completa.',
+        'Disponibilidad para trabajar en jornada escolar completa.'
+      ],
+      reqDeseables: [
+        'Experiencia previa en establecimientos con Programa de Integración Escolar.',
+        'Manejo de herramientas digitales para la enseñanza.'
+      ],
+      formacion: 'Título profesional universitario en Pedagogía en ' + materia + ' (o mención equivalente).',
+      experiencia: 'Deseable al menos 1 año de experiencia docente en el nivel correspondiente.',
+      compTecnicas: [
+        'Dominio disciplinar de ' + materia + '.',
+        'Diseño de instrumentos de evaluación.',
+        'Manejo de estrategias de aula diversificadas.'
+      ],
+      compConductuales: [
+        { t: 'Trabajo en equipo', d: 'Colabora con el equipo docente y de área en la planificación conjunta.' },
+        { t: 'Comunicación', d: 'Se comunica de forma clara con estudiantes, familias y colegas.' },
+        { t: 'Adaptabilidad', d: 'Ajusta sus estrategias frente a la diversidad del aula.' }
+      ],
+      jefatura, jornada: 'Jornada Escolar Completa (44 horas semanales).'
+    };
+  }
+
+  function crearEncargadoArea(id, materia) {
+    return {
+      id, nombre: 'Encargado/a de Área de ' + materia, estamento: 'area', area: materia,
+      proposito: 'Coordinar y acompañar el trabajo pedagógico de los docentes de ' + materia + ', apoyando la planificación, el seguimiento y la mejora continua del área.',
+      funciones: [
+        'Coordinar la planificación anual y las evaluaciones del área de ' + materia + '.',
+        'Acompañar pedagógicamente a los docentes del área.',
+        'Levantar necesidades de perfil docente para procesos de selección.',
+        'Dar seguimiento a resultados de aprendizaje del área.',
+        'Participar en la elaboración del perfil de nuevos cargos del área.'
+      ],
+      reqObligatorios: [
+        'Título profesional de Profesor/a de ' + materia + ' o carrera afín.',
+        'Experiencia docente previa comprobable.',
+        'Disponibilidad para labores de coordinación y acompañamiento.'
+      ],
+      reqDeseables: [
+        'Formación o experiencia en liderazgo pedagógico.',
+        'Experiencia previa como jefe/a de departamento o coordinador/a de área.'
+      ],
+      formacion: 'Título profesional en Pedagogía en ' + materia + '; deseable formación complementaria en gestión o liderazgo educativo.',
+      experiencia: 'Al menos 3 años de experiencia docente, idealmente con roles de coordinación.',
+      compTecnicas: [
+        'Dominio curricular avanzado del área.',
+        'Análisis de datos de resultados de aprendizaje.',
+        'Diseño de planes de acompañamiento docente.'
+      ],
+      compConductuales: [
+        { t: 'Liderazgo', d: 'Guía y motiva al equipo docente del área hacia metas comunes.' },
+        { t: 'Comunicación', d: 'Entrega retroalimentación clara y constructiva.' },
+        { t: 'Organización', d: 'Coordina múltiples tareas y plazos de forma ordenada.' }
+      ],
+      jefatura: 'Jefatura de UTP', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+    };
+  }
+
+  /* ---------- Base de cargos ---------- */
+  const CARGOS_DATA = {
+    directivo: [
+      {
+        id: 'director', nombre: 'Director/a', estamento: 'directivo', area: 'Dirección General',
+        proposito: 'Liderar la gestión institucional, pedagógica y administrativa del establecimiento, asegurando el cumplimiento del proyecto educativo.',
+        funciones: [
+          'Liderar el proyecto educativo institucional.',
+          'Representar al establecimiento ante la comunidad y sostenedor.',
+          'Supervisar la gestión pedagógica, administrativa y financiera.',
+          'Conducir los procesos de mejora continua del establecimiento.'
+        ],
+        reqObligatorios: [
+          'Título profesional de Profesor/a o título profesional afín a la gestión educacional.',
+          'Experiencia previa en cargos de liderazgo escolar.',
+          'Cumplir con los requisitos legales vigentes para el cargo de director/a.'
+        ],
+        reqDeseables: ['Postgrado en gestión o liderazgo educacional.', 'Experiencia en establecimientos de alta complejidad.'],
+        formacion: 'Título profesional universitario; deseable magíster en gestión educacional o liderazgo.',
+        experiencia: 'Al menos 5 años de experiencia en educación, con experiencia previa en cargos directivos.',
+        compTecnicas: ['Gestión institucional', 'Gestión de recursos y presupuesto', 'Liderazgo de equipos directivos'],
+        compConductuales: [
+          { t: 'Liderazgo estratégico', d: 'Orienta a la comunidad educativa hacia objetivos institucionales comunes.' },
+          { t: 'Toma de decisiones', d: 'Analiza información y decide considerando el bienestar institucional.' },
+          { t: 'Comunicación', d: 'Se comunica de forma efectiva con todos los estamentos.' }
+        ],
+        jefatura: 'Sostenedor / Fundación Belén Educa', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      },
+      {
+        id: 'subdirector', nombre: 'Subdirector/a', estamento: 'directivo', area: 'Dirección General',
+        proposito: 'Apoyar a la dirección en la gestión pedagógica y administrativa, asumiendo funciones delegadas de coordinación institucional.',
+        funciones: [
+          'Apoyar la implementación del proyecto educativo institucional.',
+          'Coordinar equipos de gestión intermedia.',
+          'Supervisar el cumplimiento de normativas internas.',
+          'Reemplazar a la dirección en su ausencia según corresponda.'
+        ],
+        reqObligatorios: ['Título profesional de Profesor/a o carrera afín.', 'Experiencia en cargos de coordinación o jefatura.', 'Disponibilidad de jornada completa.'],
+        reqDeseables: ['Formación en gestión educacional.', 'Experiencia previa como jefe/a de UTP o similar.'],
+        formacion: 'Título profesional universitario; deseable formación en gestión educacional.',
+        experiencia: 'Al menos 4 años de experiencia en educación, con experiencia en cargos de coordinación.',
+        compTecnicas: ['Gestión de equipos', 'Planificación institucional', 'Resolución de conflictos'],
+        compConductuales: [
+          { t: 'Liderazgo', d: 'Apoya y guía a los equipos de gestión intermedia.' },
+          { t: 'Trabajo en equipo', d: 'Colabora estrechamente con la dirección y jefaturas.' },
+          { t: 'Adaptabilidad', d: 'Responde con flexibilidad ante distintos requerimientos institucionales.' }
+        ],
+        jefatura: 'Director/a', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      },
+      {
+        id: 'jefe-utp', nombre: 'Jefe/a de UTP', estamento: 'directivo', area: 'Unidad Técnico-Pedagógica',
+        proposito: 'Liderar la gestión curricular y pedagógica del establecimiento, asegurando la coherencia entre planificación, enseñanza y evaluación.',
+        funciones: [
+          'Coordinar la planificación curricular de los distintos niveles.',
+          'Supervisar y acompañar el trabajo pedagógico de los docentes.',
+          'Coordinar procesos de evaluación de aprendizajes.',
+          'Apoyar la elaboración de perfiles docentes para procesos de selección.'
+        ],
+        reqObligatorios: ['Título profesional de Profesor/a.', 'Experiencia docente comprobable.', 'Experiencia en coordinación pedagógica.'],
+        reqDeseables: ['Formación en gestión curricular.', 'Experiencia previa como jefe/a de UTP o coordinador/a académico/a.'],
+        formacion: 'Título profesional en Pedagogía; deseable formación complementaria en curriculum y evaluación.',
+        experiencia: 'Al menos 4 años de experiencia docente, con experiencia en gestión curricular.',
+        compTecnicas: ['Diseño y supervisión curricular', 'Análisis de resultados de aprendizaje', 'Acompañamiento docente'],
+        compConductuales: [
+          { t: 'Liderazgo pedagógico', d: 'Orienta técnicamente al equipo docente.' },
+          { t: 'Organización', d: 'Coordina múltiples procesos curriculares en paralelo.' },
+          { t: 'Comunicación', d: 'Transmite lineamientos pedagógicos con claridad.' }
+        ],
+        jefatura: 'Director/a', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      },
+      {
+        id: 'coordinador-academico', nombre: 'Coordinador/a académico/a', estamento: 'directivo', area: 'Unidad Técnico-Pedagógica',
+        proposito: 'Apoyar la coordinación académica de niveles o ciclos, colaborando con la UTP en la implementación curricular y el seguimiento de los aprendizajes.',
+        funciones: [
+          'Coordinar actividades académicas del ciclo o nivel asignado.',
+          'Apoyar el seguimiento de la planificación docente.',
+          'Colaborar en la organización de evaluaciones y calendario académico.',
+          'Apoyar a los docentes en la resolución de necesidades pedagógicas del nivel.'
+        ],
+        reqObligatorios: ['Título profesional de Profesor/a.', 'Experiencia docente previa.', 'Disponibilidad de jornada completa.'],
+        reqDeseables: ['Experiencia en coordinación de nivel o ciclo.', 'Formación en gestión curricular.'],
+        formacion: 'Título profesional en Pedagogía.',
+        experiencia: 'Al menos 2 años de experiencia docente.',
+        compTecnicas: ['Coordinación de equipos de nivel', 'Gestión de calendario académico', 'Seguimiento de planificaciones'],
+        compConductuales: [
+          { t: 'Organización', d: 'Ordena tareas y plazos del ciclo o nivel a cargo.' },
+          { t: 'Trabajo en equipo', d: 'Colabora con UTP y docentes del nivel.' },
+          { t: 'Comunicación', d: 'Informa oportunamente a los equipos involucrados.' }
+        ],
+        jefatura: 'Jefe/a de UTP', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      }
+    ],
+
+    docentes: [
+      crearDocente('prof-matematica', 'Matemática', 'Encargado/a de Área de Matemática'),
+      crearDocente('prof-lenguaje', 'Lenguaje', 'Encargado/a de Área de Lenguaje'),
+      crearDocente('prof-historia', 'Historia', 'Encargado/a de Área de Historia'),
+      crearDocente('prof-ciencias', 'Ciencias', 'Encargado/a de Área de Ciencias'),
+      crearDocente('prof-ingles', 'Inglés', 'Jefe/a de UTP'),
+      crearDocente('prof-ed-fisica', 'Educación Física', 'Jefe/a de UTP'),
+      crearDocente('prof-ed-basica', 'Educación Básica', 'Jefe/a de UTP')
+    ],
+
+    area: [
+      crearEncargadoArea('encargado-area-matematica', 'Matemática'),
+      crearEncargadoArea('encargado-area-lenguaje', 'Lenguaje'),
+      crearEncargadoArea('encargado-area-ciencias', 'Ciencias'),
+      crearEncargadoArea('encargado-area-historia', 'Historia')
+    ],
+
+    pie: [
+      {
+        id: 'educador-diferencial', nombre: 'Educador/a Diferencial', estamento: 'pie', area: 'Programa de Integración Escolar',
+        proposito: 'Apoyar los procesos de enseñanza-aprendizaje de estudiantes con necesidades educativas especiales, en coordinación con los docentes de aula.',
+        funciones: ['Co-planificar e implementar apoyos junto al docente de aula.', 'Elaborar y aplicar evaluaciones diagnósticas.', 'Realizar seguimiento del Plan de Apoyo Individual.', 'Coordinar con familias y equipo PIE.'],
+        reqObligatorios: ['Título profesional de Educador/a Diferencial.', 'Registro vigente en el Programa de Integración Escolar según normativa.', 'Disponibilidad de jornada.'],
+        reqDeseables: ['Experiencia en co-enseñanza.', 'Formación en necesidades educativas específicas.'],
+        formacion: 'Título profesional de Educador/a Diferencial.',
+        experiencia: 'Deseable al menos 1 año de experiencia en contextos de integración escolar.',
+        compTecnicas: ['Evaluación diagnóstica', 'Diseño de adecuaciones curriculares', 'Co-enseñanza'],
+        compConductuales: [
+          { t: 'Empatía', d: 'Comprende y atiende las necesidades particulares de cada estudiante.' },
+          { t: 'Trabajo en equipo', d: 'Coordina apoyos junto al docente de aula y al equipo PIE.' },
+          { t: 'Paciencia', d: 'Sostiene procesos de aprendizaje que requieren tiempos distintos.' }
+        ],
+        jefatura: 'Coordinador/a PIE', jornada: 'Jornada parcial o completa según necesidad del programa.'
+      },
+      {
+        id: 'psicopedagogo', nombre: 'Psicopedagogo/a', estamento: 'pie', area: 'Programa de Integración Escolar',
+        proposito: 'Evaluar y apoyar los procesos de aprendizaje de estudiantes que presentan dificultades específicas, en articulación con el equipo PIE.',
+        funciones: ['Realizar evaluaciones psicopedagógicas.', 'Diseñar planes de intervención específicos.', 'Apoyar a docentes en estrategias de aula.', 'Dar seguimiento a los casos derivados.'],
+        reqObligatorios: ['Título profesional de Psicopedagogo/a.', 'Experiencia en evaluación diagnóstica.', 'Disponibilidad de jornada.'],
+        reqDeseables: ['Experiencia previa en programas de integración escolar.', 'Manejo de instrumentos de evaluación estandarizados.'],
+        formacion: 'Título profesional de Psicopedagogo/a.',
+        experiencia: 'Deseable al menos 1 año de experiencia en evaluación e intervención psicopedagógica.',
+        compTecnicas: ['Evaluación psicopedagógica', 'Diseño de planes de intervención', 'Uso de instrumentos estandarizados'],
+        compConductuales: [
+          { t: 'Empatía', d: 'Se relaciona de forma cercana con estudiantes y familias.' },
+          { t: 'Rigurosidad', d: 'Aplica y analiza evaluaciones con precisión.' },
+          { t: 'Comunicación', d: 'Explica resultados de forma clara a docentes y apoderados.' }
+        ],
+        jefatura: 'Coordinador/a PIE', jornada: 'Jornada parcial o completa según necesidad del programa.'
+      },
+      {
+        id: 'psicologo-pie', nombre: 'Psicólogo/a PIE', estamento: 'pie', area: 'Programa de Integración Escolar',
+        proposito: 'Brindar apoyo psicológico y evaluación a estudiantes del Programa de Integración Escolar, colaborando en su proceso de inclusión.',
+        funciones: ['Realizar evaluaciones psicológicas.', 'Brindar acompañamiento a estudiantes derivados.', 'Coordinar con la red de apoyo externa cuando corresponda.', 'Participar en reuniones del equipo PIE.'],
+        reqObligatorios: ['Título profesional de Psicólogo/a.', 'Inscripción vigente según normativa aplicable.', 'Disponibilidad de jornada.'],
+        reqDeseables: ['Experiencia en contextos educativos.', 'Formación en psicología educacional.'],
+        formacion: 'Título profesional de Psicólogo/a.',
+        experiencia: 'Deseable al menos 1 año de experiencia en contexto escolar.',
+        compTecnicas: ['Evaluación psicológica', 'Intervención en contexto escolar', 'Elaboración de informes'],
+        compConductuales: [
+          { t: 'Empatía', d: 'Genera vínculos de confianza con los estudiantes.' },
+          { t: 'Confidencialidad', d: 'Resguarda la información sensible de cada caso.' },
+          { t: 'Trabajo en equipo', d: 'Colabora activamente con el equipo PIE y de convivencia.' }
+        ],
+        jefatura: 'Coordinador/a PIE', jornada: 'Jornada parcial o completa según necesidad del programa.'
+      },
+      {
+        id: 'fonoaudiologo', nombre: 'Fonoaudiólogo/a', estamento: 'pie', area: 'Programa de Integración Escolar',
+        proposito: 'Evaluar e intervenir en los procesos de comunicación, lenguaje y habla de los estudiantes que lo requieran, dentro del Programa de Integración Escolar.',
+        funciones: ['Evaluar habilidades comunicativas y de lenguaje.', 'Diseñar e implementar planes de intervención fonoaudiológica.', 'Orientar a docentes y familias sobre estrategias de apoyo.', 'Dar seguimiento a la evolución de cada estudiante.'],
+        reqObligatorios: ['Título profesional de Fonoaudiólogo/a.', 'Experiencia en evaluación de lenguaje infantil.', 'Disponibilidad de jornada.'],
+        reqDeseables: ['Experiencia previa en establecimientos educacionales.', 'Formación en trastornos específicos del lenguaje.'],
+        formacion: 'Título profesional de Fonoaudiólogo/a.',
+        experiencia: 'Deseable al menos 1 año de experiencia en intervención de lenguaje en contexto escolar.',
+        compTecnicas: ['Evaluación fonoaudiológica', 'Diseño de planes de intervención', 'Orientación a docentes y familias'],
+        compConductuales: [
+          { t: 'Paciencia', d: 'Acompaña procesos de intervención que requieren tiempo.' },
+          { t: 'Comunicación', d: 'Explica con claridad estrategias a docentes y apoderados.' },
+          { t: 'Trabajo en equipo', d: 'Coordina su labor con el resto del equipo PIE.' }
+        ],
+        jefatura: 'Coordinador/a PIE', jornada: 'Jornada parcial según necesidad del programa.'
+      }
+    ],
+
+    convivencia: [
+      {
+        id: 'encargado-convivencia', nombre: 'Encargado/a de Convivencia Escolar', estamento: 'convivencia', area: 'Convivencia Escolar',
+        proposito: 'Coordinar la gestión de la convivencia escolar, promoviendo un clima adecuado y liderando la implementación del Plan de Gestión de Convivencia.',
+        funciones: ['Implementar el Plan de Gestión de Convivencia Escolar.', 'Coordinar acciones formativas y preventivas.', 'Gestionar situaciones de convivencia según protocolo.', 'Coordinar con orientación, PIE y equipo directivo.'],
+        reqObligatorios: ['Título profesional de área de las ciencias sociales o educación.', 'Experiencia en gestión de convivencia escolar.', 'Disponibilidad de jornada completa.'],
+        reqDeseables: ['Formación en resolución de conflictos.', 'Experiencia previa en cargos similares.'],
+        formacion: 'Título profesional universitario; deseable formación en convivencia escolar o mediación.',
+        experiencia: 'Al menos 2 años de experiencia en gestión de convivencia escolar.',
+        compTecnicas: ['Gestión de protocolos de convivencia', 'Mediación de conflictos', 'Elaboración de planes formativos'],
+        compConductuales: [
+          { t: 'Liderazgo', d: 'Coordina acciones con distintos estamentos del colegio.' },
+          { t: 'Empatía', d: 'Comprende las distintas perspectivas involucradas en un conflicto.' },
+          { t: 'Comunicación', d: 'Media diálogos de forma clara y respetuosa.' }
+        ],
+        jefatura: 'Director/a', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      },
+      {
+        id: 'orientador', nombre: 'Orientador/a', estamento: 'convivencia', area: 'Orientación',
+        proposito: 'Acompañar el desarrollo personal, social y vocacional de los estudiantes, apoyando su proceso formativo integral.',
+        funciones: ['Implementar el plan de orientación del establecimiento.', 'Acompañar a estudiantes en su proceso vocacional.', 'Apoyar a profesores jefes en temas de orientación de curso.', 'Coordinar talleres formativos.'],
+        reqObligatorios: ['Título profesional de Orientador/a, Psicólogo/a o Profesor/a con mención en orientación.', 'Experiencia en acompañamiento estudiantil.', 'Disponibilidad de jornada.'],
+        reqDeseables: ['Formación en orientación vocacional.', 'Experiencia previa en establecimientos educacionales.'],
+        formacion: 'Título profesional en Orientación, Psicología o Pedagogía con mención en orientación.',
+        experiencia: 'Deseable al menos 2 años de experiencia en orientación escolar.',
+        compTecnicas: ['Diseño de planes de orientación', 'Acompañamiento vocacional', 'Trabajo con profesores jefes'],
+        compConductuales: [
+          { t: 'Empatía', d: 'Se vincula de forma cercana con los estudiantes.' },
+          { t: 'Comunicación', d: 'Orienta con claridad a estudiantes y familias.' },
+          { t: 'Trabajo en equipo', d: 'Coordina su labor con profesores jefes y equipo de convivencia.' }
+        ],
+        jefatura: 'Encargado/a de Convivencia Escolar', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      },
+      {
+        id: 'psicologo-convivencia', nombre: 'Psicólogo/a', estamento: 'convivencia', area: 'Convivencia Escolar',
+        proposito: 'Brindar apoyo psicológico a la comunidad estudiantil y colaborar en la gestión de situaciones de convivencia escolar.',
+        funciones: ['Realizar acompañamiento psicológico a estudiantes.', 'Colaborar en la gestión de casos de convivencia.', 'Coordinar con la red de apoyo externa cuando corresponda.', 'Participar en el equipo de convivencia escolar.'],
+        reqObligatorios: ['Título profesional de Psicólogo/a.', 'Inscripción vigente según normativa aplicable.', 'Disponibilidad de jornada.'],
+        reqDeseables: ['Experiencia en contextos educativos.', 'Formación en psicología educacional o clínica infanto-juvenil.'],
+        formacion: 'Título profesional de Psicólogo/a.',
+        experiencia: 'Deseable al menos 1 año de experiencia en contexto escolar.',
+        compTecnicas: ['Evaluación y acompañamiento psicológico', 'Manejo de situaciones de crisis', 'Elaboración de informes'],
+        compConductuales: [
+          { t: 'Empatía', d: 'Genera un espacio de confianza para los estudiantes.' },
+          { t: 'Confidencialidad', d: 'Resguarda la información sensible de cada caso.' },
+          { t: 'Trabajo en equipo', d: 'Colabora con el equipo de convivencia y PIE.' }
+        ],
+        jefatura: 'Encargado/a de Convivencia Escolar', jornada: 'Jornada parcial o completa según necesidad.'
+      }
+    ],
+
+    asistentes: [
+      {
+        id: 'inspector', nombre: 'Inspector/a', estamento: 'asistentes', area: 'Convivencia y Seguridad',
+        proposito: 'Apoyar el orden, la seguridad y el correcto funcionamiento de la jornada escolar, colaborando con la formación de los estudiantes.',
+        funciones: ['Supervisar recreos, entradas y salidas de los estudiantes.', 'Apoyar el cumplimiento del reglamento interno.', 'Colaborar con profesores y convivencia escolar ante incidentes.', 'Apoyar la organización de actos y actividades del colegio.'],
+        reqObligatorios: ['Licencia de Educación Media completa.', 'Disponibilidad de jornada completa.', 'Experiencia en trato con estudiantes o público.'],
+        reqDeseables: ['Experiencia previa en establecimientos educacionales.', 'Cursos en primeros auxilios.'],
+        formacion: 'Enseñanza Media completa; deseable formación técnica relacionada.',
+        experiencia: 'Deseable al menos 1 año de experiencia en labores similares.',
+        compTecnicas: ['Manejo de protocolos de seguridad escolar', 'Resolución de incidentes básicos', 'Uso de registros administrativos'],
+        compConductuales: [
+          { t: 'Responsabilidad', d: 'Cumple con puntualidad y rigor las tareas asignadas.' },
+          { t: 'Comunicación', d: 'Se relaciona adecuadamente con estudiantes y apoderados.' },
+          { t: 'Firmeza y calma', d: 'Actúa con serenidad frente a situaciones de conflicto.' }
+        ],
+        jefatura: 'Encargado/a de Convivencia Escolar', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      },
+      {
+        id: 'asistente-aula', nombre: 'Asistente de aula', estamento: 'asistentes', area: 'Apoyo Pedagógico',
+        proposito: 'Apoyar al docente en el trabajo pedagógico dentro del aula, colaborando en la atención de los estudiantes.',
+        funciones: ['Apoyar al docente en la implementación de actividades de aula.', 'Colaborar en la atención de estudiantes que requieren apoyo adicional.', 'Preparar materiales pedagógicos junto al docente.', 'Apoyar el orden y clima de la sala de clases.'],
+        reqObligatorios: ['Licencia de Educación Media completa; deseable formación técnica en educación.', 'Disponibilidad de jornada.', 'Experiencia en trabajo con niños, niñas o adolescentes.'],
+        reqDeseables: ['Curso técnico en educación o áreas afines.', 'Experiencia previa como asistente de aula.'],
+        formacion: 'Enseñanza Media completa; deseable formación técnica en educación.',
+        experiencia: 'Deseable al menos 1 año de experiencia en apoyo de aula.',
+        compTecnicas: ['Apoyo en estrategias pedagógicas básicas', 'Preparación de materiales', 'Manejo de grupo'],
+        compConductuales: [
+          { t: 'Paciencia', d: 'Acompaña procesos de aprendizaje con calma.' },
+          { t: 'Trabajo en equipo', d: 'Colabora estrechamente con el docente a cargo.' },
+          { t: 'Iniciativa', d: 'Colabora proactivamente en las tareas del aula.' }
+        ],
+        jefatura: 'Jefe/a de UTP', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      },
+      {
+        id: 'asistente-administrativo', nombre: 'Asistente administrativo/a', estamento: 'asistentes', area: 'Administración',
+        proposito: 'Apoyar la gestión administrativa del establecimiento, colaborando en tareas de secretaría, registro y atención a la comunidad educativa.',
+        funciones: ['Gestionar documentación y registros administrativos.', 'Atender consultas de apoderados y funcionarios.', 'Apoyar la coordinación de agenda de dirección y jefaturas.', 'Colaborar en la organización de archivos y comunicaciones internas.'],
+        reqObligatorios: ['Título técnico en Administración o experiencia equivalente.', 'Manejo de herramientas de oficina.', 'Disponibilidad de jornada completa.'],
+        reqDeseables: ['Experiencia previa en establecimientos educacionales.', 'Manejo de plataformas de gestión escolar.'],
+        formacion: 'Título técnico en Administración o carrera afín; deseable experiencia equivalente.',
+        experiencia: 'Deseable al menos 1 año de experiencia en labores administrativas.',
+        compTecnicas: ['Manejo de herramientas de oficina', 'Gestión documental', 'Atención de público'],
+        compConductuales: [
+          { t: 'Organización', d: 'Ordena tareas administrativas y plazos de forma eficiente.' },
+          { t: 'Comunicación', d: 'Atiende con claridad y buena disposición a la comunidad.' },
+          { t: 'Confidencialidad', d: 'Resguarda información sensible del establecimiento.' }
+        ],
+        jefatura: 'Director/a', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      },
+      {
+        id: 'tecnico-parvularia', nombre: 'Técnico/a en Educación Parvularia', estamento: 'asistentes', area: 'Apoyo Pedagógico',
+        proposito: 'Apoyar el trabajo pedagógico en niveles iniciales, colaborando en el cuidado, la estimulación y el aprendizaje de los estudiantes más pequeños.',
+        funciones: ['Apoyar la implementación de actividades pedagógicas en el nivel inicial.', 'Colaborar en el cuidado y bienestar de los estudiantes.', 'Preparar materiales didácticos junto a la educadora a cargo.', 'Apoyar la comunicación con las familias del nivel.'],
+        reqObligatorios: ['Título técnico en Educación Parvularia.', 'Disponibilidad de jornada.', 'Experiencia en trabajo con primera infancia.'],
+        reqDeseables: ['Experiencia previa en establecimientos educacionales.', 'Cursos en estimulación temprana.'],
+        formacion: 'Título técnico de nivel superior en Educación Parvularia.',
+        experiencia: 'Deseable al menos 1 año de experiencia en el nivel.',
+        compTecnicas: ['Apoyo en estrategias de estimulación temprana', 'Preparación de material didáctico', 'Cuidado y bienestar infantil'],
+        compConductuales: [
+          { t: 'Paciencia', d: 'Acompaña con calma los tiempos de aprendizaje de los niños y niñas.' },
+          { t: 'Afectividad', d: 'Genera un vínculo cálido y seguro con los estudiantes.' },
+          { t: 'Trabajo en equipo', d: 'Colabora estrechamente con la educadora a cargo del nivel.' }
+        ],
+        jefatura: 'Jefe/a de UTP', jornada: 'Jornada Escolar Completa (44 horas semanales).'
+      }
+    ]
+  };
+
+/* Lista plana de todos los cargos, para los selectores. */
+const TODOS_LOS_CARGOS = Object.values(CARGOS_DATA).flat();
+const cargoPorId = (id) => TODOS_LOS_CARGOS.find(c => c.id === id) || null;
+
+
+/* ========================= 2. DATOS: LA PAUTA ========================= */
+/* Esta es la rúbrica. Está escrita en un solo lugar y de aquí sale todo:
+   los criterios que se muestran, el cálculo del puntaje y las pruebas.
+   Cambiar un peso o un descriptor aquí lo cambia en toda la página.      */
+
+const RUBRICA = {
+  criterios: [
+    {
+      id:'formacion', nombre:'Formación profesional', peso:20,
+      fuente:'Requisito del perfil de cargo',
+      niveles:[
+        'Sin título profesional relacionado con el cargo.',
+        'Título afín, sin especialización en el área del cargo.',
+        'Título pertinente al cargo y al nivel solicitado.',
+        'Título pertinente más postgrado, mención o especialización en el área.'
+      ]
+    },
+    {
+      id:'experiencia', nombre:'Experiencia', peso:20,
+      fuente:'Requisito del perfil de cargo',
+      niveles:[
+        'Sin experiencia en funciones equivalentes.',
+        'Menos de 2 años, o experiencia en otro nivel o asignatura.',
+        'Entre 2 y 5 años en el nivel y asignatura del cargo.',
+        'Más de 5 años en el nivel y asignatura, con responsabilidades adicionales.'
+      ]
+    },
+    {
+      id:'domA', nombre:'Preparación de la enseñanza', peso:15,
+      fuente:'MBE 2021 · Dominio A (estándares 1 a 4)',
+      niveles:[
+        'No presenta planificación ni referencia al currículum vigente.',
+        'Planifica clases sueltas, sin conexión con los objetivos del nivel.',
+        'Planifica unidades alineadas al currículum, con evaluación coherente.',
+        'Además diseña la evaluación desde el inicio y ajusta según los aprendizajes previos del curso.'
+      ]
+    },
+    {
+      id:'domB', nombre:'Ambiente propicio para el aprendizaje', peso:15,
+      fuente:'MBE 2021 · Dominio B (estándares 5 y 6)',
+      niveles:[
+        'No da cuenta de estrategias de manejo de aula ni de vínculo con estudiantes.',
+        'Describe normas, pero centradas en el control y la sanción.',
+        'Describe acuerdos de convivencia construidos con el curso y expectativas altas para todos.',
+        'Además da ejemplos concretos de cómo recuperó el clima en una situación difícil.'
+      ]
+    },
+    {
+      id:'domC', nombre:'Enseñanza para el aprendizaje de todos', peso:15,
+      fuente:'MBE 2021 · Dominio C (estándares 7 a 9)',
+      niveles:[
+        'Enseña igual a todo el curso, sin considerar diferencias.',
+        'Reconoce que hay diferencias, pero no describe qué hace con ellas.',
+        'Aplica estrategias diversificadas y retroalimenta el trabajo de sus estudiantes.',
+        'Además se coordina con el equipo PIE y ajusta su enseñanza con evidencia de aprendizaje.'
+      ]
+    },
+    {
+      id:'domD', nombre:'Responsabilidades profesionales', peso:15,
+      fuente:'MBE 2021 · Dominio D (estándares 10 a 12)',
+      niveles:[
+        'No menciona trabajo con colegas, familias ni formación continua.',
+        'Cumple lo formal: entrega a tiempo y asiste a reuniones.',
+        'Colabora con el equipo del área y mantiene comunicación con las familias.',
+        'Además reflexiona sobre su práctica y busca formación pertinente por iniciativa propia.'
+      ]
+    }
+  ],
+
+  bandas:[
+    { desde:80, etiqueta:'Recomendado para entrevista final', clase:'banda-alta' },
+    { desde:60, etiqueta:'Continúa en el proceso',            clase:'banda-media' },
+    { desde:40, etiqueta:'Requiere más antecedentes',         clase:'banda-baja' },
+    { desde:0,  etiqueta:'No alcanza el perfil en esta pauta', clase:'banda-baja' }
+  ],
+
+  /* La regla de desempate también se declara: si no está escrita,
+     el desempate lo termina decidiendo el orden en que llegaron los CV. */
+  desempate:'A igual puntaje, se prioriza el mayor puntaje en los cuatro dominios pedagógicos; si persiste, la mayor experiencia; si aún persiste, se resuelve en entrevista.'
+};
+
+/* Criterios que este proceso no pide nunca, con el motivo legal. */
+const CRITERIOS_PROHIBIDOS = [
+  'Edad', 'Sexo', 'Identidad de género', 'Orientación sexual', 'Estado civil',
+  'Maternidad o lactancia', 'Nacionalidad', 'Ascendencia nacional', 'Raza o color',
+  'Religión o creencias', 'Opinión política', 'Sindicación', 'Situación socioeconómica',
+  'Informes comerciales (DICOM)', 'Apariencia personal', 'Fotografía',
+  'Enfermedad o discapacidad', 'Comuna de residencia'
+];
+
+
+/* ========================== 3. CÁLCULO (funciones puras) ========================== */
+
+/** Suma de los pesos de la pauta. Debe dar 100. */
+function sumaPesos(criterios) {
+  return criterios.reduce((t, c) => t + c.peso, 0);
+}
+
+/**
+ * Evalúa un candidato contra la pauta.
+ * @param {object} candidato  { nombre, niveles:{id:0..3}, habilitantes:[bool] }
+ * @param {object} pauta      la rúbrica (por defecto RUBRICA)
+ * @returns {object} puntaje, banda, detalle por criterio y explicación
+ */
+function evaluarCandidato(candidato, pauta) {
+  const reglas = pauta || RUBRICA;
+  const total = sumaPesos(reglas.criterios) || 1;
+
+  const detalle = reglas.criterios.map(c => {
+    const nivel = Math.min(3, Math.max(0, Number(candidato.niveles[c.id]) || 0));
+    // Cada criterio aporta, como máximo, su peso. El nivel 3 aporta el peso completo.
+    const aporta = (nivel / 3) * c.peso;
+    return {
+      id:c.id, nombre:c.nombre, peso:c.peso, nivel, aporta,
+      descriptor:c.niveles[nivel], fuente:c.fuente
+    };
+  });
+
+  // El puntaje se normaliza a 100 aunque los pesos sumen otra cosa,
+  // para que ajustar la pauta no rompa la escala.
+  const bruto = detalle.reduce((t, d) => t + d.aporta, 0);
+  const puntaje = Math.round((bruto / total) * 100);
+
+  const habilitantesFaltantes = (candidato.habilitantesFaltantes || []);
+  const cumpleHabilitantes = habilitantesFaltantes.length === 0;
+
+  const banda = reglas.bandas.find(b => puntaje >= b.desde) || reglas.bandas[reglas.bandas.length - 1];
+
+  // Puntaje solo pedagógico, para el desempate.
+  const puntajePedagogico = detalle
+    .filter(d => d.id.startsWith('dom'))
+    .reduce((t, d) => t + d.aporta, 0);
+
+  return {
+    nombre:candidato.nombre || 'Sin nombre',
+    puntaje, bruto, detalle, banda,
+    cumpleHabilitantes, habilitantesFaltantes,
+    puntajePedagogico,
+    experiencia:detalle.find(d => d.id === 'experiencia').nivel
+  };
+}
+
+/** Ordena candidatos evaluados aplicando la regla de desempate declarada. */
+function ordenarCandidatos(evaluados) {
+  return [...evaluados].sort((a, b) =>
+    b.puntaje - a.puntaje ||
+    b.puntajePedagogico - a.puntajePedagogico ||
+    b.experiencia - a.experiencia || 0
+  );
+}
+
+
+/* ==================== 4. CÁLCULO: revisor de avisos ==================== */
+/* Cada patrón busca una expresión frecuente en avisos de empleo, la asocia a
+   un criterio del artículo 2 del Código del Trabajo y propone cómo corregirla. */
+
+const PATRONES_AVISO = [
+  { id:'edad', motivo:'Edad',
+    re:/(menor(?:es)?\s+de\s+\d{2}\s*años|mayor(?:es)?\s+de\s+\d{2}\s*años|entre\s+\d{2}\s+y\s+\d{2}\s*años|hasta\s+\d{2}\s*años|máximo\s+\d{2}\s*años|no\s+mayor\s+de\s+\d{2}|edad\s*:\s*\d{2})/gi,
+    arreglo:'Elimina el rango de edad. Si lo que necesitas es trayectoria, pídela en años de ejercicio profesional, que sí es un criterio de idoneidad.' },
+
+  { id:'sexo', motivo:'Sexo, identidad de género u orientación sexual',
+    /* Los lookaheads dejan la marca sobre la palabra de género solamente, para que
+       un rango de edad que venga a continuación lo siga detectando su propio patrón. */
+    re:/(sol(?:o|amente)\s+(?:mujeres|hombres|damas|varones)|busca\s+profesora\b|\bdamas\b|\bvarones\b|\bmujer(?:es)?\b(?=\s+(?:entre|de|con|para))|\bhombres?\b(?=\s+(?:entre|de|con|para))|se\s+busca\s+(?:señorita|señora|dama|varón)|preferentemente\s+(?:mujer|hombre|femenin\w+|masculin\w+)|sexo\s*:\s*(?:femenino|masculino)|apto\s+solo\s+para\s+(?:hombres|mujeres))/gi,
+    arreglo:'Escribe el cargo en forma inclusiva, por ejemplo «Profesor/a de Matemática». El sexo de la persona no incide en su capacidad para ejercer la docencia.' },
+
+  { id:'civil', motivo:'Estado civil, maternidad o cargas familiares',
+    re:/(solter[oa]s?\b|casad[oa]s?\s+preferentemente|sin\s+hij[oa]s|sin\s+cargas\s+familiares|estado\s+civil\s*:|no\s+embarazada|sin\s+compromiso\s+familiar)/gi,
+    arreglo:'Quita la referencia. La situación familiar no tiene relación con el desempeño del cargo, y la maternidad está expresamente protegida.' },
+
+  { id:'apariencia', motivo:'Apariencia personal',
+    re:/(buena\s+presencia|excelente\s+presentación\s+personal|buena\s+imagen|adjuntar\s+fotografía|adjuntar\s+foto|con\s+foto\s+reciente|enviar\s+foto|presencia\s+impecable)/gi,
+    arreglo:'Elimina la exigencia. Si te importa la presentación en el aula, evalúala en la entrevista como parte del trato profesional, no como filtro para postular.' },
+
+  { id:'nacionalidad', motivo:'Nacionalidad o ascendencia nacional',
+    re:/(nacionalidad\s+chilena|sol(?:o|amente)\s+chilen[oa]s|excluyente\s+chilen[oa]|chilen[oa]s?\s+de\s+nacimiento|no\s+extranjer[oa]s)/gi,
+    arreglo:'Sustitúyelo por el requisito real: contar con la documentación que habilita para trabajar en Chile y, si corresponde, el título reconocido o convalidado.' },
+
+  { id:'economica', motivo:'Situación socioeconómica e informes comerciales',
+    re:/(sin\s+dicom|dicom\s+al\s+día|sin\s+deudas|informe\s+comercial|sin\s+antecedentes\s+comerciales|buen\s+comportamiento\s+de\s+pago)/gi,
+    arreglo:'Retíralo. Condicionar la contratación a la ausencia de obligaciones económicas está prohibido, salvo excepciones legales muy acotadas que no aplican al aula.' },
+
+  { id:'salud', motivo:'Enfermedad o discapacidad',
+    re:/(sin\s+enfermedades|salud\s+compatible|sin\s+licencias\s+médicas|sin\s+discapacidad|plena\s+salud|sin\s+problemas\s+de\s+salud)/gi,
+    arreglo:'Cámbialo por las funciones reales del cargo. La Ley 21.015 promueve la inclusión laboral: el foco está en los ajustes necesarios, no en excluir.' },
+
+  { id:'domicilio', motivo:'Comuna de residencia',
+    re:/(residir\s+en\s+la\s+comuna|vivir\s+en\s+la\s+comuna|domiciliad[oa]\s+en|exclusivo\s+para\s+vecinos)/gi,
+    arreglo:'Quítalo o cámbialo por la disponibilidad horaria que necesitas. Exigir comuna funciona como filtro socioeconómico indirecto.' },
+
+  { id:'creencias', motivo:'Religión, creencias u opinión política',
+    re:/(católic[oa]\s+practicante|de\s+religión\s+|militancia\s+política|sin\s+militancia|afinidad\s+política)/gi,
+    arreglo:'Reemplázalo por adhesión al proyecto educativo institucional, que sí puede pedirse y se evalúa por conductas, no por creencias declaradas.' },
+
+  { id:'sindical', motivo:'Sindicación',
+    re:/(no\s+sindicaliz\w+|sin\s+afiliación\s+sindical|que\s+no\s+pertenezca\s+a\s+sindicato)/gi,
+    arreglo:'Elimínalo. La libertad sindical está protegida y condicionar el empleo a ella es una práctica antisindical.' }
+];
+
+/** Escapa texto para insertarlo como HTML. */
+function escaparHtml(t) {
+  return String(t).replace(/[&<>"']/g, ch =>
+    ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]));
+}
+
+/**
+ * Revisa el texto de un aviso de empleo.
+ * @returns {object} { hallazgos:[...], html:'texto con las expresiones marcadas' }
+ */
+function revisarAviso(texto) {
+  const fuente = String(texto || '');
+  const marcas = [];
+
+  PATRONES_AVISO.forEach(p => {
+    const re = new RegExp(p.re.source, p.re.flags);
+    let m;
+    while ((m = re.exec(fuente)) !== null) {
+      if (m[0].length === 0) { re.lastIndex++; continue; }
+      marcas.push({ inicio:m.index, fin:m.index + m[0].length, cita:m[0], patron:p });
+    }
+  });
+
+  // Se ordenan y se descartan las marcas que se solapan, para no anidar etiquetas.
+  marcas.sort((a, b) => a.inicio - b.inicio || b.fin - a.fin);
+  const limpias = [];
+  let hasta = -1;
+  marcas.forEach(m => { if (m.inicio >= hasta) { limpias.push(m); hasta = m.fin; } });
+
+  // Se reconstruye el texto escapando cada tramo y resaltando las coincidencias.
+  let html = '', cursor = 0;
+  limpias.forEach(m => {
+    html += escaparHtml(fuente.slice(cursor, m.inicio));
+    html += '<mark class="marcado">' + escaparHtml(m.cita) + '</mark>';
+    cursor = m.fin;
+  });
+  html += escaparHtml(fuente.slice(cursor));
+
+  // Un mismo criterio puede aparecer varias veces: se agrupa por motivo.
+  const porMotivo = new Map();
+  limpias.forEach(m => {
+    const clave = m.patron.id;
+    if (!porMotivo.has(clave)) {
+      porMotivo.set(clave, { motivo:m.patron.motivo, arreglo:m.patron.arreglo, citas:[] });
+    }
+    porMotivo.get(clave).citas.push(m.cita);
+  });
+
+  return { hallazgos:[...porMotivo.values()], html, totalMarcas:limpias.length };
+}
+
+
+/* ================ 5. CÁLCULO: pauta de entrevista ================ */
+/* Preguntas de comportamiento pasado (método STAR). Se piden hechos vividos,
+   no opiniones: «cuénteme una vez que…» en vez de «¿qué haría usted si…?».  */
+
+const PREGUNTAS_MBE = [
+  { dom:'Dominio A · Preparación de la enseñanza',
+    p:'Cuénteme cómo preparó una unidad completa el año pasado. ¿De dónde partió y cómo decidió qué evaluar?',
+    busca:'Que mencione el currículum vigente, los aprendizajes previos del curso y que la evaluación se haya diseñado junto con la unidad, no al final.' },
+  { dom:'Dominio A · Preparación de la enseñanza',
+    p:'Descríbame una clase que planificó y que no resultó como esperaba. ¿Qué cambió para la clase siguiente?',
+    busca:'Capacidad de revisar la propia planificación con evidencia, y no atribuir el resultado solo al curso.' },
+  { dom:'Dominio B · Ambiente propicio para el aprendizaje',
+    p:'Hábleme de un curso en el que costó lograr un buen clima de trabajo. ¿Qué hizo usted concretamente?',
+    busca:'Acciones concretas y sostenidas, acuerdos construidos con el curso, y expectativas altas mantenidas para todos los estudiantes.' },
+  { dom:'Dominio B · Ambiente propicio para el aprendizaje',
+    p:'Cuénteme una situación de conflicto entre estudiantes que le haya tocado manejar. ¿Cómo la abordó?',
+    busca:'Manejo formativo antes que sancionatorio, y coordinación con Convivencia Escolar cuando correspondía.' },
+  { dom:'Dominio C · Enseñanza para el aprendizaje de todos',
+    p:'Describa un caso en que un grupo de estudiantes no estaba aprendiendo lo esperado. ¿Cómo se dio cuenta y qué hizo?',
+    busca:'Uso de evidencia de aprendizaje para detectarlo, y estrategias diferenciadas concretas, no solo «reforzar».' },
+  { dom:'Dominio C · Enseñanza para el aprendizaje de todos',
+    p:'Cuénteme cómo ha trabajado con estudiantes con necesidades educativas especiales.',
+    busca:'Trabajo coordinado con el equipo PIE, adecuaciones concretas y expectativas de aprendizaje mantenidas.' },
+  { dom:'Dominio D · Responsabilidades profesionales',
+    p:'Relate una conversación difícil que haya tenido con una familia. ¿Cómo la preparó y cómo terminó?',
+    busca:'Preparación previa, comunicación respetuosa y foco en el aprendizaje del estudiante.' },
+  { dom:'Dominio D · Responsabilidades profesionales',
+    p:'¿Cuál fue la última instancia de formación que buscó por iniciativa propia y por qué esa?',
+    busca:'Que la formación responda a una necesidad detectada en su práctica, no solo a la oferta disponible.' }
+];
+
+/** Arma la pauta de entrevista para un cargo concreto. */
+function generarPautaEntrevista(cargo) {
+  const preguntas = PREGUNTAS_MBE.map(q => Object.assign({}, q));
+
+  // Se suman las competencias conductuales que el propio perfil del cargo declara.
+  (cargo.compConductuales || []).forEach(c => {
+    preguntas.push({
+      dom:'Competencia del cargo · ' + c.t,
+      p:'Cuénteme una situación concreta en la que haya tenido que demostrar ' + c.t.toLowerCase() + '. ¿Qué hizo y qué resultó?',
+      busca:c.d
+    });
+  });
+
+  return preguntas;
+}
+
+
+/* ============================= 6. PANTALLA ============================= */
+
+const $ = (id) => document.getElementById(id);
+const evaluados = [];              // candidatos guardados en el comparador
+let cargoActual = null;
+
+/* --------------------------- Selectores de cargo --------------------------- */
+function llenarSelectoresDeCargo() {
+  const opciones = Object.entries(CARGOS_DATA).map(([clave, cargos]) => {
+    const etiqueta = ESTAMENTOS[clave] ? ESTAMENTOS[clave].label : clave;
+    const items = cargos.map(c => '<option value="' + c.id + '">' + escaparHtml(c.nombre) + '</option>').join('');
+    return '<optgroup label="' + escaparHtml(etiqueta) + '">' + items + '</optgroup>';
+  }).join('');
+  $('selCargo').innerHTML = opciones;
+  $('solCargo').innerHTML = opciones;
+  $('selCargo').value = 'prof-matematica';
+  $('solCargo').value = 'prof-matematica';
+}
+
+/* ------------------------- Requisitos habilitantes ------------------------- */
+function pintarHabilitantes(cargo) {
+  $('listaHabilitantes').innerHTML = cargo.reqObligatorios.map((req, i) =>
+    '<label class="habilitante">' +
+      '<input type="checkbox" id="hab_' + i + '" data-texto="' + escaparHtml(req) + '" checked>' +
+      '<span>' + escaparHtml(req) + '</span>' +
+    '</label>'
+  ).join('');
+  $('listaHabilitantes').querySelectorAll('input').forEach(chk =>
+    chk.addEventListener('change', recalcular));
+}
+
+/* ------------------------------- Criterios ------------------------------- */
+function pintarCriterios() {
+  $('listaCriterios').innerHTML = RUBRICA.criterios.map(c => {
+    const niveles = c.niveles.map((texto, n) =>
+      '<label class="nivel">' +
+        '<input type="radio" name="niv_' + c.id + '" value="' + n + '"' + (n === 0 ? ' checked' : '') + '>' +
+        '<span><b>' + n + '</b>' + escaparHtml(texto) + '</span>' +
+      '</label>'
+    ).join('');
+    return '<fieldset class="criterio" style="border:1px solid var(--linea)">' +
+      '<div class="criterio__cab">' +
+        '<h4>' + escaparHtml(c.nombre) + '</h4>' +
+        '<span class="criterio__peso" data-peso="' + c.id + '">' + c.peso + ' %</span>' +
+      '</div>' +
+      '<p class="criterio__fuente">' + escaparHtml(c.fuente) + '</p>' +
+      '<div class="escala">' + niveles + '</div>' +
+    '</fieldset>';
+  }).join('');
+  $('listaCriterios').querySelectorAll('input').forEach(r =>
+    r.addEventListener('change', recalcular));
+}
+
+/* --------------------------------- Pesos --------------------------------- */
+function pintarPesos() {
+  $('listaPesos').innerHTML = RUBRICA.criterios.map(c =>
+    '<label class="campo"><span>' + escaparHtml(c.nombre) + '</span>' +
+    '<input type="number" min="0" max="100" step="5" id="peso_' + c.id + '" value="' + c.peso + '"></label>'
+  ).join('');
+  RUBRICA.criterios.forEach(c => {
+    $('peso_' + c.id).addEventListener('input', () => {
+      const v = parseFloat($('peso_' + c.id).value);
+      c.peso = Number.isFinite(v) && v >= 0 ? v : 0;
+      const chip = document.querySelector('[data-peso="' + c.id + '"]');
+      if (chip) chip.textContent = c.peso + ' %';
+      const suma = sumaPesos(RUBRICA.criterios);
+      const mal = Math.round(suma) !== 100;
+      $('avisoPesos').classList.toggle('oculto', !mal);
+      $('avisoPesos').querySelector('span').textContent = mal
+        ? 'Los pesos suman ' + suma + ' %. Deben sumar 100 % para que la pauta sea comparable entre candidatos.'
+        : '';
+      recalcular();
+    });
+  });
+}
+
+/* ------------------------ Leer el candidato en pantalla ------------------------ */
+function leerCandidato() {
+  const niveles = {};
+  RUBRICA.criterios.forEach(c => {
+    const sel = document.querySelector('input[name="niv_' + c.id + '"]:checked');
+    niveles[c.id] = sel ? Number(sel.value) : 0;
+  });
+  const faltantes = [];
+  $('listaHabilitantes').querySelectorAll('input[type=checkbox]').forEach(chk => {
+    if (!chk.checked) faltantes.push(chk.dataset.texto);
+  });
+  return { nombre:$('candNombre').value.trim(), niveles, habilitantesFaltantes:faltantes };
+}
+
+/* ------------------------------- Recalcular ------------------------------- */
+function recalcular() {
+  const r = evaluarCandidato(leerCandidato(), RUBRICA);
+
+  $('resNombre').textContent = r.nombre || 'Sin candidato';
+  $('resPuntaje').textContent = r.puntaje;
+  $('resBanda').textContent = r.banda.etiqueta;
+  $('resBanda').className = 'marcador__banda ' + r.banda.clase;
+
+  const aviso = $('resHabilitante');
+  aviso.classList.toggle('oculto', r.cumpleHabilitantes);
+  if (!r.cumpleHabilitantes) {
+    aviso.querySelector('span').textContent =
+      'No cumple ' + r.habilitantesFaltantes.length + ' requisito(s) habilitante(s): ' +
+      r.habilitantesFaltantes.join(' · ') +
+      '. El puntaje se muestra igual, para que la decisión quede fundada y no se descarte en silencio.';
+  }
+
+  $('resDesglose').innerHTML = r.detalle.map(d =>
+    '<div class="desglose__fila"><span>' + escaparHtml(d.nombre) + '</span>' +
+    '<span>' + d.aporta.toFixed(1) + ' / ' + d.peso + '</span></div>' +
+    '<div class="barrita"><i style="width:' + (d.peso ? (d.aporta / d.peso) * 100 : 0) + '%"></i></div>'
+  ).join('');
+
+  $('resExplicacion').innerHTML = r.detalle.map(d =>
+    '<li><b>' + escaparHtml(d.nombre) + '</b> (peso ' + d.peso + ' %): nivel <b>' + d.nivel +
+    ' de 3</b> — ' + escaparHtml(d.descriptor) + ' Aporta <b>' + d.aporta.toFixed(1) +
+    '</b> de ' + d.peso + ' puntos.</li>'
+  ).join('') + '<li style="margin-top:.4rem;color:var(--tinta-3)"><b>Desempate declarado:</b> ' +
+    escaparHtml(RUBRICA.desempate) + '</li>';
+
+  return r;
+}
+
+/* ------------------------------- Comparador ------------------------------- */
+function pintarComparador() {
+  const zona = $('zonaComparador');
+  if (evaluados.length === 0) {
+    zona.innerHTML = '<div class="nota nota--info" style="max-width:60ch"><span aria-hidden="true">📋</span>' +
+      '<p style="margin:0">Todavía no hay candidatos evaluados. Usa el botón <b>Cargar 3 candidatos de ejemplo</b> en el evaluador para ver cómo funciona.</p></div>';
+    return;
+  }
+
+  const orden = ordenarCandidatos(evaluados);
+  const columnas = RUBRICA.criterios.map(c => '<th scope="col" class="n">' + escaparHtml(c.nombre) + '</th>').join('');
+  const filas = orden.map((r, i) =>
+    '<tr' + (i === 0 ? ' class="destaca"' : '') + '>' +
+      '<td><span class="orden">' + (i + 1) + '</span></td>' +
+      '<td><b>' + escaparHtml(r.nombre) + '</b><br><small style="color:var(--tinta-3)">' +
+        escaparHtml(r.cargoNombre || '') + '</small></td>' +
+      r.detalle.map(d => '<td class="n">' + d.nivel + '</td>').join('') +
+      '<td class="n"><b>' + r.puntaje + '</b></td>' +
+      '<td>' + (r.cumpleHabilitantes
+        ? '<span style="color:var(--ok);font-weight:600">Cumple</span>'
+        : '<span style="color:var(--stop);font-weight:600">Falta requisito</span>') + '</td>' +
+    '</tr>'
+  ).join('');
+
+  zona.innerHTML =
+    '<div class="tabla-caja"><table class="datos">' +
+      '<caption class="ayuda" style="text-align:left;padding:.7rem .75rem">Nivel obtenido en cada criterio (0 a 3) y puntaje final sobre 100.</caption>' +
+      '<thead><tr><th scope="col">#</th><th scope="col">Candidato</th>' + columnas +
+      '<th scope="col" class="n">Puntaje</th><th scope="col">Habilitantes</th></tr></thead>' +
+      '<tbody>' + filas + '</tbody></table></div>' +
+    '<p class="ayuda" style="margin-top:.8rem;max-width:70ch"><b>Regla de desempate:</b> ' +
+      escaparHtml(RUBRICA.desempate) + '</p>' +
+    '<button type="button" class="btn btn--claro btn--sm no-imprimir" id="btnVaciar" style="margin-top:.6rem">Vaciar el comparador</button>';
+
+  $('btnVaciar').addEventListener('click', () => { evaluados.length = 0; pintarComparador(); });
+}
+
+/* ------------------------------- Entrevista ------------------------------- */
+function pintarEntrevista(cargo) {
+  const preguntas = generarPautaEntrevista(cargo);
+  $('zonaEntrevista').innerHTML =
+    '<h3 style="font-size:1.05rem;margin-bottom:.15rem">Pauta para: ' + escaparHtml(cargo.nombre) + '</h3>' +
+    '<p class="ayuda" style="margin-bottom:1rem">' + preguntas.length +
+      ' preguntas. Las primeras ocho son comunes a todo cargo docente y salen de los cuatro dominios del MBE; las últimas provienen de las competencias que este perfil declara.</p>' +
+    preguntas.map(q =>
+      '<div class="pregunta"><p class="pregunta__dom">' + escaparHtml(q.dom) + '</p>' +
+      '<p>' + escaparHtml(q.p) + '</p>' +
+      '<span class="busca"><b>Qué se busca en la respuesta:</b> ' + escaparHtml(q.busca) + '</span></div>'
+    ).join('');
+}
+
+/* ---------------------------- Revisor de avisos ---------------------------- */
+const AVISO_EJEMPLO =
+'Colegio busca profesora de Matemática para Enseñanza Media.\n' +
+'Requisitos: mujer entre 25 y 35 años, soltera y sin hijos, de nacionalidad chilena,\n' +
+'con buena presencia. Debe residir en la comuna y presentar informe comercial sin DICOM.\n' +
+'Se solicita adjuntar foto reciente y certificado de salud compatible con el cargo.\n' +
+'Ofrecemos 44 horas semanales y un excelente ambiente de trabajo.';
+
+function pintarRevisionAviso() {
+  const texto = $('textoAviso').value;
+  const zona = $('zonaResultadoAviso');
+
+  if (!texto.trim()) {
+    zona.innerHTML = '<div class="nota nota--alerta"><span aria-hidden="true">✏️</span>' +
+      '<p style="margin:0">Escribe o pega el texto de un aviso antes de revisarlo.</p></div>';
+    return;
+  }
+
+  const r = revisarAviso(texto);
+
+  let html = '<div class="tarjeta" style="margin-bottom:1rem">' +
+    '<p style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-3);font-weight:800;margin-bottom:.5rem">Aviso revisado</p>' +
+    '<p style="white-space:pre-wrap;font-size:.88rem;line-height:1.7;margin:0">' + r.html + '</p></div>';
+
+  if (r.hallazgos.length === 0) {
+    html += '<div class="nota nota--ok"><span aria-hidden="true">✅</span><p style="margin:0">' +
+      '<b>No se detectaron expresiones problemáticas.</b> Esto no garantiza que el aviso cumpla la ley: ' +
+      'la revisión busca formulaciones frecuentes y siempre debe confirmarla una persona.</p></div>';
+  } else {
+    html += '<div class="nota nota--stop"><span aria-hidden="true">⚠️</span><p style="margin:0"><b>' +
+      r.hallazgos.length + ' criterio(s) problemático(s)</b> en ' + r.totalMarcas +
+      ' expresión(es). Según el artículo 2 del Código del Trabajo, son actos de discriminación las ofertas de ' +
+      'trabajo que exijan condiciones ajenas a la capacidad o idoneidad de la persona.</p></div>';
+    html += r.hallazgos.map(h =>
+      '<div class="hallazgo-aviso"><b>' + escaparHtml(h.motivo) + '</b>' +
+      h.citas.map(c => '<span class="cita">' + escaparHtml(c) + '</span>').join(' ') +
+      '<span class="arreglo"><b style="color:var(--tinta-2);display:inline">Cómo corregirlo:</b> ' +
+      escaparHtml(h.arreglo) + '</span></div>'
+    ).join('');
+  }
+
+  zona.innerHTML = html;
+}
+
+/* ---------------------------- Catálogo de cargos ---------------------------- */
+let estamentoActivo = 'docentes';
+
+function pintarChips() {
+  $('chipsEstamentos').innerHTML = Object.entries(ESTAMENTOS).map(([clave, e]) =>
+    '<button type="button" class="cargo-chip' + (clave === estamentoActivo ? ' activo' : '') +
+    '" data-estamento="' + clave + '"><span aria-hidden="true">' + e.icon + '</span> ' +
+    escaparHtml(e.label) + '</button>'
+  ).join('');
+  $('chipsEstamentos').querySelectorAll('button').forEach(b =>
+    b.addEventListener('click', () => { estamentoActivo = b.dataset.estamento; pintarChips(); pintarListaCargos(); }));
+}
+
+function pintarListaCargos() {
+  const e = ESTAMENTOS[estamentoActivo];
+  $('descEstamento').textContent = e ? e.desc : '';
+  $('listaCargos').innerHTML = (CARGOS_DATA[estamentoActivo] || []).map(c =>
+    '<button type="button" class="cargo-item" data-cargo="' + c.id + '">' +
+      '<span><b>' + escaparHtml(c.nombre) + '</b><small>' + escaparHtml(c.area) + '</small></span>' +
+      '<span aria-hidden="true" style="color:var(--blue);font-weight:700">Ver ficha →</span>' +
+    '</button>'
+  ).join('');
+  $('listaCargos').querySelectorAll('button').forEach(b =>
+    b.addEventListener('click', () => abrirFicha(cargoPorId(b.dataset.cargo))));
+}
+
+function abrirFicha(cargo) {
+  if (!cargo) return;
+  $('dlgEstamento').textContent = ESTAMENTOS[cargo.estamento] ? ESTAMENTOS[cargo.estamento].label : cargo.estamento;
+  $('dlgTitulo').textContent = cargo.nombre;
+  const lista = (arr) => '<ul>' + arr.map(x => '<li>' + escaparHtml(x) + '</li>').join('') + '</ul>';
+  $('dlgCuerpo').innerHTML =
+    '<p style="font-size:.92rem;color:var(--tinta-2)">' + escaparHtml(cargo.proposito) + '</p>' +
+    '<dl><dt>Área</dt><dd>' + escaparHtml(cargo.area) + '</dd>' +
+    '<dt>Jefatura</dt><dd>' + escaparHtml(cargo.jefatura) + '</dd>' +
+    '<dt>Jornada</dt><dd>' + escaparHtml(cargo.jornada) + '</dd>' +
+    '<dt>Formación</dt><dd>' + escaparHtml(cargo.formacion) + '</dd>' +
+    '<dt>Experiencia</dt><dd>' + escaparHtml(cargo.experiencia) + '</dd></dl>' +
+    '<h4 style="font-size:.9rem;margin-bottom:.2rem">Funciones principales</h4>' + lista(cargo.funciones) +
+    '<h4 style="font-size:.9rem;margin-bottom:.2rem">Requisitos obligatorios</h4>' + lista(cargo.reqObligatorios) +
+    '<h4 style="font-size:.9rem;margin-bottom:.2rem">Requisitos deseables</h4>' + lista(cargo.reqDeseables) +
+    '<h4 style="font-size:.9rem;margin-bottom:.35rem">Competencias técnicas</h4>' +
+    '<div class="etiquetas">' + cargo.compTecnicas.map(t => '<span class="etiqueta">' + escaparHtml(t) + '</span>').join('') + '</div>' +
+    '<h4 style="font-size:.9rem;margin-bottom:.2rem">Competencias conductuales</h4>' +
+    '<ul>' + cargo.compConductuales.map(c => '<li><b>' + escaparHtml(c.t) + ':</b> ' + escaparHtml(c.d) + '</li>').join('') + '</ul>' +
+    '<button type="button" class="btn btn--pri btn--sm" id="dlgEvaluar">Evaluar un candidato para este cargo</button>';
+
+  $('dlgEvaluar').addEventListener('click', () => {
+    $('dlgCargo').close();
+    $('selCargo').value = cargo.id;
+    cambiarCargo();
+    $('evaluador').scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+  $('dlgCargo').showModal();
+}
+
+/* ------------------------------ Cambio de cargo ------------------------------ */
+function cambiarCargo() {
+  cargoActual = cargoPorId($('selCargo').value) || TODOS_LOS_CARGOS[0];
+  $('ayudaCargo').textContent = cargoActual.area + ' · ' + cargoActual.jornada;
+  pintarHabilitantes(cargoActual);
+  pintarEntrevista(cargoActual);
+  recalcular();
+}
+
+
+/* ---------------------------- Candidatos de ejemplo ---------------------------- */
+/* Personas ficticias. Sirven para probar la herramienta y para demostrarla en la
+   Feria sin usar antecedentes reales de nadie.                                    */
+
+const CANDIDATOS_EJEMPLO = [
+  { nombre:'Candidata A · Paula V.',
+    niveles:{ formacion:3, experiencia:2, domA:3, domB:3, domC:2, domD:2 },
+    habilitantesFaltantes:[] },
+  { nombre:'Candidato B · Marco T.',
+    niveles:{ formacion:2, experiencia:3, domA:2, domB:2, domC:3, domD:2 },
+    habilitantesFaltantes:[] },
+  { nombre:'Candidata C · Ignacia R.',
+    niveles:{ formacion:1, experiencia:1, domA:2, domB:2, domC:1, domD:3 },
+    habilitantesFaltantes:['Título profesional de Profesor/a de la asignatura o carrera afín.'] }
+];
+
+function cargarEjemplos() {
+  evaluados.length = 0;
+  CANDIDATOS_EJEMPLO.forEach(c => {
+    const r = evaluarCandidato(c, RUBRICA);
+    r.cargoNombre = cargoActual.nombre;
+    evaluados.push(r);
+  });
+  pintarComparador();
+
+  // El primero queda cargado en el evaluador, para que se vea el detalle.
+  const primero = CANDIDATOS_EJEMPLO[0];
+  $('candNombre').value = primero.nombre;
+  RUBRICA.criterios.forEach(c => {
+    const radio = document.querySelector('input[name="niv_' + c.id + '"][value="' + primero.niveles[c.id] + '"]');
+    if (radio) radio.checked = true;
+  });
+  $('listaHabilitantes').querySelectorAll('input').forEach(chk => { chk.checked = true; });
+  recalcular();
+  $('comparador').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function limpiarEvaluador() {
+  $('candNombre').value = '';
+  RUBRICA.criterios.forEach(c => {
+    const radio = document.querySelector('input[name="niv_' + c.id + '"][value="0"]');
+    if (radio) radio.checked = true;
+  });
+  $('listaHabilitantes').querySelectorAll('input').forEach(chk => { chk.checked = true; });
+  $('salidaPruebas').classList.add('oculto');
+  recalcular();
+}
+
+
+/* ------------------------------ Solicitud de cargo ------------------------------ */
+function generarSolicitud(e) {
+  e.preventDefault();
+  const area = $('solArea').value.trim();
+  const persona = $('solPersona').value.trim();
+  const detalle = $('solDetalle').value.trim();
+  const err = $('errSolicitud');
+
+  if (!area || !persona || detalle.length < 15) {
+    err.classList.remove('oculto');
+    err.querySelector('span').textContent =
+      'Faltan datos: indica el área, quién solicita y una descripción de al menos 15 caracteres.';
+    return;
+  }
+  err.classList.add('oculto');
+
+  const cargo = cargoPorId($('solCargo').value);
+  const fecha = $('solFecha').value || 'por definir';
+
+  $('salidaSolicitud').value =
+    'SOLICITUD DE PROCESO DE SELECCIÓN\n' +
+    '=================================\n\n' +
+    'Área: ' + area + '\n' +
+    'Cargo requerido: ' + cargo.nombre + '\n' +
+    'Estamento: ' + (ESTAMENTOS[cargo.estamento] ? ESTAMENTOS[cargo.estamento].label : cargo.estamento) + '\n' +
+    'Jornada del cargo: ' + cargo.jornada + '\n' +
+    'Motivo de la vacante: ' + $('solMotivo').value + '\n' +
+    'Se necesita para: ' + fecha + '\n' +
+    'Solicitado por: ' + persona + '\n\n' +
+    'DESCRIPCIÓN DE LA NECESIDAD\n' + detalle + '\n\n' +
+    'REQUISITOS OBLIGATORIOS DEL PERFIL\n' +
+    cargo.reqObligatorios.map(r => '  - ' + r).join('\n') + '\n\n' +
+    'COMPETENCIAS A EVALUAR\n' +
+    RUBRICA.criterios.map(c => '  - ' + c.nombre + ' (' + c.peso + ' %) — ' + c.fuente).join('\n') + '\n\n' +
+    'Generado con Recluta Smart el ' + new Date().toLocaleDateString('es-CL') + '.\n' +
+    'Herramienta educativa: este documento no constituye una publicación de vacante.';
+}
+
+
+/* ============================ 7. PRUEBAS DEL MOTOR ============================ */
+/* Comprueban que el cálculo hace lo que la página dice que hace. */
+
+function candidatoDePrueba(nivel, cambios) {
+  const niveles = {};
+  RUBRICA.criterios.forEach(c => { niveles[c.id] = nivel; });
+  return { nombre:'Prueba', niveles:Object.assign(niveles, cambios || {}), habilitantesFaltantes:[] };
+}
+
+const PRUEBAS = [
+  ['Los pesos de la pauta suman 100 %',
+    () => sumaPesos(RUBRICA.criterios) === 100],
+
+  ['Nivel 0 en todos los criterios da 0 puntos',
+    () => evaluarCandidato(candidatoDePrueba(0), RUBRICA).puntaje === 0],
+
+  ['Nivel 3 en todos los criterios da 100 puntos',
+    () => evaluarCandidato(candidatoDePrueba(3), RUBRICA).puntaje === 100],
+
+  ['Nivel 2 en todos los criterios da 67 puntos (dos tercios)',
+    () => evaluarCandidato(candidatoDePrueba(2), RUBRICA).puntaje === 67],
+
+  ['Perder el criterio de formación resta exactamente su peso',
+    () => evaluarCandidato(candidatoDePrueba(3, { formacion:0 }), RUBRICA).puntaje === 80],
+
+  ['La escala sigue siendo sobre 100 aunque se cambien los pesos',
+    () => {
+      const otra = { criterios:RUBRICA.criterios.map(c => Object.assign({}, c, { peso:50 })),
+                     bandas:RUBRICA.bandas, desempate:RUBRICA.desempate };
+      return evaluarCandidato(candidatoDePrueba(3), otra).puntaje === 100;
+    }],
+
+  ['Un requisito habilitante faltante no altera el puntaje, pero sí queda marcado',
+    () => {
+      const base = evaluarCandidato(candidatoDePrueba(2), RUBRICA);
+      const c = candidatoDePrueba(2);
+      c.habilitantesFaltantes = ['Título profesional'];
+      const conFalta = evaluarCandidato(c, RUBRICA);
+      return conFalta.puntaje === base.puntaje && conFalta.cumpleHabilitantes === false;
+    }],
+
+  ['La banda más alta empieza en 80 puntos',
+    () => evaluarCandidato(candidatoDePrueba(3, { formacion:0 }), RUBRICA).banda.clase === 'banda-alta'],
+
+  ['A igual puntaje, gana quien tiene mejor desempeño pedagógico',
+    () => {
+      // Ambos suman 40 puntos, pero repartidos de distinta forma:
+      //   antecedentes → formación 20 + experiencia 20
+      //   pedagógico   → dominios A 15 + B 15 + C 10
+      const antecedentes = evaluarCandidato(candidatoDePrueba(0, { formacion:3, experiencia:3 }), RUBRICA);
+      const pedagogico   = evaluarCandidato(candidatoDePrueba(0, { domA:3, domB:3, domC:2 }), RUBRICA);
+      const orden = ordenarCandidatos([antecedentes, pedagogico]);
+      return pedagogico.puntaje === 40 && antecedentes.puntaje === 40 && orden[0] === pedagogico;
+    }],
+
+  ['El revisor detecta un rango de edad en el aviso',
+    () => revisarAviso('Se busca docente entre 25 y 35 años.').hallazgos.some(h => h.motivo === 'Edad')],
+
+  ['El revisor detecta varios criterios a la vez',
+    () => revisarAviso(AVISO_EJEMPLO).hallazgos.length >= 8],
+
+  ['Un aviso correcto no genera hallazgos',
+    () => revisarAviso('Se busca Profesor/a de Matemática con título profesional y 3 años de experiencia en Enseñanza Media. Jornada de 44 horas.').hallazgos.length === 0],
+
+  ['El revisor escapa el HTML del texto pegado',
+    () => {
+      const r = revisarAviso('<img src=x onerror=alert(1)> menores de 30 años');
+      return !r.html.includes('<img') && r.html.includes('&lt;img') && r.hallazgos.length === 1;
+    }],
+
+  ['La pauta de entrevista cubre los cuatro dominios del MBE',
+    () => {
+      const p = generarPautaEntrevista(cargoPorId('prof-matematica'));
+      return ['Dominio A','Dominio B','Dominio C','Dominio D'].every(d => p.some(q => q.dom.includes(d)));
+    }],
+
+  ['La pauta suma las competencias propias de cada cargo',
+    () => {
+      const cargo = cargoPorId('prof-matematica');
+      return generarPautaEntrevista(cargo).length === PREGUNTAS_MBE.length + cargo.compConductuales.length;
+    }],
+
+  ['Los 26 cargos del catálogo tienen requisitos y competencias declaradas',
+    () => TODOS_LOS_CARGOS.length === 26 && TODOS_LOS_CARGOS.every(c =>
+      Array.isArray(c.reqObligatorios) && c.reqObligatorios.length > 0 &&
+      Array.isArray(c.compConductuales) && c.compConductuales.length > 0)],
+
+  ['Ningún criterio de la pauta usa datos personales prohibidos',
+    () => {
+      const prohibidos = ['edad','sexo','género','nacionalidad','estado civil','religión','comuna','foto','apariencia'];
+      const texto = RUBRICA.criterios.map(c => (c.nombre + ' ' + c.niveles.join(' ')).toLowerCase()).join(' ');
+      return !prohibidos.some(p => texto.includes(p));
+    }]
+];
+
+function correrPruebas() {
+  const fallidas = [];
+  PRUEBAS.forEach(([nombre, prueba]) => {
+    let ok = false;
+    try { ok = prueba() === true; } catch (e) { ok = false; }
+    if (!ok) fallidas.push(nombre);
+  });
+
+  const caja = $('salidaPruebas');
+  caja.className = 'nota ' + (fallidas.length === 0 ? 'nota--ok' : 'nota--stop');
+  caja.querySelector('span').textContent = fallidas.length === 0
+    ? 'Las ' + PRUEBAS.length + ' pruebas del motor pasaron correctamente.'
+    : fallidas.length + ' de ' + PRUEBAS.length + ' pruebas fallaron: ' + fallidas.join(' · ');
+  return fallidas;
+}
+
+
+/* ============================== 8. CONEXIONES ============================== */
+
+llenarSelectoresDeCargo();
+pintarCriterios();
+pintarPesos();
+pintarChips();
+pintarListaCargos();
+pintarComparador();
+$('etiquetasProhibidas').innerHTML = CRITERIOS_PROHIBIDOS
+  .map(t => '<span class="etiqueta" style="background:#fff;border-color:#f2c4c0">' + escaparHtml(t) + '</span>').join('');
+cambiarCargo();
+
+$('selCargo').addEventListener('change', cambiarCargo);
+$('candNombre').addEventListener('input', recalcular);
+$('btnCasos').addEventListener('click', cargarEjemplos);
+$('btnLimpiar').addEventListener('click', limpiarEvaluador);
+$('btnPruebas').addEventListener('click', correrPruebas);
+
+$('btnGuardar').addEventListener('click', () => {
+  const r = recalcular();
+  if (!r.nombre) {
+    $('candNombre').focus();
+    $('candNombre').setAttribute('aria-invalid', 'true');
+    return;
+  }
+  $('candNombre').removeAttribute('aria-invalid');
+  r.cargoNombre = cargoActual.nombre;
+  evaluados.push(r);
+  pintarComparador();
+  $('comparador').scrollIntoView({ behavior:'smooth', block:'start' });
+});
+
+$('btnImprimir').addEventListener('click', () => {
+  document.body.classList.add('modo-acta');
+  window.print();
+});
+$('btnImprimirPauta').addEventListener('click', () => {
+  document.body.classList.add('modo-pauta');
+  window.print();
+});
+window.addEventListener('afterprint', () => {
+  document.body.classList.remove('modo-acta', 'modo-pauta');
+});
+
+$('btnRevisarAviso').addEventListener('click', pintarRevisionAviso);
+$('btnAvisoEjemplo').addEventListener('click', () => {
+  $('textoAviso').value = AVISO_EJEMPLO;
+  pintarRevisionAviso();
+});
+
+$('formSolicitud').addEventListener('submit', generarSolicitud);
+$('btnCopiar').addEventListener('click', async () => {
+  const texto = $('salidaSolicitud').value;
+  if (!texto) return;
+  try {
+    await navigator.clipboard.writeText(texto);
+  } catch (e) {
+    $('salidaSolicitud').select();          // respaldo si el navegador no lo permite
+    document.execCommand && document.execCommand('copy');
+  }
+  $('avisoCopiado').classList.remove('oculto');
+  setTimeout(() => $('avisoCopiado').classList.add('oculto'), 2500);
+});
+
+$('dlgCerrar').addEventListener('click', () => $('dlgCargo').close());
+
+/* Menú en celular */
+const btnMenu = $('btnMenu'), navPrincipal = $('navPrincipal');
+btnMenu.addEventListener('click', () => {
+  const abierto = navPrincipal.classList.toggle('abierto');
+  btnMenu.setAttribute('aria-expanded', String(abierto));
+});
+navPrincipal.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A') {
+    navPrincipal.classList.remove('abierto');
+    btnMenu.setAttribute('aria-expanded', 'false');
+  }
+});
+
+/* Con ?pruebas=1 en la dirección, las pruebas se corren solas al abrir. */
+if (new URLSearchParams(location.search).has('pruebas')) correrPruebas();
+</script>
+
+<style>
+/* Impresión enfocada: el acta imprime solo el evaluador y la pauta solo la entrevista. */
+@media print{
+  body.modo-acta  main > section:not(#evaluador){display:none !important;}
+  body.modo-pauta main > section:not(#entrevista){display:none !important;}
+  body.modo-acta .evaluador{grid-template-columns:1fr;}
+}
+</style>
+</body>
+</html>
