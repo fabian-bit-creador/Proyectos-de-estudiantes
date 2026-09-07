@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expro — Gestión operativa para microempresas</title>
+<meta name="description" content="Herramienta educativa de gestión para microempresas: libro de caja, punto de equilibrio, plan de promoción y matriz de tareas. Caso de aplicación: almacén La Esquina.">
+<meta name="author" content="Equipo Expro — III°A Administración de Empresas">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Expro — Gestión operativa para microempresas">
+<meta property="og:description" content="Libro de caja, punto de equilibrio y organización de tareas para una microempresa familiar.">
+<meta property="og:locale" content="es_CL">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230f172a'/%3E%3Cpath d='M9 27l6-7 5 4 6-10' stroke='%232563eb' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='27' cy='13' r='3' fill='%2310b981'/%3E%3C/svg%3E">
+
+<style>
+/* ==========================================================================
+   Expro — hoja de estilos propia.
+   Todo el CSS vive aquí: la página funciona sin internet y sin CDN.
+   Los colores de la identidad del equipo se definen una sola vez, en :root.
+   ========================================================================== */
+:root{
+  --primary:#0f172a;
+  --primary-2:#1e293b;
+  --accent:#2563eb;
+  --accent-osc:#1d4ed8;
+  --accent-suave:#eff6ff;
+  --exito:#047857;
+  --exito-suave:#ecfdf5;
+  --peligro:#b91c1c;
+  --peligro-suave:#fef2f2;
+  --alerta:#92400e;
+  --alerta-suave:#fffbeb;
+
+  --fondo:#f1f5f9;
+  --tarjeta:#ffffff;
+  --tinta:#1e293b;
+  --tinta-2:#475569;
+  --tinta-3:#64748b;
+  --linea:#e2e8f0;
+  --linea-2:#cbd5e1;
+
+  --radio:10px;
+  --sombra:0 1px 2px rgba(15,23,42,.06), 0 8px 24px -8px rgba(15,23,42,.12);
+  --sombra-alta:0 2px 4px rgba(15,23,42,.08), 0 20px 40px -16px rgba(15,23,42,.25);
+  --fuente:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:5rem;}
+body{margin:0;font-family:var(--fuente);font-size:16px;line-height:1.55;color:var(--tinta);background:var(--fondo);-webkit-text-size-adjust:100%;}
+h1,h2,h3,h4{margin:0;line-height:1.2;letter-spacing:-.02em;font-weight:800;color:var(--primary);}
+p{margin:0 0 .8rem;} p:last-child{margin-bottom:0;}
+a{color:var(--accent);}
+.num{font-variant-numeric:tabular-nums;}
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px;}
+.saltar{position:absolute;left:-9999px;top:0;z-index:100;background:var(--accent);color:#fff;padding:.8rem 1.3rem;font-weight:700;border-radius:0 0 10px 0;}
+.saltar:focus{left:0;}
+.ico{width:1em;height:1em;display:inline-block;vertical-align:-.125em;flex-shrink:0;}
+img,svg{max-width:100%;}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 1.25rem;}
+.oculto{display:none !important;}
+
+/* ================================ Aviso ================================ */
+.franja{background:var(--alerta-suave);border-bottom:1px solid #fde68a;color:var(--alerta);font-size:.84rem;}
+.franja .wrap{display:flex;gap:.55rem;align-items:flex-start;padding-top:.55rem;padding-bottom:.55rem;}
+
+/* ============================== Cabecera ============================== */
+.barra{background:var(--primary);color:#fff;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.18);}
+.barra__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem 0;}
+.marca{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit;}
+.marca b{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;color:#fff;}
+.marca b span{color:#60a5fa;}
+.insignia{background:rgba(37,99,235,.22);border:1px solid var(--accent);color:#bfdbfe;padding:.18rem .6rem;border-radius:999px;font-size:.74rem;font-weight:700;}
+.nav{display:flex;align-items:center;gap:1.2rem;}
+.nav a{color:#cbd5e1;text-decoration:none;font-weight:600;font-size:.9rem;}
+.nav a:hover,.nav a.activo{color:#fff;}
+.btn-menu{display:none;background:none;border:0;color:#fff;font-size:1.3rem;cursor:pointer;padding:.2rem .4rem;}
+@media (max-width:860px){
+  .btn-menu{display:block;}
+  .barra__in{flex-wrap:wrap;}
+  .nav{display:none;flex-direction:column;align-items:flex-start;width:100%;gap:.8rem;padding:.8rem 0 .3rem;}
+  .nav.abierto{display:flex;}
+  .insignia{display:none;}
+}
+
+/* ================================ Botones ================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font:inherit;font-weight:700;font-size:.88rem;
+     padding:.55rem 1.05rem;border-radius:8px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color .15s;}
+.btn--pri{background:var(--accent);color:#fff;}
+.btn--pri:hover{background:var(--accent-osc);}
+.btn--claro{background:var(--tarjeta);color:var(--accent);border-color:var(--accent);}
+.btn--claro:hover{background:var(--accent-suave);}
+.btn--sm{font-size:.8rem;padding:.4rem .75rem;border-radius:7px;}
+.btn--peligro{background:transparent;border:0;color:var(--peligro);padding:.3rem .45rem;border-radius:5px;cursor:pointer;}
+.btn--peligro:hover{background:var(--peligro-suave);}
+
+/* ================================= Hero ================================= */
+.hero{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-2) 100%);color:#fff;padding:2.75rem 0 3.5rem;border-bottom:4px solid var(--accent);}
+.hero__grid{display:grid;gap:1.75rem;align-items:center;}
+@media (min-width:900px){.hero__grid{grid-template-columns:1.25fr .75fr;}}
+.hero h1{color:#fff;font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:.7rem;}
+.hero p{color:#94a3b8;font-size:1.02rem;max-width:52ch;}
+.ficha-cliente{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--radio);padding:1.2rem;}
+.ficha-cliente h3{color:#34d399;font-size:1rem;display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;}
+.ficha-cliente p{color:#cbd5e1;font-size:.88rem;margin-bottom:.35rem;}
+
+/* =============================== Workspace =============================== */
+.workspace{max-width:1240px;margin:-2rem auto 3rem;padding:0 1.25rem;position:relative;z-index:10;}
+.panel{background:var(--tarjeta);border:1px solid var(--linea-2);border-radius:var(--radio);box-shadow:var(--sombra);overflow:hidden;}
+.panel__cab{background:#f8fafc;border-bottom:1px solid var(--linea-2);padding:1rem 1.25rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;align-items:center;}
+.panel__cab h2{font-size:1.05rem;display:flex;align-items:center;gap:.5rem;}
+.panel__cab p{font-size:.82rem;color:var(--tinta-3);margin:0;}
+
+.pestanas{display:flex;gap:.3rem;background:#e2e8f0;padding:.3rem;border-radius:9px;overflow-x:auto;}
+.pestanas button{border:0;padding:.5rem .95rem;border-radius:6px;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;
+                 background:transparent;color:var(--tinta-3);display:flex;align-items:center;gap:.4rem;white-space:nowrap;}
+.pestanas button[aria-selected="true"]{background:#fff;color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.1);}
+.herramientas{display:flex;gap:.5rem;flex-wrap:wrap;}
+.hoja{padding:1.35rem;}
+
+/* ================================== KPIs ================================== */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.9rem;margin-bottom:1.35rem;}
+.kpi{background:#f8fafc;padding:.9rem 1.05rem;border-radius:8px;border-left:4px solid var(--accent);}
+.kpi span{font-size:.74rem;color:var(--tinta-3);text-transform:uppercase;font-weight:700;letter-spacing:.03em;}
+.kpi strong{display:block;font-size:1.5rem;margin-top:.15rem;color:var(--primary);font-variant-numeric:tabular-nums;}
+.kpi--verde{border-left-color:var(--exito);} .kpi--verde strong{color:var(--exito);}
+.kpi--rojo{border-left-color:var(--peligro);} .kpi--rojo strong{color:var(--peligro);}
+.kpi--ambar{border-left-color:#d97706;}
+
+/* ================================= Tablas ================================= */
+.barra-tabla{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+             background:#f1f5f9;padding:.55rem .9rem;border-radius:6px;border:1px solid var(--linea);margin-bottom:.9rem;}
+.barra-tabla b{font-size:.87rem;display:flex;align-items:center;gap:.45rem;}
+.tabla-caja{overflow-x:auto;border:1px solid var(--linea-2);border-radius:8px;}
+table.datos{width:100%;border-collapse:collapse;font-size:.87rem;min-width:44rem;}
+table.datos th{background:#f8fafc;color:var(--primary);padding:.6rem .85rem;border-bottom:2px solid var(--linea-2);
+               font-weight:700;text-align:left;font-size:.76rem;text-transform:uppercase;letter-spacing:.03em;}
+table.datos td{padding:.35rem .5rem;border-bottom:1px solid var(--linea);background:#fff;vertical-align:middle;}
+table.datos tbody tr:last-child td{border-bottom:0;}
+table.datos tbody tr:hover td{background:#f8fafc;}
+table.datos input,table.datos select{width:100%;padding:.35rem .45rem;border:1px solid transparent;background:transparent;
+                                     font:inherit;font-size:.87rem;border-radius:4px;color:inherit;}
+table.datos input:hover,table.datos select:hover{border-color:var(--linea-2);}
+table.datos input:focus,table.datos select:focus{background:#fff;border-color:var(--accent);outline:none;}
+table.datos input[type=number],table.datos .monto{text-align:right;font-variant-numeric:tabular-nums;}
+.celda-vacia{padding:1.6rem !important;text-align:center;color:var(--tinta-3);font-size:.87rem;}
+
+.etiqueta{padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;display:inline-block;}
+.et-ok{background:#dcfce7;color:#166534;}
+.et-proceso{background:#fef3c7;color:#92400e;}
+.et-pend{background:#fee2e2;color:#991b1b;}
+
+/* ================================= Notas ================================= */
+.nota{display:flex;gap:.65rem;border-radius:8px;padding:.85rem 1rem;font-size:.87rem;line-height:1.5;margin-top:1.2rem;}
+.nota .ico{margin-top:.15rem;font-size:1.1rem;}
+.nota--info{background:var(--accent-suave);border:1px solid #bfdbfe;color:#1e40af;}
+.nota--ok{background:var(--exito-suave);border:1px solid #a7f3d0;color:var(--exito);}
+.nota--alerta{background:var(--alerta-suave);border:1px solid #fde68a;color:var(--alerta);}
+.nota--peligro{background:var(--peligro-suave);border:1px solid #fecaca;color:var(--peligro);}
+.nota strong{font-weight:800;}
+
+/* ================================ Gráfico ================================ */
+.grafico{background:var(--tarjeta);border:1px solid var(--linea-2);border-radius:8px;padding:1rem;margin-top:1.3rem;}
+.grafico h4{font-size:.9rem;margin-bottom:.15rem;}
+.grafico p{font-size:.78rem;color:var(--tinta-3);margin-bottom:.8rem;}
+.leyenda{display:flex;gap:1rem;flex-wrap:wrap;font-size:.78rem;color:var(--tinta-2);margin-top:.6rem;}
+.leyenda span{display:inline-flex;align-items:center;gap:.35rem;}
+.punto{width:.7rem;height:.7rem;border-radius:2px;display:inline-block;}
+
+/* ============================== Formularios ============================== */
+.campo{display:block;font-size:.85rem;margin-bottom:.9rem;}
+.campo>span:first-child{display:block;color:var(--tinta-2);font-weight:600;margin-bottom:.3rem;}
+.campo input,.campo select{font:inherit;font-size:.92rem;width:100%;padding:.55rem .7rem;border:1px solid var(--linea-2);border-radius:7px;background:#fff;color:var(--tinta);}
+.campo .ayuda{display:block;font-size:.77rem;color:var(--tinta-3);margin-top:.25rem;line-height:1.45;}
+.rejilla{display:grid;gap:0 1rem;grid-template-columns:1fr;}
+@media (min-width:640px){.rejilla--2{grid-template-columns:1fr 1fr;} .rejilla--3{grid-template-columns:repeat(3,1fr);}}
+
+/* =============================== Secciones =============================== */
+.seccion{padding:3rem 0;}
+.seccion--blanca{background:#fff;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);}
+.titulo-seccion{text-align:center;max-width:62ch;margin:0 auto 2.2rem;}
+.titulo-seccion h2{font-size:clamp(1.5rem,3.2vw,2rem);margin-bottom:.5rem;}
+.titulo-seccion p{color:var(--tinta-3);}
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;}
+.tarjeta{background:#fff;padding:1.4rem;border-radius:var(--radio);border:1px solid var(--linea-2);box-shadow:var(--sombra);}
+.tarjeta .emblema{width:2.8rem;height:2.8rem;background:#dbeafe;color:var(--accent);border-radius:9px;
+                  display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:.9rem;}
+.tarjeta h3{font-size:1.02rem;margin-bottom:.35rem;}
+.tarjeta p{font-size:.88rem;color:var(--tinta-2);}
+
+.pie{background:var(--primary);color:#94a3b8;padding:2.2rem 0;font-size:.86rem;margin-top:3rem;border-top:1px solid rgba(255,255,255,.1);}
+.pie strong{color:#fff;}
+.pie a{color:#60a5fa;}
+
+@media print{.no-imprimir{display:none !important;} body{background:#fff;}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition-duration:.01ms !important;}}
+</style>
+</head>
+<body>
+
+<a class="saltar" href="#panel">Saltar al panel de trabajo</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-tienda" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0"/><path d="M5 11v9h14v-9"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-caja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></symbol>
+  <symbol id="i-balanza" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M6 21h12M4 7l8-2 8 2"/><path d="M4 7L1.5 13a3.5 3.5 0 005 0z"/><path d="M20 7l-2.5 6a3.5 3.5 0 005 0z"/></symbol>
+  <symbol id="i-megafono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 001 1h2l5 4V6L6 10H4a1 1 0 00-1 1z"/><path d="M16 8.5a5 5 0 010 7M19 6a9 9 0 010 12"/></symbol>
+  <symbol id="i-lista" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 6l1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></symbol>
+  <symbol id="i-mas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-basura" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-guardar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h7"/></symbol>
+  <symbol id="i-descargar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></symbol>
+  <symbol id="i-subir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9M8 13l4-4 4 4"/><path d="M4 7V5a2 2 0 012-2h12a2 2 0 012 2v2"/></symbol>
+  <symbol id="i-grafico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M7 21v-7M12 21V6M17 21v-4"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L2.4 17a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-idea" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 2a6.5 6.5 0 00-4 11.6c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A6.5 6.5 0 0012 2z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-candado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+</svg>
+
+<div class="franja no-imprimir">
+  <div class="wrap">
+    <svg class="ico" aria-hidden="true"><use href="#i-candado"/></svg>
+    <p style="margin:0"><strong>Herramienta educativa con datos de ejemplo.</strong> Las cifras de «La Esquina» son ficticias y sirven para demostrar el funcionamiento. Todo se calcula y se guarda en tu navegador: nada se envía a ningún servidor. Para trabajar con cifras reales del negocio hace falta autorización de sus dueños.</p>
+  </div>
+</div>
+
+<header class="barra no-imprimir">
+  <div class="wrap barra__in">
+    <a class="marca" href="#inicio">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
+        <rect width="40" height="40" rx="9" fill="#1e293b"/>
+        <path d="M9 27l6-7 5 4 6-10" stroke="#60a5fa" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="27" cy="13" r="3" fill="#10b981"/>
+      </svg>
+      <span><b>EX<span>PRO</span></b></span>
+      <span class="insignia"><svg class="ico" aria-hidden="true"><use href="#i-tienda"/></svg> Caso: La Esquina</span>
+    </a>
+    <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="navPrincipal" aria-label="Abrir menú">
+      <svg class="ico" aria-hidden="true" style="font-size:1.3rem"><use href="#i-menu"/></svg>
+    </button>
+    <nav class="nav" id="navPrincipal" aria-label="Navegación principal">
+      <a href="#panel" class="activo">Panel de trabajo</a>
+      <a href="#caso">El caso</a>
+      <a href="#areas">Áreas Expro</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<section class="hero no-imprimir">
+  <div class="wrap hero__grid">
+    <div>
+      <h1>Ordenar el negocio antes de hacerlo crecer</h1>
+      <p>Expro acompaña a microempresas familiares con tres cosas concretas: saber cuánta plata entra y sale cada día, saber cuánto hay que vender para no perder, y saber quién hace qué.</p>
+    </div>
+    <div class="ficha-cliente">
+      <h3><svg class="ico" aria-hidden="true"><use href="#i-tienda"/></svg> Microempresa acompañada</h3>
+      <p><strong style="color:#fff">«La Esquina»</strong> — almacén de barrio, empresa familiar.</p>
+      <p><strong style="color:#fff">Proceso prioritario:</strong> control de caja diario.</p>
+      <p><strong style="color:#fff">Por qué ese:</strong> sin saber cuánto entra y sale, ninguna otra decisión se puede fundamentar.</p>
+    </div>
+  </div>
+</section>
+
+<div id="panel" class="workspace">
+  <div class="panel">
+    <div class="panel__cab no-imprimir">
+      <div>
+        <h2><svg class="ico" aria-hidden="true"><use href="#i-caja"/></svg> Panel de trabajo</h2>
+        <p>Los datos se guardan solos en este navegador.</p>
+      </div>
+
+      <div class="pestanas" role="tablist" aria-label="Módulos de trabajo">
+        <button role="tab" id="tab-caja" aria-controls="hoja-caja" aria-selected="true"><svg class="ico" aria-hidden="true"><use href="#i-caja"/></svg> Libro de caja</button>
+        <button role="tab" id="tab-equilibrio" aria-controls="hoja-equilibrio" aria-selected="false" tabindex="-1"><svg class="ico" aria-hidden="true"><use href="#i-balanza"/></svg> Punto de equilibrio</button>
+        <button role="tab" id="tab-marketing" aria-controls="hoja-marketing" aria-selected="false" tabindex="-1"><svg class="ico" aria-hidden="true"><use href="#i-megafono"/></svg> Promoción</button>
+        <button role="tab" id="tab-admin" aria-controls="hoja-admin" aria-selected="false" tabindex="-1"><svg class="ico" aria-hidden="true"><use href="#i-lista"/></svg> Tareas</button>
+      </div>
+
+      <div class="herramientas">
+        <button class="btn btn--claro btn--sm" id="btnExportar"><svg class="ico" aria-hidden="true"><use href="#i-descargar"/></svg> Exportar</button>
+        <button class="btn btn--claro btn--sm" id="btnImportarBtn"><svg class="ico" aria-hidden="true"><use href="#i-subir"/></svg> Importar</button>
+        <input type="file" id="archivoImportar" accept="application/json" aria-label="Archivo de datos para importar" hidden>
+        <button class="btn btn--claro btn--sm" id="btnPruebas"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Verificar</button>
+      </div>
+    </div>
+
+    <p id="salidaPruebas" class="nota oculto" role="status" style="margin:1rem 1.35rem 0"><span></span></p>
+    <p id="avisoGuardado" class="nota nota--ok oculto" role="status" style="margin:1rem 1.35rem 0"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span></span></p>
+
+    <!-- ============================ LIBRO DE CAJA ============================ -->
+    <div class="hoja" id="hoja-caja" role="tabpanel" aria-labelledby="tab-caja">
+      <div class="kpis">
+        <div class="kpi kpi--verde"><span>Entradas del período</span><strong id="k-entradas">$0</strong></div>
+        <div class="kpi kpi--rojo"><span>Salidas del período</span><strong id="k-salidas">$0</strong></div>
+        <div class="kpi" id="k-saldo-caja"><span>Saldo de caja</span><strong id="k-saldo">$0</strong></div>
+        <div class="kpi kpi--ambar"><span>Margen sobre entradas</span><strong id="k-margen">0 %</strong></div>
+      </div>
+
+      <div class="nota nota--info" style="margin-top:0;margin-bottom:1.2rem">
+        <svg class="ico" aria-hidden="true"><use href="#i-info"/></svg>
+        <p style="margin:0"><strong>Esto es un libro de caja, no contabilidad.</strong> Registra el dinero que efectivamente entra y sale del cajón. La contabilidad formal, que lleva un contador, registra además las obligaciones: una venta a crédito es un ingreso contable aunque todavía no haya entrado la plata. El libro de caja responde «¿tengo plata?»; la contabilidad, «¿estoy ganando?».</p>
+      </div>
+
+      <div class="barra-tabla">
+        <b><svg class="ico" aria-hidden="true"><use href="#i-caja"/></svg> Movimientos de caja</b>
+        <button class="btn btn--pri btn--sm" id="btnNuevoMov"><svg class="ico" aria-hidden="true"><use href="#i-mas"/></svg> Agregar movimiento</button>
+      </div>
+
+      <div class="tabla-caja">
+        <table class="datos">
+          <caption class="celda-vacia" style="caption-side:top;text-align:left;padding:.6rem .85rem !important;font-size:.78rem">Los montos se escriben sin puntos; se formatean solos al salir del campo.</caption>
+          <thead>
+            <tr>
+              <th scope="col" style="width:13%">Fecha</th>
+              <th scope="col" style="width:32%">Concepto</th>
+              <th scope="col" style="width:17%">Categoría</th>
+              <th scope="col" style="width:12%">Tipo</th>
+              <th scope="col" style="width:15%">Monto</th>
+              <th scope="col" style="width:6%"><span class="saltar">Acciones</span></th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoCaja"></tbody>
+        </table>
+      </div>
+
+      <div class="nota nota--info" id="diagnosticoCaja"><svg class="ico" aria-hidden="true"><use href="#i-grafico"/></svg><span></span></div>
+
+      <div class="grafico">
+        <h4>Entradas y salidas por categoría</h4>
+        <p>Agrupado por categoría, que es donde se ve dónde se va la plata. Un gráfico por movimiento suelto no dice nada.</p>
+        <div id="graficoCaja"></div>
+        <div class="leyenda">
+          <span><i class="punto" style="background:#047857"></i> Entradas</span>
+          <span><i class="punto" style="background:#b91c1c"></i> Salidas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= PUNTO DE EQUILIBRIO ========================= -->
+    <div class="hoja oculto" id="hoja-equilibrio" role="tabpanel" aria-labelledby="tab-equilibrio">
+      <div class="nota nota--info" style="margin-top:0;margin-bottom:1.3rem">
+        <svg class="ico" aria-hidden="true"><use href="#i-info"/></svg>
+        <p style="margin:0"><strong>El punto de equilibrio es cuánto hay que vender para no perder ni ganar.</strong> Por debajo de ese monto el negocio pierde plata aunque la caja se vea con dinero, porque todavía no alcanzó a cubrir los costos fijos del mes.</p>
+      </div>
+
+      <div class="rejilla rejilla--3">
+        <label class="campo">
+          <span>Costos fijos del mes</span>
+          <input type="text" id="peFijos" inputmode="numeric" data-moneda value="480000">
+          <span class="ayuda">Arriendo, luz, agua, internet, sueldos fijos. Se pagan aunque no se venda nada.</span>
+        </label>
+        <label class="campo">
+          <span>Precio de venta promedio</span>
+          <input type="text" id="pePrecio" inputmode="numeric" data-moneda value="2500">
+          <span class="ayuda">Cuánto paga en promedio un cliente por producto.</span>
+        </label>
+        <label class="campo">
+          <span>Costo variable por producto</span>
+          <input type="text" id="peVariable" inputmode="numeric" data-moneda value="1600">
+          <span class="ayuda">Lo que cuesta cada unidad: mercadería, envase, bolsa.</span>
+        </label>
+      </div>
+
+      <label class="campo" style="max-width:22rem">
+        <span>Ventas reales del mes (para comparar)</span>
+        <input type="text" id="peVentas" inputmode="numeric" data-moneda value="1400000">
+      </label>
+
+      <div class="kpis" style="margin-top:.4rem">
+        <div class="kpi"><span>Margen de contribución</span><strong id="k-margen-unit">$0</strong></div>
+        <div class="kpi kpi--ambar"><span>Equilibrio en unidades</span><strong id="k-unidades">0</strong></div>
+        <div class="kpi kpi--ambar"><span>Equilibrio en pesos</span><strong id="k-equilibrio">$0</strong></div>
+        <div class="kpi" id="k-holgura-card"><span>Diferencia con lo vendido</span><strong id="k-holgura">$0</strong></div>
+      </div>
+
+      <div class="grafico">
+        <h4>Dónde están las ventas respecto del equilibrio</h4>
+        <p>La línea marca el punto de equilibrio; la barra, las ventas reales del mes.</p>
+        <div id="graficoEquilibrio"></div>
+      </div>
+
+      <div class="nota" id="diagnosticoEquilibrio"><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg><span></span></div>
+
+      <details style="margin-top:1.2rem">
+        <summary style="cursor:pointer;font-weight:700;color:var(--primary);font-size:.9rem">¿Cómo se calcula?</summary>
+        <div style="font-size:.87rem;color:var(--tinta-2);margin-top:.7rem;line-height:1.7">
+          <p><strong>1. Margen de contribución por unidad</strong> = precio de venta − costo variable. Es lo que deja cada producto vendido para pagar los costos fijos.</p>
+          <p><strong>2. Punto de equilibrio en unidades</strong> = costos fijos ÷ margen de contribución. Es cuántos productos hay que vender para cubrir exactamente los costos fijos.</p>
+          <p><strong>3. Punto de equilibrio en pesos</strong> = unidades × precio de venta.</p>
+          <p style="color:var(--tinta-3)">Si el costo variable es igual o mayor que el precio, no hay punto de equilibrio: cada venta agranda la pérdida, y el problema es el precio o el costo, no el volumen.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- ============================== PROMOCIÓN ============================== -->
+    <div class="hoja oculto" id="hoja-marketing" role="tabpanel" aria-labelledby="tab-marketing">
+      <div class="kpis">
+        <div class="kpi"><span>Acciones planificadas</span><strong id="k-acciones">0</strong></div>
+        <div class="kpi kpi--ambar"><span>Presupuesto comprometido</span><strong id="k-presupuesto">$0</strong></div>
+        <div class="kpi kpi--verde"><span>Completadas</span><strong id="k-completadas">0</strong></div>
+      </div>
+
+      <div class="barra-tabla">
+        <b><svg class="ico" aria-hidden="true"><use href="#i-megafono"/></svg> Plan de promoción</b>
+        <button class="btn btn--pri btn--sm" id="btnNuevaCampana"><svg class="ico" aria-hidden="true"><use href="#i-mas"/></svg> Agregar acción</button>
+      </div>
+
+      <div class="tabla-caja">
+        <table class="datos">
+          <thead>
+            <tr>
+              <th scope="col" style="width:30%">Acción de promoción</th>
+              <th scope="col" style="width:16%">Canal</th>
+              <th scope="col" style="width:14%">Costo</th>
+              <th scope="col" style="width:22%">A quién apunta</th>
+              <th scope="col" style="width:14%">Estado</th>
+              <th scope="col" style="width:4%"><span class="saltar">Acciones</span></th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoMarketing"></tbody>
+        </table>
+      </div>
+
+      <div class="nota nota--info">
+        <svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg>
+        <p style="margin:0"><strong>Para un almacén de barrio, lo barato suele funcionar mejor.</strong> La cartelera en la puerta, el precio bien visible en góndola y el grupo de WhatsApp de vecinos llegan al mismo cliente que ya pasa por la esquina. Antes de pagar publicidad, conviene medir cuántos clientes entran al día: sin esa línea base, no se puede saber si la promoción sirvió.</p>
+      </div>
+    </div>
+
+    <!-- ================================ TAREAS ================================ -->
+    <div class="hoja oculto" id="hoja-admin" role="tabpanel" aria-labelledby="tab-admin">
+      <div class="kpis">
+        <div class="kpi kpi--rojo"><span>Pendientes</span><strong id="k-pendientes">0</strong></div>
+        <div class="kpi kpi--ambar"><span>En proceso</span><strong id="k-proceso">0</strong></div>
+        <div class="kpi kpi--verde"><span>Completadas</span><strong id="k-tareas-ok">0</strong></div>
+        <div class="kpi"><span>Prioridad alta sin cerrar</span><strong id="k-altas">0</strong></div>
+      </div>
+
+      <div class="barra-tabla">
+        <b><svg class="ico" aria-hidden="true"><use href="#i-lista"/></svg> Tareas y responsables</b>
+        <button class="btn btn--pri btn--sm" id="btnNuevaTarea"><svg class="ico" aria-hidden="true"><use href="#i-mas"/></svg> Agregar tarea</button>
+      </div>
+
+      <div class="tabla-caja">
+        <table class="datos">
+          <thead>
+            <tr>
+              <th scope="col" style="width:34%">Tarea</th>
+              <th scope="col" style="width:16%">Área</th>
+              <th scope="col" style="width:18%">Responsable</th>
+              <th scope="col" style="width:14%">Prioridad</th>
+              <th scope="col" style="width:14%">Estado</th>
+              <th scope="col" style="width:4%"><span class="saltar">Acciones</span></th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoAdmin"></tbody>
+        </table>
+      </div>
+
+      <div class="nota nota--alerta">
+        <svg class="ico" aria-hidden="true"><use href="#i-alerta"/></svg>
+        <p style="margin:0"><strong>La tarea más importante de una empresa familiar es separar las cuentas.</strong> Mientras el dinero del negocio y el de la casa estén en el mismo bolsillo, el libro de caja nunca va a cuadrar y no se puede saber si el negocio gana o pierde. Es lo primero que hay que resolver, y no cuesta dinero: cuesta acuerdo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="caso" class="seccion seccion--blanca no-imprimir">
+  <div class="wrap">
+    <div class="titulo-seccion">
+      <h2>El caso «La Esquina»</h2>
+      <p>Un almacén de barrio administrado por una familia. Elegimos <strong>un solo proceso prioritario</strong> en vez de intentar ordenar todo a la vez.</p>
+    </div>
+    <div class="tarjetas">
+      <div class="tarjeta">
+        <div class="emblema"><svg class="ico" aria-hidden="true"><use href="#i-alerta"/></svg></div>
+        <h3>Qué observamos</h3>
+        <p>No hay registro de cuánto entra y sale cada día, y el dinero del negocio se mezcla con el de la casa. Sin ese dato, cualquier decisión sobre precios, compras o publicidad se toma a ciegas.</p>
+      </div>
+      <div class="tarjeta">
+        <div class="emblema"><svg class="ico" aria-hidden="true"><use href="#i-caja"/></svg></div>
+        <h3>Qué propusimos</h3>
+        <p>Un libro de caja diario que se pueda llevar en cinco minutos al cerrar, y el cálculo del punto de equilibrio para saber cuánto hay que vender al mes para no perder.</p>
+      </div>
+      <div class="tarjeta">
+        <div class="emblema"><svg class="ico" aria-hidden="true"><use href="#i-grafico"/></svg></div>
+        <h3>Cómo sabremos si sirvió</h3>
+        <p>Tres indicadores por levantar: días con caja registrada al mes, diferencia entre lo contado y lo anotado, y si se logró separar las cuentas. Hoy las tres líneas base están en cero.</p>
+      </div>
+    </div>
+    <div class="nota nota--alerta" style="max-width:70ch;margin:1.6rem auto 0">
+      <svg class="ico" aria-hidden="true"><use href="#i-info"/></svg>
+      <p style="margin:0"><strong>Lo que este proyecto todavía no puede afirmar.</strong> No tenemos datos que permitan sostener que ordenar la caja aumentó las ventas. Es razonable esperarlo, pero no está medido. Un proyecto se defiende mejor diciendo qué falta que afirmando resultados que no tiene.</p>
+    </div>
+  </div>
+</section>
+
+<section id="areas" class="seccion no-imprimir">
+  <div class="wrap">
+    <div class="titulo-seccion">
+      <h2>Áreas de intervención Expro</h2>
+      <p>Cuatro áreas de la administración. En este proyecto trabajamos a fondo las dos primeras.</p>
+    </div>
+    <div class="tarjetas">
+      <div class="tarjeta" style="border-color:var(--accent)">
+        <div class="emblema"><svg class="ico" aria-hidden="true"><use href="#i-caja"/></svg></div>
+        <h3>Finanzas <span class="etiqueta et-ok" style="vertical-align:middle">En uso</span></h3>
+        <p>Libro de caja diario, saldo corrido y diagnóstico automático del margen.</p>
+      </div>
+      <div class="tarjeta" style="border-color:var(--accent)">
+        <div class="emblema"><svg class="ico" aria-hidden="true"><use href="#i-balanza"/></svg></div>
+        <h3>Costos <span class="etiqueta et-ok" style="vertical-align:middle">En uso</span></h3>
+        <p>Punto de equilibrio en unidades y en pesos, comparado con las ventas reales del mes.</p>
+      </div>
+      <div class="tarjeta">
+        <div class="emblema"><svg class="ico" aria-hidden="true"><use href="#i-megafono"/></svg></div>
+        <h3>Marketing <span class="etiqueta et-proceso" style="vertical-align:middle">Planificación</span></h3>
+        <p>Plan de promoción local con presupuesto y estado de cada acción.</p>
+      </div>
+      <div class="tarjeta">
+        <div class="emblema"><svg class="ico" aria-hidden="true"><use href="#i-lista"/></svg></div>
+        <h3>Organización <span class="etiqueta et-proceso" style="vertical-align:middle">Planificación</span></h3>
+        <p>Matriz de tareas con responsable, prioridad y estado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie no-imprimir">
+  <div class="wrap">
+    <p><strong>EXPRO</strong> — Gestión operativa para microempresas · Feria Técnico Profesional 2026</p>
+    <p style="font-size:.82rem">III°A Administración de Empresas · Colegio Cardenal José María Caro, Fundación Belén Educa.</p>
+    <p style="font-size:.8rem;margin-top:.8rem">Herramienta educativa. No constituye asesoría contable ni tributaria. Para obligaciones ante el SII, consulta a un contador.</p>
+  </div>
+</footer>
+
+<script>
+"use strict";
+/* ==========================================================================
+   Expro — motor de la herramienta
+   --------------------------------------------------------------------------
+   Dos decisiones importantes de este código:
+
+   1. Las filas se construyen con createElement y .value, nunca concatenando
+      HTML. Así es imposible que un concepto con comillas rompa la tabla o
+      inyecte código: el navegador trata el texto siempre como texto.
+
+   2. Editar una celda NO vuelve a dibujar la tabla. Solo recalcula los totales
+      y el gráfico. Si se redibuja todo, el campo pierde el foco a media
+      escritura, que era lo que pasaba antes.
+   ========================================================================== */
+
+const $ = (id) => document.getElementById(id);
+const pesos = (n) => {
+  const v = Math.round(Number(n) || 0);
+  return (v < 0 ? '−$ ' : '$ ') + Math.abs(v).toLocaleString('es-CL');
+};
+const soloNumero = (t) => { const l = String(t).replace(/[^\d]/g, ''); return l ? Number(l) : 0; };
+
+/* ============================== DATOS ============================== */
+const CLAVE = 'expro.laesquina.v2';
+
+const DATOS_INICIALES = {
+  caja: [
+    { fecha:'2026-09-01', concepto:'Ventas del día en efectivo', categoria:'Ventas',    tipo:'Entrada', monto:450000 },
+    { fecha:'2026-09-02', concepto:'Compra de mercadería',       categoria:'Mercadería',tipo:'Salida',  monto:220000 },
+    { fecha:'2026-09-03', concepto:'Pago de luz y agua',         categoria:'Gastos fijos',tipo:'Salida',monto:45000 },
+    { fecha:'2026-09-05', concepto:'Impresión de carteles',      categoria:'Promoción', tipo:'Salida',  monto:18000 },
+    { fecha:'2026-09-06', concepto:'Ventas del fin de semana',   categoria:'Ventas',    tipo:'Entrada', monto:310000 }
+  ],
+  marketing: [
+    { accion:'Cartelera de precios en la puerta', canal:'Punto de venta', costo:18000, publico:'Vecinos del sector', estado:'Completado' },
+    { accion:'Grupo de WhatsApp con ofertas',     canal:'Digital',        costo:0,     publico:'Clientes habituales', estado:'En proceso' },
+    { accion:'Combo de fin de semana',            canal:'Punto de venta', costo:10000, publico:'Familias del barrio', estado:'Pendiente' }
+  ],
+  admin: [
+    { tarea:'Separar la cuenta del negocio de la de la casa', area:'Finanzas',    responsable:'Dueña',    prioridad:'Alta',  estado:'En proceso' },
+    { tarea:'Anotar la caja todos los días al cerrar',        area:'Finanzas',    responsable:'Turno tarde', prioridad:'Alta', estado:'Pendiente' },
+    { tarea:'Revisar stock de productos que más se venden',   area:'Operaciones', responsable:'Encargado', prioridad:'Media', estado:'Pendiente' },
+    { tarea:'Actualizar la lista de precios visible',         area:'Marketing',   responsable:'Dueña',     prioridad:'Alta',  estado:'Completado' }
+  ],
+  equilibrio: { fijos:480000, precio:2500, variable:1600, ventas:1400000 }
+};
+
+const CATEGORIAS = ['Ventas','Mercadería','Gastos fijos','Promoción','Otros'];
+const ESTADOS   = ['Pendiente','En proceso','Completado'];
+const PRIORIDADES = ['Baja','Media','Alta'];
+
+let datos = estructuraLimpia();
+
+function estructuraLimpia() {
+  return JSON.parse(JSON.stringify(DATOS_INICIALES));
+}
+
+function guardar() {
+  try { localStorage.setItem(CLAVE, JSON.stringify(datos)); } catch (e) {}
+}
+
+function restaurar() {
+  try {
+    const crudo = localStorage.getItem(CLAVE);
+    if (!crudo) return false;
+    const d = JSON.parse(crudo);
+    if (!d || typeof d !== 'object') return false;
+    datos = {
+      caja:      Array.isArray(d.caja) ? d.caja : [],
+      marketing: Array.isArray(d.marketing) ? d.marketing : [],
+      admin:     Array.isArray(d.admin) ? d.admin : [],
+      equilibrio: Object.assign({}, DATOS_INICIALES.equilibrio, d.equilibrio || {})
+    };
+    return true;
+  } catch (e) { return false; }
+}
+
+/* =========================== CÁLCULO (puro) =========================== */
+
+/** Totales del libro de caja. No toca la página: se puede probar sola. */
+function calcularCaja(movimientos) {
+  let entradas = 0, salidas = 0;
+  const porCategoria = {};
+  movimientos.forEach(m => {
+    const monto = Math.max(0, Number(m.monto) || 0);
+    const cat = m.categoria || 'Otros';
+    if (!porCategoria[cat]) porCategoria[cat] = { entradas:0, salidas:0 };
+    if (m.tipo === 'Entrada') { entradas += monto; porCategoria[cat].entradas += monto; }
+    else { salidas += monto; porCategoria[cat].salidas += monto; }
+  });
+  const saldo = entradas - salidas;
+  const margen = entradas > 0 ? (saldo / entradas) * 100 : 0;
+  return { entradas, salidas, saldo, margen, porCategoria };
+}
+
+/** Punto de equilibrio. Devuelve null en unidades si el margen no es positivo. */
+function calcularEquilibrio(fijos, precio, variable, ventas) {
+  const margenUnitario = precio - variable;
+  if (!(margenUnitario > 0)) {
+    return { margenUnitario, unidades:null, enPesos:null, holgura:null, viable:false };
+  }
+  const unidades = Math.ceil(fijos / margenUnitario);
+  const enPesos = unidades * precio;
+  return { margenUnitario, unidades, enPesos, holgura: ventas - enPesos, viable:true };
+}
+
+/* ============================ TABLAS (DOM) ============================ */
+/* Construir con createElement en vez de innerHTML es lo que impide que un
+   texto con comillas rompa la tabla o inyecte código.                     */
+
+function celdaTexto(valor, alCambiar, tipo) {
+  const td = document.createElement('td');
+  const input = document.createElement('input');
+  input.type = tipo || 'text';
+  input.value = valor == null ? '' : valor;
+  input.addEventListener('input', () => alCambiar(input.value));
+  td.appendChild(input);
+  return td;
+}
+
+function celdaMonto(valor, alCambiar) {
+  const td = document.createElement('td');
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.inputMode = 'numeric';
+  input.className = 'monto';
+  input.value = Number(valor || 0).toLocaleString('es-CL');
+  input.addEventListener('input', () => alCambiar(soloNumero(input.value)));
+  input.addEventListener('blur', () => { input.value = soloNumero(input.value).toLocaleString('es-CL'); });
+  input.addEventListener('focus', () => { input.value = String(soloNumero(input.value)); });
+  td.appendChild(input);
+  return td;
+}
+
+function celdaSelect(valor, opciones, alCambiar, estilo) {
+  const td = document.createElement('td');
+  const sel = document.createElement('select');
+  opciones.forEach(o => {
+    const op = document.createElement('option');
+    op.value = o; op.textContent = o;
+    if (o === valor) op.selected = true;
+    sel.appendChild(op);
+  });
+  if (estilo) estilo(sel, valor);
+  sel.addEventListener('change', () => { if (estilo) estilo(sel, sel.value); alCambiar(sel.value); });
+  td.appendChild(sel);
+  return td;
+}
+
+function celdaBorrar(alBorrar) {
+  const td = document.createElement('td');
+  td.style.textAlign = 'center';
+  const b = document.createElement('button');
+  b.className = 'btn--peligro';
+  b.title = 'Eliminar fila';
+  b.setAttribute('aria-label', 'Eliminar fila');
+  b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-basura"/></svg>';
+  b.addEventListener('click', alBorrar);
+  td.appendChild(b);
+  return td;
+}
+
+function filaVacia(cuerpo, columnas, mensaje) {
+  const tr = document.createElement('tr');
+  const td = document.createElement('td');
+  td.colSpan = columnas; td.className = 'celda-vacia'; td.textContent = mensaje;
+  tr.appendChild(td); cuerpo.appendChild(tr);
+}
+
+function colorTipo(sel, valor) {
+  sel.style.fontWeight = '700';
+  sel.style.color = valor === 'Entrada' ? 'var(--exito)' : 'var(--peligro)';
+}
+function colorEstado(sel, valor) {
+  sel.style.fontWeight = '600';
+  sel.style.color = valor === 'Completado' ? 'var(--exito)' : (valor === 'En proceso' ? '#b45309' : 'var(--peligro)');
+}
+
+/* ============================== RENDER ============================== */
+
+function pintarCaja() {
+  const cuerpo = $('cuerpoCaja');
+  cuerpo.textContent = '';
+  if (datos.caja.length === 0) {
+    filaVacia(cuerpo, 6, 'Sin movimientos registrados. Usa «Agregar movimiento».');
+  } else {
+    datos.caja.forEach((m, i) => {
+      const tr = document.createElement('tr');
+      tr.appendChild(celdaTexto(m.fecha, v => { m.fecha = v; actualizarCaja(); }, 'date'));
+      tr.appendChild(celdaTexto(m.concepto, v => { m.concepto = v; actualizarCaja(); }));
+      tr.appendChild(celdaSelect(m.categoria, CATEGORIAS, v => { m.categoria = v; actualizarCaja(); }));
+      tr.appendChild(celdaSelect(m.tipo, ['Entrada','Salida'], v => { m.tipo = v; actualizarCaja(); }, colorTipo));
+      tr.appendChild(celdaMonto(m.monto, v => { m.monto = v; actualizarCaja(); }));
+      tr.appendChild(celdaBorrar(() => { datos.caja.splice(i, 1); pintarCaja(); actualizarCaja(); }));
+      cuerpo.appendChild(tr);
+    });
+  }
+  actualizarCaja();
+}
+
+/** Solo recalcula. No vuelve a dibujar la tabla, por eso no se pierde el foco. */
+function actualizarCaja() {
+  const r = calcularCaja(datos.caja);
+  $('k-entradas').textContent = pesos(r.entradas);
+  $('k-salidas').textContent  = pesos(r.salidas);
+  $('k-saldo').textContent    = pesos(r.saldo);
+  $('k-margen').textContent   = r.margen.toFixed(1).replace('.', ',') + ' %';
+  $('k-saldo-caja').className = 'kpi ' + (r.saldo >= 0 ? 'kpi--verde' : 'kpi--rojo');
+
+  const caja = $('diagnosticoCaja');
+  const texto = caja.querySelector('span');
+  caja.className = 'nota ' + (r.saldo < 0 ? 'nota--peligro' : (r.saldo > 100000 ? 'nota--ok' : 'nota--info'));
+  if (r.entradas === 0 && r.salidas === 0) {
+    texto.innerHTML = 'Registra al menos un movimiento para ver el diagnóstico.';
+  } else if (r.saldo < 0) {
+    texto.innerHTML = '<strong>Las salidas superan a las entradas en ' + pesos(-r.saldo) + '.</strong> ' +
+      'Revisa si hay compras de mercadería concentradas en estos días o retiros que convenga espaciar. ' +
+      'Un saldo negativo en un período corto no significa que el negocio pierda, pero sí que la caja no alcanza.';
+  } else if (r.margen < 15) {
+    texto.innerHTML = '<strong>Margen de ' + r.margen.toFixed(1).replace('.', ',') + ' % sobre lo que entró.</strong> ' +
+      'Queda poco disponible después de cubrir las salidas. Antes de invertir en promoción conviene revisar el costo de la mercadería.';
+  } else {
+    texto.innerHTML = '<strong>Saldo positivo de ' + pesos(r.saldo) + ' (' + r.margen.toFixed(1).replace('.', ',') + ' % de lo que entró).</strong> ' +
+      'Antes de gastarlo, calcula el punto de equilibrio: sirve para saber cuánto de ese saldo es realmente ganancia y cuánto todavía debe cubrir costos fijos del mes.';
+  }
+
+  dibujarGraficoCaja(r);
+  guardar();
+}
+
+/* Gráfico de barras dibujado a mano en SVG: sin librerías externas. */
+function dibujarGraficoCaja(r) {
+  const cats = Object.keys(r.porCategoria);
+  const cont = $('graficoCaja');
+  cont.textContent = '';
+  if (cats.length === 0) { cont.textContent = 'Sin datos para graficar.'; return; }
+
+  const max = Math.max(1, ...cats.map(c => Math.max(r.porCategoria[c].entradas, r.porCategoria[c].salidas)));
+  const anchoCat = 96, alto = 200, margenIzq = 62, margenAbajo = 46, margenArriba = 12;
+  const ancho = margenIzq + cats.length * anchoCat + 14;
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + ancho + ' ' + (alto + margenAbajo + margenArriba));
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', 'Entradas y salidas por categoría');
+  svg.style.maxWidth = ancho + 'px';
+  svg.style.overflow = 'visible';
+
+  const crear = (tipo, attrs, texto) => {
+    const el = document.createElementNS(ns, tipo);
+    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+    if (texto != null) el.textContent = texto;
+    return el;
+  };
+
+  // Ejes de referencia con sus valores
+  [0, 0.5, 1].forEach(f => {
+    const y = margenArriba + alto - f * alto;
+    svg.appendChild(crear('line', { x1:margenIzq, y1:y, x2:ancho - 8, y2:y, stroke:'#e2e8f0', 'stroke-width':1 }));
+    svg.appendChild(crear('text', { x:margenIzq - 8, y:y + 4, 'text-anchor':'end',
+      'font-size':10, fill:'#64748b' }, '$' + Math.round(max * f).toLocaleString('es-CL')));
+  });
+
+  cats.forEach((c, i) => {
+    const x = margenIzq + i * anchoCat;
+    const d = r.porCategoria[c];
+    [['entradas', '#047857', 8], ['salidas', '#b91c1c', 46]].forEach(([clave, color, dx]) => {
+      const h = (d[clave] / max) * alto;
+      if (h > 0) {
+        svg.appendChild(crear('rect', { x:x + dx, y:margenArriba + alto - h, width:32, height:h, fill:color, rx:3 }));
+        svg.appendChild(crear('text', { x:x + dx + 16, y:margenArriba + alto - h - 4, 'text-anchor':'middle',
+          'font-size':9, fill:'#475569' }, '$' + Math.round(d[clave] / 1000) + 'k'));
+      }
+    });
+    const etiqueta = crear('text', { x:x + 44, y:margenArriba + alto + 16, 'text-anchor':'middle',
+      'font-size':10, fill:'#334155', 'font-weight':'600' }, c);
+    svg.appendChild(etiqueta);
+  });
+
+  const envoltura = document.createElement('div');
+  envoltura.style.overflowX = 'auto';
+  envoltura.appendChild(svg);
+  cont.appendChild(envoltura);
+}
+
+/* ------------------------- Punto de equilibrio ------------------------- */
+function actualizarEquilibrio() {
+  const e = datos.equilibrio;
+  const r = calcularEquilibrio(e.fijos, e.precio, e.variable, e.ventas);
+
+  $('k-margen-unit').textContent = pesos(r.margenUnitario);
+  $('k-unidades').textContent    = r.viable ? r.unidades.toLocaleString('es-CL') : '—';
+  $('k-equilibrio').textContent  = r.viable ? pesos(r.enPesos) : '—';
+  $('k-holgura').textContent     = r.viable ? pesos(r.holgura) : '—';
+  $('k-holgura-card').className  = 'kpi ' + (r.viable && r.holgura >= 0 ? 'kpi--verde' : 'kpi--rojo');
+
+  const caja = $('diagnosticoEquilibrio');
+  const texto = caja.querySelector('span');
+  if (!r.viable) {
+    caja.className = 'nota nota--peligro';
+    texto.innerHTML = '<strong>No hay punto de equilibrio posible.</strong> El costo variable (' + pesos(e.variable) +
+      ') es igual o mayor que el precio de venta (' + pesos(e.precio) + '), así que cada producto vendido agranda la pérdida. ' +
+      'Vender más no lo arregla: hay que subir el precio o bajar el costo de la mercadería.';
+  } else if (r.holgura >= 0) {
+    caja.className = 'nota nota--ok';
+    texto.innerHTML = '<strong>Las ventas superan el punto de equilibrio en ' + pesos(r.holgura) + '.</strong> ' +
+      'Hay que vender ' + r.unidades.toLocaleString('es-CL') + ' productos al mes para no perder, y se están vendiendo ' +
+      Math.floor(e.ventas / Math.max(1, e.precio)).toLocaleString('es-CL') + '. Ese excedente es la ganancia antes de impuestos.';
+  } else {
+    caja.className = 'nota nota--alerta';
+    const faltan = Math.ceil(-r.holgura / Math.max(1, e.precio));
+    texto.innerHTML = '<strong>Faltan ' + pesos(-r.holgura) + ' para llegar al equilibrio.</strong> ' +
+      'Son unos ' + faltan.toLocaleString('es-CL') + ' productos más al mes, o alrededor de ' +
+      Math.ceil(faltan / 30).toLocaleString('es-CL') + ' por día. Puesto así es una meta concreta para el mostrador.';
+  }
+
+  dibujarGraficoEquilibrio(r, e);
+  guardar();
+}
+
+function dibujarGraficoEquilibrio(r, e) {
+  const cont = $('graficoEquilibrio');
+  cont.textContent = '';
+  if (!r.viable) { cont.textContent = 'Sin punto de equilibrio que graficar.'; return; }
+
+  const ns = 'http://www.w3.org/2000/svg';
+  // izq deja sitio a la etiqueta de la izquierda; si se acorta, el texto se corta.
+  const ancho = 580, alto = 96, izq = 116, arriba = 18;
+  const max = Math.max(r.enPesos, e.ventas) * 1.15 || 1;
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + ancho + ' ' + (alto + 24));
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', 'Ventas del mes comparadas con el punto de equilibrio');
+  svg.style.maxWidth = ancho + 'px';
+
+  const crear = (t, a, x) => { const el = document.createElementNS(ns, t);
+    Object.entries(a).forEach(([k, v]) => el.setAttribute(k, v)); if (x != null) el.textContent = x; return el; };
+
+  const escala = (v) => izq + (v / max) * (ancho - izq - 20);
+
+  // Barra de ventas
+  const yV = arriba + 26;
+  svg.appendChild(crear('rect', { x:izq, y:yV, width:Math.max(2, escala(e.ventas) - izq), height:34,
+    fill: r.holgura >= 0 ? '#047857' : '#d97706', rx:4 }));
+  svg.appendChild(crear('text', { x:izq - 10, y:yV + 22, 'text-anchor':'end', 'font-size':11,
+    fill:'#334155', 'font-weight':'700' }, 'Ventas del mes'));
+  svg.appendChild(crear('text', { x:escala(e.ventas) + 6, y:yV + 22, 'font-size':11, fill:'#334155' },
+    pesos(e.ventas)));
+
+  // Línea del punto de equilibrio
+  const xE = escala(r.enPesos);
+  svg.appendChild(crear('line', { x1:xE, y1:arriba, x2:xE, y2:alto, stroke:'#0f172a', 'stroke-width':2, 'stroke-dasharray':'5 4' }));
+  svg.appendChild(crear('text', { x:xE, y:arriba - 4, 'text-anchor':'middle', 'font-size':11,
+    fill:'#0f172a', 'font-weight':'700' }, 'Equilibrio ' + pesos(r.enPesos)));
+
+  const envoltura = document.createElement('div');
+  envoltura.style.overflowX = 'auto';
+  envoltura.appendChild(svg);
+  cont.appendChild(envoltura);
+}
+
+/* ----------------------------- Promoción ----------------------------- */
+function pintarMarketing() {
+  const cuerpo = $('cuerpoMarketing');
+  cuerpo.textContent = '';
+  if (datos.marketing.length === 0) {
+    filaVacia(cuerpo, 6, 'Sin acciones de promoción. Usa «Agregar acción».');
+  } else {
+    datos.marketing.forEach((m, i) => {
+      const tr = document.createElement('tr');
+      tr.appendChild(celdaTexto(m.accion, v => { m.accion = v; actualizarMarketing(); }));
+      tr.appendChild(celdaTexto(m.canal, v => { m.canal = v; actualizarMarketing(); }));
+      tr.appendChild(celdaMonto(m.costo, v => { m.costo = v; actualizarMarketing(); }));
+      tr.appendChild(celdaTexto(m.publico, v => { m.publico = v; actualizarMarketing(); }));
+      tr.appendChild(celdaSelect(m.estado, ESTADOS, v => { m.estado = v; actualizarMarketing(); }, colorEstado));
+      tr.appendChild(celdaBorrar(() => { datos.marketing.splice(i, 1); pintarMarketing(); }));
+      cuerpo.appendChild(tr);
+    });
+  }
+  actualizarMarketing();
+}
+
+function actualizarMarketing() {
+  $('k-acciones').textContent    = datos.marketing.length;
+  $('k-presupuesto').textContent = pesos(datos.marketing.reduce((t, m) => t + (Number(m.costo) || 0), 0));
+  $('k-completadas').textContent = datos.marketing.filter(m => m.estado === 'Completado').length;
+  guardar();
+}
+
+/* ------------------------------- Tareas ------------------------------- */
+function pintarAdmin() {
+  const cuerpo = $('cuerpoAdmin');
+  cuerpo.textContent = '';
+  if (datos.admin.length === 0) {
+    filaVacia(cuerpo, 6, 'Sin tareas registradas. Usa «Agregar tarea».');
+  } else {
+    datos.admin.forEach((t, i) => {
+      const tr = document.createElement('tr');
+      tr.appendChild(celdaTexto(t.tarea, v => { t.tarea = v; actualizarAdmin(); }));
+      tr.appendChild(celdaTexto(t.area, v => { t.area = v; actualizarAdmin(); }));
+      tr.appendChild(celdaTexto(t.responsable, v => { t.responsable = v; actualizarAdmin(); }));
+      tr.appendChild(celdaSelect(t.prioridad, PRIORIDADES, v => { t.prioridad = v; actualizarAdmin(); },
+        (sel, val) => { sel.style.fontWeight = '700'; sel.style.color = val === 'Alta' ? 'var(--peligro)' : (val === 'Media' ? '#b45309' : 'var(--tinta-3)'); }));
+      tr.appendChild(celdaSelect(t.estado, ESTADOS, v => { t.estado = v; actualizarAdmin(); }, colorEstado));
+      tr.appendChild(celdaBorrar(() => { datos.admin.splice(i, 1); pintarAdmin(); }));
+      cuerpo.appendChild(tr);
+    });
+  }
+  actualizarAdmin();
+}
+
+function actualizarAdmin() {
+  $('k-pendientes').textContent = datos.admin.filter(t => t.estado === 'Pendiente').length;
+  $('k-proceso').textContent    = datos.admin.filter(t => t.estado === 'En proceso').length;
+  $('k-tareas-ok').textContent  = datos.admin.filter(t => t.estado === 'Completado').length;
+  $('k-altas').textContent      = datos.admin.filter(t => t.prioridad === 'Alta' && t.estado !== 'Completado').length;
+  guardar();
+}
+
+function pintarTodo() { pintarCaja(); pintarMarketing(); pintarAdmin(); actualizarEquilibrio(); }
+
+/* ============================== PESTAÑAS ============================== */
+/* Pestañas accesibles de verdad: roles, aria-selected y navegación con flechas. */
+const pestanas = Array.from(document.querySelectorAll('[role="tab"]'));
+
+function activarPestana(id) {
+  pestanas.forEach(t => {
+    const activa = t.id === id;
+    t.setAttribute('aria-selected', String(activa));
+    t.tabIndex = activa ? 0 : -1;
+    $(t.getAttribute('aria-controls')).classList.toggle('oculto', !activa);
+  });
+}
+
+pestanas.forEach((t, i) => {
+  t.addEventListener('click', () => activarPestana(t.id));
+  t.addEventListener('keydown', (e) => {
+    let destino = null;
+    if (e.key === 'ArrowRight') destino = pestanas[(i + 1) % pestanas.length];
+    else if (e.key === 'ArrowLeft') destino = pestanas[(i - 1 + pestanas.length) % pestanas.length];
+    else if (e.key === 'Home') destino = pestanas[0];
+    else if (e.key === 'End') destino = pestanas[pestanas.length - 1];
+    if (destino) { e.preventDefault(); activarPestana(destino.id); destino.focus(); }
+  });
+});
+
+/* ======================== EXPORTAR / IMPORTAR ======================== */
+function exportarDatos() {
+  const salida = JSON.stringify({ version:2, exportado:new Date().toISOString(), datos }, null, 2);
+  const url = URL.createObjectURL(new Blob([salida], { type:'application/json' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'expro-la-esquina.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  avisar('Copia de seguridad descargada. Los datos ya estaban guardados en este navegador.');
+}
+
+function importarDatos(evento) {
+  const archivo = evento.target.files && evento.target.files[0];
+  if (!archivo) return;
+  const lector = new FileReader();
+  lector.onload = (e) => {
+    try {
+      const leido = JSON.parse(e.target.result);
+      const d = leido.datos || leido;
+      datos = {
+        caja:      Array.isArray(d.caja) ? d.caja : (Array.isArray(d.financeData) ? d.financeData : []),
+        marketing: Array.isArray(d.marketing) ? d.marketing : (Array.isArray(d.marketingData) ? d.marketingData : []),
+        admin:     Array.isArray(d.admin) ? d.admin : (Array.isArray(d.adminData) ? d.adminData : []),
+        equilibrio: Object.assign({}, DATOS_INICIALES.equilibrio, d.equilibrio || {})
+      };
+      cargarCamposEquilibrio();
+      pintarTodo();
+      avisar('Datos importados correctamente.');
+    } catch (err) {
+      avisar('El archivo no tiene un formato válido.', true);
+    }
+  };
+  lector.readAsText(archivo);
+  evento.target.value = '';
+}
+
+function avisar(mensaje, esError) {
+  const caja = $('avisoGuardado');
+  caja.className = 'nota ' + (esError ? 'nota--peligro' : 'nota--ok');
+  caja.querySelector('span').textContent = mensaje;
+  clearTimeout(avisar._t);
+  avisar._t = setTimeout(() => caja.classList.add('oculto'), 4500);
+}
+
+/* ============================== PRUEBAS ============================== */
+const PRUEBAS = [
+  ['Sin movimientos, todos los totales son cero',
+    () => { const r = calcularCaja([]); return r.entradas === 0 && r.salidas === 0 && r.saldo === 0; }],
+
+  ['Las entradas y las salidas se suman por separado',
+    () => { const r = calcularCaja([
+        { tipo:'Entrada', monto:1000, categoria:'Ventas' },
+        { tipo:'Salida',  monto:400,  categoria:'Ventas' }]);
+      return r.entradas === 1000 && r.salidas === 400 && r.saldo === 600; }],
+
+  ['El margen se calcula sobre lo que entró',
+    () => Math.abs(calcularCaja([
+        { tipo:'Entrada', monto:1000, categoria:'Ventas' },
+        { tipo:'Salida',  monto:250,  categoria:'Ventas' }]).margen - 75) < 0.01],
+
+  ['Sin entradas, el margen es cero y no da error de división',
+    () => calcularCaja([{ tipo:'Salida', monto:500, categoria:'Otros' }]).margen === 0],
+
+  ['Los montos negativos se ignoran en vez de invertir el signo',
+    () => calcularCaja([{ tipo:'Entrada', monto:-999, categoria:'Ventas' }]).entradas === 0],
+
+  ['Los movimientos se agrupan por categoría',
+    () => { const r = calcularCaja([
+        { tipo:'Entrada', monto:100, categoria:'Ventas' },
+        { tipo:'Entrada', monto:50,  categoria:'Ventas' },
+        { tipo:'Salida',  monto:80,  categoria:'Mercadería' }]);
+      return r.porCategoria['Ventas'].entradas === 150 && r.porCategoria['Mercadería'].salidas === 80; }],
+
+  ['El punto de equilibrio se calcula con la fórmula estándar',
+    () => { const r = calcularEquilibrio(480000, 2500, 1600, 0);
+      // margen unitario 900; 480000/900 = 533,33 -> 534 unidades
+      return r.margenUnitario === 900 && r.unidades === 534; }],
+
+  ['Las unidades se redondean hacia arriba, nunca hacia abajo',
+    () => calcularEquilibrio(1000, 300, 100, 0).unidades === 5],
+
+  ['Si el costo variable iguala al precio, no hay equilibrio posible',
+    () => calcularEquilibrio(100000, 2000, 2000, 0).viable === false],
+
+  ['Si el costo variable supera al precio, tampoco hay equilibrio',
+    () => calcularEquilibrio(100000, 1500, 2000, 0).unidades === null],
+
+  ['La holgura compara las ventas con el equilibrio',
+    () => { const r = calcularEquilibrio(1000, 300, 100, 2000); return r.holgura === 2000 - r.enPesos; }],
+
+  ['Un concepto con comillas y etiquetas no rompe la tabla ni inyecta código',
+    () => {
+      const previos = datos.caja.slice();
+      datos.caja = [{ fecha:'2026-01-01', concepto:'<img src=x onerror=alert(1)> "comillas"',
+                      categoria:'Ventas', tipo:'Entrada', monto:100 }];
+      pintarCaja();
+      const cuerpo = $('cuerpoCaja');
+      const sinInyeccion = cuerpo.querySelectorAll('img').length === 0;
+      // El primer input de la fila es la fecha; el segundo, el concepto.
+      const campoConcepto = cuerpo.querySelectorAll('input')[1];
+      const textoIntacto = campoConcepto.value.indexOf('<img') === 0;
+      datos.caja = previos; pintarCaja();
+      return sinInyeccion && textoIntacto;
+    }],
+
+  ['Los datos se guardan y se recuperan del navegador',
+    () => {
+      try {
+        guardar();
+        const crudo = localStorage.getItem(CLAVE);
+        return !!crudo && JSON.parse(crudo).caja.length === datos.caja.length;
+      } catch (e) { return true; }
+    }]
+];
+
+function correrPruebas() {
+  const fallidas = [];
+  PRUEBAS.forEach(([nombre, prueba]) => {
+    let ok = false;
+    try { ok = prueba() === true; } catch (e) { ok = false; }
+    if (!ok) fallidas.push(nombre);
+  });
+  const caja = $('salidaPruebas');
+  caja.className = 'nota ' + (fallidas.length === 0 ? 'nota--ok' : 'nota--peligro');
+  caja.querySelector('span').textContent = fallidas.length === 0
+    ? 'Las ' + PRUEBAS.length + ' pruebas del motor pasaron correctamente.'
+    : fallidas.length + ' de ' + PRUEBAS.length + ' fallaron: ' + fallidas.join(' · ');
+  return fallidas;
+}
+
+/* ============================= CONEXIONES ============================= */
+function cargarCamposEquilibrio() {
+  $('peFijos').value    = datos.equilibrio.fijos.toLocaleString('es-CL');
+  $('pePrecio').value   = datos.equilibrio.precio.toLocaleString('es-CL');
+  $('peVariable').value = datos.equilibrio.variable.toLocaleString('es-CL');
+  $('peVentas').value   = datos.equilibrio.ventas.toLocaleString('es-CL');
+}
+
+[['peFijos','fijos'],['pePrecio','precio'],['peVariable','variable'],['peVentas','ventas']].forEach(([id, clave]) => {
+  const el = $(id);
+  el.addEventListener('input', () => { datos.equilibrio[clave] = soloNumero(el.value); actualizarEquilibrio(); });
+  el.addEventListener('blur',  () => { el.value = soloNumero(el.value).toLocaleString('es-CL'); });
+  el.addEventListener('focus', () => { el.value = String(soloNumero(el.value)); });
+});
+
+$('btnNuevoMov').addEventListener('click', () => {
+  datos.caja.push({ fecha:new Date().toISOString().split('T')[0], concepto:'', categoria:'Ventas', tipo:'Entrada', monto:0 });
+  pintarCaja();
+  const filas = $('cuerpoCaja').querySelectorAll('tr');
+  const ultima = filas[filas.length - 1];
+  if (ultima) ultima.querySelectorAll('input')[1].focus();
+});
+$('btnNuevaCampana').addEventListener('click', () => {
+  datos.marketing.push({ accion:'', canal:'Punto de venta', costo:0, publico:'', estado:'Pendiente' });
+  pintarMarketing();
+});
+$('btnNuevaTarea').addEventListener('click', () => {
+  datos.admin.push({ tarea:'', area:'Administración', responsable:'', prioridad:'Media', estado:'Pendiente' });
+  pintarAdmin();
+});
+
+$('btnExportar').addEventListener('click', exportarDatos);
+$('btnImportarBtn').addEventListener('click', () => $('archivoImportar').click());
+$('archivoImportar').addEventListener('change', importarDatos);
+$('btnPruebas').addEventListener('click', correrPruebas);
+
+const btnMenu = $('btnMenu'), navPrincipal = $('navPrincipal');
+btnMenu.addEventListener('click', () => {
+  const abierto = navPrincipal.classList.toggle('abierto');
+  btnMenu.setAttribute('aria-expanded', String(abierto));
+});
+navPrincipal.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A') { navPrincipal.classList.remove('abierto'); btnMenu.setAttribute('aria-expanded','false'); }
+});
+
+/* Arranque */
+restaurar();
+cargarCamposEquilibrio();
+pintarTodo();
+if (new URLSearchParams(location.search).has('pruebas')) correrPruebas();
+</script>
+</body>
+</html>
