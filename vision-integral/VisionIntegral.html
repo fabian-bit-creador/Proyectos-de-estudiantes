@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visión Integral · Diagnóstico de clima para la comunidad educativa</title>
+<meta name="description" content="Proyecto estudiantil de diagnóstico institucional. Instrumento de consulta anónima sobre una dimensión del clima laboral, con tabulación y ficha de microintervención.">
+<meta name="author" content="Visión Integral — IV°A Administración, Colegio Cardenal José María Caro">
+<meta name="theme-color" content="#6d28d9">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Visión Integral · Diagnóstico de clima para la comunidad educativa">
+<meta property="og:description" content="Mapeo, análisis y acción: un instrumento que se puede usar, no solo describir.">
+<meta property="og:locale" content="es_CL">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%236d28d9'/%3E%3Ccircle cx='20' cy='20' r='9' fill='none' stroke='%23bae6fd' stroke-width='2.5'/%3E%3Ccircle cx='20' cy='20' r='3.2' fill='%23fbbf24'/%3E%3C/svg%3E">
+
+<style>
+/* ==========================================================================
+   Visión Integral — hoja de estilos propia.
+   Conserva la paleta violeta y celeste del sitio original, pero todo el CSS
+   vive dentro del archivo: funciona sin internet, que es la condición del
+   día de la Feria.
+   ========================================================================== */
+:root{
+  --violeta-50:#f5f3ff; --violeta-100:#ede9fe; --violeta-200:#ddd6fe;
+  --violeta-500:#8b5cf6; --violeta-600:#7c3aed; --violeta-700:#6d28d9;
+  --violeta-800:#5b21b6; --violeta-900:#4c1d95;
+  --cielo-50:#f0f9ff; --cielo-100:#e0f2fe; --cielo-200:#bae6fd;
+  --cielo-500:#0ea5e9; --cielo-600:#0284c7; --cielo-700:#0369a1;
+  --ambar:#fbbf24; --ambar-osc:#78350f; --ambar-suave:#fffbeb;
+  --verde:#15803d; --verde-suave:#f0fdf4;
+  --rojo:#b91c1c; --rojo-suave:#fef2f2;
+
+  --tinta:#1e293b; --tinta-2:#475569; --tinta-3:#64748b;
+  --linea:#e2e8f0; --linea-2:#cbd5e1;
+  --papel:#ffffff;
+
+  --r:16px; --r-lg:24px; --r-xl:32px;
+  --sombra:0 1px 2px rgba(30,41,59,.05), 0 10px 30px -14px rgba(109,40,217,.25);
+  --sombra-alta:0 4px 10px rgba(30,41,59,.06), 0 28px 55px -22px rgba(109,40,217,.4);
+  --titulo:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --texto:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:6rem;}
+body{margin:0;font-family:var(--texto);font-size:16.5px;line-height:1.62;color:var(--tinta);background:var(--papel);-webkit-text-size-adjust:100%;}
+h1,h2,h3,h4{margin:0;font-family:var(--titulo);font-weight:700;line-height:1.18;letter-spacing:-.02em;color:var(--tinta);}
+p{margin:0 0 .9rem;} p:last-child{margin-bottom:0;}
+a{color:var(--violeta-700);}
+img,svg{max-width:100%;display:block;}
+.num{font-variant-numeric:tabular-nums;}
+code{font-family:var(--mono);font-size:.86em;background:rgba(0,0,0,.055);border-radius:5px;padding:.1rem .35rem;}
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid var(--violeta-600);outline-offset:3px;border-radius:8px;}
+.saltar{position:absolute;left:-9999px;top:0;z-index:200;background:var(--violeta-700);color:#fff;padding:.85rem 1.4rem;font-weight:700;border-radius:0 0 12px 0;}
+.saltar:focus{left:0;}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.35rem;}
+.wrap--angosto{max-width:56rem;}
+.seccion{padding:4.5rem 0;}
+.seccion--cielo{background:rgba(240,249,255,.6);}
+.seccion--violeta{background:var(--violeta-50);}
+.centrado{max-width:52rem;margin-left:auto;margin-right:auto;text-align:center;}
+.eyebrow{font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cielo-600);}
+.eyebrow--v{color:var(--violeta-600);}
+.cab h2{font-size:clamp(1.7rem,3.6vw,2.3rem);margin-top:.75rem;}
+.cab p{margin-top:1.1rem;color:var(--tinta-2);}
+.oculto{display:none !important;}
+.nota-fina{font-size:.83rem;color:var(--tinta-3);line-height:1.6;}
+.dato{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-3);}
+
+/* ================================ Aviso ================================ */
+.franja{background:var(--ambar-suave);border-bottom:1px solid #fde68a;color:var(--ambar-osc);font-size:.85rem;}
+.franja .wrap{display:flex;gap:.6rem;align-items:flex-start;padding-top:.6rem;padding-bottom:.6rem;}
+
+/* =============================== Cabecera =============================== */
+.barra{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--linea);}
+.barra__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:5rem;}
+.marca{display:flex;align-items:center;gap:.75rem;text-decoration:none;color:inherit;}
+.marca__logo{height:2.75rem;width:2.75rem;flex-shrink:0;}
+.marca b{display:block;font-family:var(--titulo);font-weight:700;font-size:1.12rem;color:var(--violeta-800);line-height:1.15;}
+.marca small{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cielo-600);font-weight:500;}
+.nav{display:flex;align-items:center;gap:2rem;}
+.nav a{font-size:.89rem;font-weight:500;color:var(--tinta-2);text-decoration:none;}
+.nav a:hover{color:var(--violeta-700);}
+.btn-menu{display:none;background:none;border:0;color:var(--violeta-700);padding:.5rem;border-radius:10px;cursor:pointer;}
+.btn-menu:hover{background:var(--violeta-50);}
+@media (max-width:980px){
+  .btn-menu{display:block;}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;
+       background:#fff;border-bottom:1px solid var(--linea);padding:.6rem 1.35rem 1.1rem;box-shadow:var(--sombra);}
+  .nav.abierto{display:flex;}
+  .nav a{padding:.8rem .5rem;border-radius:10px;}
+  .marca small{display:none;}
+}
+
+/* ================================ Botones ================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font:inherit;font-weight:600;font-size:.93rem;
+     padding:.78rem 1.5rem;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none;
+     transition:background-color .15s ease,transform .15s ease;}
+.btn:hover{transform:translateY(-1px);}
+.btn--v{background:var(--violeta-600);color:#fff;box-shadow:0 8px 20px -8px rgba(124,58,237,.6);}
+.btn--v:hover{background:var(--violeta-700);}
+.btn--c{background:#fff;color:var(--cielo-700);border-color:var(--cielo-200);}
+.btn--c:hover{background:var(--cielo-50);}
+.btn--suave{background:var(--violeta-50);color:var(--violeta-700);}
+.btn--suave:hover{background:var(--violeta-100);}
+.btn--sm{font-size:.84rem;padding:.55rem 1.1rem;}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;}
+
+/* ================================== Hero ================================== */
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--violeta-50),#fff 45%,var(--cielo-50));}
+.hero__globo{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;}
+.hero__globo--v{top:-6rem;right:-6rem;height:24rem;width:24rem;background:rgba(221,214,254,.55);}
+.hero__globo--c{top:10rem;left:-8rem;height:20rem;width:20rem;background:rgba(186,230,253,.55);}
+.hero__grid{position:relative;display:grid;gap:3.5rem;align-items:center;padding:4rem 0 5rem;}
+@media (min-width:900px){.hero__grid{grid-template-columns:1fr 1fr;padding:5.5rem 0 6.5rem;}}
+.pildora{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--violeta-700);font-size:.78rem;font-weight:600;
+         padding:.5rem 1rem;border-radius:999px;border:1px solid var(--violeta-100);box-shadow:var(--sombra);}
+.hero h1{font-size:clamp(2rem,5vw,3rem);margin-top:1.5rem;line-height:1.15;}
+.hero h1 em{font-style:normal;color:var(--violeta-700);}
+.hero__sub{margin-top:1.5rem;font-size:1.08rem;color:var(--tinta-2);max-width:34rem;}
+.hero__acciones{margin-top:2.2rem;display:flex;flex-wrap:wrap;gap:1rem;}
+.hero__cifras{margin-top:2.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;
+              font-size:.85rem;color:var(--tinta-3);max-width:34rem;line-height:1.4;}
+.hero__cifras>div{padding-left:1.1rem;border-left:2px solid var(--violeta-100);}
+.hero__cifras>div:first-child{padding-left:0;border-left:0;}
+.hero__cifras b{display:block;font-family:var(--titulo);font-size:1.55rem;line-height:1.1;}
+.hero__sep{display:none;}
+@media (max-width:420px){.hero__cifras{grid-template-columns:1fr 1fr;}}
+.hero__marca{position:relative;display:flex;align-items:center;justify-content:center;min-height:20rem;}
+.hero__aro{position:absolute;height:19rem;width:19rem;border-radius:50%;background:linear-gradient(135deg,var(--violeta-100),var(--cielo-100));box-shadow:inset 0 2px 20px rgba(109,40,217,.12);}
+@media (min-width:640px){.hero__aro{height:23rem;width:23rem;}}
+.hero__logo{position:relative;height:16rem;width:16rem;}
+@media (min-width:640px){.hero__logo{height:19rem;width:19rem;}}
+
+/* ================================ Tarjetas ================================ */
+.rejilla{display:grid;gap:1.4rem;grid-template-columns:1fr;}
+@media (min-width:720px){.rejilla--2{grid-template-columns:repeat(2,1fr);} .rejilla--3{grid-template-columns:repeat(3,1fr);}}
+.tarjeta{background:#fff;border:1px solid var(--linea);border-radius:var(--r-lg);padding:1.7rem;box-shadow:var(--sombra);}
+.tarjeta h3{font-size:1.12rem;margin-bottom:.5rem;}
+.tarjeta p{font-size:.93rem;color:var(--tinta-2);}
+
+/* ============================== Metodología ============================== */
+.metodo{display:grid;gap:2.5rem;align-items:start;margin-top:3.5rem;}
+@media (min-width:900px){.metodo{grid-template-columns:1fr 1.1fr;}}
+.etapas{display:flex;flex-direction:column;gap:1rem;}
+.etapa{display:flex;align-items:flex-start;gap:1rem;text-align:left;width:100%;font:inherit;cursor:pointer;
+       border-radius:var(--r-lg);padding:1.25rem;border:1px solid var(--linea);background:#fff;transition:all .18s ease;}
+.etapa:hover{border-color:var(--violeta-100);background:rgba(245,243,255,.45);}
+.etapa[aria-selected="true"]{background:var(--violeta-50);border-color:var(--violeta-200);box-shadow:var(--sombra);}
+.etapa__n{flex-shrink:0;height:2.75rem;width:2.75rem;border-radius:14px;display:flex;align-items:center;justify-content:center;
+          font-family:var(--titulo);font-weight:700;background:var(--cielo-50);color:var(--cielo-600);}
+.etapa[aria-selected="true"] .etapa__n{background:var(--violeta-600);color:#fff;}
+.etapa__t{display:flex;align-items:center;gap:.5rem;font-family:var(--titulo);font-weight:600;}
+.etapa__d{display:block;font-size:.88rem;color:var(--tinta-3);margin-top:.25rem;}
+.panel-etapa{border-radius:var(--r-xl);background:linear-gradient(135deg,var(--violeta-600),var(--cielo-500));padding:4px;box-shadow:var(--sombra-alta);}
+.panel-etapa__in{border-radius:28px;background:#fff;padding:2.2rem;min-height:19rem;display:flex;flex-direction:column;justify-content:center;}
+.panel-etapa__ico{display:inline-flex;height:3.5rem;width:3.5rem;align-items:center;justify-content:center;border-radius:18px;background:var(--violeta-50);color:var(--violeta-700);margin-bottom:1.4rem;}
+.panel-etapa h3{font-size:1.5rem;margin-top:.4rem;}
+.panel-etapa p{margin-top:1rem;color:var(--tinta-2);}
+
+/* ============================== EL INSTRUMENTO ============================== */
+.paso{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;}
+.paso button{font:inherit;font-size:.86rem;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;
+             border:1.5px solid var(--linea-2);background:#fff;color:var(--tinta-2);cursor:pointer;
+             display:inline-flex;align-items:center;gap:.5rem;}
+.paso button:hover{border-color:var(--violeta-300,#c4b5fd);color:var(--violeta-700);}
+.paso button[aria-selected="true"]{background:var(--violeta-600);border-color:var(--violeta-600);color:#fff;}
+.paso button .n{display:inline-flex;height:1.35rem;width:1.35rem;align-items:center;justify-content:center;
+                border-radius:50%;background:rgba(0,0,0,.08);font-size:.72rem;font-weight:800;}
+.paso button[aria-selected="true"] .n{background:rgba(255,255,255,.28);}
+
+.campo{display:block;font-size:.88rem;margin-bottom:1.1rem;}
+.campo>span:first-child{display:block;font-weight:600;color:var(--tinta-2);margin-bottom:.35rem;}
+.campo input,.campo select,.campo textarea{
+  font:inherit;font-size:.94rem;width:100%;padding:.68rem .85rem;border:1px solid var(--linea-2);
+  border-radius:12px;background:#fff;color:var(--tinta);}
+.campo textarea{min-height:5.5rem;resize:vertical;}
+.campo .ayuda{display:block;font-size:.79rem;color:var(--tinta-3);margin-top:.3rem;line-height:1.5;}
+.form2{display:grid;gap:0 1.2rem;grid-template-columns:1fr;}
+@media (min-width:680px){.form2{grid-template-columns:1fr 1fr;} .form2 .ancho{grid-column:1/-1;}}
+
+/* Escala Likert */
+.item{border:1px solid var(--linea);border-radius:var(--r);padding:1.1rem 1.2rem;margin-bottom:.9rem;background:#fff;}
+.item__p{font-weight:600;font-size:.96rem;margin-bottom:.8rem;display:block;width:100%;}
+.item fieldset{border:0;padding:0;margin:0;min-width:0;}
+.escala{display:grid;gap:.4rem;grid-template-columns:1fr;}
+@media (min-width:640px){.escala{grid-template-columns:repeat(5,1fr);}}
+.op{position:relative;}
+.op input{position:absolute;opacity:0;width:0;height:0;}
+.op span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;height:100%;
+         border:1.5px solid var(--linea-2);border-radius:11px;padding:.5rem .35rem;cursor:pointer;
+         font-size:.73rem;line-height:1.25;text-align:center;color:var(--tinta-3);background:#fff;}
+.op span b{font-family:var(--titulo);font-size:1rem;color:var(--tinta-2);}
+.op input:checked+span{border-color:var(--violeta-600);background:var(--violeta-50);color:var(--violeta-800);box-shadow:inset 0 0 0 1px var(--violeta-600);}
+.op input:checked+span b{color:var(--violeta-700);}
+.op input:focus-visible+span{outline:3px solid var(--violeta-600);outline-offset:2px;}
+
+/* Resultados */
+.resumen{display:grid;gap:1rem;grid-template-columns:1fr;margin-bottom:1.6rem;}
+@media (min-width:680px){.resumen{grid-template-columns:repeat(3,1fr);}}
+.metrica{background:#fff;border:1px solid var(--linea);border-radius:var(--r);padding:1.1rem 1.25rem;border-top:4px solid var(--violeta-500);}
+.metrica span{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--tinta-3);}
+.metrica b{display:block;font-family:var(--titulo);font-size:2rem;line-height:1.1;margin-top:.2rem;font-variant-numeric:tabular-nums;}
+.metrica small{display:block;font-size:.8rem;color:var(--tinta-3);margin-top:.15rem;}
+
+.fila-item{border:1px solid var(--linea);border-radius:var(--r);padding:1rem 1.15rem;margin-bottom:.7rem;background:#fff;}
+.fila-item__cab{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.55rem;}
+.fila-item__cab p{font-size:.92rem;margin:0;flex:1;}
+.fila-item__prom{font-family:var(--titulo);font-weight:700;font-size:1.15rem;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.barra-dist{display:flex;height:.65rem;border-radius:99px;overflow:hidden;background:var(--linea);}
+.barra-dist i{display:block;height:100%;}
+.leyenda-dist{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.72rem;color:var(--tinta-3);margin-top:.5rem;}
+.leyenda-dist span{display:inline-flex;align-items:center;gap:.3rem;}
+.punto{width:.6rem;height:.6rem;border-radius:2px;display:inline-block;}
+.fila-item--debil{border-color:var(--ambar);box-shadow:0 0 0 1px var(--ambar);}
+.chip{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+      padding:.15rem .55rem;border-radius:6px;margin-left:.5rem;vertical-align:middle;}
+.chip--debil{background:#fef3c7;color:var(--ambar-osc);}
+.chip--fuerte{background:#dcfce7;color:var(--verde);}
+
+/* Avisos */
+.nota{display:flex;gap:.75rem;border-radius:var(--r);padding:1rem 1.15rem;font-size:.9rem;line-height:1.55;margin-bottom:1.2rem;}
+.nota svg{flex-shrink:0;margin-top:.15rem;}
+.nota--info{background:var(--cielo-50);border:1px solid var(--cielo-200);color:var(--cielo-700);}
+.nota--ok{background:var(--verde-suave);border:1px solid #bbf7d0;color:var(--verde);}
+.nota--alerta{background:var(--ambar-suave);border:1px solid #fde68a;color:var(--ambar-osc);}
+.nota--stop{background:var(--rojo-suave);border:1px solid #fecaca;color:var(--rojo);}
+.nota b{font-weight:700;}
+
+/* Bloqueo por anonimato */
+.candado{text-align:center;padding:3rem 1.5rem;border:2px dashed var(--linea-2);border-radius:var(--r-lg);background:var(--cielo-50);}
+.candado h3{font-size:1.15rem;margin:1rem 0 .5rem;color:var(--cielo-700);}
+.candado p{font-size:.92rem;color:var(--tinta-2);max-width:42rem;margin-left:auto;margin-right:auto;}
+
+/* Ficha de acción */
+.ficha{border:1px solid var(--violeta-200);border-radius:var(--r-lg);background:var(--violeta-50);padding:1.6rem;}
+.ficha h3{font-size:1.15rem;color:var(--violeta-800);margin-bottom:.3rem;}
+.ficha__campo{background:#fff;border:1px solid var(--violeta-100);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;}
+.ficha__campo span{display:block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--violeta-600);margin-bottom:.2rem;}
+
+/* ============================== Planes ============================== */
+.planes{display:grid;gap:1.5rem;grid-template-columns:1fr;margin-top:3.5rem;}
+@media (min-width:820px){.planes{grid-template-columns:repeat(3,1fr);}}
+.plan{position:relative;border-radius:var(--r-xl);padding:2rem;display:flex;flex-direction:column;
+      border:1px solid var(--linea);background:#fff;box-shadow:var(--sombra);}
+.plan--destacado{background:linear-gradient(150deg,var(--violeta-600),var(--violeta-500));color:#fff;border-color:var(--violeta-500);box-shadow:var(--sombra-alta);}
+.plan--destacado h3,.plan--destacado p{color:#fff;}
+.plan__ico{display:inline-flex;height:3rem;width:3rem;align-items:center;justify-content:center;border-radius:14px;margin-bottom:1.2rem;background:var(--cielo-50);color:var(--cielo-600);}
+.plan--destacado .plan__ico{background:rgba(255,255,255,.16);color:#fff;}
+.plan h3{font-size:1.28rem;}
+.plan__sub{font-size:.87rem;color:var(--tinta-3);margin-top:.2rem;}
+.plan--destacado .plan__sub{color:var(--violeta-100);}
+.plan ul{list-style:none;margin:1.5rem 0 0;padding:0;flex:1;display:flex;flex-direction:column;gap:.75rem;}
+.plan li{display:flex;gap:.65rem;font-size:.9rem;color:var(--tinta-2);align-items:flex-start;}
+.plan--destacado li{color:rgba(255,255,255,.95);}
+.plan li svg{flex-shrink:0;margin-top:.15rem;color:var(--violeta-500);}
+.plan--destacado li svg{color:var(--ambar);}
+.plan__etiqueta{position:absolute;top:-.75rem;right:2rem;background:var(--ambar);color:var(--ambar-osc);
+                font-size:.72rem;font-weight:700;padding:.25rem .75rem;border-radius:999px;}
+
+/* ================================ Equipo ================================ */
+.equipo{display:grid;gap:1.25rem;grid-template-columns:repeat(2,1fr);max-width:56rem;margin:3rem auto 0;}
+@media (min-width:640px){.equipo{grid-template-columns:repeat(4,1fr);}}
+.persona{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.85rem;
+         border-radius:var(--r-xl);border:1px solid var(--violeta-100);padding:1.6rem 1rem;
+         background:linear-gradient(180deg,rgba(245,243,255,.7),#fff);}
+.persona__ico{display:flex;height:3.5rem;width:3.5rem;align-items:center;justify-content:center;border-radius:16px;background:var(--violeta-100);color:var(--violeta-600);}
+.persona b{font-family:var(--titulo);font-weight:600;font-size:.94rem;line-height:1.3;}
+.persona small{font-size:.78rem;color:var(--tinta-3);}
+
+.req{color:var(--rojo);font-style:normal;font-weight:700;}
+.campo--check{display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;line-height:1.55;
+              background:var(--violeta-50);border:1px solid var(--violeta-100);border-radius:var(--r);
+              padding:.95rem 1.1rem;margin:.4rem 0 1.4rem;cursor:pointer;}
+.campo--check input{width:1.15rem;height:1.15rem;flex-shrink:0;margin-top:.15rem;accent-color:var(--violeta-600);}
+.campo--check span{color:var(--tinta-2);}
+.acciones{display:flex;flex-wrap:wrap;gap:.75rem;}
+.pie-equipo{max-width:52rem;margin:2.2rem auto 0;text-align:center;font-size:.85rem;color:var(--tinta-3);line-height:1.6;}
+.pie-equipo code{font-family:var(--mono);font-size:.8em;background:#fff;border:1px solid var(--violeta-100);border-radius:6px;padding:.1rem .35rem;}
+
+/* ================================= Pie ================================= */
+.pie{background:var(--violeta-900);color:var(--violeta-100);padding:3rem 0 2rem;font-size:.9rem;}
+.pie__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;}
+.pie a{color:#ddd6fe;}
+.pie__marca{display:flex;align-items:center;gap:.85rem;}
+.pie__marca b{display:block;font-family:var(--titulo);font-weight:700;font-size:1.1rem;color:#fff;}
+.pie__marca small{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#c4b5fd;}
+.pie__nav{display:flex;flex-wrap:wrap;gap:1.4rem;}
+.pie__nav a{text-decoration:none;font-size:.88rem;}
+.pie__nav a:hover{color:#fff;text-decoration:underline;}
+.pie__nota{margin-top:2rem;text-align:center;font-size:.8rem;color:#c4b5fd;line-height:1.7;}
+
+@media print{
+  .no-imprimir{display:none !important;}
+  body{background:#fff;}
+  .seccion{padding:0;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<a class="saltar" href="#instrumento">Saltar al instrumento de diagnóstico</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo-vi" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="92" fill="url(#gvi)"/>
+    <circle cx="100" cy="100" r="62" fill="none" stroke="#fff" stroke-width="7" opacity=".9"/>
+    <circle cx="100" cy="100" r="40" fill="none" stroke="#bae6fd" stroke-width="5"/>
+    <circle cx="100" cy="100" r="16" fill="#fbbf24"/>
+    <g stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".92">
+      <path d="M100 8v22M100 170v22M8 100h22M170 100h22"/>
+    </g>
+    <defs><linearGradient id="gvi" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#0ea5e9"/>
+    </linearGradient></defs>
+  </symbol>
+  <symbol id="i-mapa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0"/><circle cx="12" cy="8" r="2"/><path d="M8.714 14h-3.71a1 1 0 0 0-.948.683l-2.004 6A1 1 0 0 0 3 22h18a1 1 0 0 0 .948-1.316l-2-6a1 1 0 0 0-.949-.684h-3.712"/></symbol>
+  <symbol id="i-lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-tabla" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-escudo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-corazon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 14.4C21 12.8 22 11.5 22 9.5A5.5 5.5 0 0 0 12.4 5.8a.6.6 0 0 1-.8 0A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.5 5.4a2 2 0 0 0 2.9 0"/></symbol>
+  <symbol id="i-chispa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2.8a1 1 0 0 1 2 0l1 5.6a2 2 0 0 0 1.6 1.6l5.6 1a1 1 0 0 1 0 2l-5.6 1a2 2 0 0 0-1.6 1.6l-1 5.6a1 1 0 0 1-2 0l-1-5.6a2 2 0 0 0-1.6-1.6l-5.6-1a1 1 0 0 1 0-2l5.6-1a2 2 0 0 0 1.6-1.6z"/><path d="M20 2v4M22 4h-4"/></symbol>
+  <symbol id="i-candado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2.4 17a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></symbol>
+  <symbol id="i-birrete" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 10.9a1 1 0 0 0 0-1.8L12.8 5.2a2 2 0 0 0-1.7 0L2.6 9.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.7 0z"/><path d="M22 10v6M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+  <symbol id="i-persona" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-correo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-grupo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5h16M4 12h16M4 19h16"/></symbol>
+  <symbol id="i-imprimir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></symbol>
+  <symbol id="i-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+</svg>
+
+<div class="franja no-imprimir">
+  <div class="wrap">
+    <svg width="17" height="17" aria-hidden="true"><use href="#i-info"/></svg>
+    <p style="margin:0"><b>Proyecto estudiantil de la Feria Técnico Profesional 2026.</b> Visión Integral no es una empresa constituida y no vende servicios. Los planes que aparecen más abajo son una <b>propuesta de diseño</b> desarrollada como ejercicio de la especialidad. El instrumento sí funciona y se puede usar con autorización del establecimiento.</p>
+  </div>
+</div>
+
+<header class="barra no-imprimir">
+  <div class="wrap barra__in">
+    <a class="marca" href="#inicio">
+      <svg class="marca__logo" viewBox="0 0 200 200" role="img" aria-label="Visión Integral"><use href="#logo-vi"/></svg>
+      <span><b>Visión Integral</b><small>Feria Técnico-Profesional</small></span>
+    </a>
+    <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="navPrincipal" aria-label="Abrir menú">
+      <svg width="24" height="24" aria-hidden="true"><use href="#i-menu"/></svg>
+    </button>
+    <nav class="nav" id="navPrincipal" aria-label="Navegación principal">
+      <a href="#proyecto">El proyecto</a>
+      <a href="#metodologia">Metodología</a>
+      <a href="#instrumento">Instrumento</a>
+      <a href="#servicios">Bienestar</a>
+      <a href="#equipo">Equipo</a>
+      <a class="btn btn--v btn--sm" href="#instrumento">Probar el instrumento</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<section class="hero">
+  <div class="hero__globo hero__globo--v" aria-hidden="true"></div>
+  <div class="hero__globo hero__globo--c" aria-hidden="true"></div>
+  <div class="wrap hero__grid">
+    <div>
+      <span class="pildora">
+        <svg width="14" height="14" style="color:var(--ambar)" aria-hidden="true"><use href="#i-chispa"/></svg>
+        Proyecto de Feria Técnico-Profesional
+      </span>
+      <h1><em>Visión Integral:</em> diagnóstico y soluciones para la comunidad educativa</h1>
+      <p class="hero__sub">Identificamos las áreas críticas de un establecimiento y diseñamos propuestas concretas para elevar su desempeño. Y ahora, además de explicarlo, <strong>lo hacemos</strong>: el instrumento de consulta está en esta misma página.</p>
+      <div class="hero__acciones">
+        <a class="btn btn--v" href="#instrumento">Probar el instrumento <svg width="18" height="18" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+        <a class="btn btn--c" href="#metodologia">Ver la metodología</a>
+      </div>
+      <div class="hero__cifras">
+        <div><b style="color:var(--violeta-700)">3</b>Etapas de evaluación</div>
+        <div class="hero__sep" aria-hidden="true"></div>
+        <div><b style="color:var(--cielo-600)">5</b>Dimensiones de clima disponibles</div>
+        <div class="hero__sep" aria-hidden="true"></div>
+        <div><b style="color:var(--violeta-700)">0</b>Datos que salen del navegador</div>
+      </div>
+    </div>
+    <div class="hero__marca">
+      <div class="hero__aro" aria-hidden="true"></div>
+      <svg class="hero__logo" viewBox="0 0 200 200" role="img" aria-label="Logo de Visión Integral"><use href="#logo-vi"/></svg>
+    </div>
+  </div>
+</section>
+
+<section id="metodologia" class="seccion">
+  <div class="wrap">
+    <div id="proyecto" class="cab centrado" style="scroll-margin-top:6rem">
+      <span class="eyebrow">Sobre el proyecto</span>
+      <h2>Una metodología pensada para tu comunidad educativa</h2>
+      <p>Visión Integral nace en el marco de una feria técnico-profesional, como una propuesta para acompañar a establecimientos educacionales en su proceso de mejora continua. Combinamos evaluación institucional y bienestar de las personas, para que las decisiones se tomen con información clara y con las personas en el centro.</p>
+    </div>
+
+    <div class="metodo">
+      <div class="etapas" role="tablist" aria-label="Etapas de la metodología">
+        <button class="etapa" role="tab" id="et-1" aria-controls="pan-etapa" aria-selected="true">
+          <span class="etapa__n">1</span>
+          <span><span class="etapa__t"><svg width="18" height="18" aria-hidden="true"><use href="#i-mapa"/></svg> Mapeo</span>
+          <span class="etapa__d">Identificamos las áreas del establecimiento y elegimos una para evaluar.</span></span>
+        </button>
+        <button class="etapa" role="tab" id="et-2" aria-controls="pan-etapa" aria-selected="false" tabindex="-1">
+          <span class="etapa__n">2</span>
+          <span><span class="etapa__t"><svg width="18" height="18" aria-hidden="true"><use href="#i-lupa"/></svg> Análisis</span>
+          <span class="etapa__d">Consultamos de forma anónima y detectamos los indicadores más bajos.</span></span>
+        </button>
+        <button class="etapa" role="tab" id="et-3" aria-controls="pan-etapa" aria-selected="false" tabindex="-1">
+          <span class="etapa__n">3</span>
+          <span><span class="etapa__t"><svg width="18" height="18" aria-hidden="true"><use href="#i-tabla"/></svg> Acción</span>
+          <span class="etapa__d">Diseñamos una microintervención concreta y definimos cuándo se vuelve a medir.</span></span>
+        </button>
+      </div>
+
+      <div class="panel-etapa">
+        <div class="panel-etapa__in" id="pan-etapa" role="tabpanel" aria-labelledby="et-1">
+          <span class="panel-etapa__ico"><svg width="28" height="28" aria-hidden="true" id="panIco"><use href="#i-mapa"/></svg></span>
+          <p class="dato" id="panPaso">Etapa 1 de 3</p>
+          <h3 id="panTitulo">Mapeo</h3>
+          <p id="panTexto">Recorremos cada área académica, administrativa y de convivencia de la institución para construir un mapa de procesos, equipos y recursos. De ahí sale la decisión más importante: <strong>qué dimensión se va a medir primero</strong>. Medir todo a la vez produce datos que nadie usa.</p>
+          <a class="btn btn--suave btn--sm" href="#instrumento" style="margin-top:1.4rem;align-self:flex-start">Ir a esta etapa en el instrumento</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= EL INSTRUMENTO ========================= -->
+<section id="instrumento" class="seccion seccion--cielo">
+  <div class="wrap">
+    <div class="cab centrado no-imprimir">
+      <span class="eyebrow eyebrow--v">La herramienta</span>
+      <h2>Instrumento de diagnóstico</h2>
+      <p>Aquí la metodología deja de estar descrita y se ejecuta. Se elige <strong>una sola dimensión</strong>, se consulta de forma anónima, se tabula con resguardo de anonimato y se cierra con una microintervención concreta.</p>
+    </div>
+
+    <div class="paso no-imprimir" role="tablist" aria-label="Etapas del instrumento">
+      <button role="tab" id="p-mapeo"   aria-controls="panel-mapeo"   aria-selected="true"><span class="n">1</span> Mapeo</button>
+      <button role="tab" id="p-consulta" aria-controls="panel-consulta" aria-selected="false" tabindex="-1"><span class="n">2</span> Consulta anónima</button>
+      <button role="tab" id="p-analisis" aria-controls="panel-analisis" aria-selected="false" tabindex="-1"><span class="n">3</span> Análisis</button>
+      <button role="tab" id="p-accion"   aria-controls="panel-accion"   aria-selected="false" tabindex="-1"><span class="n">4</span> Acción</button>
+    </div>
+
+    <!-- ---------------------------- 1. MAPEO ---------------------------- -->
+    <div class="tarjeta" id="panel-mapeo" role="tabpanel" aria-labelledby="p-mapeo">
+      <h3>1 · Mapeo: qué se va a medir</h3>
+      <p style="margin-bottom:1.4rem">Una sola dimensión por vez. Medir cinco a la vez produce un informe largo que nadie convierte en acción.</p>
+
+      <div class="form2">
+        <label class="campo">
+          <span>Dimensión a evaluar</span>
+          <select id="selDimension"></select>
+          <span class="ayuda" id="ayudaDimension"></span>
+        </label>
+        <label class="campo">
+          <span>Grupo consultado</span>
+          <input type="text" id="grupo" placeholder="Ej.: Equipo docente de Enseñanza Media" autocomplete="off">
+          <span class="ayuda">Describe el grupo, no a las personas. No se pide ningún dato individual.</span>
+        </label>
+        <label class="campo">
+          <span>Personas que componen el grupo</span>
+          <input type="number" id="totalGrupo" min="1" max="500" value="24">
+          <span class="ayuda">Sirve para calcular la tasa de respuesta.</span>
+        </label>
+        <label class="campo">
+          <span>Mínimo de respuestas para mostrar resultados</span>
+          <input type="number" id="minimoAnonimato" min="3" max="30" value="5">
+          <span class="ayuda">Por debajo de este número, el análisis queda bloqueado. Es la protección del anonimato.</span>
+        </label>
+      </div>
+
+      <div class="nota nota--info">
+        <svg width="19" height="19" aria-hidden="true"><use href="#i-candado"/></svg>
+        <p style="margin:0"><b>Por qué existe ese mínimo.</b> En un establecimiento chico, mostrar el resultado de un grupo de tres personas equivale a decir quién respondió qué. El anonimato no se garantiza prometiéndolo: se garantiza <b>no permitiendo</b> desagregaciones que identifiquen a alguien. Con menos respuestas que el mínimo, esta herramienta se niega a mostrar el detalle.</p>
+      </div>
+
+      <div class="nota nota--alerta">
+        <svg width="19" height="19" aria-hidden="true"><use href="#i-alerta"/></svg>
+        <p style="margin:0"><b>Antes de aplicarlo de verdad.</b> Una consulta de clima requiere autorización de la dirección del establecimiento y que las personas sepan para qué se usará. Sin eso, es solo un ejercicio de aula. Este proyecto <b>no aplica evaluaciones 360°, 180° ni 90°</b>: esas miden desempeño de personas identificadas y exigen un marco distinto.</p>
+      </div>
+
+      <button class="btn btn--v" id="btnIrConsulta">Continuar a la consulta <svg width="18" height="18" aria-hidden="true"><use href="#i-flecha"/></svg></button>
+    </div>
+
+    <!-- --------------------------- 2. CONSULTA --------------------------- -->
+    <div class="tarjeta oculto" id="panel-consulta" role="tabpanel" aria-labelledby="p-consulta">
+      <h3>2 · Consulta anónima</h3>
+      <p id="consultaIntro" style="margin-bottom:1.2rem"></p>
+
+      <div class="nota nota--info">
+        <svg width="19" height="19" aria-hidden="true"><use href="#i-escudo"/></svg>
+        <p style="margin:0"><b>Esta respuesta es anónima.</b> No se pide nombre, cargo, edad, antigüedad ni ningún dato que permita identificarte. Solo se guardan los números, en este mismo navegador. Puedes dejar de responder en cualquier momento.</p>
+      </div>
+
+      <form id="formConsulta">
+        <div id="listaItems"></div>
+
+        <label class="campo" style="margin-top:1rem">
+          <span>Comentario voluntario <span style="font-weight:400;color:var(--tinta-3)">(opcional)</span></span>
+          <textarea id="comentario" placeholder="Si quieres agregar algo, escríbelo aquí. No escribas nombres de personas."></textarea>
+          <span class="ayuda">Los comentarios se muestran tal cual en el análisis. Por eso conviene no nombrar a nadie.</span>
+        </label>
+
+        <p id="avisoConsulta" class="nota nota--stop oculto" role="alert"><svg width="19" height="19" aria-hidden="true"><use href="#i-alerta"/></svg><span></span></p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem">
+          <button type="submit" class="btn btn--v">Registrar mi respuesta</button>
+          <button type="button" class="btn btn--suave" id="btnLimpiarRespuesta">Limpiar</button>
+          <button type="button" class="btn btn--c" id="btnIrAnalisis">Ver el análisis</button>
+        </div>
+      </form>
+
+      <p class="dato" style="margin-top:1.3rem"><span id="contadorRespuestas">0</span> respuestas registradas para esta dimensión</p>
+    </div>
+
+    <!-- --------------------------- 3. ANÁLISIS --------------------------- -->
+    <div class="tarjeta" id="panel-analisis" role="tabpanel" aria-labelledby="p-analisis" style="display:none">
+      <h3>3 · Análisis</h3>
+      <div id="zonaAnalisis"></div>
+    </div>
+
+    <!-- ---------------------------- 4. ACCIÓN ---------------------------- -->
+    <div class="tarjeta" id="panel-accion" role="tabpanel" aria-labelledby="p-accion" style="display:none">
+      <h3>4 · Acción: la microintervención</h3>
+      <div id="zonaAccion"></div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem" class="no-imprimir">
+      <button class="btn btn--suave btn--sm" id="btnEjemplo">Cargar 18 respuestas de ejemplo</button>
+      <button class="btn btn--suave btn--sm" id="btnCsv">Exportar resultados en CSV</button>
+      <button class="btn btn--suave btn--sm" id="btnBorrar">Borrar las respuestas</button>
+      <button class="btn btn--suave btn--sm" id="btnPruebas">Verificar el motor</button>
+    </div>
+    <p id="salidaPruebas" class="nota oculto" role="status" style="margin-top:.9rem"><span></span></p>
+  </div>
+</section>
+
+<!-- ============================== BIENESTAR ============================== -->
+<section id="servicios" class="seccion">
+  <div class="wrap">
+    <div class="cab centrado">
+      <span class="eyebrow eyebrow--v">Propuesta de servicios</span>
+      <h2>Cuidar a quienes forman el futuro también es parte del diagnóstico</h2>
+      <p>Un establecimiento saludable comienza por equipos que se sienten acompañados. Estos tres niveles son el <strong>diseño de servicio</strong> que propone el proyecto: qué incluiría cada uno y en qué orden conviene implementarlos.</p>
+    </div>
+
+    <div class="planes">
+      <article class="plan">
+        <span class="plan__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-corazon"/></svg></span>
+        <h3>Esencial</h3>
+        <p class="plan__sub">Punto de partida: medir antes de intervenir</p>
+        <ul>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Diagnóstico de una dimensión del clima</li>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Taller de manejo del estrés (1 sesión)</li>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Informe con la microintervención priorizada</li>
+        </ul>
+      </article>
+
+      <article class="plan plan--destacado">
+        <span class="plan__etiqueta">Recomendado</span>
+        <span class="plan__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-escudo"/></svg></span>
+        <h3>Integral</h3>
+        <p class="plan__sub">Incluye la segunda medición, que es donde se ve si sirvió</p>
+        <ul>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Todo lo del nivel Esencial</li>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Talleres trimestrales de bienestar</li>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Acompañamiento psicoeducativo docente</li>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Segunda medición y comparación con la línea base</li>
+        </ul>
+      </article>
+
+      <article class="plan">
+        <span class="plan__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-chispa"/></svg></span>
+        <h3>Premium</h3>
+        <p class="plan__sub">Acompañamiento continuo durante el año</p>
+        <ul>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Todo lo del nivel Integral</li>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Mesa de bienestar mensual</li>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Espacios de contención individual</li>
+          <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg> Plan de mejora del clima institucional</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="nota nota--alerta" style="max-width:52rem;margin:2rem auto 0">
+      <svg width="19" height="19" aria-hidden="true"><use href="#i-info"/></svg>
+      <p style="margin:0"><b>Sobre estos niveles.</b> Son una propuesta de diseño, no una oferta comercial: el proyecto no tiene clientes ni precios definidos. La versión anterior de esta página decía «más elegido por establecimientos», y eso no se puede sostener sin clientes reales. Un jurado lo va a preguntar, y decirlo primero es mejor argumento que esperar la pregunta.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================ EQUIPO ================================ -->
+<section id="equipo" class="seccion seccion--violeta">
+  <div class="wrap">
+    <div class="cab centrado">
+      <span class="eyebrow eyebrow--v">Cuarto Medio A &middot; Administración</span>
+      <h2>Quiénes están detrás del proyecto</h2>
+      <p>Visión Integral es un proyecto de título de la especialidad de Administración del Colegio Cardenal José María Caro, Fundación Belén Educa, La Pintana. Se presenta en la Feria Técnico Profesional 2026.</p>
+    </div>
+
+    <div class="equipo">
+      <article class="persona">
+        <span class="persona__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-persona"/></svg></span>
+        <b>Daniel Cayupe</b>
+        <small>Coordinación del proyecto</small>
+      </article>
+      <article class="persona">
+        <span class="persona__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-persona"/></svg></span>
+        <b>Zamara Pavez</b>
+        <small>Diseño del instrumento</small>
+      </article>
+      <article class="persona">
+        <span class="persona__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-persona"/></svg></span>
+        <b>Sofía Barrientos</b>
+        <small>Análisis de resultados</small>
+      </article>
+      <article class="persona">
+        <span class="persona__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-persona"/></svg></span>
+        <b>Trinidad González</b>
+        <small>Comunicación y presentación</small>
+      </article>
+    </div>
+
+    <p class="pie-equipo">Los roles son una propuesta: cámbienlos por los que realmente cumplió cada integrante. Si quieren poner sus fotos, reemplacen el ícono por una etiqueta <code>&lt;img&gt;</code> dentro de <code>persona__ico</code> &mdash; recuerden que se necesita autorización de uso de imagen.</p>
+  </div>
+</section>
+
+<!-- =============================== CONTACTO =============================== -->
+<section id="contacto" class="seccion">
+  <div class="wrap wrap--angosto">
+    <div class="cab centrado">
+      <span class="eyebrow">Contacto</span>
+      <h2>Solicitar una aplicación piloto</h2>
+      <p>Si un establecimiento quiere probar el instrumento, aquí queda el registro. Antes de aplicar cualquier consulta se necesita la autorización escrita de la dirección del establecimiento.</p>
+    </div>
+
+    <div class="nota nota--stop" style="margin-top:2.5rem">
+      <svg width="19" height="19" aria-hidden="true"><use href="#i-alerta"/></svg>
+      <p style="margin:0"><b>Ojo con este formulario: el de la versión anterior no enviaba nada.</b> Al <code>&lt;form&gt;</code> le faltaban <code>data-netlify="true"</code>, <code>method="POST"</code> y el atributo <code>name</code>, así que Netlify nunca lo registró y las solicitudes no llegaban a ninguna parte, aunque la página prometía respuesta en menos de 48 horas hábiles. Aquí ya está corregido en el código, pero <b>solo envía si la página se publica en Netlify</b>. Mientras tanto, el botón «Descargar la solicitud» guarda los datos en un archivo. Las instrucciones para activarlo están en el README.</p>
+    </div>
+
+    <form class="tarjeta" id="formContacto" name="solicitud-piloto" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="solicitud-piloto">
+      <p class="oculto"><label>No llenar este campo: <input name="bot-field" tabindex="-1"></label></p>
+
+      <div class="form2">
+        <label class="campo">
+          <span>Nombre de quien solicita <em class="req">*</em></span>
+          <input type="text" name="nombre" id="cNombre" required autocomplete="name">
+        </label>
+        <label class="campo">
+          <span>Cargo</span>
+          <input type="text" name="cargo" id="cCargo" placeholder="Ej.: Encargada de convivencia" autocomplete="organization-title">
+        </label>
+        <label class="campo">
+          <span>Establecimiento <em class="req">*</em></span>
+          <input type="text" name="establecimiento" id="cEstab" required autocomplete="organization">
+        </label>
+        <label class="campo">
+          <span>Correo de contacto <em class="req">*</em></span>
+          <input type="email" name="correo" id="cCorreo" required autocomplete="email" placeholder="nombre@establecimiento.cl">
+        </label>
+        <label class="campo ancho">
+          <span>Dimensión que les interesa medir primero</span>
+          <select name="dimension" id="cDimension"></select>
+          <span class="ayuda">Una sola. Medir las cinco de una vez produce datos que después nadie usa.</span>
+        </label>
+        <label class="campo ancho">
+          <span>Cuéntennos brevemente qué está pasando</span>
+          <textarea name="mensaje" id="cMensaje" placeholder="Sin nombres de personas: describan la situación, no a quienes están involucrados."></textarea>
+        </label>
+      </div>
+
+      <label class="campo campo--check">
+        <input type="checkbox" name="autorizacion" id="cAutorizacion" required>
+        <span>Declaro que la aplicación contará con la autorización escrita de la dirección del establecimiento y que las respuestas serán anónimas. <em class="req">*</em></span>
+      </label>
+
+      <p id="avisoContacto" class="nota nota--stop oculto" role="alert"><svg width="19" height="19" aria-hidden="true"><use href="#i-alerta"/></svg><span></span></p>
+
+      <div class="acciones">
+        <button type="submit" class="btn btn--v">Enviar solicitud</button>
+        <button type="button" class="btn btn--suave" id="btnDescargarSolicitud">Descargar la solicitud</button>
+      </div>
+      <p class="nota-fina" style="margin-top:1.2rem">Ley 21.719 de protección de datos personales: estos datos se usan solo para responder esta solicitud y no se comparten con terceros.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+<!-- ================================== PIE ================================== -->
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie__in">
+      <div class="pie__marca">
+        <svg width="46" height="46" aria-hidden="true"><use href="#logo-vi"/></svg>
+        <div>
+          <b>Visión Integral</b>
+          <small>Diagnóstico de clima laboral educativo</small>
+        </div>
+      </div>
+      <nav class="pie__nav" aria-label="Pie de página">
+        <a href="#metodologia">Metodología</a>
+        <a href="#instrumento">Instrumento</a>
+        <a href="#servicios">Niveles</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+    <p class="pie__nota">
+      Proyecto escolar de la especialidad de Administración &middot; Colegio Cardenal José María Caro, Fundación Belén Educa &middot; Feria Técnico Profesional 2026.<br>
+      Visión Integral no es una empresa constituida ni presta servicios comerciales. Todo lo que se escriba en esta página queda solamente en el navegador de quien la usa: no se envía a ningún servidor.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================================
+   VISIÓN INTEGRAL · motor del instrumento de diagnóstico
+   ---------------------------------------------------------------------
+   Tres capas separadas a propósito:
+     1. DATOS      · las dimensiones, los ítems y su microintervención.
+     2. CÁLCULO    · funciones puras, sin tocar el DOM. Se pueden probar.
+     3. INTERFAZ   · pinta el resultado de la capa 2.
+   Si algo falla, se sabe en qué capa: por eso el botón «Verificar el motor».
+   ===================================================================== */
+
+/* ================================ 1. DATOS ================================ */
+
+var ESCALA = [
+  {v:1, txt:'Muy en<br>desacuerdo'},
+  {v:2, txt:'En<br>desacuerdo'},
+  {v:3, txt:'Ni de acuerdo<br>ni en desacuerdo'},
+  {v:4, txt:'De<br>acuerdo'},
+  {v:5, txt:'Muy de<br>acuerdo'}
+];
+
+var COLORES_DIST = ['#dc2626','#f97316','#facc15','#60a5fa','#16a34a'];
+
+/* Cada ítem trae su propia microintervención: si ese ítem resulta el más
+   débil, la etapa 4 propone exactamente esa acción. No es un texto genérico. */
+var DIMENSIONES = [
+  {
+    id:'comunicacion',
+    nombre:'Comunicación interna',
+    ayuda:'Cómo circula la información: si llega, si llega a tiempo y si llega a todos.',
+    items:[
+      {id:'com1', txt:'Me entero de las decisiones que me afectan por un canal formal y no por comentarios de pasillo.',
+       micro:{accion:'Definir un único canal oficial de avisos (un correo semanal o un mural fijo) y comprometerse a que toda decisión que afecte al equipo pase por ahí.', responsable:'Dirección o quien coordine el equipo', plazo:'4 semanas', indicador:'Porcentaje de decisiones del período que fueron comunicadas por el canal oficial.'}},
+      {id:'com2', txt:'Cuando cambia algo importante (horarios, plazos, protocolos), la información llega a tiempo.',
+       micro:{accion:'Fijar un plazo mínimo de aviso: ningún cambio de horario o plazo se comunica con menos de 48 horas, salvo emergencia.', responsable:'Equipo de gestión', plazo:'4 semanas', indicador:'Número de cambios avisados con menos de 48 horas durante el período.'}},
+      {id:'com3', txt:'Sé a quién dirigirme cuando necesito resolver algo administrativo.',
+       micro:{accion:'Publicar un mapa de una página con quién resuelve qué (permisos, materiales, licencias, convivencia) y dejarlo visible en sala de profesores.', responsable:'Administración', plazo:'3 semanas', indicador:'En la segunda medición, el promedio de este ítem sube al menos medio punto.'}},
+      {id:'com4', txt:'Recibo la misma información que el resto de mi equipo.',
+       micro:{accion:'Revisar las listas de distribución: verificar que asistentes de la educación, profesores jefes y equipos de apoyo estén en los mismos envíos.', responsable:'Secretaría', plazo:'2 semanas', indicador:'Listas revisadas y personas agregadas, con registro de la revisión.'}},
+      {id:'com5', inverso:true, txt:'Tengo que pedir la misma información varias veces para conseguirla.',
+       micro:{accion:'Crear una carpeta compartida con los documentos que más se piden (calendario, protocolos, formatos) para que no haya que solicitarlos.', responsable:'Administración', plazo:'3 semanas', indicador:'Cantidad de solicitudes repetidas registradas antes y después.'}}
+    ]
+  },
+  {
+    id:'carga',
+    nombre:'Carga de trabajo y tiempos',
+    ayuda:'Si el tiempo disponible alcanza para lo que efectivamente se pide.',
+    items:[
+      {id:'car1', txt:'El tiempo no lectivo me alcanza para planificar y corregir.',
+       micro:{accion:'Levantar durante dos semanas en qué se usa realmente el tiempo no lectivo, y proteger al menos un bloque semanal sin reuniones ni turnos.', responsable:'Unidad técnico-pedagógica', plazo:'6 semanas', indicador:'Bloques protegidos efectivamente respetados sobre bloques comprometidos.'}},
+      {id:'car2', inverso:true, txt:'Me llevo trabajo para la casa la mayoría de las semanas.',
+       micro:{accion:'Acordar una regla de corte horario para mensajes y correos de trabajo, y respetarla desde quienes coordinan hacia abajo.', responsable:'Dirección', plazo:'4 semanas', indicador:'Mensajes de trabajo enviados fuera del horario acordado.'}},
+      {id:'car3', txt:'Las tareas administrativas que me piden son razonables en cantidad.',
+       micro:{accion:'Hacer un inventario de los registros que se piden al equipo y eliminar o fusionar los que duplican información.', responsable:'Equipo de gestión', plazo:'6 semanas', indicador:'Número de registros exigidos antes y después del inventario.'}},
+      {id:'car4', inverso:true, txt:'Me piden informes o registros que después no se usan.',
+       micro:{accion:'Por cada informe solicitado, declarar por escrito quién lo lee y para qué decisión sirve. El que no tenga respuesta, se suspende.', responsable:'Equipo de gestión', plazo:'6 semanas', indicador:'Informes suspendidos por no tener uso declarado.'}},
+      {id:'car5', txt:'Los plazos que me dan para entregar son realistas.',
+       micro:{accion:'Publicar un calendario único de entregas del trimestre para evitar que tres solicitudes caigan la misma semana.', responsable:'Unidad técnico-pedagógica', plazo:'4 semanas', indicador:'Semanas con más de dos entregas simultáneas en el calendario.'}}
+    ]
+  },
+  {
+    id:'reconocimiento',
+    nombre:'Reconocimiento y trato',
+    ayuda:'Si el trabajo bien hecho se nota y si el trato cotidiano es respetuoso.',
+    items:[
+      {id:'rec1', txt:'Cuando hago bien mi trabajo, alguien lo nota y me lo dice.',
+       micro:{accion:'Abrir cada consejo con tres minutos de reconocimiento concreto a trabajo hecho por el equipo, con nombre y hecho específico.', responsable:'Quien conduce el consejo', plazo:'6 semanas', indicador:'Consejos que incluyeron el espacio, sobre el total de consejos.'}},
+      {id:'rec2', txt:'Siento que mi trabajo aporta a lo que el establecimiento quiere lograr.',
+       micro:{accion:'Compartir con el equipo un resultado concreto del semestre y mostrar explícitamente qué parte del trabajo de cada área lo hizo posible.', responsable:'Dirección', plazo:'8 semanas', indicador:'Promedio de este ítem en la segunda medición.'}},
+      {id:'rec3', inverso:true, txt:'El error se comenta más que el logro.',
+       micro:{accion:'Cambiar el formato de la retroalimentación: primero lo que resultó, después lo que hay que corregir, siempre en privado cuando es individual.', responsable:'Equipo directivo', plazo:'6 semanas', indicador:'Promedio de este ítem en la segunda medición.'}},
+      {id:'rec4', txt:'Recibo un trato respetuoso de parte de quienes coordinan mi trabajo.',
+       micro:{accion:'Recordar y difundir el procedimiento de denuncia por maltrato laboral (Ley 21.643, Karin) y a quién acudir. Si este ítem sale bajo, no es un tema de clima: es un tema de derechos.', responsable:'Dirección y comité paritario', plazo:'2 semanas', indicador:'Procedimiento difundido y canal de denuncia operativo y conocido.'}},
+      {id:'rec5', txt:'Si tengo un problema personal serio, siento que puedo plantearlo.',
+       micro:{accion:'Definir una persona de referencia para situaciones personales y comunicar quién es y cómo se le contacta.', responsable:'Dirección', plazo:'4 semanas', indicador:'Personas del equipo que saben nombrar a esa persona de referencia.'}}
+    ]
+  },
+  {
+    id:'convivencia',
+    nombre:'Convivencia entre equipos',
+    ayuda:'Cómo se trabaja entre colegas y qué pasa con los conflictos entre adultos.',
+    items:[
+      {id:'cnv1', txt:'Entre colegas nos apoyamos cuando alguien está sobrepasado.',
+       micro:{accion:'Organizar duplas de acompañamiento entre pares para las semanas de mayor carga (cierre de notas, informes).', responsable:'Jefaturas de nivel', plazo:'6 semanas', indicador:'Duplas conformadas y semanas cubiertas.'}},
+      {id:'cnv2', txt:'Los conflictos entre adultos se abordan y no se dejan correr.',
+       micro:{accion:'Establecer un protocolo breve de mediación entre adultos, con plazos: quién convoca, en cuántos días y cómo se cierra.', responsable:'Convivencia escolar', plazo:'8 semanas', indicador:'Situaciones abordadas dentro del plazo, sobre las situaciones planteadas.'}},
+      {id:'cnv3', inverso:true, txt:'Hay temas de los que es mejor no hablar en las reuniones.',
+       micro:{accion:'Incorporar un punto fijo de «temas difíciles» al final de cada reunión de equipo, con acuerdos escritos.', responsable:'Quien conduce la reunión', plazo:'6 semanas', indicador:'Reuniones con el punto usado efectivamente.'}},
+      {id:'cnv4', txt:'Las reuniones de equipo sirven para resolver, no solo para informar.',
+       micro:{accion:'Mover lo informativo a un correo previo y dejar la reunión para decidir. Toda reunión termina con acuerdos, responsables y fechas escritos.', responsable:'Quien convoca', plazo:'4 semanas', indicador:'Reuniones que terminaron con acta de acuerdos.'}},
+      {id:'cnv5', txt:'Me siento parte del equipo con el que trabajo.',
+       micro:{accion:'Incluir a asistentes de la educación y equipos de apoyo en las instancias donde hoy solo participan docentes.', responsable:'Dirección', plazo:'8 semanas', indicador:'Instancias con participación ampliada sobre el total.'}}
+    ]
+  },
+  {
+    id:'liderazgo',
+    nombre:'Liderazgo y conducción',
+    ayuda:'Cómo se toman y se explican las decisiones que afectan al equipo.',
+    items:[
+      {id:'lid1', txt:'Quien coordina mi trabajo está disponible cuando lo necesito.',
+       micro:{accion:'Publicar un horario semanal fijo de atención al equipo y sostenerlo aunque no siempre haya demanda.', responsable:'Equipo directivo', plazo:'6 semanas', indicador:'Horas de atención efectivamente disponibles sobre las comprometidas.'}},
+      {id:'lid2', txt:'Las decisiones se explican, no solo se comunican.',
+       micro:{accion:'Toda decisión que afecte al equipo se comunica en tres líneas: qué se decidió, por qué, y qué se evaluó antes de decidirlo.', responsable:'Dirección', plazo:'4 semanas', indicador:'Comunicados del período que incluyen el porqué.'}},
+      {id:'lid3', txt:'Se pide la opinión del equipo antes de decidir cosas que lo afectan.',
+       micro:{accion:'Elegir una decisión concreta del semestre y consultarla antes con el equipo, mostrando después cómo la consulta cambió (o no) la decisión.', responsable:'Dirección', plazo:'8 semanas', indicador:'Decisión consultada y devolución realizada al equipo.'}},
+      {id:'lid4', inverso:true, txt:'Las instrucciones cambian tan seguido que cuesta seguirlas.',
+       micro:{accion:'Congelar los cambios de instrucciones dentro de cada unidad de trabajo: lo que se acuerda al inicio se mantiene hasta el cierre.', responsable:'Unidad técnico-pedagógica', plazo:'6 semanas', indicador:'Cambios de instrucción dentro de una unidad ya iniciada.'}},
+      {id:'lid5', txt:'Cuando el equipo plantea un problema, algo cambia después.',
+       micro:{accion:'Llevar una lista visible de problemas planteados por el equipo con su estado: abierto, en curso o cerrado, y revisarla en cada consejo.', responsable:'Dirección', plazo:'8 semanas', indicador:'Problemas cerrados sobre problemas planteados en el período.'}}
+    ]
+  }
+];
+
+var NIVELES = [
+  {min:0,  clave:'critico',   etiqueta:'Crítico',    color:'#dc2626'},
+  {min:40, clave:'mejorar',   etiqueta:'Por mejorar', color:'#f97316'},
+  {min:60, clave:'aceptable', etiqueta:'Aceptable',  color:'#0284c7'},
+  {min:75, clave:'favorable', etiqueta:'Favorable',  color:'#16a34a'}
+];
+
+var LS_CLAVE = 'visionintegral.respuestas.v1';
+
+/* ============================== 2. CÁLCULO ==============================
+   Nada de esto toca el DOM. Recibe datos, devuelve datos.               */
+
+function dimensionPorId(id){
+  for(var i=0;i<DIMENSIONES.length;i++){ if(DIMENSIONES[i].id===id) return DIMENSIONES[i]; }
+  return null;
+}
+
+/* Los ítems inversos se dan vuelta: en «Me llevo trabajo para la casa»,
+   estar muy de acuerdo (5) es una señal mala, así que puntúa 1.          */
+function puntajeItem(valor, inverso){
+  var v = Number(valor);
+  if(!(v>=1 && v<=5)) return null;
+  return inverso ? (6 - v) : v;
+}
+
+function promedio(nums){
+  if(!nums || !nums.length) return null;
+  var s=0, n=0;
+  for(var i=0;i<nums.length;i++){ if(typeof nums[i]==='number' && !isNaN(nums[i])){ s+=nums[i]; n++; } }
+  return n ? s/n : null;
+}
+
+/* Lleva el promedio 1..5 a un índice 0..100, más fácil de comparar. */
+function aIndice(prom){
+  if(prom===null || prom===undefined) return null;
+  return ((prom - 1) / 4) * 100;
+}
+
+function nivelDe(indice){
+  if(indice===null || indice===undefined) return NIVELES[0];
+  var r = NIVELES[0];
+  for(var i=0;i<NIVELES.length;i++){ if(indice >= NIVELES[i].min) r = NIVELES[i]; }
+  return r;
+}
+
+function tasaRespuesta(n, total){
+  var t = Number(total);
+  if(!(t>0)) return null;
+  return Math.min(100, (n / t) * 100);
+}
+
+/* La regla de anonimato: por debajo del mínimo no se muestra nada
+   desagregado. Ni el detalle por ítem, ni los comentarios.              */
+function puedeMostrar(n, minimo){
+  var m = Number(minimo);
+  if(!(m>=1)) m = 5;
+  return n >= m;
+}
+
+function tabular(respuestas, dim, minimo){
+  var rs = [];
+  for(var i=0;i<respuestas.length;i++){ if(respuestas[i].dim===dim.id) rs.push(respuestas[i]); }
+
+  var porItem = dim.items.map(function(it){
+    var puntajes=[], dist=[0,0,0,0,0], crudos=[];
+    for(var i=0;i<rs.length;i++){
+      var bruto = rs[i].valores ? rs[i].valores[it.id] : null;
+      var p = puntajeItem(bruto, it.inverso);
+      if(p!==null){
+        puntajes.push(p);
+        crudos.push(Number(bruto));
+        dist[p-1] = dist[p-1] + 1;   /* la distribución se guarda ya corregida */
+      }
+    }
+    var prom = promedio(puntajes);
+    return {id:it.id, txt:it.txt, inverso:!!it.inverso, micro:it.micro,
+            n:puntajes.length, prom:prom, indice:aIndice(prom), dist:dist, crudos:crudos};
+  });
+
+  var todos = [];
+  for(var j=0;j<porItem.length;j++){
+    for(var k=0;k<porItem[j].dist.length;k++){
+      for(var c=0;c<porItem[j].dist[k];c++) todos.push(k+1);
+    }
+  }
+  var promGeneral = promedio(todos);
+
+  /* Más débil y más fuerte. Ante empate gana el que aparece primero en el
+     cuestionario: criterio declarado, no azar.                           */
+  var debil=null, fuerte=null;
+  for(var m=0;m<porItem.length;m++){
+    var it2 = porItem[m];
+    if(it2.prom===null) continue;
+    if(debil===null  || it2.prom < debil.prom)  debil  = it2;
+    if(fuerte===null || it2.prom > fuerte.prom) fuerte = it2;
+  }
+
+  var comentarios = [];
+  for(var q=0;q<rs.length;q++){
+    var c2 = (rs[q].comentario||'').trim();
+    if(c2) comentarios.push(c2);
+  }
+
+  return {
+    dim:dim, n:rs.length, porItem:porItem,
+    promGeneral:promGeneral, indice:aIndice(promGeneral), nivel:nivelDe(aIndice(promGeneral)),
+    debil:debil, fuerte:fuerte, comentarios:comentarios,
+    visible:puedeMostrar(rs.length, minimo), minimo:Number(minimo)||5
+  };
+}
+
+/* La etapa 4 no inventa la acción: la toma del ítem que salió más débil. */
+function microintervencion(res){
+  if(!res || !res.debil) return null;
+  var d = res.debil, m = d.micro || {};
+  return {
+    item:d.txt,
+    dimension:res.dim.nombre,
+    promActual:d.prom,
+    accion:m.accion || 'Definir con el equipo una acción concreta sobre este ítem.',
+    responsable:m.responsable || 'Por definir con la dirección',
+    plazo:m.plazo || '6 semanas',
+    indicador:m.indicador || 'Promedio de este ítem en la segunda medición.',
+    meta:(d.prom!==null ? Math.min(5, d.prom + 0.5) : null),
+    verificacion:'Volver a aplicar esta misma consulta, con los mismos ítems y el mismo grupo, al terminar el plazo. Si el promedio de este ítem no se movió, la acción no sirvió: se cambia, no se repite.'
+  };
+}
+
+/* CSV para Excel en español: separador ; y BOM para que respete los acentos. */
+function campoCSV(v){
+  var s = (v===null || v===undefined) ? '' : String(v);
+  if(/[";\n\r]/.test(s)) return '"' + s.replace(/"/g,'""') + '"';
+  return s;
+}
+
+function aCSV(res, meta){
+  var L = [];
+  L.push(['Visión Integral · resultados del diagnóstico'].map(campoCSV).join(';'));
+  L.push(['Dimensión', res.dim.nombre].map(campoCSV).join(';'));
+  L.push(['Grupo consultado', meta.grupo || '(sin especificar)'].map(campoCSV).join(';'));
+  L.push(['Respuestas', res.n].map(campoCSV).join(';'));
+  L.push(['Personas del grupo', meta.total || ''].map(campoCSV).join(';'));
+  L.push(['Fecha de exportación', meta.fecha || ''].map(campoCSV).join(';'));
+  L.push('');
+  if(!res.visible){
+    L.push(['Resultados no exportados: hay menos de ' + res.minimo + ' respuestas y se resguarda el anonimato.'].map(campoCSV).join(';'));
+    return L.join('\r\n');
+  }
+  L.push(['Ítem','Enunciado','Invertido','Respuestas','Promedio (1-5)','Índice (0-100)','Muy en desacuerdo','En desacuerdo','Neutro','De acuerdo','Muy de acuerdo'].map(campoCSV).join(';'));
+  for(var i=0;i<res.porItem.length;i++){
+    var it = res.porItem[i];
+    L.push([it.id, it.txt, it.inverso?'Sí':'No', it.n,
+            it.prom===null?'':it.prom.toFixed(2).replace('.',','),
+            it.indice===null?'':it.indice.toFixed(1).replace('.',','),
+            it.dist[0],it.dist[1],it.dist[2],it.dist[3],it.dist[4]].map(campoCSV).join(';'));
+  }
+  L.push('');
+  L.push(['Promedio general', res.promGeneral===null?'':res.promGeneral.toFixed(2).replace('.',',')].map(campoCSV).join(';'));
+  L.push(['Índice general', res.indice===null?'':res.indice.toFixed(1).replace('.',',')].map(campoCSV).join(';'));
+  L.push(['Nivel', res.nivel.etiqueta].map(campoCSV).join(';'));
+  L.push(['Ítem más débil', res.debil?res.debil.txt:''].map(campoCSV).join(';'));
+  if(res.comentarios.length){
+    L.push('');
+    L.push(['Comentarios voluntarios'].map(campoCSV).join(';'));
+    for(var c=0;c<res.comentarios.length;c++) L.push([res.comentarios[c]].map(campoCSV).join(';'));
+  }
+  return L.join('\r\n');
+}
+
+/* Datos de ejemplo para la feria: reproducibles, con un ítem claramente bajo
+   para que la etapa 4 tenga algo que proponer.                            */
+function respuestasEjemplo(dim, cantidad){
+  var out = [], semilla = 20260908;
+  function aleatorio(){ semilla = (semilla * 1103515245 + 12345) % 2147483648; return semilla / 2147483648; }
+  var comentarios = [
+    'Las reuniones podrían ser más cortas y con acuerdos escritos.',
+    'Se agradece cuando avisan los cambios con tiempo.',
+    'Falta claridad sobre a quién pedir los materiales.',
+    'El equipo funciona bien, el problema son los plazos.'
+  ];
+  for(var i=0;i<cantidad;i++){
+    var valores = {};
+    for(var j=0;j<dim.items.length;j++){
+      var it = dim.items[j];
+      var base = (j===1) ? 2 : (j===0 ? 4 : 3);          /* el segundo ítem sale bajo */
+      var v = base + Math.round(aleatorio()*2 - 1);
+      if(v<1) v=1; if(v>5) v=5;
+      if(it.inverso) v = 6 - v;                           /* se guarda el valor crudo */
+      valores[it.id] = v;
+    }
+    out.push({ts:Date.now()-i*60000, dim:dim.id, valores:valores,
+              comentario:(i%5===0) ? comentarios[(i/5|0) % comentarios.length] : ''});
+  }
+  return out;
+}
+
+/* ============================== 3. PRUEBAS ==============================
+   Cada afirmación de la capa de cálculo se verifica sola. Si el equipo
+   cambia un ítem o un umbral y algo se rompe, esto lo dice de inmediato. */
+
+function casiIgual(a,b,tol){ return Math.abs(a-b) < (tol===undefined?0.0001:tol); }
+
+var PRUEBAS = [
+  ['Un ítem normal puntúa tal cual', function(){
+    return puntajeItem(4,false)===4 && puntajeItem(1,false)===1;
+  }],
+  ['Un ítem invertido se da vuelta: 5 vale 1 y 1 vale 5', function(){
+    return puntajeItem(5,true)===1 && puntajeItem(1,true)===5 && puntajeItem(3,true)===3;
+  }],
+  ['Un valor fuera de la escala no se cuenta', function(){
+    return puntajeItem(0,false)===null && puntajeItem(6,false)===null && puntajeItem('x',false)===null;
+  }],
+  ['El promedio ignora los huecos', function(){
+    return casiIgual(promedio([1,2,3]),2) && promedio([])===null;
+  }],
+  ['El índice va de 0 a 100: promedio 1 es 0, promedio 3 es 50, promedio 5 es 100', function(){
+    return casiIgual(aIndice(1),0) && casiIgual(aIndice(3),50) && casiIgual(aIndice(5),100);
+  }],
+  ['Los umbrales de nivel cortan donde dicen', function(){
+    return nivelDe(39.9).clave==='critico' && nivelDe(40).clave==='mejorar' &&
+           nivelDe(59.9).clave==='mejorar' && nivelDe(60).clave==='aceptable' &&
+           nivelDe(74.9).clave==='aceptable' && nivelDe(75).clave==='favorable';
+  }],
+  ['La tasa de respuesta se calcula sobre el total del grupo', function(){
+    return casiIgual(tasaRespuesta(12,24),50) && tasaRespuesta(5,0)===null;
+  }],
+  ['Bajo el mínimo de anonimato no se muestra nada', function(){
+    return puedeMostrar(4,5)===false && puedeMostrar(5,5)===true && puedeMostrar(2,3)===false;
+  }],
+  ['La distribución de un ítem invertido queda ya corregida', function(){
+    var dim = dimensionPorId('comunicacion');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]=5; });   /* todos responden 5 crudo */
+    var res = tabular([{dim:'comunicacion',valores:v}], dim, 1);
+    var inv = res.porItem.filter(function(i){ return i.inverso; })[0];
+    var norm = res.porItem.filter(function(i){ return !i.inverso; })[0];
+    return inv.dist[0]===1 && inv.prom===1 && norm.dist[4]===1 && norm.prom===5;
+  }],
+  ['El promedio general considera todas las respuestas de todos los ítems', function(){
+    var dim = dimensionPorId('carga');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]= it.inverso ? 2 : 4; });
+    var res = tabular([{dim:'carga',valores:v},{dim:'carga',valores:v}], dim, 1);
+    return casiIgual(res.promGeneral,4) && casiIgual(res.indice,75) && res.nivel.clave==='favorable';
+  }],
+  ['Solo se tabulan las respuestas de la dimensión elegida', function(){
+    var dim = dimensionPorId('carga');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]=3; });
+    var res = tabular([{dim:'carga',valores:v},{dim:'liderazgo',valores:{lid1:5}}], dim, 1);
+    return res.n===1;
+  }],
+  ['Con empate, el ítem más débil es el que aparece primero en el cuestionario', function(){
+    var dim = dimensionPorId('convivencia');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]=3; });   /* 3 crudo puntúa 3 aunque el ítem sea invertido */
+    var res = tabular([{dim:'convivencia',valores:v}], dim, 1);
+    return res.debil.id===dim.items[0].id;
+  }],
+  ['La microintervención sale del ítem más débil, no de un texto genérico', function(){
+    var dim = dimensionPorId('liderazgo');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]= it.inverso ? 2 : 4; });
+    v['lid5'] = 1;                                        /* se hunde un ítem a propósito */
+    var res = tabular([{dim:'liderazgo',valores:v}], dim, 1);
+    var mi = microintervencion(res);
+    var esperado = dim.items.filter(function(i){ return i.id==='lid5'; })[0];
+    return res.debil.id==='lid5' && mi.accion===esperado.micro.accion && casiIgual(mi.meta,1.5);
+  }],
+  ['La meta nunca pasa de 5', function(){
+    var dim = dimensionPorId('carga');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]= it.inverso ? 1 : 5; });
+    var res = tabular([{dim:'carga',valores:v}], dim, 1);
+    return microintervencion(res).meta===5;
+  }],
+  ['Bajo el mínimo, el CSV tampoco entrega el detalle', function(){
+    var dim = dimensionPorId('comunicacion');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]=4; });
+    var res = tabular([{dim:'comunicacion',valores:v}], dim, 5);
+    var csv = aCSV(res,{grupo:'X',total:10,fecha:'hoy'});
+    return res.visible===false && csv.indexOf('Promedio (1-5)')===-1;
+  }],
+  ['Bajo el mínimo tampoco se muestran los comentarios', function(){
+    var dim = dimensionPorId('comunicacion');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]=4; });
+    var res = tabular([{dim:'comunicacion',valores:v,comentario:'algo'}], dim, 5);
+    return res.visible===false;
+  }],
+  ['El CSV escapa comillas y punto y coma', function(){
+    return campoCSV('a;b')==='"a;b"' && campoCSV('di "hola"')==='"di ""hola"""' && campoCSV('simple')==='simple';
+  }],
+  ['El CSV usa coma decimal, como Excel en español', function(){
+    var dim = dimensionPorId('carga');
+    var v = {}; dim.items.forEach(function(it){ v[it.id]= it.inverso ? 3 : 3; });
+    var rs = []; for(var i=0;i<6;i++) rs.push({dim:'carga',valores:v});
+    var csv = aCSV(tabular(rs,dim,5),{grupo:'G',total:10,fecha:'hoy'});
+    return csv.indexOf('3,00')!==-1;
+  }],
+  ['Sin respuestas, el motor no se cae', function(){
+    var res = tabular([], dimensionPorId('carga'), 5);
+    return res.n===0 && res.promGeneral===null && res.debil===null && microintervencion(res)===null;
+  }],
+  ['Las respuestas de ejemplo son válidas y de la dimensión pedida', function(){
+    var dim = dimensionPorId('reconocimiento');
+    var rs = respuestasEjemplo(dim,18);
+    if(rs.length!==18) return false;
+    for(var i=0;i<rs.length;i++){
+      if(rs[i].dim!=='reconocimiento') return false;
+      for(var j=0;j<dim.items.length;j++){
+        var v = rs[i].valores[dim.items[j].id];
+        if(!(v>=1 && v<=5)) return false;
+      }
+    }
+    return true;
+  }],
+  ['Las 5 dimensiones tienen 5 ítems y todos con microintervención', function(){
+    if(DIMENSIONES.length!==5) return false;
+    var vistos = {};
+    for(var i=0;i<DIMENSIONES.length;i++){
+      if(DIMENSIONES[i].items.length!==5) return false;
+      for(var j=0;j<5;j++){
+        var it = DIMENSIONES[i].items[j];
+        if(vistos[it.id]) return false;                    /* ids repetidos romperían el conteo */
+        vistos[it.id]=true;
+        if(!it.micro || !it.micro.accion || !it.micro.indicador) return false;
+      }
+    }
+    return true;
+  }],
+  ['Cada dimensión tiene al menos un ítem invertido', function(){
+    for(var i=0;i<DIMENSIONES.length;i++){
+      var hay=false;
+      for(var j=0;j<5;j++){ if(DIMENSIONES[i].items[j].inverso) hay=true; }
+      if(!hay) return false;
+    }
+    return true;
+  }]
+];
+
+function correrPruebas(){
+  var ok=0, fallos=[];
+  for(var i=0;i<PRUEBAS.length;i++){
+    var r=false;
+    try { r = PRUEBAS[i][1]()===true; } catch(e){ r=false; fallos.push(PRUEBAS[i][0]+' — error: '+e.message); continue; }
+    if(r) ok++; else fallos.push(PRUEBAS[i][0]);
+  }
+  return {total:PRUEBAS.length, ok:ok, fallos:fallos};
+}
+
+/* ============================== 4. INTERFAZ ============================== */
+
+function $(id){ return document.getElementById(id); }
+function ce(tag, clase){ var e=document.createElement(tag); if(clase) e.className=clase; return e; }
+function num(n, dec){ return Number(n).toLocaleString('es-CL',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+
+var estado = {respuestas:[], dimId:DIMENSIONES[0].id, grupo:'', total:24, minimo:5};
+
+function leerGuardado(){
+  try{
+    var crudo = localStorage.getItem(LS_CLAVE);
+    if(!crudo) return;
+    var d = JSON.parse(crudo);
+    if(d && Object.prototype.toString.call(d.respuestas)==='[object Array]'){
+      estado.respuestas = d.respuestas;
+      if(d.dimId && dimensionPorId(d.dimId)) estado.dimId = d.dimId;
+      if(typeof d.grupo==='string') estado.grupo = d.grupo;
+      if(d.total) estado.total = d.total;
+      if(d.minimo) estado.minimo = d.minimo;
+    }
+  }catch(e){ /* navegador sin almacenamiento: la página igual funciona, sin recordar */ }
+}
+
+function guardar(){
+  try{ localStorage.setItem(LS_CLAVE, JSON.stringify(estado)); }catch(e){}
+}
+
+/* ------------------------------ Pestañas ------------------------------ */
+function conectarTabs(tabs, alCambiar){
+  function activar(i, foco){
+    for(var k=0;k<tabs.length;k++){
+      var sel = (k===i);
+      tabs[k].setAttribute('aria-selected', sel?'true':'false');
+      tabs[k].tabIndex = sel?0:-1;
+    }
+    if(foco) tabs[i].focus();
+    alCambiar(i);
+  }
+  for(var i=0;i<tabs.length;i++){
+    (function(idx){
+      tabs[idx].addEventListener('click', function(){ activar(idx,false); });
+      tabs[idx].addEventListener('keydown', function(ev){
+        var d = ev.key==='ArrowRight'||ev.key==='ArrowDown' ? 1 :
+                ev.key==='ArrowLeft' ||ev.key==='ArrowUp'   ? -1 : 0;
+        if(d){ ev.preventDefault(); activar((idx+d+tabs.length)%tabs.length, true); }
+        else if(ev.key==='Home'){ ev.preventDefault(); activar(0,true); }
+        else if(ev.key==='End'){  ev.preventDefault(); activar(tabs.length-1,true); }
+      });
+    })(i);
+  }
+  return activar;
+}
+
+var ETAPAS = [
+  {ico:'#i-mapa', titulo:'Mapeo',
+   texto:'Recorremos cada área académica, administrativa y de convivencia de la institución para construir un mapa de procesos, equipos y recursos. De ahí sale la decisión más importante: <strong>qué dimensión se va a medir primero</strong>. Medir todo a la vez produce datos que nadie usa.'},
+  {ico:'#i-lupa', titulo:'Análisis',
+   texto:'Aplicamos una consulta <strong>anónima y autorizada</strong> sobre esa única dimensión y tabulamos los resultados ítem por ítem. No usamos evaluaciones 360°, 180° ni 90°: esas miden el desempeño de personas identificadas y requieren otro marco. Si hay menos respuestas que el mínimo definido, el análisis no se muestra.'},
+  {ico:'#i-tabla', titulo:'Acción',
+   texto:'El resultado no termina en un informe. Del ítem más bajo sale <strong>una microintervención</strong>: qué se hace, quién la lleva, en cuánto tiempo y con qué indicador se verifica. Al terminar el plazo se vuelve a aplicar la misma consulta. Si el indicador no se movió, la acción se cambia.'}
+];
+
+/* --------------------------- Etapa 1: mapeo --------------------------- */
+function llenarSelector(sel){
+  sel.textContent='';
+  for(var i=0;i<DIMENSIONES.length;i++){
+    var o = ce('option'); o.value = DIMENSIONES[i].id; o.textContent = DIMENSIONES[i].nombre;
+    sel.appendChild(o);
+  }
+}
+
+/* -------------------------- Etapa 2: consulta -------------------------- */
+function pintarItems(){
+  var dim = dimensionPorId(estado.dimId), cont = $('listaItems');
+  cont.textContent='';
+  dim.items.forEach(function(it, idx){
+    var caja = ce('div','item');
+    var fieldset = ce('fieldset');
+    fieldset.style.border='0'; fieldset.style.padding='0'; fieldset.style.margin='0';
+    var leyenda = ce('legend','item__p');
+    leyenda.style.padding='0';
+    leyenda.appendChild(document.createTextNode((idx+1)+'. '+it.txt));
+    if(it.inverso){
+      var chip = ce('span','chip chip--debil');
+      chip.textContent='enunciado invertido';
+      chip.title='En este ítem, estar de acuerdo es una señal negativa. El motor da vuelta el puntaje para que todos los ítems apunten en la misma dirección.';
+      leyenda.appendChild(chip);
+    }
+    fieldset.appendChild(leyenda);
+    var escala = ce('div','escala');
+    ESCALA.forEach(function(e){
+      var lab = ce('label','op');
+      var inp = ce('input'); inp.type='radio'; inp.name=it.id; inp.value=String(e.v);
+      var sp = ce('span');
+      var b = ce('b'); b.textContent=String(e.v);
+      sp.appendChild(b);
+      sp.appendChild(document.createTextNode(e.txt.replace(/<br>/g,' ')));
+      lab.appendChild(inp); lab.appendChild(sp);
+      escala.appendChild(lab);
+    });
+    fieldset.appendChild(escala);
+    caja.appendChild(fieldset);
+    cont.appendChild(caja);
+  });
+  var dimN = dimensionPorId(estado.dimId);
+  $('consultaIntro').textContent = 'Cinco afirmaciones sobre ' + dimN.nombre.toLowerCase() +
+    '. Marca cuánto estás de acuerdo con cada una, pensando en las últimas semanas. Toma menos de dos minutos.';
+  actualizarContador();
+}
+
+function actualizarContador(){
+  var n=0;
+  for(var i=0;i<estado.respuestas.length;i++){ if(estado.respuestas[i].dim===estado.dimId) n++; }
+  $('contadorRespuestas').textContent = String(n);
+  return n;
+}
+
+function avisoConsulta(texto){
+  var p = $('avisoConsulta');
+  if(!texto){ p.classList.add('oculto'); return; }
+  p.querySelector('span').textContent = texto;
+  p.classList.remove('oculto');
+}
+
+/* -------------------------- Etapa 3: análisis -------------------------- */
+function bloqueCandado(n, minimo){
+  var d = ce('div','candado');
+  var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('width','40'); svg.setAttribute('height','40'); svg.setAttribute('aria-hidden','true');
+  svg.style.margin='0 auto'; svg.style.color='#0284c7';
+  var use = document.createElementNS('http://www.w3.org/2000/svg','use');
+  use.setAttribute('href','#i-candado'); svg.appendChild(use);
+  d.appendChild(svg);
+  var h = ce('h3'); h.textContent = 'Resultados bloqueados para proteger el anonimato';
+  d.appendChild(h);
+  var p = ce('p');
+  p.textContent = 'Hay ' + n + (n===1?' respuesta':' respuestas') + ' y el mínimo definido es ' + minimo +
+    '. Con tan pocas respuestas, mostrar el detalle por ítem permitiría deducir quién contestó qué. ' +
+    'Faltan ' + Math.max(0, minimo-n) + ' para poder ver el análisis.';
+  d.appendChild(p);
+  var p2 = ce('p'); p2.style.marginTop='.8rem'; p2.style.fontWeight='600';
+  p2.textContent = 'Este bloqueo es parte del instrumento, no una falla. Se puede ajustar el mínimo en la etapa de mapeo, pero bajarlo tiene un costo: menos anonimato.';
+  d.appendChild(p2);
+  return d;
+}
+
+function tarjetaMetrica(rotulo, valor, detalle, color){
+  var d = ce('div','metrica');
+  if(color) d.style.borderTopColor = color;
+  var s = ce('span'); s.textContent = rotulo; d.appendChild(s);
+  var b = ce('b'); b.textContent = valor; if(color) b.style.color = color; d.appendChild(b);
+  var sm = ce('small'); sm.textContent = detalle; d.appendChild(sm);
+  return d;
+}
+
+function filaItem(it, res){
+  var f = ce('div','fila-item');
+  if(res.debil && it.id===res.debil.id) f.className += ' fila-item--debil';
+
+  var cab = ce('div','fila-item__cab');
+  var p = ce('p'); p.textContent = it.txt;
+  if(it.inverso){ var c0=ce('span','chip'); c0.style.background='#ede9fe'; c0.style.color='#6d28d9'; c0.textContent='invertido'; p.appendChild(c0); }
+  if(res.debil && it.id===res.debil.id){ var c1=ce('span','chip chip--debil'); c1.textContent='más bajo'; p.appendChild(c1); }
+  else if(res.fuerte && it.id===res.fuerte.id){ var c2=ce('span','chip chip--fuerte'); c2.textContent='más alto'; p.appendChild(c2); }
+  cab.appendChild(p);
+  var prom = ce('span','fila-item__prom');
+  prom.textContent = it.prom===null ? '—' : num(it.prom,2);
+  prom.style.color = nivelDe(it.indice).color;
+  cab.appendChild(prom);
+  f.appendChild(cab);
+
+  var barra = ce('div','barra-dist');
+  barra.setAttribute('role','img');
+  var partes = [];
+  for(var k=0;k<5;k++){
+    var pct = it.n ? (it.dist[k]/it.n)*100 : 0;
+    var i2 = ce('i'); i2.style.width = pct + '%'; i2.style.background = COLORES_DIST[k];
+    barra.appendChild(i2);
+    partes.push(it.dist[k] + ' en ' + (k+1));
+  }
+  barra.setAttribute('aria-label','Distribución: ' + partes.join(', ') + '.');
+  f.appendChild(barra);
+  return f;
+}
+
+function pintarAnalisis(){
+  var zona = $('zonaAnalisis'); zona.textContent='';
+  var dim = dimensionPorId(estado.dimId);
+  var res = tabular(estado.respuestas, dim, estado.minimo);
+
+  var enc = ce('p'); enc.className='dato'; enc.style.marginBottom='1.2rem';
+  enc.textContent = dim.nombre + (estado.grupo ? ' · ' + estado.grupo : '');
+  zona.appendChild(enc);
+
+  if(res.n===0){
+    var vacio = ce('div','nota nota--info');
+    var pv = ce('p'); pv.style.margin='0';
+    pv.textContent = 'Todavía no hay respuestas para esta dimensión. Registra al menos una en la etapa 2, o carga las respuestas de ejemplo con el botón de más abajo para ver cómo se comporta el instrumento.';
+    vacio.appendChild(pv); zona.appendChild(vacio);
+    return res;
+  }
+  if(!res.visible){ zona.appendChild(bloqueCandado(res.n, res.minimo)); return res; }
+
+  var tasa = tasaRespuesta(res.n, estado.total);
+  var resumen = ce('div','resumen');
+  resumen.appendChild(tarjetaMetrica('Respuestas', String(res.n),
+    tasa===null ? 'Sin total de grupo declarado' : num(tasa,0) + '% del grupo (' + estado.total + ' personas)', '#7c3aed'));
+  resumen.appendChild(tarjetaMetrica('Índice de clima', num(res.indice,0) + '/100',
+    'Promedio ' + num(res.promGeneral,2) + ' de 5', res.nivel.color));
+  resumen.appendChild(tarjetaMetrica('Nivel', res.nivel.etiqueta,
+    res.nivel.clave==='critico'    ? 'Requiere intervención inmediata' :
+    res.nivel.clave==='mejorar'    ? 'Hay una brecha que atender' :
+    res.nivel.clave==='aceptable'  ? 'Se sostiene, pero es mejorable' :
+                                     'Buen resultado: conviene sostenerlo', res.nivel.color));
+  zona.appendChild(resumen);
+
+  if(tasa!==null && tasa < 50){
+    var av = ce('div','nota nota--alerta');
+    var sv = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    sv.setAttribute('width','19'); sv.setAttribute('height','19'); sv.setAttribute('aria-hidden','true');
+    var uv = document.createElementNS('http://www.w3.org/2000/svg','use'); uv.setAttribute('href','#i-alerta'); sv.appendChild(uv);
+    av.appendChild(sv);
+    var pav = ce('p'); pav.style.margin='0';
+    pav.textContent = 'Respondió menos de la mitad del grupo (' + num(tasa,0) + '%). Con esa participación, el resultado describe a quienes contestaron, no al grupo completo. Conviene decirlo así en el informe en vez de generalizar.';
+    av.appendChild(pav); zona.appendChild(av);
+  }
+
+  var h = ce('h4'); h.style.margin='1.8rem 0 .9rem'; h.style.fontSize='1rem';
+  h.textContent = 'Resultado ítem por ítem';
+  zona.appendChild(h);
+  for(var i=0;i<res.porItem.length;i++) zona.appendChild(filaItem(res.porItem[i], res));
+
+  var ley = ce('div','leyenda-dist');
+  var etiquetas = ['1 Muy en desacuerdo','2 En desacuerdo','3 Neutro','4 De acuerdo','5 Muy de acuerdo'];
+  for(var k=0;k<5;k++){
+    var s2 = ce('span');
+    var pt = ce('i','punto'); pt.style.background = COLORES_DIST[k];
+    s2.appendChild(pt); s2.appendChild(document.createTextNode(etiquetas[k]));
+    ley.appendChild(s2);
+  }
+  zona.appendChild(ley);
+
+  var nota = ce('p'); nota.className='nota-fina'; nota.style.marginTop='1rem';
+  nota.textContent = 'Los ítems invertidos ya están dados vuelta: en todos, más alto es mejor. El empate en el ítem más bajo se resuelve por orden de aparición en el cuestionario.';
+  zona.appendChild(nota);
+
+  if(res.comentarios.length){
+    var hc = ce('h4'); hc.style.margin='1.8rem 0 .7rem'; hc.style.fontSize='1rem';
+    hc.textContent = 'Comentarios voluntarios (' + res.comentarios.length + ')';
+    zona.appendChild(hc);
+    var ul = ce('ul'); ul.style.margin='0'; ul.style.paddingLeft='1.1rem'; ul.style.fontSize='.92rem'; ul.style.color='var(--tinta-2)';
+    for(var c=0;c<res.comentarios.length;c++){
+      var li = ce('li'); li.style.marginBottom='.4rem';
+      li.textContent = res.comentarios[c];        /* textContent: nunca innerHTML con texto de terceros */
+      ul.appendChild(li);
+    }
+    zona.appendChild(ul);
+  }
+  return res;
+}
+
+/* --------------------------- Etapa 4: acción --------------------------- */
+function campoFicha(rotulo, texto){
+  var d = ce('div','ficha__campo');
+  var s = ce('span'); s.textContent = rotulo; d.appendChild(s);
+  var p = ce('p'); p.style.margin='0'; p.style.fontSize='.93rem'; p.textContent = texto;
+  d.appendChild(p);
+  return d;
+}
+
+function pintarAccion(){
+  var zona = $('zonaAccion'); zona.textContent='';
+  var dim = dimensionPorId(estado.dimId);
+  var res = tabular(estado.respuestas, dim, estado.minimo);
+
+  if(res.n===0 || !res.visible){
+    var n = ce('div','nota nota--info');
+    var p = ce('p'); p.style.margin='0';
+    p.textContent = res.n===0
+      ? 'La microintervención se propone sola en cuanto haya resultados: sale del ítem que salga más bajo. Registra respuestas o carga el ejemplo.'
+      : 'Con menos de ' + res.minimo + ' respuestas no se muestra qué ítem salió más bajo, porque eso también permitiría deducir quién respondió qué.';
+    n.appendChild(p); zona.appendChild(n);
+    return;
+  }
+
+  var mi = microintervencion(res);
+  var ficha = ce('div','ficha');
+  var h = ce('h3'); h.textContent = 'Ficha de microintervención'; ficha.appendChild(h);
+  var sub = ce('p'); sub.className='dato'; sub.style.marginBottom='1.3rem';
+  sub.textContent = dim.nombre + (estado.grupo ? ' · ' + estado.grupo : '') + ' · ' + res.n + ' respuestas';
+  ficha.appendChild(sub);
+
+  ficha.appendChild(campoFicha('Ítem con el promedio más bajo', mi.item));
+  ficha.appendChild(campoFicha('Situación actual', 'Promedio ' + num(mi.promActual,2) + ' de 5 (índice ' +
+    num(aIndice(mi.promActual),0) + '/100, nivel ' + nivelDe(aIndice(mi.promActual)).etiqueta.toLowerCase() + ').'));
+  ficha.appendChild(campoFicha('Acción propuesta', mi.accion));
+  ficha.appendChild(campoFicha('Responsable', mi.responsable));
+  ficha.appendChild(campoFicha('Plazo', mi.plazo));
+  ficha.appendChild(campoFicha('Indicador de verificación', mi.indicador));
+  ficha.appendChild(campoFicha('Meta para la segunda medición', 'Llevar este ítem de ' + num(mi.promActual,2) +
+    ' a ' + num(mi.meta,2) + ' o más. Media décima es una meta realista para seis semanas; prometer más es difícil de sostener.'));
+  ficha.appendChild(campoFicha('Cómo se comprueba', mi.verificacion));
+
+  var pie = ce('p'); pie.className='nota-fina'; pie.style.marginTop='1.2rem';
+  pie.textContent = 'Una sola acción por vez. Es la diferencia entre un plan que se cumple y una lista de buenas intenciones.';
+  ficha.appendChild(pie);
+  zona.appendChild(ficha);
+
+  var acc = ce('div','acciones'); acc.className='acciones no-imprimir'; acc.style.marginTop='1.3rem';
+  var bi = ce('button','btn btn--suave btn--sm'); bi.type='button';
+  bi.textContent = 'Imprimir o guardar la ficha en PDF';
+  bi.addEventListener('click', function(){ window.print(); });
+  acc.appendChild(bi);
+  zona.appendChild(acc);
+}
+
+/* ---------------------------- 5. CONEXIONES ---------------------------- */
+
+function descargar(nombre, contenido, tipo){
+  try{
+    var blob = new Blob([contenido], {type: tipo || 'text/plain;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = ce('a'); a.href = url; a.download = nombre;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    return true;
+  }catch(e){ return false; }
+}
+
+function mostrarAviso(elemento, tipo, texto){
+  if(!texto){ elemento.classList.add('oculto'); return; }
+  elemento.className = 'nota nota--' + tipo;
+  var svg = elemento.querySelector('use');
+  if(svg) svg.setAttribute('href', tipo==='ok' ? '#i-check' : '#i-alerta');
+  elemento.querySelector('span').textContent = texto;
+  elemento.classList.remove('oculto');
+}
+
+function iniciar(){
+
+  /* ---- menú móvil ---- */
+  var btnMenu = $('btnMenu'), nav = $('navPrincipal');
+  btnMenu.addEventListener('click', function(){
+    var abierto = nav.classList.toggle('abierto');
+    btnMenu.setAttribute('aria-expanded', abierto ? 'true':'false');
+  });
+  nav.addEventListener('click', function(ev){
+    if(ev.target.tagName==='A'){ nav.classList.remove('abierto'); btnMenu.setAttribute('aria-expanded','false'); }
+  });
+
+  /* ---- pestañas de la metodología ---- */
+  var etapasTabs = [$('et-1'),$('et-2'),$('et-3')];
+  conectarTabs(etapasTabs, function(i){
+    var e = ETAPAS[i];
+    $('panIco').querySelector('use').setAttribute('href', e.ico);
+    $('panPaso').textContent = 'Etapa ' + (i+1) + ' de 3';
+    $('panTitulo').textContent = e.titulo;
+    $('panTexto').innerHTML = e.texto;                 /* texto fijo del propio sitio */
+    $('pan-etapa').setAttribute('aria-labelledby', etapasTabs[i].id);
+  });
+
+  /* ---- estado guardado ---- */
+  leerGuardado();
+
+  /* ---- etapa 1: mapeo ---- */
+  var sel = $('selDimension');
+  llenarSelector(sel);
+  llenarSelector($('cDimension'));
+  sel.value = estado.dimId;
+  $('cDimension').value = estado.dimId;
+  $('grupo').value = estado.grupo;
+  $('totalGrupo').value = estado.total;
+  $('minimoAnonimato').value = estado.minimo;
+
+  function ayuda(){ $('ayudaDimension').textContent = dimensionPorId(sel.value).ayuda; }
+  ayuda();
+
+  sel.addEventListener('change', function(){
+    estado.dimId = sel.value; ayuda(); guardar();
+    pintarItems(); avisoConsulta(''); refrescarPanelActivo();
+  });
+  $('grupo').addEventListener('input', function(){ estado.grupo = this.value.trim(); guardar(); });
+  $('totalGrupo').addEventListener('input', function(){
+    var v = parseInt(this.value,10); estado.total = (v>0? v : 0); guardar(); refrescarPanelActivo();
+  });
+  $('minimoAnonimato').addEventListener('input', function(){
+    var v = parseInt(this.value,10); estado.minimo = (v>=1? v : 5); guardar(); refrescarPanelActivo();
+  });
+
+  /* ---- pestañas del instrumento ---- */
+  var pasoTabs = [$('p-mapeo'),$('p-consulta'),$('p-analisis'),$('p-accion')];
+  var paneles  = [$('panel-mapeo'),$('panel-consulta'),$('panel-analisis'),$('panel-accion')];
+  for(var i=0;i<paneles.length;i++){ paneles[i].style.display=''; paneles[i].classList.add('oculto'); }
+  var panelActivo = 0;
+
+  function refrescarPanelActivo(){
+    if(panelActivo===2) pintarAnalisis();
+    if(panelActivo===3) pintarAccion();
+    actualizarContador();
+  }
+
+  var irA = conectarTabs(pasoTabs, function(i){
+    panelActivo = i;
+    for(var k=0;k<paneles.length;k++) paneles[k].classList.toggle('oculto', k!==i);
+    if(i===2) pintarAnalisis();
+    if(i===3) pintarAccion();
+    if(i===1) actualizarContador();
+  });
+
+  function saltarA(i){
+    irA(i,false);
+    var s = $('instrumento');
+    if(s && s.scrollIntoView) s.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  irA(0, false);   /* deja el paso 1 visible al cargar */
+
+  $('btnIrConsulta').addEventListener('click', function(){ saltarA(1); });
+  $('btnIrAnalisis').addEventListener('click', function(){ saltarA(2); });
+
+  /* ---- etapa 2: consulta ---- */
+  pintarItems();
+
+  $('formConsulta').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var dim = dimensionPorId(estado.dimId), valores = {}, faltan = [];
+    for(var j=0;j<dim.items.length;j++){
+      var it = dim.items[j];
+      var marcado = this.querySelector('input[name="'+it.id+'"]:checked');
+      if(marcado) valores[it.id] = parseInt(marcado.value,10);
+      else faltan.push(j+1);
+    }
+    if(faltan.length){
+      mostrarAviso($('avisoConsulta'),'stop',
+        faltan.length===1
+          ? 'Falta responder el ítem ' + faltan[0] + '. Todos los ítems son necesarios para que el promedio sea comparable.'
+          : 'Faltan por responder los ítems ' + faltan.join(', ') + '. Todos son necesarios para que el promedio sea comparable.');
+      var primero = this.querySelector('input[name="'+dim.items[faltan[0]-1].id+'"]');
+      if(primero) primero.focus();
+      return;
+    }
+    estado.respuestas.push({
+      ts: Date.now(), dim: estado.dimId, valores: valores,
+      comentario: $('comentario').value.trim().slice(0,600)
+    });
+    guardar();
+    this.reset();
+    var n = actualizarContador();
+    mostrarAviso($('avisoConsulta'),'ok',
+      'Respuesta registrada de forma anónima. Van ' + n + (n===1?' respuesta':' respuestas') +
+      ' para esta dimensión' + (n < estado.minimo ? '; faltan ' + (estado.minimo-n) + ' para poder ver el análisis.' : '.'));
+    if(panelActivo===2) pintarAnalisis();
+    if(panelActivo===3) pintarAccion();
+  });
+
+  $('btnLimpiarRespuesta').addEventListener('click', function(){
+    $('formConsulta').reset(); avisoConsulta('');
+  });
+
+  /* ---- herramientas ---- */
+  $('btnEjemplo').addEventListener('click', function(){
+    var dim = dimensionPorId(estado.dimId);
+    estado.respuestas = estado.respuestas.filter(function(r){ return r.dim!==dim.id; })
+                        .concat(respuestasEjemplo(dim, 18));
+    if(!estado.grupo){ estado.grupo = 'Equipo docente (ejemplo)'; $('grupo').value = estado.grupo; }
+    guardar(); actualizarContador(); saltarA(2);
+  });
+
+  $('btnCsv').addEventListener('click', function(){
+    var dim = dimensionPorId(estado.dimId);
+    var res = tabular(estado.respuestas, dim, estado.minimo);
+    var csv = aCSV(res, {grupo:estado.grupo, total:estado.total,
+                         fecha:new Date().toLocaleString('es-CL')});
+    var nombre = 'vision-integral-' + dim.id + '-' + new Date().toISOString().slice(0,10) + '.csv';
+    if(!descargar(nombre, '\uFEFF' + csv, 'text/csv;charset=utf-8')){
+      window.alert('Este navegador no permitió la descarga. Prueba abriendo la página desde un servidor o desde el sitio publicado.');
+    }
+  });
+
+  $('btnBorrar').addEventListener('click', function(){
+    var dim = dimensionPorId(estado.dimId);
+    var n = estado.respuestas.filter(function(r){ return r.dim===dim.id; }).length;
+    if(n===0){ window.alert('No hay respuestas guardadas para ' + dim.nombre + '.'); return; }
+    if(!window.confirm('Se van a borrar las ' + n + ' respuestas de «' + dim.nombre + '». Esto no se puede deshacer. ¿Continuar?')) return;
+    estado.respuestas = estado.respuestas.filter(function(r){ return r.dim!==dim.id; });
+    guardar(); actualizarContador(); refrescarPanelActivo();
+  });
+
+  $('btnPruebas').addEventListener('click', function(){ mostrarPruebas(); });
+
+  /* ---- formulario de contacto ---- */
+  var fc = $('formContacto'), av = $('avisoContacto');
+  var esArchivo = (location.protocol === 'file:');
+
+  fc.addEventListener('submit', function(ev){
+    if(esArchivo){
+      ev.preventDefault();
+      if(!fc.reportValidity()) return;
+      mostrarAviso(av,'alerta','Esta copia del archivo se está viendo desde el computador, no desde un sitio publicado, así que el envío a Netlify no está disponible. Los datos se descargaron como archivo para que no se pierdan.');
+      descargarSolicitud();
+      return;
+    }
+    /* En el sitio publicado en Netlify el envío sigue su curso normal. */
+    mostrarAviso(av,'ok','Enviando la solicitud…');
+  });
+
+  function descargarSolicitud(){
+    var campos = [
+      ['Nombre', $('cNombre').value], ['Cargo', $('cCargo').value],
+      ['Establecimiento', $('cEstab').value], ['Correo', $('cCorreo').value],
+      ['Dimensión de interés', $('cDimension').options[$('cDimension').selectedIndex] ? $('cDimension').options[$('cDimension').selectedIndex].text : ''],
+      ['Autorización declarada', $('cAutorizacion').checked ? 'Sí' : 'No'],
+      ['Mensaje', $('cMensaje').value]
+    ];
+    var txt = 'VISIÓN INTEGRAL · solicitud de aplicación piloto\r\n' +
+              'Generada el ' + new Date().toLocaleString('es-CL') + '\r\n\r\n';
+    for(var i=0;i<campos.length;i++) txt += campos[i][0] + ': ' + (campos[i][1] || '(sin completar)') + '\r\n';
+    txt += '\r\nEsta solicitud se generó en el navegador. No se envió a ningún servidor.\r\n';
+    descargar('solicitud-vision-integral.txt', txt);
+  }
+
+  $('btnDescargarSolicitud').addEventListener('click', function(){
+    if(!fc.reportValidity()) return;
+    descargarSolicitud();
+    mostrarAviso(av,'ok','Solicitud descargada como archivo de texto. Se puede adjuntar a un correo.');
+  });
+
+  /* ---- pruebas ---- */
+  function mostrarPruebas(){
+    var r = correrPruebas(), caja = $('salidaPruebas');
+    caja.className = 'nota nota--' + (r.fallos.length ? 'stop' : 'ok');
+    caja.classList.remove('oculto');
+    var s = caja.querySelector('span');
+    s.textContent = '';
+    var t = ce('b');
+    t.textContent = r.fallos.length
+      ? r.ok + ' de ' + r.total + ' verificaciones pasaron. Hay ' + r.fallos.length + ' con problemas:'
+      : 'Las ' + r.total + ' verificaciones del motor de cálculo pasaron.';
+    s.appendChild(t);
+    if(r.fallos.length){
+      var ul = ce('ul'); ul.style.margin='.5rem 0 0'; ul.style.paddingLeft='1.1rem';
+      for(var i=0;i<r.fallos.length;i++){ var li=ce('li'); li.textContent=r.fallos[i]; ul.appendChild(li); }
+      s.appendChild(ul);
+    } else {
+      var p = ce('span');
+      p.textContent = ' Incluye el puntaje invertido, los umbrales de nivel, el bloqueo por anonimato, la elección del ítem más bajo y el formato del CSV.';
+      s.appendChild(p);
+    }
+    return r;
+  }
+
+  /* Permite verificar el motor sin hacer clic: VisionIntegral.html?pruebas=1 */
+  if(/[?&]pruebas=1/.test(location.search)){
+    var r = mostrarPruebas();
+    $('salidaPruebas').scrollIntoView({block:'center'});
+    window.RESULTADO_PRUEBAS = r;
+  }
+
+  actualizarContador();
+}
+
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', iniciar);
+else iniciar();
+
+})();
+</script>
+
+</body>
+</html>
