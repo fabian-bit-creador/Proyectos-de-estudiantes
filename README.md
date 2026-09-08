@@ -14,6 +14,7 @@ que lo acompaña.
 | [Recluta Smart](recluta-smart/) | IV°A · Administración, mención RR.HH. | — | Reclutamiento y selección docente. Evaluador por competencias basado en el MBE 2021, comparador, pauta de entrevista y revisor de avisos discriminatorios. |
 | [Kipu](kipu/) | III°A · Administración | — | Contabilidad para PYME. Se quitó el login que guardaba claves en texto plano, se eliminaron las dependencias de CDN y se agregó el libro de caja con arqueo. |
 | [Expro](expro/) | III°A · Administración | — | Gestión para microempresas, caso «La Esquina». Se corrigió la inyección de HTML en las tablas, se agregó guardado real y el punto de equilibrio que la página prometía. |
+| [GLM](glm/) | III°A y IV°A · Administración | Equipo GLM 2026 (12 integrantes) | Sitio del equipo de Gestión, Logística y Marketing de la Feria. Logo en SVG, carruseles, espacios para 33 fotos, cronograma, mapa del colegio y directorio de proyectos. |
 
 ## Cómo se organiza cada carpeta
 

@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLM · Feria Técnico Profesional 2026</title>
+<meta name="description" content="Equipo de Gestión, Logística y Marketing de la Feria Técnico Profesional 2026. Colegio Cardenal José María Caro, Fundación Belén Educa. 8 de octubre de 2026.">
+<meta name="author" content="Equipo GLM 2026">
+<meta name="theme-color" content="#1B3D9B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GLM · Feria Técnico Profesional 2026">
+<meta property="og:description" content="Gestión, Logística y Marketing. Acompaña, observa, registra, alerta y apoya. 8 de octubre de 2026.">
+<meta property="og:locale" content="es_CL">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23fff'/%3E%3Ctext x='4' y='28' font-family='Georgia,serif' font-size='19' font-weight='700' fill='%23FF6B00'%3EG%3C/text%3E%3Ctext x='15' y='28' font-family='Georgia,serif' font-size='19' font-weight='700' fill='%239A5FC7'%3EL%3C/text%3E%3Ctext x='25' y='28' font-family='Georgia,serif' font-size='19' font-weight='700' fill='%236DBE45'%3EM%3C/text%3E%3Crect x='4' y='31' width='32' height='3' fill='%231B3D9B'/%3E%3C/svg%3E">
+
+<style>
+/* ==========================================================================
+   GLM · Feria TP 2026
+   Sitio autocontenido: sin CDN, sin tipografías externas, sin librerías.
+   Funciona con el computador desconectado, que es la condición del día de
+   la Feria. Los colores salen del logo del equipo.
+   ========================================================================== */
+:root{
+  /* Identidad GLM: un color por área, tal como en el logo */
+  --gestion:#FF6B00;      /* G naranja */
+  --logistica:#9A5FC7;    /* L morada */
+  --marketing:#6DBE45;    /* M verde */
+  --azul:#1B3D9B;         /* azul institucional del logo */
+  --azul-osc:#132C6F;
+  --azul-tenue:#EEF2FC;
+
+  --tinta:#111C33;
+  --tinta-2:#42506B;
+  --tinta-3:#697894;
+  --papel:#FFFFFF;
+  --papel-2:#F6F8FC;
+  --linea:#E1E7F2;
+  --linea-2:#C6D1E6;
+
+  --r-sm:10px; --r:16px; --r-lg:24px;
+  --sombra:0 1px 2px rgba(17,28,51,.05), 0 10px 30px -12px rgba(17,28,51,.18);
+  --sombra-alta:0 2px 6px rgba(17,28,51,.08), 0 30px 60px -24px rgba(27,61,155,.35);
+
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:ui-serif,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem;}
+body{margin:0;font-family:var(--sans);font-size:16.5px;line-height:1.6;color:var(--tinta);background:var(--papel);-webkit-text-size-adjust:100%;}
+h1,h2,h3,h4{margin:0;line-height:1.14;letter-spacing:-.025em;font-weight:800;}
+p{margin:0 0 .85rem;} p:last-child{margin-bottom:0;}
+a{color:var(--azul);}
+img,svg{max-width:100%;display:block;}
+.num{font-variant-numeric:tabular-nums;}
+:where(a,button,input,select,summary,[tabindex]):focus-visible{outline:3px solid var(--azul);outline-offset:3px;border-radius:6px;}
+.saltar{position:absolute;left:-9999px;top:0;z-index:200;background:var(--azul);color:#fff;padding:.85rem 1.4rem;font-weight:700;border-radius:0 0 12px 0;}
+.saltar:focus{left:0;}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 1.4rem;}
+.estrecho{max-width:70ch;}
+.oculto{display:none !important;}
+
+/* Eyebrow en versalitas, como el logo */
+.eyebrow{
+  font-family:var(--serif);font-size:.82rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--azul);display:inline-block;margin-bottom:.7rem;
+}
+.eyebrow--claro{color:#9FC0FF;}
+.dato{font-family:var(--mono);font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-3);}
+
+.seccion{padding:4.5rem 0;}
+.seccion--gris{background:var(--papel-2);}
+.seccion--azul{background:var(--azul);color:#fff;}
+.seccion--azul h2,.seccion--azul h3{color:#fff;}
+.cab{max-width:64ch;margin-bottom:2.5rem;}
+.cab h2{font-size:clamp(1.75rem,4vw,2.6rem);margin-bottom:.7rem;}
+.cab p{color:var(--tinta-2);font-size:1.04rem;}
+.seccion--azul .cab p{color:#C3D4F5;}
+
+/* ============================== Barra ============================== */
+.barra{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.93);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--linea);}
+.barra__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0;}
+.nav{display:flex;gap:.1rem;align-items:center;}
+.nav a{padding:.5rem .8rem;border-radius:999px;text-decoration:none;font-size:.87rem;font-weight:650;color:var(--tinta-2);white-space:nowrap;}
+.nav a:hover{background:var(--azul-tenue);color:var(--azul);}
+.btn-menu{display:none;background:var(--azul-tenue);border:1px solid var(--linea-2);color:var(--azul);
+          font:inherit;font-weight:700;font-size:.86rem;padding:.5rem .85rem;border-radius:10px;cursor:pointer;}
+@media (max-width:1000px){
+  .btn-menu{display:block;}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;
+       background:#fff;border-bottom:1px solid var(--linea);padding:.5rem 1.4rem 1rem;box-shadow:var(--sombra);}
+  .nav.abierto{display:flex;}
+  .nav a{border-radius:10px;padding:.8rem 1rem;}
+}
+
+/* ============================== Botones ============================== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:inherit;font-weight:700;font-size:.94rem;
+     padding:.78rem 1.4rem;border-radius:999px;border:2px solid transparent;cursor:pointer;text-decoration:none;
+     transition:transform .15s ease,background-color .15s ease,color .15s ease;}
+.btn:hover{transform:translateY(-1px);}
+.btn--azul{background:var(--azul);color:#fff;}
+.btn--azul:hover{background:var(--azul-osc);}
+.btn--blanco{background:#fff;color:var(--azul);}
+.btn--linea{background:transparent;border-color:currentColor;color:inherit;}
+.btn--sm{font-size:.84rem;padding:.5rem .95rem;}
+
+/* ================================ Hero ================================ */
+.hero{position:relative;overflow:hidden;background:
+  radial-gradient(1100px 520px at 12% -10%, rgba(255,107,0,.10), transparent 60%),
+  radial-gradient(900px 460px at 88% 0%, rgba(109,190,69,.12), transparent 60%),
+  radial-gradient(700px 420px at 60% 100%, rgba(154,95,199,.10), transparent 60%),
+  #fff;}
+.hero__grid{display:grid;gap:2.5rem;align-items:center;padding:3rem 0 3.5rem;}
+@media (min-width:960px){.hero__grid{grid-template-columns:1.05fr .95fr;padding:4rem 0 4.5rem;}}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.5rem);margin-bottom:1rem;}
+.hero h1 .lin{display:block;}
+.hero__lema{font-family:var(--serif);font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--azul);font-weight:600;margin-bottom:1.2rem;}
+.hero p.sub{color:var(--tinta-2);font-size:1.06rem;max-width:52ch;margin-bottom:1.8rem;}
+.hero__acciones{display:flex;flex-wrap:wrap;gap:.7rem;}
+
+/* Cuenta regresiva */
+.cuenta{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:2rem;}
+.cuenta div{background:#fff;border:1px solid var(--linea);border-radius:var(--r-sm);padding:.6rem .9rem;min-width:4.6rem;text-align:center;box-shadow:var(--sombra);}
+.cuenta b{display:block;font-size:1.6rem;font-weight:800;color:var(--azul);line-height:1;font-variant-numeric:tabular-nums;}
+.cuenta span{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-3);margin-top:.25rem;}
+
+/* ============================== Logo SVG ============================== */
+.logo-grande{width:100%;max-width:520px;margin:0 auto;filter:drop-shadow(0 18px 40px rgba(27,61,155,.18));}
+.logo-barra{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:inherit;}
+.logo-mini{width:92px;flex-shrink:0;}
+.logo-barra small{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-3);}
+@media (max-width:600px){.logo-barra small{display:none;}}
+
+/* ============================== Tarjetas ============================== */
+.rejilla{display:grid;gap:1.2rem;grid-template-columns:1fr;}
+@media (min-width:700px){.rejilla--2{grid-template-columns:repeat(2,1fr);} .rejilla--3{grid-template-columns:repeat(3,1fr);}}
+@media (min-width:900px){.rejilla--4{grid-template-columns:repeat(4,1fr);}}
+.tarjeta{background:#fff;border:1px solid var(--linea);border-radius:var(--r);padding:1.5rem;box-shadow:var(--sombra);}
+.tarjeta h3{font-size:1.12rem;margin-bottom:.45rem;}
+.tarjeta p{font-size:.93rem;color:var(--tinta-2);}
+
+/* Tarjeta de área, con el color del logo */
+.area{position:relative;overflow:hidden;border-radius:var(--r-lg);padding:2rem 1.6rem 1.7rem;color:#fff;box-shadow:var(--sombra-alta);}
+.area--g{background:linear-gradient(150deg,#FF8A2B,#E85D00);}
+.area--l{background:linear-gradient(150deg,#AC7AD6,#7E45AE);}
+.area--m{background:linear-gradient(150deg,#84D05F,#4FA430);}
+.area__letra{font-family:var(--serif);font-size:5.5rem;font-weight:800;line-height:.8;opacity:.28;position:absolute;right:1rem;top:.6rem;}
+.area h3{font-size:1.45rem;color:#fff;margin-bottom:.5rem;}
+.area p{font-size:.93rem;color:rgba(255,255,255,.92);margin-bottom:1rem;}
+.area ul{margin:0;padding-left:1.1rem;font-size:.88rem;color:rgba(255,255,255,.94);line-height:1.65;}
+.area__lider{display:flex;align-items:center;gap:.6rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.28);font-size:.85rem;}
+
+/* ============================== Fotos ============================== */
+/* Cada foto es un hueco: si el archivo no existe, se ve un marco con las
+   iniciales en vez de un icono roto. Basta poner el .jpg en la carpeta. */
+.foto{position:relative;width:100%;aspect-ratio:1/1;border-radius:var(--r);overflow:hidden;background:var(--azul-tenue);border:1px solid var(--linea);}
+.foto img{width:100%;height:100%;object-fit:cover;}
+.foto__hueco{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;
+             background:linear-gradient(140deg,var(--azul-tenue),#fff);color:var(--azul);text-align:center;padding:1rem;}
+.foto__ini{font-family:var(--serif);font-size:2.1rem;font-weight:800;width:3.6rem;height:3.6rem;border-radius:50%;
+           display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid currentColor;}
+.foto__hueco small{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-3);line-height:1.4;}
+.foto--ancha{aspect-ratio:16/10;}
+.foto--ancha .foto__ini{font-size:1.6rem;width:2.8rem;height:2.8rem;}
+
+.persona{background:#fff;border:1px solid var(--linea);border-radius:var(--r);overflow:hidden;box-shadow:var(--sombra);display:flex;flex-direction:column;}
+.persona .foto{border:0;border-radius:0;}
+.persona__cuerpo{padding:1.1rem 1.15rem 1.25rem;display:flex;flex-direction:column;flex:1;}
+.persona h4{font-size:1.02rem;margin-bottom:.15rem;}
+.persona__rol{font-family:var(--mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.6rem;font-weight:700;}
+.persona__cita{font-size:.87rem;color:var(--tinta-2);font-style:italic;border-left:3px solid var(--linea-2);padding-left:.7rem;flex:1;}
+.persona__cita--vacia{color:var(--tinta-3);font-style:normal;border-left-style:dashed;}
+.cinta{height:5px;}
+.cinta--g{background:var(--gestion);} .cinta--l{background:var(--logistica);} .cinta--m{background:var(--marketing);}
+.txt-g{color:var(--gestion);} .txt-l{color:var(--logistica);} .txt-m{color:var(--marketing);}
+
+/* ============================== Carrusel ============================== */
+/* Un solo componente reutilizable: desplazamiento con anclaje, botones,
+   puntos y teclado. Sin librerías.                                       */
+.carrusel{position:relative;}
+.carrusel__pista{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+                 padding:.4rem .2rem 1.2rem;scrollbar-width:thin;}
+.carrusel__pista>*{scroll-snap-align:start;flex:0 0 auto;width:min(300px,82vw);}
+.carrusel__pista.ancho>*{width:min(460px,88vw);}
+.carrusel__pista::-webkit-scrollbar{height:8px;}
+.carrusel__pista::-webkit-scrollbar-thumb{background:var(--linea-2);border-radius:99px;}
+.carrusel__nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:.3rem;}
+.carrusel__botones{display:flex;gap:.5rem;}
+.carrusel__botones button{width:2.6rem;height:2.6rem;border-radius:50%;border:1px solid var(--linea-2);background:#fff;
+                          color:var(--azul);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.carrusel__botones button:hover{background:var(--azul-tenue);}
+.carrusel__botones button[disabled]{opacity:.35;cursor:default;}
+.carrusel__puntos{display:flex;gap:.4rem;align-items:center;}
+.carrusel__puntos button{width:.55rem;height:.55rem;border-radius:50%;border:0;background:var(--linea-2);cursor:pointer;padding:0;}
+.carrusel__puntos button[aria-current="true"]{background:var(--azul);width:1.5rem;border-radius:99px;}
+.seccion--azul .carrusel__botones button{background:transparent;border-color:rgba(255,255,255,.4);color:#fff;}
+.seccion--azul .carrusel__botones button:hover{background:rgba(255,255,255,.14);}
+.seccion--azul .carrusel__puntos button{background:rgba(255,255,255,.35);}
+.seccion--azul .carrusel__puntos button[aria-current="true"]{background:#fff;}
+
+/* ============================== Cronograma ============================== */
+.linea-tiempo{position:relative;padding-left:2.2rem;}
+.linea-tiempo::before{content:"";position:absolute;left:.72rem;top:.4rem;bottom:.4rem;width:2px;background:var(--linea-2);}
+.hito{position:relative;padding-bottom:1.6rem;}
+.hito:last-child{padding-bottom:0;}
+.hito::before{content:"";position:absolute;left:-1.85rem;top:.28rem;width:.95rem;height:.95rem;border-radius:50%;
+              background:#fff;border:3px solid var(--linea-2);}
+.hito--hecho::before{background:var(--marketing);border-color:var(--marketing);}
+.hito--ahora::before{background:var(--gestion);border-color:var(--gestion);box-shadow:0 0 0 5px rgba(255,107,0,.18);}
+.hito__fecha{font-family:var(--mono);font-size:.73rem;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-3);}
+.hito h4{font-size:1rem;margin:.1rem 0 .25rem;}
+.hito p{font-size:.9rem;color:var(--tinta-2);margin:0;}
+.marca{display:inline-block;font-family:var(--mono);font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;
+       padding:.12rem .5rem;border-radius:5px;font-weight:700;margin-left:.4rem;vertical-align:middle;}
+.marca--hecho{background:#E6F6E0;color:#33691E;}
+.marca--ahora{background:#FFF0E0;color:#9A4A00;}
+
+/* ============================== Semáforo ============================== */
+.semaforo{display:grid;gap:1rem;grid-template-columns:1fr;}
+@media (min-width:760px){.semaforo{grid-template-columns:repeat(3,1fr);}}
+.sem{border-radius:var(--r);padding:1.3rem;border:1px solid var(--linea);background:#fff;}
+.sem__luz{width:1.1rem;height:1.1rem;border-radius:50%;display:inline-block;margin-right:.5rem;vertical-align:-2px;}
+.sem h4{font-size:1rem;display:flex;align-items:center;margin-bottom:.5rem;}
+.sem p{font-size:.88rem;color:var(--tinta-2);margin-bottom:.5rem;}
+.sem dl{margin:0;font-size:.85rem;}
+.sem dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-3);margin-top:.5rem;}
+.sem dd{margin:0;color:var(--tinta-2);}
+
+/* ============================== Listas sí/no ============================== */
+.doble{display:grid;gap:1.2rem;grid-template-columns:1fr;}
+@media (min-width:860px){.doble{grid-template-columns:1fr 1fr;}}
+.lista-check{list-style:none;margin:0;padding:0;font-size:.92rem;}
+.lista-check li{display:flex;gap:.65rem;padding:.5rem 0;border-bottom:1px solid var(--linea);color:var(--tinta-2);}
+.lista-check li:last-child{border-bottom:0;}
+.lista-check .mk{flex-shrink:0;width:1.35rem;height:1.35rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;margin-top:.1rem;}
+.mk--si{background:#E6F6E0;color:#2E7D32;}
+.mk--no{background:#FDE8E6;color:#C62828;}
+
+/* ============================== Proyectos ============================== */
+.filtros{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem;}
+.filtros button{font:inherit;font-size:.85rem;font-weight:700;padding:.5rem 1rem;border-radius:999px;
+                border:1.5px solid var(--linea-2);background:#fff;color:var(--tinta-2);cursor:pointer;}
+.filtros button:hover{border-color:var(--azul);color:var(--azul);}
+.filtros button[aria-pressed="true"]{background:var(--azul);border-color:var(--azul);color:#fff;}
+.proy{background:#fff;border:1px solid var(--linea);border-radius:var(--r);padding:1.15rem 1.2rem;box-shadow:var(--sombra);
+      display:flex;flex-direction:column;gap:.35rem;border-top:4px solid var(--linea-2);}
+.proy h4{font-size:1rem;}
+.proy .lider{font-size:.85rem;color:var(--tinta-2);}
+.proy .meta{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tinta-3);margin-top:.2rem;}
+.proy--adm{border-top-color:var(--gestion);}
+.proy--ele{border-top-color:var(--logistica);}
+.proy--tel{border-top-color:var(--marketing);}
+#gridProyectos{display:grid;gap:1rem;grid-template-columns:1fr;}
+@media (min-width:640px){#gridProyectos{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:1000px){#gridProyectos{grid-template-columns:repeat(3,1fr);}}
+
+/* ============================== Colegio y mapa ============================== */
+.colegio{display:grid;gap:1.8rem;grid-template-columns:1fr;align-items:start;}
+@media (min-width:900px){.colegio{grid-template-columns:1.1fr .9fr;}}
+.mapa{border:1px solid var(--linea);border-radius:var(--r);overflow:hidden;background:#EAF0F7;}
+.mapa svg{width:100%;height:auto;display:block;}
+.datos-lugar{list-style:none;margin:1.2rem 0 0;padding:0;font-size:.93rem;}
+.datos-lugar li{display:flex;gap:.7rem;padding:.6rem 0;border-bottom:1px solid var(--linea);}
+.datos-lugar li:last-child{border-bottom:0;}
+.datos-lugar b{display:block;font-size:.72rem;font-family:var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-3);}
+
+/* ============================== Instagram ============================== */
+.ig-grid{display:grid;gap:.7rem;grid-template-columns:repeat(2,1fr);}
+@media (min-width:640px){.ig-grid{grid-template-columns:repeat(3,1fr);}}
+@media (min-width:1000px){.ig-grid{grid-template-columns:repeat(6,1fr);}}
+
+/* ============================== Aviso edición ============================== */
+.aviso-edicion{background:#FFFBEB;border:1px dashed #E3C77A;border-radius:var(--r);padding:1.1rem 1.2rem;font-size:.88rem;color:#7A5A12;}
+.aviso-edicion code{font-family:var(--mono);font-size:.85em;background:#fff;border:1px solid #EBD9A8;padding:.08em .35em;border-radius:4px;}
+
+/* ============================== Pie ============================== */
+.pie{background:var(--tinta);color:#A9B6CE;padding:3rem 0 2rem;font-size:.9rem;}
+.pie h4{color:#fff;font-size:.95rem;margin-bottom:.6rem;}
+.pie a{color:#8FB4FF;}
+.pie__grid{display:grid;gap:2rem;grid-template-columns:1fr;}
+@media (min-width:800px){.pie__grid{grid-template-columns:1.6fr 1fr 1fr;}}
+.pie__abajo{border-top:1px solid rgba(255,255,255,.14);margin-top:2rem;padding-top:1.2rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-size:.82rem;}
+
+@media print{.no-imprimir{display:none !important;} body{background:#fff;}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .carrusel__pista{scroll-behavior:auto;}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<a class="saltar" href="#equipo">Saltar al equipo GLM</a>
+
+<!-- ==========================================================================
+     Logo GLM reconstruido en SVG: viaja dentro del archivo, se ve nítido en
+     cualquier tamaño y no depende de que exista una imagen al lado.
+     ========================================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo-glm" viewBox="0 0 580 300">
+    <!-- Personitas sobre la G: la gestión son personas -->
+    <g fill="none" stroke="#FF6B00" stroke-width="3">
+      <circle cx="48" cy="44" r="7"/><circle cx="68" cy="38" r="7"/><circle cx="88" cy="44" r="7"/>
+      <path d="M36 68c0-9 6-14 12-14s12 5 12 14M56 64c0-9 6-14 12-14s12 5 12 14M76 68c0-9 6-14 12-14s12 5 12 14"/>
+      <circle cx="196" cy="128" r="7"/><circle cx="216" cy="122" r="7"/><circle cx="236" cy="128" r="7"/>
+      <path d="M184 152c0-9 6-14 12-14s12 5 12 14M204 148c0-9 6-14 12-14s12 5 12 14M224 152c0-9 6-14 12-14s12 5 12 14"/>
+      <circle cx="112" cy="150" r="9"/>
+    </g>
+
+    <!-- Wifi sobre la M: la comunicación de Marketing -->
+    <g fill="none" stroke="#3BAE49" stroke-width="7" stroke-linecap="round">
+      <path d="M420 62a44 44 0 0154 0"/>
+      <path d="M432 80a26 26 0 0130 0"/>
+    </g>
+    <circle cx="447" cy="97" r="7" fill="#3BAE49"/>
+
+    <!-- Las tres letras -->
+    <text x="18" y="235" font-family="Georgia,'Times New Roman',serif" font-size="230" font-weight="700" fill="#FF6B00">G</text>
+    <text x="196" y="235" font-family="Georgia,'Times New Roman',serif" font-size="230" font-weight="700" fill="#9A5FC7">L</text>
+    <text x="322" y="235" font-family="Georgia,'Times New Roman',serif" font-size="230" font-weight="700" fill="#6DBE45">M</text>
+
+    <!-- Circuitos sobre la L: la logística conecta -->
+    <g fill="none" stroke="#EDE3F7" stroke-width="3">
+      <path d="M232 120h26v30h22M232 160h34v34M258 196h30"/>
+      <circle cx="284" cy="150" r="4" fill="#EDE3F7"/><circle cx="266" cy="196" r="4" fill="#EDE3F7"/>
+    </g>
+
+    <!-- Nombre completo, en versalitas azules -->
+    <!-- El halo blanco (paint-order) permite que el nombre se lea encima de las letras. -->
+    <text x="290" y="163" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="27"
+          font-weight="600" fill="#1B3D9B" letter-spacing="1.2"
+          stroke="#ffffff" stroke-width="7" paint-order="stroke fill">GESTIÓN, LOGÍSTICA Y MARKETING</text>
+
+    <!-- Barra institucional -->
+    <rect x="42" y="248" width="496" height="9" rx="2" fill="#1B3D9B"/>
+
+    <!-- Pistas de circuito y el año -->
+    <g fill="none" stroke="#B9C9EC" stroke-width="2">
+      <path d="M120 292h58l16-16h60"/><path d="M120 282h44"/>
+      <path d="M460 292h-58l-16-16h-60"/><path d="M460 282h-44"/>
+      <circle cx="116" cy="292" r="3.5" fill="#B9C9EC"/><circle cx="116" cy="282" r="3.5" fill="#B9C9EC"/>
+      <circle cx="464" cy="292" r="3.5" fill="#B9C9EC"/><circle cx="464" cy="282" r="3.5" fill="#B9C9EC"/>
+    </g>
+    <text x="290" y="292" text-anchor="middle" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="30"
+          font-weight="500" fill="#1B3D9B" letter-spacing="6">Feria TP 2026</text>
+  </symbol>
+
+  <symbol id="logo-compacto" viewBox="0 0 200 92">
+    <text x="4" y="66" font-family="Georgia,'Times New Roman',serif" font-size="76" font-weight="700" fill="#FF6B00">G</text>
+    <text x="66" y="66" font-family="Georgia,'Times New Roman',serif" font-size="76" font-weight="700" fill="#9A5FC7">L</text>
+    <text x="112" y="66" font-family="Georgia,'Times New Roman',serif" font-size="76" font-weight="700" fill="#6DBE45">M</text>
+    <g fill="none" stroke="#3BAE49" stroke-width="4" stroke-linecap="round">
+      <path d="M150 16a22 22 0 0127 0"/><path d="M156 25a13 13 0 0115 0"/>
+    </g>
+    <circle cx="163.5" cy="33" r="3.5" fill="#3BAE49"/>
+    <rect x="6" y="76" width="180" height="6" rx="2" fill="#1B3D9B"/>
+  </symbol>
+
+  <symbol id="i-flecha-izq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-flecha-der" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-lugar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-11.5A7 7 0 005 9.5C5 14.6 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></symbol>
+  <symbol id="i-calendario" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-camara" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h2l1.5-2h7L17 6h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="12.5" r="3.6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+</svg>
+
+<header class="barra no-imprimir">
+  <div class="wrap barra__in">
+    <a class="logo-barra" href="#inicio">
+      <svg class="logo-mini" viewBox="0 0 200 92" role="img" aria-label="GLM · Gestión, Logística y Marketing"><use href="#logo-compacto"/></svg>
+      <small>Feria TP 2026</small>
+    </a>
+    <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="navPrincipal">☰ Menú</button>
+    <nav class="nav" id="navPrincipal" aria-label="Navegación principal">
+      <a href="#que-es">Qué es GLM</a>
+      <a href="#areas">Áreas</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#cronograma">Cronograma</a>
+      <a href="#galeria">Galería</a>
+      <a href="#colegio">El colegio</a>
+      <a class="btn btn--azul btn--sm" href="#feria" style="margin-left:.4rem">8 de octubre</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="eyebrow">Feria Técnico Profesional 2026</span>
+      <h1><span class="lin">Gestión, Logística</span> <span class="lin">y Marketing</span></h1>
+      <p class="hero__lema">Acompaña, observa, registra, alerta y apoya.</p>
+      <p class="sub">Somos el equipo de estudiantes que sostiene la operación de la Feria: sabemos cómo va cada proyecto, conseguimos lo que hace falta para construirlos y comunicamos lo que ocurre, dentro y fuera del colegio.</p>
+      <div class="hero__acciones">
+        <a class="btn btn--azul" href="#equipo">Conoce al equipo</a>
+        <a class="btn btn--linea" href="#proyectos" style="color:var(--azul)">Ver los proyectos</a>
+      </div>
+
+      <div class="cuenta" id="cuenta" aria-live="polite">
+        <div><b id="cDias">—</b><span>Días</span></div>
+        <div><b id="cHoras">—</b><span>Horas</span></div>
+        <div><b id="cMin">—</b><span>Minutos</span></div>
+        <div style="display:flex;align-items:center;padding:.6rem 1rem;background:var(--azul);border-color:var(--azul)">
+          <span style="color:#fff;font-weight:700;font-size:.86rem;letter-spacing:0;text-transform:none;font-family:var(--sans)">
+            Jueves 8 de octubre
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <svg class="logo-grande" viewBox="0 0 580 300" role="img" aria-label="Logo GLM: Gestión, Logística y Marketing. Feria TP 2026."><use href="#logo-glm"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== QUÉ ES GLM ============================== -->
+<section id="que-es" class="seccion seccion--gris">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">El equipo</span>
+      <h2>Qué es GLM y hasta dónde llega</h2>
+      <p>GLM convierte información dispersa en decisiones oportunas: detecta a tiempo lo que se está atrasando, lo informa a quien corresponde y deja registro de lo que ocurrió. Participa durante todo el proceso, no solo el día del evento.</p>
+    </div>
+
+    <div class="doble">
+      <div class="tarjeta">
+        <h3 style="color:#2E7D32">Lo que GLM sí hace</h3>
+        <ul class="lista-check" style="margin-top:.8rem">
+          <li><span class="mk mk--si">✓</span> Hacer seguimiento del avance de los proyectos y registrar lo observado.</li>
+          <li><span class="mk mk--si">✓</span> Levantar necesidades de materiales y controlar su entrega y devolución.</li>
+          <li><span class="mk mk--si">✓</span> Planificar y ejecutar la comunicación de la Feria, con validación previa.</li>
+          <li><span class="mk mk--si">✓</span> Informar alertas a los docentes y a la EA TP apenas se detectan.</li>
+          <li><span class="mk mk--si">✓</span> Preparar reportes breves cuando la EA TP o los docentes los soliciten.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h3 style="color:#C62828">Lo que GLM no hace</h3>
+        <ul class="lista-check" style="margin-top:.8rem">
+          <li><span class="mk mk--no">✕</span> No pone notas ni decide si un proyecto está bien o mal hecho. Eso es del docente.</li>
+          <li><span class="mk mk--no">✕</span> No escribe informes ni construye prototipos por otros equipos.</li>
+          <li><span class="mk mk--no">✕</span> No publica contenido oficial ni contacta a personas externas sin autorización.</li>
+          <li><span class="mk mk--no">✕</span> No registra diagnósticos, rumores, conflictos personales ni información sensible.</li>
+          <li><span class="mk mk--no">✕</span> No reemplaza a los docentes ni asume decisiones institucionales.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tarjeta" style="margin-top:1.4rem;background:var(--azul-tenue);border-color:var(--linea-2)">
+      <p style="font-family:var(--serif);font-size:1.15rem;color:var(--azul);font-weight:600;margin:0;text-align:center">
+        Gestionar. Coordinar. Comunicar. Apoyar. Resolver. Liderar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ ÁREAS ================================ -->
+<section id="areas" class="seccion">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Estructura</span>
+      <h2>Tres áreas, un solo equipo</h2>
+      <p>Doce estudiantes de Administración: seis de III medio y seis de IV medio. Cada área tiene un líder que coordina, distribuye y entrega, pero no hace el trabajo solo. Si se necesita coordinación general, la asume uno de esos tres líderes: no se crea una cuarta área.</p>
+    </div>
+
+    <div class="rejilla rejilla--3">
+      <article class="area area--g">
+        <span class="area__letra" aria-hidden="true">G</span>
+        <h3>Gestión</h3>
+        <p>Administra la información. Convierte los registros en reportes, acuerdos y prioridades.</p>
+        <ul>
+          <li>Distribuye los proyectos y define quién hace el seguimiento de cada uno.</li>
+          <li>Comprueba la evidencia antes de dar un avance por realizado.</li>
+          <li>Informa las alertas sin esperar a la próxima reunión.</li>
+          <li>Mantiene ordenado el repositorio del equipo.</li>
+        </ul>
+        <p class="area__lider"><strong>Responsable principal de la aplicación GLM</strong></p>
+      </article>
+
+      <article class="area area--l">
+        <span class="area__letra" aria-hidden="true">L</span>
+        <h3>Logística</h3>
+        <p>Se ocupa de que exista lo que se necesita para construir y de que la Feria funcione el día del evento.</p>
+        <ul>
+          <li>Levanta las necesidades de materiales por proyecto.</li>
+          <li>Organiza el mapa de stands y la distribución de espacios.</li>
+          <li>Prepara la señalética y los recorridos de los visitantes.</li>
+          <li>Define montaje, desmontaje y kit de emergencia.</li>
+        </ul>
+        <p class="area__lider"><strong>Solicitado → revisado → aprobado → en compra → recibido → entregado</strong></p>
+      </article>
+
+      <article class="area area--m">
+        <span class="area__letra" aria-hidden="true">M</span>
+        <h3>Marketing</h3>
+        <p>Comunica el proceso completo, no solo el día de la Feria. Todo lo que se publica representa al colegio.</p>
+        <ul>
+          <li>Administra el calendario de publicaciones y las redes.</li>
+          <li>Fotografía y graba el proceso de trabajo, no solo el resultado.</li>
+          <li>Prepara las encuestas del evento y sistematiza sus resultados.</li>
+          <li>Pide validación docente antes de publicar.</li>
+        </ul>
+        <p class="area__lider"><strong>Toda publicación pasa por validación previa</strong></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ EQUIPO ================================ -->
+<section id="equipo" class="seccion seccion--gris">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Quiénes somos</span>
+      <h2>El equipo GLM 2026</h2>
+      <p>Doce estudiantes de la especialidad de Administración. IV medio orienta a III medio, le muestra cómo se registra y cómo se resuelve un problema, pero no ejecuta sus responsabilidades.</p>
+    </div>
+
+    <div class="filtros" role="group" aria-label="Filtrar el equipo por nivel">
+      <button type="button" data-nivel="todos" aria-pressed="true">Los doce</button>
+      <button type="button" data-nivel="III° Medio" aria-pressed="false">III medio</button>
+      <button type="button" data-nivel="IV°A" aria-pressed="false">IV medio</button>
+    </div>
+
+    <div class="carrusel" data-carrusel>
+      <div class="carrusel__pista" id="pistaEquipo" tabindex="0" role="region" aria-label="Integrantes del equipo GLM"></div>
+      <div class="carrusel__nav no-imprimir">
+        <div class="carrusel__puntos" data-puntos></div>
+        <div class="carrusel__botones">
+          <button type="button" data-anterior aria-label="Integrantes anteriores"><svg width="20" height="20" aria-hidden="true"><use href="#i-flecha-izq"/></svg></button>
+          <button type="button" data-siguiente aria-label="Integrantes siguientes"><svg width="20" height="20" aria-hidden="true"><use href="#i-flecha-der"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="aviso-edicion no-imprimir" style="margin-top:1.6rem">
+      <strong>Para poner las fotos:</strong> guarda cada retrato en la carpeta <code>fotos/</code> que está junto a este archivo, con el nombre que aparece bajo cada recuadro (por ejemplo <code>fotos/martin-faundez.jpg</code>). Aparecen solas al recargar. Mientras no existan, se ve el recuadro con las iniciales, que también sirve para presentar. Cuadradas y de al menos 600 × 600 px se ven mejor.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DOCENTES Y EA TP ============================ -->
+<section class="seccion">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Conducción</span>
+      <h2>Quiénes acompañan el proceso</h2>
+      <p>La conducción adulta define prioridades, valida las decisiones relevantes y retroalimenta el trabajo del equipo.</p>
+    </div>
+    <div class="rejilla rejilla--3" id="gridDocentes"></div>
+  </div>
+</section>
+
+<!-- ============================== SEMÁFORO ============================== -->
+<section class="seccion seccion--gris">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Cómo trabajamos</span>
+      <h2>El semáforo de seguimiento</h2>
+      <p>Busca anticipar problemas, no castigar a los equipos. Cada estado se basa en evidencia y conduce a una acción concreta.</p>
+    </div>
+
+    <div class="semaforo">
+      <div class="sem" style="border-top:4px solid #2E7D32">
+        <h4><span class="sem__luz" style="background:#2E7D32"></span> Verde</h4>
+        <p>Avance acorde al hito, próximo paso claro y evidencia disponible.</p>
+        <dl>
+          <dt>Acción GLM</dt><dd>Actualizar y mantener el seguimiento regular.</dd>
+          <dt>Comunicación</dt><dd>Reporte programado.</dd>
+        </dl>
+      </div>
+      <div class="sem" style="border-top:4px solid #E8A317">
+        <h4><span class="sem__luz" style="background:#E8A317"></span> Amarillo</h4>
+        <p>Atraso o dificultad que puede resolverse con apoyo y seguimiento.</p>
+        <dl>
+          <dt>Acción GLM</dt><dd>Acordar acción, responsable y nueva revisión.</dd>
+          <dt>Comunicación</dt><dd>Informar en la síntesis del nivel, o antes si escala.</dd>
+        </dl>
+      </div>
+      <div class="sem" style="border-top:4px solid #C62828">
+        <h4><span class="sem__luz" style="background:#C62828"></span> Rojo</h4>
+        <p>Riesgo serio para la entrega, la seguridad, los recursos o la participación del equipo.</p>
+        <dl>
+          <dt>Acción GLM</dt><dd>Detener supuestos, reunir hechos y solicitar intervención.</dd>
+          <dt>Comunicación</dt><dd>Aviso inmediato a docente o EA TP, y registro posterior.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="tarjeta" style="margin-top:1.4rem;border-left:4px solid var(--gestion)">
+      <p style="margin:0;font-size:.94rem;color:var(--tinta-2)"><strong style="color:var(--tinta)">Registrar no reemplaza avisar.</strong> Si algo es grave o urgente, se comunica de inmediato y después se deja el registro. Un equipo de gestión no se mide por no tener problemas, sino por detectarlos temprano y resolverlos con orden.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PROYECTOS ============================== -->
+<section id="proyectos" class="seccion">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Directorio</span>
+      <h2>Los proyectos de la Feria</h2>
+      <p>Iniciativas de las tres especialidades que GLM acompaña durante todo el proceso. GLM III acompaña a III medio; GLM IV, a IV medio.</p>
+    </div>
+
+    <div class="filtros" role="group" aria-label="Filtrar proyectos por curso">
+      <button type="button" data-curso="todos" aria-pressed="true">Todos</button>
+      <button type="button" data-curso="III°A" aria-pressed="false">III°A Administración</button>
+      <button type="button" data-curso="III°C" aria-pressed="false">III°C Electrónica</button>
+      <button type="button" data-curso="IV°A" aria-pressed="false">IV°A Administración</button>
+      <button type="button" data-curso="IV°B" aria-pressed="false">IV°B Telecomunicaciones</button>
+      <button type="button" data-curso="IV°C" aria-pressed="false">IV°C Electrónica</button>
+    </div>
+
+    <p class="dato" style="margin-bottom:1rem"><span id="contadorProyectos">0</span> proyectos</p>
+    <div id="gridProyectos"></div>
+  </div>
+</section>
+
+<!-- ============================== CRONOGRAMA ============================== -->
+<section id="cronograma" class="seccion seccion--gris">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Ruta de trabajo</span>
+      <h2>De agosto al 8 de octubre</h2>
+      <p>Seis fases con cierres orientativos. Los cierres ordenan el trabajo de GLM y no reemplazan las fechas académicas que comunica cada docente.</p>
+    </div>
+    <div class="linea-tiempo" id="lineaTiempo"></div>
+
+    <div class="tarjeta" style="margin-top:1.8rem;border-left:4px solid var(--logistica)">
+      <h3 style="font-size:1rem">Receso de Fiestas Patrias</h3>
+      <p style="margin-top:.3rem">No se programan hitos críticos que dependan de todos los estudiantes. Antes del receso, GLM deja responsables, tareas y condiciones de reactivación claramente registradas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DÍA DE LA FERIA ============================== -->
+<section id="feria" class="seccion seccion--azul">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow eyebrow--claro">Jueves 8 de octubre de 2026</span>
+      <h2>El día de la Feria</h2>
+      <p>La distribución final de personas y horarios queda cargada en la aplicación y validada por EA TP y docentes antes del montaje.</p>
+    </div>
+
+    <div class="rejilla rejilla--3">
+      <div class="tarjeta" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2);color:#fff">
+        <span class="dato" style="color:#9FC0FF">Antes de abrir</span>
+        <h3 style="margin:.3rem 0 .6rem">Montaje</h3>
+        <ul style="font-size:.9rem;color:#D8E3F8;padding-left:1.1rem;line-height:1.7;margin:0">
+          <li>Confirmar stands, señalética, flujos y materiales.</li>
+          <li>Briefing GLM: roles, horarios y contingencias.</li>
+          <li>Verificar recepción de invitados y accesibilidad.</li>
+        </ul>
+      </div>
+      <div class="tarjeta" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2);color:#fff">
+        <span class="dato" style="color:#9FC0FF">Durante</span>
+        <h3 style="margin:.3rem 0 .6rem">Operación</h3>
+        <ul style="font-size:.9rem;color:#D8E3F8;padding-left:1.1rem;line-height:1.7;margin:0">
+          <li>Orientar visitantes y apoyar los recorridos.</li>
+          <li>Monitorear materiales, orden, seguridad y tiempos.</li>
+          <li>Registrar incidencias y escalar lo que exceda a GLM.</li>
+          <li>Cobertura, entrevistas y encuestas.</li>
+        </ul>
+      </div>
+      <div class="tarjeta" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2);color:#fff">
+        <span class="dato" style="color:#9FC0FF">Después del cierre</span>
+        <h3 style="margin:.3rem 0 .6rem">Cierre</h3>
+        <ul style="font-size:.9rem;color:#D8E3F8;padding-left:1.1rem;line-height:1.7;margin:0">
+          <li>Desmontaje y devolución de recursos.</li>
+          <li>Consolidar fotografías, videos y encuestas.</li>
+          <li>Actualización final y preparación del Hito 4.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== GALERÍA ============================== -->
+<section id="galeria" class="seccion">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Memoria</span>
+      <h2>Ferias de años anteriores</h2>
+      <p>GLM recibe la experiencia de años anteriores, la mejora y deja un sistema más claro para quienes asuman este desafío el próximo año. Esta galería es esa memoria.</p>
+    </div>
+
+    <div class="carrusel" data-carrusel>
+      <div class="carrusel__pista ancho" id="pistaGaleria" tabindex="0" role="region" aria-label="Galería de ferias anteriores"></div>
+      <div class="carrusel__nav no-imprimir">
+        <div class="carrusel__puntos" data-puntos></div>
+        <div class="carrusel__botones">
+          <button type="button" data-anterior aria-label="Fotos anteriores"><svg width="20" height="20" aria-hidden="true"><use href="#i-flecha-izq"/></svg></button>
+          <button type="button" data-siguiente aria-label="Fotos siguientes"><svg width="20" height="20" aria-hidden="true"><use href="#i-flecha-der"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="aviso-edicion no-imprimir" style="margin-top:1.2rem">
+      <strong>Para poner las fotos de la galería:</strong> guárdalas en <code>fotos/</code> con los nombres <code>feria-2025-1.jpg</code> a <code>feria-2025-4.jpg</code> y <code>feria-2024-1.jpg</code> a <code>feria-2024-4.jpg</code>. Horizontales, de al menos 1200 px de ancho. Si quieres agregar más años, copia un bloque en la lista <code>GALERIA</code> del código, al final del archivo.
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EL COLEGIO ============================== -->
+<section id="colegio" class="seccion seccion--gris">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Dónde</span>
+      <h2>Colegio Cardenal José María Caro</h2>
+      <p>Fundación Belén Educa · Departamento Técnico Profesional · Especialidades de Administración, Electrónica y Telecomunicaciones.</p>
+    </div>
+
+    <div class="colegio">
+      <div>
+        <div class="carrusel" data-carrusel>
+          <div class="carrusel__pista ancho" id="pistaColegio" tabindex="0" role="region" aria-label="Fotografías del colegio"></div>
+          <div class="carrusel__nav no-imprimir">
+            <div class="carrusel__puntos" data-puntos></div>
+            <div class="carrusel__botones">
+              <button type="button" data-anterior aria-label="Foto anterior"><svg width="20" height="20" aria-hidden="true"><use href="#i-flecha-izq"/></svg></button>
+              <button type="button" data-siguiente aria-label="Foto siguiente"><svg width="20" height="20" aria-hidden="true"><use href="#i-flecha-der"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="mapa">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Plano de ubicación referencial del colegio">
+            <rect width="400" height="300" fill="#E8EFF8"/>
+            <!-- manzanas -->
+            <g fill="#DCE6F4">
+              <rect x="18" y="20" width="120" height="80" rx="4"/><rect x="160" y="20" width="90" height="80" rx="4"/>
+              <rect x="272" y="20" width="110" height="80" rx="4"/><rect x="18" y="128" width="120" height="70" rx="4"/>
+              <rect x="272" y="128" width="110" height="70" rx="4"/><rect x="18" y="226" width="120" height="56" rx="4"/>
+              <rect x="160" y="226" width="90" height="56" rx="4"/><rect x="272" y="226" width="110" height="56" rx="4"/>
+            </g>
+            <!-- calles -->
+            <g stroke="#fff" stroke-width="12" stroke-linecap="square">
+              <path d="M148 0v300M262 0v300M0 114h400M0 212h400"/>
+            </g>
+            <g stroke="#C9D8EC" stroke-width="1.5" stroke-dasharray="6 6">
+              <path d="M155 0v300M0 163h400"/>
+            </g>
+            <!-- el colegio -->
+            <rect x="160" y="128" width="90" height="70" rx="5" fill="#1B3D9B"/>
+            <text x="205" y="158" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="system-ui,sans-serif">Colegio</text>
+            <text x="205" y="174" text-anchor="middle" fill="#9FC0FF" font-size="10" font-family="system-ui,sans-serif">Cardenal J. M. Caro</text>
+            <circle cx="205" cy="188" r="4" fill="#FF6B00"/>
+            <text x="20" y="296" fill="#8FA3C4" font-size="9" font-family="ui-monospace,monospace">PLANO REFERENCIAL · NO A ESCALA</text>
+          </svg>
+        </div>
+
+        <ul class="datos-lugar">
+          <li><svg width="20" height="20" style="color:var(--azul);flex-shrink:0" aria-hidden="true"><use href="#i-lugar"/></svg>
+            <span><b>Dirección</b><span data-editable>La Pintana, Región Metropolitana · <em>completar la dirección exacta</em></span></span></li>
+          <li><svg width="20" height="20" style="color:var(--azul);flex-shrink:0" aria-hidden="true"><use href="#i-calendario"/></svg>
+            <span><b>Fecha de la Feria</b>Jueves 8 de octubre de 2026</span></li>
+          <li><svg width="20" height="20" style="color:var(--azul);flex-shrink:0" aria-hidden="true"><use href="#i-camara"/></svg>
+            <span><b>Especialidades</b>Administración · Electrónica · Telecomunicaciones</span></li>
+        </ul>
+
+        <a class="btn btn--azul btn--sm" style="margin-top:1rem"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Colegio+Cardenal+Jos%C3%A9+Mar%C3%ADa+Caro+Bel%C3%A9n+Educa+La+Pintana"
+           target="_blank" rel="noopener">
+          <svg width="16" height="16" aria-hidden="true"><use href="#i-lugar"/></svg> Abrir en Google Maps
+        </a>
+      </div>
+    </div>
+
+    <div class="aviso-edicion no-imprimir" style="margin-top:1.6rem">
+      <strong>Para las fotos del colegio:</strong> <code>fotos/colegio-1.jpg</code> a <code>fotos/colegio-4.jpg</code>. El plano de arriba es referencial y está dibujado dentro del archivo, así que se ve sin internet; el botón abre la ubicación real en Google Maps.
+    </div>
+  </div>
+</section>
+
+<!-- ============================== INSTAGRAM ============================== -->
+<section id="redes" class="seccion">
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">Comunicación</span>
+      <h2>Síguenos en Instagram</h2>
+      <p>Marketing publica el proceso completo: no solo el día de la Feria, sino cómo se construyó cada proyecto.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:1.6rem">
+      <a class="btn btn--azul" href="https://www.instagram.com/feria_tp_2026" target="_blank" rel="noopener">
+        <svg width="18" height="18" aria-hidden="true"><use href="#i-instagram"/></svg> @feria_tp_2026
+      </a>
+      <p class="dato" style="margin:0">Publicaciones validadas por los docentes antes de salir</p>
+    </div>
+
+    <div class="ig-grid" id="gridInstagram"></div>
+
+    <div class="aviso-edicion no-imprimir" style="margin-top:1.2rem">
+      <strong>Para el muro:</strong> guarda las capturas o fotos como <code>fotos/ig-1.jpg</code> a <code>fotos/ig-6.jpg</code>. Se muestran cuadradas. Esta sección no carga Instagram directamente a propósito: un muro incrustado deja de verse sin internet y ese es justamente el escenario del día de la Feria.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie__grid">
+      <div>
+        <svg style="width:190px;margin-bottom:1rem;filter:brightness(0) invert(1);opacity:.92" viewBox="0 0 580 300" role="img" aria-label="GLM"><use href="#logo-glm"/></svg>
+        <p style="font-family:var(--serif);font-size:1.02rem;color:#fff;margin-bottom:.7rem">Acompaña, observa, registra, alerta y apoya.</p>
+        <p style="font-size:.85rem">Equipo de Gestión, Logística y Marketing · Feria Técnico Profesional 2026 · Colegio Cardenal José María Caro, Fundación Belén Educa.</p>
+      </div>
+      <div>
+        <h4>Secciones</h4>
+        <p style="line-height:2"><a href="#que-es">Qué es GLM</a><br><a href="#areas">Las tres áreas</a><br><a href="#equipo">El equipo</a><br><a href="#proyectos">Proyectos</a></p>
+      </div>
+      <div>
+        <h4>Más</h4>
+        <p style="line-height:2"><a href="#cronograma">Cronograma</a><br><a href="#galeria">Galería</a><br><a href="#colegio">El colegio</a><br><a href="https://www.instagram.com/feria_tp_2026" target="_blank" rel="noopener">Instagram</a></p>
+      </div>
+    </div>
+    <div class="pie__abajo">
+      <span>© 2026 GLM · Feria Técnico Profesional</span>
+      <span>Sitio hecho por el equipo de Marketing. Funciona sin conexión a internet.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+/* ==========================================================================
+   GLM · Feria TP 2026
+   Todo el contenido editable está en las listas de aquí abajo. Para cambiar
+   un nombre, una reflexión o un proyecto, se edita esta parte y nada más.
+   ========================================================================== */
+
+/* ------------------------------- EL EQUIPO ------------------------------- */
+/* La foto se busca en fotos/<archivo>.jpg. Si no existe, se muestra el
+   recuadro con las iniciales, que también sirve para presentar.            */
+const EQUIPO = [
+  { nombre:'Martín Faúndez',    nivel:'III° Medio', area:'Gestión',    rol:'Coordinador',
+    reflexion:'Coordinar GLM me enseñó que ordenar la información a tiempo evita la mayoría de los problemas del día de la feria.' },
+  { nombre:'Ronny Rojas',       nivel:'III° Medio', area:'Gestión',    rol:'',
+    reflexion:'Aprendí que el seguimiento constante a cada curso es lo que permite anticipar los atrasos antes de que se vuelvan un problema mayor.' },
+  { nombre:'Ignacio Vardy',     nivel:'III° Medio', area:'Logística',  rol:'',
+    reflexion:'Organizar el mapa de stands y el inventario me mostró la importancia de planificar cada detalle con anticipación.' },
+  { nombre:'Francisca López',   nivel:'III° Medio', area:'Logística',  rol:'',
+    reflexion:'La logística exige prever contingencias; este proceso me ayudó a desarrollar capacidad de reacción y trabajo en equipo.' },
+  { nombre:'María Echeverry',   nivel:'III° Medio', area:'Marketing',  rol:'',
+    reflexion:'Comunicar lo que hace cada curso me permitió valorar el esfuerzo detrás de cada proyecto de la feria.' },
+  { nombre:'Alonso Miranda',    nivel:'III° Medio', area:'Marketing',  rol:'',
+    reflexion:'Cubrir la feria en redes sociales me enseñó a contar historias reales de mis compañeros con responsabilidad.' },
+  { nombre:'Romina Provoste',   nivel:'IV°A', area:'Gestión',   rol:'', reflexion:'' },
+  { nombre:'Amaia Sánchez',     nivel:'IV°A', area:'Gestión',   rol:'', reflexion:'' },
+  { nombre:'Agustina Figueroa', nivel:'IV°A', area:'Logística', rol:'', reflexion:'' },
+  { nombre:'Vaithiare González',nivel:'IV°A', area:'Logística', rol:'', reflexion:'' },
+  { nombre:'Cristóbal Del Canto',nivel:'IV°A', area:'Marketing',rol:'', reflexion:'' },
+  { nombre:'Sarai Muñoz',       nivel:'IV°A', area:'Marketing', rol:'', reflexion:'' }
+];
+
+const CONDUCCION = [
+  { nombre:'Vanessa Moncada', rol:'Encargada de Área Técnico Profesional',
+    detalle:'Define prioridades, valida las decisiones relevantes y puede solicitar información o reportes en cualquier momento del proceso.' },
+  { nombre:'Daniela Ortega', rol:'Docente responsable',
+    detalle:'Orienta el proceso, valida criterios, interviene ante alertas y retroalimenta el trabajo del equipo.' },
+  { nombre:'Fabián Herrera', rol:'Docente responsable',
+    detalle:'Orienta el proceso, valida criterios, interviene ante alertas y retroalimenta el trabajo del equipo.' }
+];
+
+/* ------------------------------ LOS PROYECTOS ------------------------------ */
+const PROYECTOS = [
+  { nombre:'Kipu',                  lider:'Colomba Vera',       curso:'III°A', esp:'Administración' },
+  { nombre:'Empresa 360',           lider:'Ianara Yaupi',       curso:'III°A', esp:'Administración' },
+  { nombre:'Help Wanted',           lider:'Randall Pavéz',      curso:'III°A', esp:'Administración' },
+  { nombre:'Expro',                 lider:'Cynthia Rao',        curso:'III°A', esp:'Administración' },
+  { nombre:'PRAM',                  lider:'Sabina Huechucoy',   curso:'III°A', esp:'Administración' },
+  { nombre:'Pyme Digital',          lider:'Sergio Sandoval',    curso:'III°A', esp:'Administración' },
+  { nombre:'Strategic Path',        lider:'—',                  curso:'III°A', esp:'Administración' },
+  { nombre:'CaroConnect',           lider:'Javiera Coña',       curso:'III°C', esp:'Electrónica' },
+  { nombre:'AR Realidad Aumentada', lider:'Bruno Toro',         curso:'III°C', esp:'Electrónica' },
+  { nombre:'Automatic Protection',  lider:'Rodrigo Toro',       curso:'III°C', esp:'Electrónica' },
+  { nombre:'Sistema de Riego',      lider:'Eduardo Oliveros',   curso:'III°C', esp:'Electrónica' },
+  { nombre:'CNC',                   lider:'Luis Navarro',       curso:'III°C', esp:'Electrónica' },
+  { nombre:'Sismógrafo',            lider:'Cristopher Rivero',  curso:'III°C', esp:'Electrónica' },
+  { nombre:'LiquidApp',             lider:'Andrés Berríos',     curso:'IV°A',  esp:'Administración' },
+  { nombre:'Level Up',              lider:'Stefany Tobar',      curso:'IV°A',  esp:'Administración' },
+  { nombre:'Banco de Talentos TP',  lider:'Pascal Díaz',        curso:'IV°A',  esp:'Administración' },
+  { nombre:'AAC Laboral',           lider:'Ashlie Abarza',      curso:'IV°A',  esp:'Administración' },
+  { nombre:'Visión Integral',       lider:'Daniel Cayupe',      curso:'IV°A',  esp:'Administración' },
+  { nombre:'Docencia que Avanza',   lider:'Melanie Medina',     curso:'IV°A',  esp:'Administración' },
+  { nombre:'Recluta Smart',         lider:'Ethian Morales',     curso:'IV°A',  esp:'Administración' },
+  { nombre:'Áurea Solutions',       lider:'—',                  curso:'IV°A',  esp:'Administración' },
+  { nombre:'TP Live',               lider:'Jean Pierre Esparza',curso:'IV°B',  esp:'Telecomunicaciones' },
+  { nombre:'ElectroMag Rail',       lider:'Cristian Arrué',     curso:'IV°B',  esp:'Telecomunicaciones' },
+  { nombre:'Radiotelescopio',       lider:'Patricio Catilao',   curso:'IV°B',  esp:'Telecomunicaciones' },
+  { nombre:'M404',                  lider:'Zahid Jorquera',     curso:'IV°B',  esp:'Telecomunicaciones' },
+  { nombre:'Watcher of the Sky',    lider:'—',                  curso:'IV°B',  esp:'Telecomunicaciones' },
+  { nombre:'AirMac',                lider:'Javiera Palma',      curso:'IV°C',  esp:'Electrónica' },
+  { nombre:'Industrack',            lider:'—',                  curso:'IV°C',  esp:'Electrónica' }
+];
+
+/* ------------------------------- CRONOGRAMA ------------------------------- */
+const FASES = [
+  { fecha:'28 de agosto',    titulo:'Organización y línea base',
+    detalle:'Roles, proyectos asignados, aplicación configurada, diagnóstico, riesgos y plan inicial.' },
+  { fecha:'4 de septiembre', titulo:'Seguimiento inicial',
+    detalle:'Primera ronda de revisión, etapas de Desafío y Solución, necesidades y reporte breve.' },
+  { fecha:'11 de septiembre',titulo:'Control y diseño operacional',
+    detalle:'Semáforo, materiales, invitados, mapa preliminar, comunicaciones y mentoría.' },
+  { fecha:'25 de septiembre',titulo:'Reactivación',
+    detalle:'Actualización posterior al receso, alertas, prototipos, validación y pendientes críticos.' },
+  { fecha:'2 de octubre',    titulo:'Preparación final',
+    detalle:'Mapa final, señalética, programación, roles, campaña, visitantes y contingencias.' },
+  { fecha:'8 de octubre',    titulo:'Semana de Feria y cierre',
+    detalle:'Operación, registro, encuestas, desmontaje, resultados y aprendizajes para 2027.' }
+];
+
+/* -------------------------------- GALERÍAS -------------------------------- */
+const GALERIA = [
+  { archivo:'feria-2025-1', titulo:'Feria TP 2025', pie:'Montaje de los stands en el gimnasio.' },
+  { archivo:'feria-2025-2', titulo:'Feria TP 2025', pie:'Presentación de proyectos de Electrónica.' },
+  { archivo:'feria-2025-3', titulo:'Feria TP 2025', pie:'Visitantes recorriendo los stands.' },
+  { archivo:'feria-2025-4', titulo:'Feria TP 2025', pie:'Equipo GLM en la recepción.' },
+  { archivo:'feria-2024-1', titulo:'Feria TP 2024', pie:'Apertura de la jornada.' },
+  { archivo:'feria-2024-2', titulo:'Feria TP 2024', pie:'Proyectos de Administración.' },
+  { archivo:'feria-2024-3', titulo:'Feria TP 2024', pie:'Demostración de Telecomunicaciones.' },
+  { archivo:'feria-2024-4', titulo:'Feria TP 2024', pie:'Cierre y premiación.' }
+];
+
+const FOTOS_COLEGIO = [
+  { archivo:'colegio-1', pie:'Frontis del colegio.' },
+  { archivo:'colegio-2', pie:'Patio central.' },
+  { archivo:'colegio-3', pie:'Talleres de la especialidad.' },
+  { archivo:'colegio-4', pie:'Gimnasio, sede de la Feria.' }
+];
+
+const FECHA_FERIA = new Date('2026-10-08T09:00:00');
+
+/* ======================== UTILIDADES DE PANTALLA ======================== */
+const $ = (id) => document.getElementById(id);
+
+const COLOR_AREA = { 'Gestión':'g', 'Logística':'l', 'Marketing':'m' };
+
+/** Convierte "Martín Faúndez" en "martin-faundez", para el nombre del archivo. */
+function aArchivo(nombre) {
+  return nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function iniciales(nombre) {
+  return nombre.split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0]).join('').toUpperCase();
+}
+
+/**
+ * Crea un hueco de foto. Intenta cargar el archivo; si no existe, deja el
+ * recuadro con las iniciales y el nombre que hay que darle al archivo.
+ */
+function crearFoto(nombreArchivo, textoIniciales, ancha) {
+  const cont = document.createElement('div');
+  cont.className = 'foto' + (ancha ? ' foto--ancha' : '');
+
+  const hueco = document.createElement('div');
+  hueco.className = 'foto__hueco';
+  const ini = document.createElement('span');
+  ini.className = 'foto__ini';
+  ini.textContent = textoIniciales;
+  const ruta = document.createElement('small');
+  ruta.textContent = 'fotos/' + nombreArchivo + '.jpg';
+  hueco.appendChild(ini);
+  hueco.appendChild(ruta);
+  cont.appendChild(hueco);
+
+  const img = document.createElement('img');
+  img.alt = '';
+  img.loading = 'lazy';
+  img.style.display = 'none';
+  img.addEventListener('load', () => { img.style.display = 'block'; hueco.style.display = 'none'; });
+  img.addEventListener('error', () => { img.remove(); });
+  img.src = 'fotos/' + nombreArchivo + '.jpg';
+  cont.appendChild(img);
+
+  return cont;
+}
+
+/* ============================== EL EQUIPO ============================== */
+let nivelActivo = 'todos';
+
+function tarjetaPersona(p) {
+  const art = document.createElement('article');
+  art.className = 'persona';
+
+  const cinta = document.createElement('div');
+  cinta.className = 'cinta cinta--' + COLOR_AREA[p.area];
+  art.appendChild(cinta);
+
+  art.appendChild(crearFoto(aArchivo(p.nombre), iniciales(p.nombre)));
+
+  const cuerpo = document.createElement('div');
+  cuerpo.className = 'persona__cuerpo';
+
+  const h = document.createElement('h4');
+  h.textContent = p.nombre;
+  cuerpo.appendChild(h);
+
+  const rol = document.createElement('p');
+  rol.className = 'persona__rol txt-' + COLOR_AREA[p.area];
+  rol.textContent = p.area + (p.rol ? ' · ' + p.rol : '') + ' · ' + p.nivel;
+  cuerpo.appendChild(rol);
+
+  const cita = document.createElement('p');
+  if (p.reflexion) {
+    cita.className = 'persona__cita';
+    cita.textContent = '«' + p.reflexion + '»';
+  } else {
+    cita.className = 'persona__cita persona__cita--vacia';
+    cita.textContent = 'Reflexión pendiente. Se escribe en la lista EQUIPO, al final del archivo.';
+  }
+  cuerpo.appendChild(cita);
+
+  art.appendChild(cuerpo);
+  return art;
+}
+
+function pintarEquipo() {
+  const pista = $('pistaEquipo');
+  pista.textContent = '';
+  EQUIPO.filter(p => nivelActivo === 'todos' || p.nivel === nivelActivo)
+        .forEach(p => pista.appendChild(tarjetaPersona(p)));
+  pista.scrollLeft = 0;
+  actualizarCarruseles();
+}
+
+function pintarConduccion() {
+  const grid = $('gridDocentes');
+  grid.textContent = '';
+  CONDUCCION.forEach(d => {
+    const art = document.createElement('article');
+    art.className = 'tarjeta';
+    art.style.display = 'flex';
+    art.style.gap = '1.1rem';
+    art.style.alignItems = 'flex-start';
+
+    const foto = crearFoto(aArchivo(d.nombre), iniciales(d.nombre));
+    foto.style.width = '92px';
+    foto.style.flexShrink = '0';
+    art.appendChild(foto);
+
+    const info = document.createElement('div');
+    const h = document.createElement('h3');
+    h.textContent = d.nombre;
+    h.style.fontSize = '1.02rem';
+    const rol = document.createElement('p');
+    rol.className = 'persona__rol';
+    rol.style.color = 'var(--azul)';
+    rol.textContent = d.rol;
+    const det = document.createElement('p');
+    det.textContent = d.detalle;
+    det.style.fontSize = '.88rem';
+    info.appendChild(h); info.appendChild(rol); info.appendChild(det);
+    art.appendChild(info);
+    grid.appendChild(art);
+  });
+}
+
+/* ============================== PROYECTOS ============================== */
+let cursoActivo = 'todos';
+const CLASE_ESP = { 'Administración':'adm', 'Electrónica':'ele', 'Telecomunicaciones':'tel' };
+
+function pintarProyectos() {
+  const grid = $('gridProyectos');
+  grid.textContent = '';
+  const lista = PROYECTOS.filter(p => cursoActivo === 'todos' || p.curso === cursoActivo);
+  lista.forEach(p => {
+    const art = document.createElement('article');
+    art.className = 'proy proy--' + CLASE_ESP[p.esp];
+    const h = document.createElement('h4');
+    h.textContent = p.nombre;
+    const l = document.createElement('p');
+    l.className = 'lider';
+    l.textContent = p.lider === '—' ? 'Líder por confirmar' : 'Líder: ' + p.lider;
+    const m = document.createElement('p');
+    m.className = 'meta';
+    m.textContent = p.curso + ' · ' + p.esp;
+    art.appendChild(h); art.appendChild(l); art.appendChild(m);
+    grid.appendChild(art);
+  });
+  $('contadorProyectos').textContent = lista.length;
+}
+
+/* ============================== CRONOGRAMA ============================== */
+function pintarCronograma() {
+  const cont = $('lineaTiempo');
+  cont.textContent = '';
+  const hoy = new Date();
+  const fechas = ['2026-08-28','2026-09-04','2026-09-11','2026-09-25','2026-10-02','2026-10-08'];
+
+  FASES.forEach((f, i) => {
+    const fecha = new Date(fechas[i] + 'T23:59:59');
+    const siguiente = i < fechas.length - 1 ? new Date(fechas[i + 1] + 'T23:59:59') : null;
+    const pasada = hoy > fecha;
+    const actual = !pasada && (i === 0 || hoy > new Date(fechas[i - 1] + 'T23:59:59'));
+
+    const div = document.createElement('div');
+    div.className = 'hito' + (pasada ? ' hito--hecho' : (actual ? ' hito--ahora' : ''));
+
+    const fe = document.createElement('span');
+    fe.className = 'hito__fecha';
+    fe.textContent = 'Fase ' + (i + 1) + ' · cierre ' + f.fecha;
+
+    const h = document.createElement('h4');
+    h.textContent = f.titulo;
+    if (pasada || actual) {
+      const marca = document.createElement('span');
+      marca.className = 'marca ' + (pasada ? 'marca--hecho' : 'marca--ahora');
+      marca.textContent = pasada ? 'Cerrada' : 'En curso';
+      h.appendChild(marca);
+    }
+
+    const p = document.createElement('p');
+    p.textContent = f.detalle;
+
+    div.appendChild(fe); div.appendChild(h); div.appendChild(p);
+    cont.appendChild(div);
+  });
+}
+
+/* ============================== GALERÍAS ============================== */
+function pintarGaleria() {
+  const pista = $('pistaGaleria');
+  pista.textContent = '';
+  GALERIA.forEach(g => {
+    const fig = document.createElement('figure');
+    fig.style.margin = '0';
+    fig.appendChild(crearFoto(g.archivo, g.titulo.replace('Feria TP ', ''), true));
+    const cap = document.createElement('figcaption');
+    cap.style.cssText = 'font-size:.85rem;color:var(--tinta-2);margin-top:.6rem';
+    const t = document.createElement('strong');
+    t.textContent = g.titulo + '. ';
+    t.style.color = 'var(--tinta)';
+    cap.appendChild(t);
+    cap.appendChild(document.createTextNode(g.pie));
+    fig.appendChild(cap);
+    pista.appendChild(fig);
+  });
+}
+
+function pintarFotosColegio() {
+  const pista = $('pistaColegio');
+  pista.textContent = '';
+  FOTOS_COLEGIO.forEach(f => {
+    const fig = document.createElement('figure');
+    fig.style.margin = '0';
+    fig.appendChild(crearFoto(f.archivo, 'CJMC', true));
+    const cap = document.createElement('figcaption');
+    cap.style.cssText = 'font-size:.85rem;color:var(--tinta-2);margin-top:.6rem';
+    cap.textContent = f.pie;
+    fig.appendChild(cap);
+    pista.appendChild(fig);
+  });
+}
+
+function pintarInstagram() {
+  const grid = $('gridInstagram');
+  grid.textContent = '';
+  for (let i = 1; i <= 6; i++) grid.appendChild(crearFoto('ig-' + i, 'IG'));
+}
+
+/* ============================== CARRUSEL ============================== */
+/* Un solo componente para las tres galerías: botones, puntos y teclado. */
+function pasoCarrusel(pista) {
+  const primero = pista.firstElementChild;
+  if (!primero) return pista.clientWidth;
+  const estilo = getComputedStyle(pista);
+  return primero.getBoundingClientRect().width + parseFloat(estilo.columnGap || estilo.gap || 0);
+}
+
+function actualizarCarrusel(carrusel) {
+  const pista = carrusel.querySelector('.carrusel__pista');
+  const puntos = carrusel.querySelector('[data-puntos]');
+  const anterior = carrusel.querySelector('[data-anterior]');
+  const siguiente = carrusel.querySelector('[data-siguiente]');
+  const paso = pasoCarrusel(pista);
+  const total = pista.children.length;
+  const visibles = Math.max(1, Math.round(pista.clientWidth / paso));
+  const paginas = Math.max(1, Math.ceil(total / visibles));
+  const actual = Math.round(pista.scrollLeft / (paso * visibles));
+
+  if (puntos) {
+    puntos.textContent = '';
+    if (paginas > 1) {
+      for (let i = 0; i < paginas; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Ir al grupo ' + (i + 1) + ' de ' + paginas);
+        b.setAttribute('aria-current', String(i === actual));
+        b.addEventListener('click', () => { pista.scrollTo({ left: i * paso * visibles, behavior:'smooth' }); });
+        puntos.appendChild(b);
+      }
+    }
+  }
+  const fin = pista.scrollWidth - pista.clientWidth - 2;
+  if (anterior) anterior.disabled = pista.scrollLeft <= 2;
+  if (siguiente) siguiente.disabled = pista.scrollLeft >= fin;
+}
+
+function actualizarCarruseles() {
+  document.querySelectorAll('[data-carrusel]').forEach(actualizarCarrusel);
+}
+
+function prepararCarruseles() {
+  document.querySelectorAll('[data-carrusel]').forEach(carrusel => {
+    const pista = carrusel.querySelector('.carrusel__pista');
+    const mover = (dir) => {
+      const paso = pasoCarrusel(pista);
+      const visibles = Math.max(1, Math.round(pista.clientWidth / paso));
+      pista.scrollBy({ left: dir * paso * visibles, behavior:'smooth' });
+    };
+    const anterior = carrusel.querySelector('[data-anterior]');
+    const siguiente = carrusel.querySelector('[data-siguiente]');
+    if (anterior) anterior.addEventListener('click', () => mover(-1));
+    if (siguiente) siguiente.addEventListener('click', () => mover(1));
+
+    pista.addEventListener('scroll', () => {
+      clearTimeout(pista._t);
+      pista._t = setTimeout(() => actualizarCarrusel(carrusel), 90);
+    });
+    pista.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); mover(1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); mover(-1); }
+    });
+  });
+  window.addEventListener('resize', () => {
+    clearTimeout(window._rt);
+    window._rt = setTimeout(actualizarCarruseles, 150);
+  });
+}
+
+/* ============================ CUENTA REGRESIVA ============================ */
+function actualizarCuenta() {
+  const falta = FECHA_FERIA - new Date();
+  const caja = $('cuenta');
+  if (falta <= 0) {
+    caja.querySelectorAll('b').forEach(b => { b.textContent = '0'; });
+    return;
+  }
+  const dias = Math.floor(falta / 86400000);
+  const horas = Math.floor((falta % 86400000) / 3600000);
+  const min = Math.floor((falta % 3600000) / 60000);
+  $('cDias').textContent = dias;
+  $('cHoras').textContent = String(horas).padStart(2, '0');
+  $('cMin').textContent = String(min).padStart(2, '0');
+}
+
+/* ============================== CONEXIONES ============================== */
+document.querySelectorAll('[data-nivel]').forEach(b => {
+  b.addEventListener('click', () => {
+    nivelActivo = b.dataset.nivel;
+    document.querySelectorAll('[data-nivel]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    pintarEquipo();
+  });
+});
+
+document.querySelectorAll('[data-curso]').forEach(b => {
+  b.addEventListener('click', () => {
+    cursoActivo = b.dataset.curso;
+    document.querySelectorAll('[data-curso]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    pintarProyectos();
+  });
+});
+
+const btnMenu = $('btnMenu'), navPrincipal = $('navPrincipal');
+btnMenu.addEventListener('click', () => {
+  const abierto = navPrincipal.classList.toggle('abierto');
+  btnMenu.setAttribute('aria-expanded', String(abierto));
+});
+navPrincipal.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A') { navPrincipal.classList.remove('abierto'); btnMenu.setAttribute('aria-expanded','false'); }
+});
+
+/* ================================ ARRANQUE ================================ */
+pintarEquipo();
+pintarConduccion();
+pintarProyectos();
+pintarCronograma();
+pintarGaleria();
+pintarFotosColegio();
+pintarInstagram();
+prepararCarruseles();
+actualizarCarruseles();
+actualizarCuenta();
+setInterval(actualizarCuenta, 30000);
+
+/* ============================== COMPROBACIONES ============================== */
+/* Verifican que el contenido y la estructura estén completos.
+   Se ejecutan agregando ?pruebas=1 a la dirección.                          */
+const PRUEBAS = [
+  ['El equipo tiene los 12 integrantes de la guía', () => EQUIPO.length === 12],
+  ['Son 6 de III medio y 6 de IV medio', () =>
+    EQUIPO.filter(p => p.nivel === 'III° Medio').length === 6 &&
+    EQUIPO.filter(p => p.nivel === 'IV°A').length === 6],
+  ['Cada área tiene 4 integrantes', () =>
+    ['Gestión','Logística','Marketing'].every(a => EQUIPO.filter(p => p.area === a).length === 4)],
+  ['Todos los integrantes tienen un área válida', () =>
+    EQUIPO.every(p => COLOR_AREA[p.area])],
+  ['Los nombres de archivo de foto no se repiten', () => {
+    const v = EQUIPO.concat(CONDUCCION).map(p => aArchivo(p.nombre));
+    return new Set(v).size === v.length;
+  }],
+  ['Los acentos se limpian bien en los nombres de archivo', () =>
+    aArchivo('Martín Faúndez') === 'martin-faundez' &&
+    aArchivo('Cristóbal Del Canto') === 'cristobal-del-canto'],
+  ['Las iniciales salen de las dos primeras palabras', () =>
+    iniciales('María Echeverry') === 'ME' && iniciales('Sarai Muñoz') === 'SM'],
+  ['Cada proyecto tiene curso y especialidad conocidos', () =>
+    PROYECTOS.every(p => CLASE_ESP[p.esp] && /^(III|IV)°[ABC]$/.test(p.curso))],
+  ['El cronograma tiene las 6 fases de la guía', () => FASES.length === 6],
+  ['El filtro por curso deja fuera lo que no corresponde', () => {
+    const previo = cursoActivo;
+    cursoActivo = 'IV°B'; pintarProyectos();
+    const n = document.querySelectorAll('#gridProyectos .proy').length;
+    const esperado = PROYECTOS.filter(p => p.curso === 'IV°B').length;
+    cursoActivo = previo; pintarProyectos();
+    return n === esperado && n > 0;
+  }],
+  ['El filtro del equipo por nivel funciona', () => {
+    const previo = nivelActivo;
+    nivelActivo = 'III° Medio'; pintarEquipo();
+    const n = document.querySelectorAll('#pistaEquipo .persona').length;
+    nivelActivo = previo; pintarEquipo();
+    return n === 6;
+  }],
+  ['Los huecos de foto muestran la ruta del archivo', () => {
+    const primero = document.querySelector('#pistaEquipo .foto__hueco small');
+    return !!primero && primero.textContent.indexOf('fotos/') === 0;
+  }],
+  ['La página no carga nada desde internet', () =>
+    document.querySelectorAll('script[src], link[rel=stylesheet]').length === 0]
+];
+
+function correrPruebas() {
+  const fallidas = [];
+  PRUEBAS.forEach(([nombre, prueba]) => {
+    let ok = false;
+    try { ok = prueba() === true; } catch (e) { ok = false; }
+    if (!ok) fallidas.push(nombre);
+  });
+  const caja = document.createElement('div');
+  caja.id = 'resultadoPruebas';
+  caja.style.cssText = 'position:fixed;left:1rem;bottom:1rem;z-index:300;max-width:32rem;padding:.9rem 1.1rem;' +
+    'border-radius:12px;font-size:.85rem;font-weight:600;box-shadow:var(--sombra-alta);' +
+    (fallidas.length === 0 ? 'background:#E6F6E0;color:#2E7D32;border:1px solid #A5D69A'
+                           : 'background:#FDE8E6;color:#C62828;border:1px solid #F0A9A2');
+  caja.textContent = fallidas.length === 0
+    ? 'Las ' + PRUEBAS.length + ' comprobaciones pasaron correctamente.'
+    : fallidas.length + ' de ' + PRUEBAS.length + ' fallaron: ' + fallidas.join(' · ');
+  document.body.appendChild(caja);
+  return fallidas;
+}
+
+if (new URLSearchParams(location.search).has('pruebas')) correrPruebas();
+</script>
+</body>
+</html>

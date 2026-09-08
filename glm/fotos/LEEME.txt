@@ -1,0 +1,57 @@
+FOTOS DEL SITIO GLM
+===================
+
+Guarda aqui las imagenes con EXACTAMENTE estos nombres. Aparecen solas
+al recargar la pagina. Mientras no existan se ve el recuadro con las
+iniciales, que tambien sirve para presentar.
+
+RETRATOS DEL EQUIPO  (cuadradas, minimo 600 x 600 px)
+  fotos/martin-faundez.jpg         -> Martín Faúndez
+  fotos/ronny-rojas.jpg            -> Ronny Rojas
+  fotos/ignacio-vardy.jpg          -> Ignacio Vardy
+  fotos/francisca-lopez.jpg        -> Francisca López
+  fotos/maria-echeverry.jpg        -> María Echeverry
+  fotos/alonso-miranda.jpg         -> Alonso Miranda
+  fotos/romina-provoste.jpg        -> Romina Provoste
+  fotos/amaia-sanchez.jpg          -> Amaia Sánchez
+  fotos/agustina-figueroa.jpg      -> Agustina Figueroa
+  fotos/vaithiare-gonzalez.jpg     -> Vaithiare González
+  fotos/cristobal-del-canto.jpg    -> Cristóbal Del Canto
+  fotos/sarai-munoz.jpg            -> Sarai Muñoz
+
+CONDUCCION  (cuadradas, minimo 600 x 600 px)
+  fotos/vanessa-moncada.jpg        -> Vanessa Moncada
+  fotos/daniela-ortega.jpg         -> Daniela Ortega
+  fotos/fabian-herrera.jpg         -> Fabián Herrera
+
+GALERIA DE FERIAS ANTERIORES  (horizontales, minimo 1200 px de ancho)
+  fotos/feria-2025-1.jpg
+  fotos/feria-2025-2.jpg
+  fotos/feria-2025-3.jpg
+  fotos/feria-2025-4.jpg
+  fotos/feria-2024-1.jpg
+  fotos/feria-2024-2.jpg
+  fotos/feria-2024-3.jpg
+  fotos/feria-2024-4.jpg
+
+EL COLEGIO  (horizontales, minimo 1200 px de ancho)
+  fotos/colegio-1.jpg
+  fotos/colegio-2.jpg
+  fotos/colegio-3.jpg
+  fotos/colegio-4.jpg
+
+MURO DE INSTAGRAM  (cuadradas)
+  fotos/ig-1.jpg
+  fotos/ig-2.jpg
+  fotos/ig-3.jpg
+  fotos/ig-4.jpg
+  fotos/ig-5.jpg
+  fotos/ig-6.jpg
+
+TOTAL: 33 imagenes.
+
+Si cambia un integrante, edita la lista EQUIPO al final de GLM.html y
+usa el nombre de archivo sin tildes, en minusculas y con guiones.
+
+Antes de publicar una foto de una persona, confirma que exista
+autorizacion de uso de imagen. Es parte del trabajo de Marketing.
