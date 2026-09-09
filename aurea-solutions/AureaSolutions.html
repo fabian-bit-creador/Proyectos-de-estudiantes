@@ -1,0 +1,1971 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Áurea Solutions · Inducción en el Colegio Cardenal José María Caro</title>
+<meta name="description" content="Sistema de inducción para funcionarios nuevos del Colegio Cardenal José María Caro: recorrido virtual del establecimiento, ruta por cargo, historia y cultura institucional, y glosario escolar.">
+<meta name="author" content="Áurea Solutions · IV°A Administración · Feria Técnico Profesional 2026">
+<meta name="theme-color" content="#6b1d2f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236b1d2f'/><path d='M50 20 L74 78 H62 L50 46 L38 78 H26 Z' fill='%23b9935a'/></svg>">
+
+<style>
+/* ===================================================================
+   ÁUREA SOLUTIONS · inducción de funcionarios nuevos
+   Paleta original del equipo, conservada tal cual.
+   Sin dependencias externas: ni tipografías, ni librerías, ni CDN.
+   =================================================================== */
+:root{
+  --vino:#6b1d2f;      --vino-osc:#4d1421;   --vino-cla:#8f3247;
+  --tinta:#241b1c;     --tinta-2:#5c4a48;    --tinta-3:#8a7370;
+  --crema:#fdfbf7;     --arena:#efe3d8;      --arena-2:#e3d3c5;
+  --rosa:#cf8992;      --rosa-cla:#f7e9eb;
+  --dorado:#b9935a;    --dorado-cla:#f3e8d6; --dorado-osc:#8a6b3c;
+  --linea:#eadfd9;     --linea-2:#dccbc1;
+  --verde:#2f6b4f;     --verde-cla:#e6f2ec;
+  --alerta:#a8501a;    --alerta-cla:#fdf0e4;
+  --stop:#a3242b;      --stop-cla:#fbeaea;
+  --info:#2b5c7a;      --info-cla:#e7f1f7;
+  --r:14px; --r-lg:20px; --r-xl:28px;
+  --sombra:0 2px 14px rgba(36,27,28,.07);
+  --sombra-alta:0 18px 44px -18px rgba(36,27,28,.34);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--sans);
+     font-size:16.5px;line-height:1.62;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4{margin:0;font-family:var(--serif);line-height:1.14;letter-spacing:-.015em}
+p{margin:0 0 .9rem} p:last-child{margin-bottom:0}
+a{color:var(--vino)}
+img,svg,canvas{max-width:100%;display:block}
+code{font-family:var(--mono);font-size:.86em;background:var(--arena);border-radius:5px;padding:.1rem .35rem}
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+  outline:3px solid var(--vino);outline-offset:3px;border-radius:8px}
+.saltar{position:absolute;left:-9999px;top:0;z-index:200;background:var(--vino);color:#fff;
+        padding:.85rem 1.4rem;font-weight:700;border-radius:0 0 12px 0}
+.saltar:focus{left:0}
+.oculto{display:none !important}
+.wrap{max-width:1160px;margin:0 auto;padding:0 1.4rem}
+.wrap--angosto{max-width:56rem}
+section{padding:4.6rem 0;border-top:1px solid var(--linea)}
+.eyebrow{display:block;font-size:.75rem;font-weight:700;letter-spacing:.16em;
+         text-transform:uppercase;color:var(--vino)}
+.eyebrow--oro{color:var(--dorado-osc)}
+.cab h2{font-size:clamp(1.75rem,3.7vw,2.45rem);margin-top:.7rem}
+.cab p{margin-top:1rem;color:var(--tinta-2)}
+.centrado{max-width:50rem;margin-left:auto;margin-right:auto;text-align:center}
+.dato{font-family:var(--mono);font-size:.73rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tinta-3)}
+.fina{font-size:.84rem;color:var(--tinta-3);line-height:1.62}
+
+/* ------------------------------- Franja ------------------------------- */
+.franja{background:var(--dorado-cla);border-bottom:1px solid var(--dorado);color:var(--dorado-osc);font-size:.84rem}
+.franja .wrap{display:flex;gap:.6rem;align-items:flex-start;padding-top:.6rem;padding-bottom:.6rem}
+.franja b{color:var(--vino)}
+
+/* ------------------------------ Cabecera ------------------------------ */
+.barra{position:sticky;top:0;z-index:60;background:var(--crema);border-bottom:1px solid var(--linea)}
+.barra__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.7rem}
+.marca{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit}
+.marca__logo{height:2.6rem;width:2.6rem;flex-shrink:0}
+.marca b{display:block;font-family:var(--serif);font-size:1.16rem;color:var(--vino);line-height:1.1}
+.marca small{display:block;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--tinta-3)}
+.nav{display:flex;align-items:center;gap:1.6rem}
+.nav a{font-size:.88rem;font-weight:600;color:var(--tinta-2);text-decoration:none}
+.nav a:hover{color:var(--vino)}
+/* .nav a gana en especificidad sobre .btn--v: sin esto, el botón de la barra
+   queda con texto oscuro sobre fondo vino y no se lee. */
+.nav a.btn{color:var(--vino)}
+.nav a.btn--v{color:#fff}
+.btn-menu{display:none;background:none;border:0;color:var(--vino);padding:.5rem;border-radius:10px;cursor:pointer}
+@media (max-width:1000px){
+  .btn-menu{display:block}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;
+       gap:0;background:var(--crema);border-bottom:1px solid var(--linea);padding:.6rem 1.4rem 1.1rem;
+       box-shadow:var(--sombra)}
+  .nav.abierto{display:flex}
+  .nav a{padding:.8rem .4rem;border-radius:10px}
+  .marca small{display:none}
+}
+
+/* ------------------------------- Botones ------------------------------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:inherit;font-weight:600;
+     font-size:.92rem;padding:.72rem 1.4rem;border-radius:999px;border:1.5px solid var(--vino);
+     background:transparent;color:var(--vino);cursor:pointer;text-decoration:none;
+     transition:background-color .16s ease,color .16s ease,transform .16s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn--v{background:var(--vino);color:#fff}
+.btn--v:hover{background:var(--vino-osc)}
+.btn--oro{background:var(--dorado);border-color:var(--dorado);color:#3a2c15}
+.btn--oro:hover{background:var(--dorado-osc);color:#fff}
+.btn--suave{background:var(--arena);border-color:var(--arena-2);color:var(--vino)}
+.btn--suave:hover{background:var(--arena-2)}
+.btn--sm{font-size:.83rem;padding:.5rem 1rem}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.acciones{display:flex;flex-wrap:wrap;gap:.7rem}
+
+/* --------------------------------- Hero --------------------------------- */
+.hero{padding:4.2rem 0 4rem;background:linear-gradient(160deg,var(--crema) 40%,var(--arena))}
+.hero__grid{display:grid;gap:3rem;align-items:center}
+@media (min-width:940px){.hero__grid{grid-template-columns:1.15fr .85fr}}
+.hero h1{font-size:clamp(2.2rem,5.4vw,4rem);letter-spacing:-.035em;margin-top:1.1rem}
+.hero h1 em{font-style:italic;color:var(--vino)}
+.hero__sub{margin-top:1.4rem;font-size:1.06rem;color:var(--tinta-2);max-width:36rem}
+.hero__cifras{margin-top:2.4rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:32rem;
+              font-size:.83rem;color:var(--tinta-3);line-height:1.4}
+.hero__cifras>div{padding-left:1rem;border-left:2px solid var(--dorado)}
+.hero__cifras>div:first-child{padding-left:0;border-left:0}
+.hero__cifras b{display:block;font-family:var(--serif);font-size:1.6rem;color:var(--vino);line-height:1.1}
+.hero__marca{display:flex;align-items:center;justify-content:center}
+.hero__logo{width:min(21rem,80vw)}
+
+/* ============================ RECORRIDO 360 ============================ */
+.visor{position:relative;background:#1b1315;border-radius:var(--r-lg);overflow:hidden;
+       box-shadow:var(--sombra-alta);aspect-ratio:16/9;min-height:19rem}
+.visor canvas,.visor__img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.visor__img{object-fit:cover}
+.visor canvas{cursor:grab;touch-action:none}
+.visor canvas.arrastrando{cursor:grabbing}
+.visor__vacio{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+              justify-content:center;gap:.9rem;text-align:center;padding:2rem;color:#f0e4e0;
+              background:repeating-linear-gradient(135deg,#2a1c20,#2a1c20 16px,#241719 16px,#241719 32px)}
+.visor__vacio h4{font-size:1.2rem;color:#fff}
+.visor__vacio p{font-size:.9rem;color:#cbb4b0;max-width:32rem;margin:0}
+.visor__vacio code{background:rgba(255,255,255,.13);color:#f3ddd0}
+.visor__barra{position:absolute;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;gap:.5rem;
+              align-items:center;justify-content:space-between;padding:.8rem 1rem;
+              background:linear-gradient(to top,rgba(20,12,14,.88),rgba(20,12,14,0))}
+.visor__tit{color:#fff;font-family:var(--serif);font-size:1.1rem;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.visor__tit span{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;
+                 text-transform:uppercase;color:var(--dorado);font-weight:400}
+.visor__ctrl{display:flex;gap:.4rem;flex-wrap:wrap}
+.icono{display:inline-flex;align-items:center;justify-content:center;width:2.3rem;height:2.3rem;
+       border-radius:50%;border:1px solid rgba(255,255,255,.32);background:rgba(28,18,21,.62);
+       color:#fff;cursor:pointer;padding:0}
+.icono:hover{background:var(--vino)}
+.icono[disabled]{opacity:.35;cursor:not-allowed}
+.etiqueta360{position:absolute;top:.9rem;left:.9rem;background:var(--dorado);color:#3a2c15;
+             font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+             padding:.25rem .7rem;border-radius:999px;z-index:3}
+.cargando{position:absolute;top:.9rem;right:.9rem;background:rgba(28,18,21,.8);color:#fff;
+          font-size:.72rem;padding:.3rem .8rem;border-radius:999px;z-index:3}
+
+.recorrido{display:grid;gap:1.8rem;margin-top:2.4rem}
+@media (min-width:1000px){.recorrido{grid-template-columns:1.55fr 1fr;align-items:start}}
+.ficha-parada{background:#fff;border:1px solid var(--linea);border-radius:var(--r-lg);padding:1.6rem;
+              box-shadow:var(--sombra)}
+.ficha-parada h3{font-size:1.32rem;margin-bottom:.2rem}
+.ficha-parada__cat{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.08em;
+                   text-transform:uppercase;padding:.2rem .6rem;border-radius:6px;
+                   background:var(--rosa-cla);color:var(--vino);margin-bottom:.8rem}
+.ficha-parada__d{color:var(--tinta-2);font-size:.95rem}
+.bloque{background:var(--arena);border-radius:var(--r);padding:.9rem 1.05rem;margin-top:.85rem}
+.bloque span{display:block;font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+             color:var(--vino);margin-bottom:.25rem}
+.bloque p{font-size:.9rem;margin:0;color:var(--tinta-2)}
+.bloque--oro{background:var(--dorado-cla)}
+.paradas{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:.6rem;margin-top:1.6rem}
+.parada{display:flex;flex-direction:column;gap:.25rem;text-align:left;font:inherit;cursor:pointer;
+        border:1.5px solid var(--linea-2);border-radius:var(--r);background:#fff;padding:.7rem .8rem;
+        color:var(--tinta-2);transition:border-color .15s,background .15s}
+.parada:hover{border-color:var(--rosa);background:var(--rosa-cla)}
+.parada[aria-current="true"]{background:var(--vino);border-color:var(--vino);color:#fff}
+.parada b{font-size:.84rem;font-weight:700;line-height:1.25}
+.parada small{font-size:.68rem;color:var(--tinta-3);display:flex;align-items:center;gap:.25rem}
+.parada[aria-current="true"] small{color:var(--rosa)}
+.punto-foto{width:.5rem;height:.5rem;border-radius:50%;background:var(--linea-2);flex-shrink:0}
+.punto-foto--si{background:var(--verde)}
+.punto-foto--360{background:var(--dorado)}
+
+/* --------------------------- Ruta por cargo --------------------------- */
+.cargos{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.8rem}
+.cargos button{font:inherit;font-size:.86rem;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;
+               border:1.5px solid var(--linea-2);background:#fff;color:var(--tinta-2);cursor:pointer}
+.cargos button:hover{border-color:var(--rosa);color:var(--vino)}
+.cargos button[aria-selected="true"]{background:var(--vino);border-color:var(--vino);color:#fff}
+.cargos button .piloto{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;
+                       background:var(--dorado);color:#3a2c15;border-radius:5px;padding:.05rem .35rem;margin-left:.4rem}
+
+.momentos{display:grid;gap:2.4rem;margin-top:2.2rem}
+@media (min-width:960px){.momentos{grid-template-columns:.8fr 1.2fr}}
+.linea-momentos{border-left:2px solid var(--rosa);padding-left:1.5rem;display:flex;flex-direction:column;gap:.4rem}
+.momento{position:relative;text-align:left;font:inherit;cursor:pointer;border:0;background:none;
+         padding:.85rem .6rem;border-radius:var(--r);color:var(--tinta-2)}
+.momento::before{content:"";position:absolute;width:11px;height:11px;border:3px solid var(--vino);
+                 background:var(--crema);border-radius:50%;left:-2.05rem;top:1.15rem}
+.momento:hover{background:var(--arena)}
+.momento[aria-selected="true"]{background:var(--arena)}
+.momento[aria-selected="true"]::before{background:var(--vino)}
+.momento b{display:block;font-size:1rem;color:var(--tinta)}
+.momento small{display:block;font-size:.8rem;color:var(--tinta-3);margin-top:.1rem}
+.panel-momento{background:var(--arena);border-radius:var(--r-xl);padding:2rem;min-height:17rem}
+.panel-momento h3{font-size:1.4rem;margin:.5rem 0 .3rem}
+.panel-momento ul{margin:1.2rem 0 0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.6rem}
+.panel-momento li{font-size:.94rem;color:var(--tinta-2)}
+.panel-momento li b{color:var(--tinta)}
+
+/* ------------------------------ Checklist ------------------------------ */
+.tablero{display:grid;gap:2.2rem;margin-top:2rem}
+@media (min-width:900px){.tablero{grid-template-columns:1.25fr .75fr;align-items:start}}
+.progreso{height:.7rem;background:var(--arena-2);border-radius:99px;overflow:hidden;margin:.5rem 0 1.3rem}
+.progreso div{height:100%;width:0;background:linear-gradient(90deg,var(--vino),var(--dorado));transition:width .3s ease}
+.hito{display:flex;gap:.75rem;align-items:flex-start;background:#fff;border:1px solid var(--linea);
+      border-radius:var(--r);padding:.8rem .95rem;margin-bottom:.5rem;cursor:pointer}
+.hito:hover{border-color:var(--rosa)}
+.hito input{width:1.15rem;height:1.15rem;flex-shrink:0;margin-top:.2rem;accent-color:var(--vino)}
+.hito__t{font-size:.92rem;line-height:1.45}
+.hito__m{display:block;font-size:.72rem;color:var(--tinta-3);margin-top:.1rem}
+.hito input:checked+.hito__t{color:var(--tinta-3);text-decoration:line-through}
+.recursos{display:grid;gap:.7rem}
+.recurso{background:var(--arena);border-radius:var(--r);padding:.95rem 1.1rem}
+.recurso b{display:block;color:var(--vino);font-size:.92rem}
+.recurso small{font-size:.83rem;color:var(--tinta-2)}
+
+/* ------------------------------- Glosario ------------------------------- */
+.buscador{position:relative;max-width:30rem;margin:1.8rem auto 0}
+.buscador input{width:100%;font:inherit;font-size:1rem;padding:.8rem 1rem .8rem 2.6rem;
+                border:1.5px solid var(--linea-2);border-radius:999px;background:#fff;color:var(--tinta)}
+.buscador svg{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);color:var(--tinta-3)}
+.glosario{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem;margin-top:1.8rem}
+.termino{background:#fff;border:1px solid var(--linea);border-radius:var(--r);padding:1rem 1.1rem}
+.termino b{display:block;font-family:var(--serif);font-size:1.02rem;color:var(--vino)}
+.termino i{display:block;font-style:normal;font-size:.72rem;color:var(--tinta-3);margin-bottom:.4rem}
+.termino p{font-size:.87rem;margin:0;color:var(--tinta-2)}
+.sin-resultados{text-align:center;color:var(--tinta-3);padding:2rem;font-size:.95rem}
+
+/* --------------------------- Historia y cultura --------------------------- */
+.tarjetas{display:grid;gap:1.2rem;grid-template-columns:1fr;margin-top:2.2rem}
+@media (min-width:760px){.tarjetas--2{grid-template-columns:1fr 1fr}.tarjetas--3{grid-template-columns:repeat(3,1fr)}}
+.tarjeta{background:#fff;border:1px solid var(--linea);border-radius:var(--r-lg);padding:1.6rem;box-shadow:var(--sombra)}
+.tarjeta h3{font-size:1.15rem;margin-bottom:.5rem}
+.tarjeta p{font-size:.93rem;color:var(--tinta-2)}
+.tarjeta__ico{display:inline-flex;width:2.8rem;height:2.8rem;align-items:center;justify-content:center;
+              border-radius:14px;background:var(--rosa-cla);color:var(--vino);margin-bottom:1rem}
+.cita{background:var(--vino);color:#fff;border-radius:var(--r-xl);padding:2.4rem;box-shadow:var(--sombra-alta)}
+.cita p{font-family:var(--serif);font-size:1.5rem;font-style:italic;line-height:1.35;color:#fff}
+.cita footer{margin-top:1.1rem;font-size:.84rem;color:var(--rosa)}
+.hitos-historia{margin-top:2rem;border-left:2px solid var(--dorado);padding-left:1.6rem;
+                display:flex;flex-direction:column;gap:1.4rem}
+.hito-h{position:relative}
+.hito-h::before{content:"";position:absolute;width:11px;height:11px;background:var(--dorado);
+                border-radius:50%;left:-2.15rem;top:.5rem}
+.hito-h b{font-family:var(--serif);font-size:1.05rem;color:var(--vino);display:block}
+.hito-h .anio{font-family:var(--mono);font-size:.75rem;color:var(--dorado-osc);letter-spacing:.06em}
+.hito-h p{font-size:.9rem;color:var(--tinta-2);margin:.25rem 0 0}
+
+/* --------------------------------- Avisos --------------------------------- */
+.nota{display:flex;gap:.75rem;border-radius:var(--r);padding:1rem 1.15rem;font-size:.9rem;
+      line-height:1.55;margin-bottom:1.2rem}
+.nota svg{flex-shrink:0;margin-top:.15rem}
+.nota p{margin:0}
+.nota--info{background:var(--info-cla);border:1px solid #bcd6e6;color:var(--info)}
+.nota--ok{background:var(--verde-cla);border:1px solid #bfe0ce;color:var(--verde)}
+.nota--alerta{background:var(--alerta-cla);border:1px solid #f0cba6;color:var(--alerta)}
+.nota--stop{background:var(--stop-cla);border:1px solid #f0c2c2;color:var(--stop)}
+.nota b{font-weight:700}
+
+/* ------------------------------ Formularios ------------------------------ */
+.campo{display:block;font-size:.88rem;margin-bottom:1.05rem}
+.campo>span:first-child{display:block;font-weight:600;color:var(--tinta-2);margin-bottom:.32rem}
+.campo input,.campo select,.campo textarea{font:inherit;font-size:.94rem;width:100%;padding:.68rem .85rem;
+  border:1px solid var(--linea-2);border-radius:12px;background:#fff;color:var(--tinta)}
+.campo textarea{min-height:5.5rem;resize:vertical}
+.campo .ayuda{display:block;font-size:.78rem;color:var(--tinta-3);margin-top:.3rem;line-height:1.5}
+.form2{display:grid;gap:0 1.2rem;grid-template-columns:1fr}
+@media (min-width:680px){.form2{grid-template-columns:1fr 1fr}.form2 .ancho{grid-column:1/-1}}
+.req{color:var(--stop);font-style:normal;font-weight:700}
+.campo--check{display:flex;gap:.7rem;align-items:flex-start;font-size:.87rem;line-height:1.55;
+              background:var(--arena);border:1px solid var(--linea-2);border-radius:var(--r);
+              padding:.9rem 1.1rem;margin:.3rem 0 1.3rem;cursor:pointer}
+.campo--check input{width:1.15rem;height:1.15rem;flex-shrink:0;margin-top:.15rem;accent-color:var(--vino)}
+
+/* --------------------------------- Equipo --------------------------------- */
+.equipo{display:grid;gap:1rem;grid-template-columns:repeat(2,1fr);max-width:52rem;margin:2.6rem auto 0}
+@media (min-width:640px){.equipo{grid-template-columns:repeat(4,1fr)}}
+.persona{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.7rem;
+         border-radius:var(--r-lg);border:1px solid var(--linea);padding:1.5rem 1rem;background:#fff}
+.persona__ico{display:flex;width:3.2rem;height:3.2rem;align-items:center;justify-content:center;
+              border-radius:16px;background:var(--arena);color:var(--vino)}
+.persona b{font-family:var(--serif);font-size:.95rem;line-height:1.3}
+.persona small{font-size:.76rem;color:var(--tinta-3)}
+
+/* ----------------------------------- Pie ----------------------------------- */
+.pie{background:var(--vino-osc);color:var(--arena);padding:3rem 0 2rem;font-size:.9rem}
+.pie__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.4rem}
+.pie__marca{display:flex;align-items:center;gap:.85rem}
+.pie__marca b{display:block;font-family:var(--serif);font-size:1.1rem;color:#fff}
+.pie__marca small{display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rosa)}
+.pie__nav{display:flex;flex-wrap:wrap;gap:1.3rem}
+.pie a{color:var(--rosa-cla);text-decoration:none;font-size:.88rem}
+.pie a:hover{text-decoration:underline;color:#fff}
+.pie__nota{margin-top:2rem;text-align:center;font-size:.8rem;color:var(--rosa);line-height:1.7}
+
+@media print{
+  .no-imprimir{display:none !important}
+  body{background:#fff}
+  section{padding:.6rem 0;border-top:0}
+  .visor{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<a class="saltar" href="#recorrido">Saltar al recorrido virtual</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <!-- La marca: una espiral áurea real, construida sobre la sucesión de Fibonacci
+       (55·34·21·13·8·5·3·2). "Áurea" viene de la proporción áurea, así que el logo
+       dice el nombre del equipo sin escribirlo. Si tienen su logo original en PNG,
+       las instrucciones para reemplazarlo están en la guía del equipo. -->
+  <symbol id="logo-aurea" viewBox="0 0 120 120">
+    <rect width="120" height="120" rx="26" fill="#6b1d2f"/>
+    <g transform="translate(18,34) scale(0.944)" fill="none">
+      <rect x="0" y="0" width="89" height="55" rx="2" stroke="#cf8992" stroke-width="1.1" opacity=".55"/>
+      <path d="M0 55A55 55 0 0 1 55 0A34 34 0 0 1 89 34A21 21 0 0 1 68 55A13 13 0 0 1 55 42A8 8 0 0 1 63 34A5 5 0 0 1 68 39A3 3 0 0 1 65 42A2 2 0 0 1 63 40"
+            stroke="#b9935a" stroke-width="3.4" stroke-linecap="round"/>
+    </g>
+  </symbol>
+
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-360" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="4.5"/><path d="M2 12a10 10 0 0 0 20 0"/><path d="m6.5 9.5-1.6-1.4 1.6-1.4"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-camara" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-subir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v13"/></symbol>
+  <symbol id="i-izq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  <symbol id="i-der" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-centrar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-expandir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2.4 17a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></symbol>
+  <symbol id="i-libro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+  <symbol id="i-corazon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 14.4C21 12.8 22 11.5 22 9.5A5.5 5.5 0 0 0 12.4 5.8a.6.6 0 0 1-.8 0A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.5 5.4a2 2 0 0 0 2.9 0"/></symbol>
+  <symbol id="i-edificio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></symbol>
+  <symbol id="i-personas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></symbol>
+  <symbol id="i-persona" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-reloj" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-buscar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-imprimir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></symbol>
+  <symbol id="i-brujula" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.9 6.6-6.6 2.9 2.9-6.6z"/></symbol>
+  <symbol id="i-llave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 3 3L22 7l-3-3"/><path d="m9.5 13.5 6-6"/><circle cx="6.5" cy="16.5" r="4.5"/></symbol>
+</svg>
+
+<div class="franja no-imprimir">
+  <div class="wrap">
+    <svg width="17" height="17" aria-hidden="true" style="flex-shrink:0;margin-top:.2rem"><use href="#i-alerta"/></svg>
+    <p style="margin:0"><b>Proyecto estudiantil de la Feria Técnico Profesional 2026.</b> Áurea Solutions es un proyecto de título de IV°A y no es una empresa constituida. El recorrido y los contenidos de esta página son una <b>propuesta</b>: antes de usarla como inducción oficial debe revisarla y aprobarla la dirección del establecimiento.</p>
+  </div>
+</div>
+
+<header class="barra no-imprimir">
+  <div class="wrap barra__in">
+    <a class="marca" href="#inicio">
+      <svg class="marca__logo" viewBox="0 0 120 120" role="img" aria-label="Áurea Solutions"><use href="#logo-aurea"/></svg>
+      <span><b>Áurea Solutions</b><small>Inducción de funcionarios</small></span>
+    </a>
+    <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="navPrincipal" aria-label="Abrir menú">
+      <svg width="24" height="24" aria-hidden="true"><use href="#i-menu"/></svg>
+    </button>
+    <nav class="nav" id="navPrincipal" aria-label="Navegación principal">
+      <a href="#recorrido">Recorrido</a>
+      <a href="#ruta">Ruta por cargo</a>
+      <a href="#colegio">El colegio</a>
+      <a href="#glosario">Glosario</a>
+      <a href="#equipo">Equipo</a>
+      <a class="btn btn--v btn--sm" href="#recorrido">Entrar al recorrido</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<section class="hero" style="border-top:0">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="eyebrow">Colegio Cardenal José María Caro · Fundación Belén Educa</span>
+      <h1>Que nadie llegue a trabajar aquí <em>sin conocer el lugar</em>.</h1>
+      <p class="hero__sub">Un funcionario nuevo llega el lunes y tiene que aprender al mismo tiempo dónde queda todo, cómo se trabaja y qué significan veinte siglas que nadie le explicó. Áurea Solutions arma esa inducción en un solo lugar: <strong>un recorrido por el colegio, una ruta según el cargo y el contexto de la institución</strong>.</p>
+      <div class="acciones" style="margin-top:2rem">
+        <a class="btn btn--v" href="#recorrido">Recorrer el colegio <svg width="17" height="17" aria-hidden="true"><use href="#i-der"/></svg></a>
+        <a class="btn" href="#ruta">Ver la ruta por cargo</a>
+      </div>
+      <div class="hero__cifras">
+        <div><b id="cifraParadas">12</b>Paradas del recorrido</div>
+        <div><b id="cifraHitos">0</b>Hitos de tu ruta</div>
+        <div><b id="cifraTerminos">0</b>Siglas explicadas</div>
+      </div>
+    </div>
+    <div class="hero__marca">
+      <svg class="hero__logo" viewBox="0 0 120 120" role="img" aria-label="Logo de Áurea Solutions: espiral áurea"><use href="#logo-aurea"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= RECORRIDO VIRTUAL ========================= -->
+<section id="recorrido">
+  <div class="wrap">
+    <div class="cab centrado no-imprimir">
+      <span class="eyebrow eyebrow--oro">Recorrido virtual</span>
+      <h2>Conocer el colegio antes del primer día</h2>
+      <p>Esta es la parte que un texto no puede reemplazar. El visor acepta <strong>fotos 360°</strong> (se arrastra para mirar alrededor, como en Street View) y también <strong>fotos normales</strong> de celular. Cada parada explica qué es el lugar, qué hay que saber ahí y a quién preguntarle.</p>
+    </div>
+
+    <div class="recorrido">
+      <div>
+        <div class="visor" id="visor">
+          <canvas id="lienzo" class="oculto" tabindex="0" role="img"
+                  aria-label="Vista 360 grados. Arrastra con el mouse o usa las flechas del teclado para mirar alrededor."></canvas>
+          <img id="fotoPlana" class="visor__img oculto" alt="">
+          <div class="visor__vacio" id="visorVacio">
+            <svg width="46" height="46" aria-hidden="true" style="color:var(--dorado)"><use href="#i-camara"/></svg>
+            <h4>Aquí va la foto de esta parada</h4>
+            <p id="textoVacio">Todavía no hay imagen para este lugar. Se puede cargar ahora mismo con el botón «Cargar foto», o dejarla en la carpeta <code>fotos/</code> con el nombre que indica la guía del equipo.</p>
+          </div>
+          <span class="etiqueta360 oculto" id="etiqueta360">Vista 360°</span>
+          <span class="cargando oculto" id="cargando">Cargando…</span>
+
+          <div class="visor__barra">
+            <div class="visor__tit"><span id="visorCat">Parada 1 de 12</span><span id="visorTitulo" style="font-family:var(--serif);font-size:1.1rem;color:#fff;letter-spacing:0;text-transform:none">Portería</span></div>
+            <div class="visor__ctrl">
+              <button class="icono" id="btnAnterior" aria-label="Parada anterior"><svg width="17" height="17" aria-hidden="true"><use href="#i-izq"/></svg></button>
+              <button class="icono" id="btnCentrar" aria-label="Centrar la vista" title="Centrar la vista"><svg width="17" height="17" aria-hidden="true"><use href="#i-centrar"/></svg></button>
+              <button class="icono" id="btnPantalla" aria-label="Pantalla completa" title="Pantalla completa"><svg width="17" height="17" aria-hidden="true"><use href="#i-expandir"/></svg></button>
+              <button class="icono" id="btnSiguiente" aria-label="Parada siguiente"><svg width="17" height="17" aria-hidden="true"><use href="#i-der"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="acciones no-imprimir" style="margin-top:.9rem">
+          <button class="btn btn--suave btn--sm" id="btnCargarFoto">
+            <svg width="15" height="15" aria-hidden="true"><use href="#i-subir"/></svg> Cargar foto de esta parada
+          </button>
+          <button class="btn btn--suave btn--sm oculto" id="btnQuitarFoto">Quitar esta foto</button>
+          <input type="file" id="inputFoto" accept="image/*" class="oculto">
+        </div>
+        <p class="fina" style="margin-top:.7rem" id="ayudaFoto"></p>
+
+        <div class="paradas" id="listaParadas" role="tablist" aria-label="Paradas del recorrido"></div>
+      </div>
+
+      <div>
+        <div class="ficha-parada" id="fichaParada"></div>
+
+        <div class="nota nota--info" style="margin-top:1.2rem">
+          <svg width="18" height="18" aria-hidden="true"><use href="#i-360"/></svg>
+          <p><b>Cómo distingue las fotos.</b> Si la foto es el doble de ancha que de alta (por ejemplo 4096×2048), el visor la trata como <b>360°</b> y se puede mirar alrededor arrastrando. Cualquier otra proporción se muestra como foto normal. No hay que configurar nada: se detecta solo.</p>
+        </div>
+
+        <div class="nota nota--alerta no-imprimir">
+          <svg width="18" height="18" aria-hidden="true"><use href="#i-alerta"/></svg>
+          <p><b>Antes de fotografiar.</b> No deben aparecer estudiantes ni funcionarios identificables sin autorización de uso de imagen. Fotografíen espacios vacíos, en recreo no. Tampoco fotografíen pantallas, libros de clases ni documentos con datos de personas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acciones no-imprimir" style="margin-top:1.6rem">
+      <button class="btn btn--suave btn--sm" id="btnDemo">Ver el visor 360° funcionando (demo)</button>
+      <button class="btn btn--suave btn--sm" id="btnBorrarFotos">Borrar las fotos cargadas</button>
+      <button class="btn btn--suave btn--sm" id="btnPruebas">Verificar el motor</button>
+    </div>
+    <p id="salidaPruebas" class="nota oculto" role="status" style="margin-top:.9rem"><span></span></p>
+  </div>
+</section>
+
+<!-- ========================== RUTA POR CARGO ========================== -->
+<section id="ruta" style="background:linear-gradient(180deg,var(--crema),var(--arena) 70%)">
+  <div class="wrap">
+    <div class="cab centrado">
+      <span class="eyebrow">Hoja de ruta</span>
+      <h2>Una ruta distinta según el cargo</h2>
+      <p>Un docente de aula, un asistente de la educación y alguien de administración no necesitan lo mismo el primer día. Se elige <strong>un solo cargo</strong> y la ruta, los hitos y los recursos se ajustan a ese cargo.</p>
+    </div>
+
+    <div class="cargos no-imprimir" id="listaCargos" role="tablist" aria-label="Cargo del funcionario nuevo"></div>
+    <p id="notaCargo" class="nota" style="margin-top:1.2rem" role="status"><svg width="18" height="18" aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+
+    <div class="momentos">
+      <div class="linea-momentos" id="lineaMomentos" role="tablist" aria-label="Momentos de la inducción" aria-orientation="vertical"></div>
+      <div class="panel-momento" id="panelMomento" role="tabpanel">
+        <p class="dato" id="momPaso">Momento 1 de 4</p>
+        <h3 id="momTitulo">Bienvenida y pertenencia</h3>
+        <p id="momTexto" style="color:var(--tinta-2)"></p>
+        <ul id="momLista"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CHECKLIST Y AUTOEVALUACIÓN ===================== -->
+<section id="hitos">
+  <div class="wrap">
+    <div class="cab centrado no-imprimir">
+      <span class="eyebrow eyebrow--oro">Seguimiento</span>
+      <h2>Tus hitos y cómo vas</h2>
+      <p>La lista se guarda en este mismo navegador y cambia según el cargo elegido más arriba. Nadie más la ve: <strong>no se envía a ningún servidor</strong>.</p>
+    </div>
+
+    <div class="tablero">
+      <div>
+        <h3 style="font-size:1.15rem">Avance: <span id="contadorHitos">0/0</span> hitos</h3>
+        <div class="progreso"><div id="barraProgreso"></div></div>
+        <div id="listaHitos"></div>
+        <div class="acciones no-imprimir" style="margin-top:1.2rem">
+          <button class="btn btn--suave btn--sm" id="btnImprimir"><svg width="15" height="15" aria-hidden="true"><use href="#i-imprimir"/></svg> Imprimir o guardar en PDF</button>
+          <button class="btn btn--suave btn--sm" id="btnReiniciar">Reiniciar la lista</button>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1.15rem;margin-bottom:.8rem">Recursos que vas a necesitar</h3>
+        <div class="recursos" id="listaRecursos"></div>
+
+        <h3 style="font-size:1.15rem;margin:2rem 0 .3rem">¿Cómo vas?</h3>
+        <p class="fina" style="margin-bottom:.9rem">Seis afirmaciones para revisar tu propia adaptación a los 30, 60 y 90 días. El resultado es <b>solo tuyo</b>: se calcula en tu navegador y no queda registrado en ninguna parte.</p>
+        <div id="listaPulso"></div>
+        <div class="acciones no-imprimir" style="margin-top:.9rem">
+          <button class="btn btn--suave btn--sm" id="btnPulso">Ver mi resultado</button>
+        </div>
+        <div id="salidaPulso" class="oculto" style="margin-top:1rem"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== EL COLEGIO: HISTORIA ====================== -->
+<section id="colegio" style="background:var(--arena)">
+  <div class="wrap">
+    <div class="cab centrado">
+      <span class="eyebrow">Historia, cultura y contexto</span>
+      <h2>Dónde estás trabajando</h2>
+      <p>Saber dónde queda la sala de profesores es lo mínimo. Esto es lo otro: de dónde viene este colegio, de quién lleva el nombre y qué se espera de quien trabaja aquí.</p>
+    </div>
+
+    <div class="tarjetas tarjetas--2" style="margin-top:2.6rem">
+      <article class="tarjeta">
+        <span class="tarjeta__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-persona"/></svg></span>
+        <h3>Quién fue el Cardenal José María Caro</h3>
+        <p>Nació en 1866 en <strong>Cáhuil</strong>, una aldea de la entonces provincia de Colchagua, en una familia humilde. Empezó en la escuela pública de Los Ciruelos, siguió en el Seminario Pontificio de Santiago y llegó a doctorarse en teología en la Universidad Gregoriana de Roma.</p>
+        <p>Ordenado sacerdote en 1890, fue vicario apostólico de Tarapacá y obispo de Iquique, donde recorrió la pampa a pie y levantó cooperativas y albergues para los trabajadores del salitre. En 1939 asumió como arzobispo de Santiago y en <strong>1946 fue el primer chileno nombrado cardenal</strong>. Murió en 1958.</p>
+        <p class="fina" style="margin-top:.8rem">Que el colegio lleve su nombre no es un dato decorativo: es la explicación de por qué está donde está.</p>
+      </article>
+
+      <article class="tarjeta">
+        <span class="tarjeta__ico"><svg width="24" height="24" aria-hidden="true"><use href="#i-corazon"/></svg></span>
+        <h3>Qué es Fundación Belén Educa</h3>
+        <p>Es una institución educacional <strong>sin fines de lucro</strong> dependiente del Arzobispado de Santiago. Nació en <strong>1999</strong>, respondiendo al llamado del IX Sínodo de la Iglesia de Santiago a crear colegios católicos en sectores de pobreza.</p>
+        <p>Hoy sostiene una red de colegios en comunas como Puente Alto, Maipú, <strong>La Pintana</strong>, San Joaquín, Quilicura, Pudahuel, Santiago y Cerro Navia, además de una escuela en La Unión, en la Región de Los Ríos.</p>
+        <p class="fina" style="margin-top:.8rem">Trabajar en un colegio de la red significa trabajar dentro de un proyecto educativo católico con una opción explícita por los sectores más vulnerables.</p>
+      </article>
+    </div>
+
+    <div class="tarjetas tarjetas--2" style="margin-top:1.2rem">
+      <article class="tarjeta">
+        <h3 style="font-size:1.05rem">Línea de tiempo</h3>
+        <div class="hitos-historia">
+          <div class="hito-h"><span class="anio">1866</span><b>Nace José María Caro</b><p>En Cáhuil, provincia de Colchagua, en una familia campesina.</p></div>
+          <div class="hito-h"><span class="anio">1946</span><b>Primer cardenal chileno</b><p>Pío XII lo eleva a cardenal. Ya era arzobispo de Santiago desde 1939.</p></div>
+          <div class="hito-h"><span class="anio">1999</span><b>Nace Fundación Belén Educa</b><p>Tras el llamado del IX Sínodo de la Iglesia de Santiago a educar en sectores de pobreza.</p></div>
+          <div class="hito-h"><span class="anio">2003</span><b>Se inaugura este colegio</b><p>En el sector de la población Santo Tomás, comuna de La Pintana.</p></div>
+          <div class="hito-h"><span class="anio">Hoy</span><b>Colegio polivalente</b><p>Imparte enseñanza científico-humanista y técnico-profesional, con la especialidad de Administración.</p></div>
+        </div>
+        <p class="fina" style="margin-top:1.2rem">Fuentes consultadas y verificadas: Fundación Belén Educa, Arzobispado de La Serena y Obispado de Rancagua. <b>Las fechas y datos de esta tarjeta deben confirmarse con dirección antes de publicar la página.</b></p>
+      </article>
+
+      <article class="tarjeta" style="background:var(--dorado-cla);border-color:var(--dorado)">
+        <span class="tarjeta__ico" style="background:#fff"><svg width="24" height="24" aria-hidden="true"><use href="#i-libro"/></svg></span>
+        <h3>Cultura y forma de trabajo</h3>
+        <p>Esta parte <strong>no la puede escribir nadie fuera del colegio</strong>, y por eso quedó como espacio a completar. Sale del PEI y del Reglamento Interno, no de internet.</p>
+        <ul style="padding-left:1.1rem;font-size:.92rem;color:var(--tinta-2);display:flex;flex-direction:column;gap:.5rem;margin:1rem 0 0">
+          <li><b>El sello del establecimiento:</b> qué distingue a este colegio de otro de la misma red.</li>
+          <li><b>La misión y la visión</b> tal como están redactadas en el PEI.</li>
+          <li><b>Los ritos de la comunidad:</b> oración de la mañana, actos, celebraciones, aniversario.</li>
+          <li><b>Cómo se toman las decisiones:</b> qué se resuelve en consejo, qué en UTP, qué en dirección.</li>
+          <li><b>Los acuerdos de convivencia entre adultos</b> y a quién se recurre ante un conflicto.</li>
+          <li><b>Lo que no está escrito:</b> los horarios reales, dónde se almuerza, cómo se pide un permiso.</li>
+        </ul>
+        <p class="fina" style="margin-top:1.1rem">Este último punto es el más valioso y el que ningún manual trae. Pregúntenselo a funcionarios que llevan años y a alguien que llegó hace poco: las respuestas van a ser distintas, y ahí está el hallazgo del proyecto.</p>
+      </article>
+    </div>
+
+    <div class="cita" style="margin-top:2.2rem">
+      <p>&laquo;Acompañar es la primera forma de retener.&raquo;</p>
+      <footer>Frase original del equipo Áurea Solutions, conservada de su primera versión.</footer>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== GLOSARIO ============================== -->
+<section id="glosario">
+  <div class="wrap">
+    <div class="cab centrado">
+      <span class="eyebrow eyebrow--oro">Glosario</span>
+      <h2>Las siglas que nadie te explica</h2>
+      <p>La primera semana en un colegio chileno es una lluvia de siglas: PEI, UTP, PME, SEP, PIE, DEPROV. Casi nadie las explica porque se asume que todos las saben. Búscalas aquí.</p>
+    </div>
+
+    <div class="buscador no-imprimir">
+      <svg width="18" height="18" aria-hidden="true"><use href="#i-buscar"/></svg>
+      <label for="buscarTermino" class="oculto">Buscar una sigla o palabra</label>
+      <input type="search" id="buscarTermino" placeholder="Buscar: UTP, libro de clases, PIE…" autocomplete="off">
+    </div>
+
+    <div class="glosario" id="listaGlosario"></div>
+    <p class="sin-resultados oculto" id="sinResultados">No hay ningún término con esa palabra. Si es una sigla que se usa en el colegio y falta, agréguenla al glosario: las instrucciones están en la guía del equipo.</p>
+  </div>
+</section>
+
+<!-- ================================ EQUIPO ================================ -->
+<section id="equipo" style="background:var(--arena)">
+  <div class="wrap">
+    <div class="cab centrado">
+      <span class="eyebrow">Cuarto Medio A · Administración</span>
+      <h2>Quiénes hacen Áurea Solutions</h2>
+      <p>Proyecto de título de la especialidad de Administración del Colegio Cardenal José María Caro, Fundación Belén Educa, La Pintana. Se presenta en la Feria Técnico Profesional 2026.</p>
+    </div>
+
+    <div class="equipo" id="listaEquipo"></div>
+    <p class="fina" style="max-width:48rem;margin:1.8rem auto 0;text-align:center">
+      Solo tenemos confirmado el nombre de Sofía Muñoz. <b>Completen los otros tres</b> y ajusten los roles a lo que cada una hizo de verdad: las instrucciones están en la guía del equipo.
+    </p>
+  </div>
+</section>
+
+<!-- =============================== CONTACTO =============================== -->
+<section id="contacto">
+  <div class="wrap wrap--angosto">
+    <div class="cab centrado">
+      <span class="eyebrow">Contacto</span>
+      <h2>Solicitar el acompañamiento</h2>
+      <p>Si alguien del establecimiento quiere probar esta inducción con un funcionario nuevo, aquí queda el registro.</p>
+    </div>
+
+    <div class="nota nota--stop" style="margin-top:2.2rem">
+      <svg width="18" height="18" aria-hidden="true"><use href="#i-alerta"/></svg>
+      <p><b>El formulario anterior no enviaba nada.</b> Mostraba el mensaje «Consulta registrada. Un integrante del equipo se pondrá en contacto contigo», pero por dentro solo hacía <code>alert()</code> y borraba lo escrito: los campos ni siquiera tenían atributo <code>name</code>, así que no había nada que enviar. Aquí está corregido, pero <b>solo envía de verdad si la página se publica en Netlify</b>. Mientras tanto, el botón descarga la solicitud como archivo. Cómo activarlo está en la guía del equipo.</p>
+    </div>
+
+    <form class="tarjeta" id="formContacto" name="solicitud-induccion" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="solicitud-induccion">
+      <p class="oculto"><label>No llenar: <input name="bot-field" tabindex="-1"></label></p>
+
+      <div class="form2">
+        <label class="campo">
+          <span>Nombre de quien solicita <em class="req">*</em></span>
+          <input type="text" name="nombre" id="cNombre" required autocomplete="name">
+        </label>
+        <label class="campo">
+          <span>Cargo</span>
+          <input type="text" name="cargo" id="cCargo" placeholder="Ej.: Jefa de UTP" autocomplete="organization-title">
+        </label>
+        <label class="campo">
+          <span>Correo institucional <em class="req">*</em></span>
+          <input type="email" name="correo" id="cCorreo" required autocomplete="email" placeholder="nombre@cjmc.beleneduca.cl">
+        </label>
+        <label class="campo">
+          <span>Cargo del funcionario nuevo</span>
+          <select name="cargoNuevo" id="cCargoNuevo"></select>
+        </label>
+        <label class="campo ancho">
+          <span>Qué necesitan</span>
+          <textarea name="mensaje" id="cMensaje" placeholder="Sin datos personales de terceros. Describan la necesidad, no a las personas."></textarea>
+        </label>
+      </div>
+
+      <label class="campo--check">
+        <input type="checkbox" name="autorizacion" id="cAutorizacion" required>
+        <span>Declaro que esta solicitud cuenta con el visto bueno de la dirección del establecimiento. <em class="req">*</em></span>
+      </label>
+
+      <p id="avisoContacto" class="nota nota--stop oculto" role="alert"><svg width="18" height="18" aria-hidden="true"><use href="#i-alerta"/></svg><span></span></p>
+
+      <div class="acciones">
+        <button type="submit" class="btn btn--v">Enviar solicitud</button>
+        <button type="button" class="btn btn--suave" id="btnDescargarSolicitud">Descargar la solicitud</button>
+      </div>
+      <p class="fina" style="margin-top:1.1rem">Ley 21.719 de protección de datos personales: estos datos se usan solo para responder esta solicitud y no se comparten con terceros.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ================================== PIE ================================== -->
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie__in">
+      <div class="pie__marca">
+        <svg width="46" height="46" aria-hidden="true"><use href="#logo-aurea"/></svg>
+        <div><b>Áurea Solutions</b><small>Inducción de funcionarios nuevos</small></div>
+      </div>
+      <nav class="pie__nav" aria-label="Pie de página">
+        <a href="#recorrido">Recorrido</a>
+        <a href="#ruta">Ruta por cargo</a>
+        <a href="#hitos">Hitos</a>
+        <a href="#colegio">El colegio</a>
+        <a href="#glosario">Glosario</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+    <p class="pie__nota">
+      Proyecto escolar de la especialidad de Administración &middot; Colegio Cardenal José María Caro, Fundación Belén Educa, La Pintana &middot; Feria Técnico Profesional 2026.<br>
+      Áurea Solutions no es una empresa constituida ni presta servicios comerciales. Todo lo que se marque o se cargue en esta página queda solamente en el navegador de quien la usa: no se envía a ningún servidor.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================================
+   ÁUREA SOLUTIONS · motor de la inducción
+   ---------------------------------------------------------------------
+   Capas separadas a propósito:
+     1. DATOS     · paradas, cargos, hitos, glosario. Es lo que el equipo edita.
+     2. CÁLCULO   · funciones puras, sin tocar la pantalla. Se pueden probar.
+     3. VISOR 360 · WebGL escrito a mano, sin ninguna librería.
+     4. INTERFAZ  · pinta el resultado de las capas anteriores.
+   ===================================================================== */
+
+/* ================================ 1. DATOS ================================ */
+
+var PARADAS = [
+  {id:'porteria', nombre:'Portería y acceso', cat:'Acceso',
+   que:'La entrada principal del colegio, en San Leandro 0368, La Pintana. Es el primer punto de control y donde se registra el ingreso de quien no es de la comunidad.',
+   saber:'A qué hora abre y cierra, qué se necesita para entrar los primeros días mientras no tienes credencial, y por dónde entran los apoderados y las visitas.',
+   preguntar:'Portería o Inspectoría General',
+   completar:'Horario real de apertura y cierre, y el procedimiento exacto para el ingreso de visitas.'},
+
+  {id:'secretaria', nombre:'Secretaría y recepción', cat:'Administración',
+   que:'Donde se tramita casi todo lo administrativo: contratos, certificados, permisos, materiales, correspondencia.',
+   saber:'Cómo se pide un permiso, cómo se solicitan materiales, dónde se firma, y con cuánta anticipación hay que avisar una ausencia.',
+   preguntar:'Secretaría',
+   completar:'Nombre del cargo de quien atiende, horario de atención y los formularios que se usan.'},
+
+  {id:'direccion', nombre:'Dirección', cat:'Gestión',
+   que:'La oficina del equipo directivo. Aquí se toman las decisiones de conducción del establecimiento.',
+   saber:'Quién dirige el colegio, cómo se pide una reunión y qué temas se resuelven aquí y no en otra parte.',
+   preguntar:'Dirección o Secretaría',
+   completar:'Horario de atención al equipo y la vía formal para solicitar una entrevista.'},
+
+  {id:'utp', nombre:'Unidad Técnico-Pedagógica (UTP)', cat:'Gestión',
+   que:'El equipo que acompaña lo pedagógico: planificaciones, evaluaciones, cobertura curricular y observación de aula.',
+   saber:'En qué formato se entregan las planificaciones, cuándo se entregan, cómo se agenda una observación de clase y a quién se le consulta una duda de evaluación.',
+   preguntar:'Jefatura de UTP',
+   completar:'Formato oficial de planificación y el calendario de entregas del semestre.'},
+
+  {id:'profesores', nombre:'Sala de profesores', cat:'Espacios de trabajo',
+   que:'El espacio de trabajo y descanso del equipo docente entre clases.',
+   saber:'Dónde está tu casillero, dónde se guardan los materiales, cómo funciona el café, y cuál es el mural donde se publican los avisos importantes.',
+   preguntar:'Cualquier colega, o tu docente mentor',
+   completar:'Dónde se publican los avisos oficiales y si hay casilleros asignados.'},
+
+  {id:'convivencia', nombre:'Inspectoría y Convivencia Escolar', cat:'Convivencia',
+   que:'Donde se abordan la disciplina, los conflictos y la aplicación del Reglamento Interno.',
+   saber:'Qué situaciones se derivan aquí y cuáles se resuelven en el aula, cómo se registra una situación y qué protocolos existen. Esto es lo que más rápido se necesita y lo último que suele explicarse.',
+   preguntar:'Encargado o Encargada de Convivencia Escolar',
+   completar:'Los protocolos vigentes y el procedimiento paso a paso para derivar una situación.'},
+
+  {id:'salas', nombre:'Pabellón de salas', cat:'Aula',
+   que:'Las salas de clases donde vas a trabajar la mayor parte del tiempo.',
+   saber:'Cómo están numeradas las salas, dónde está el libro de clases, qué equipamiento tiene cada sala y qué hacer si el proyector no funciona.',
+   preguntar:'Inspectoría o tu profesor jefe de nivel',
+   completar:'Numeración real de las salas y qué equipamiento tiene cada una.'},
+
+  {id:'cra', nombre:'Biblioteca CRA', cat:'Aula',
+   que:'El Centro de Recursos para el Aprendizaje: libros, material didáctico y, en muchos colegios, equipamiento audiovisual.',
+   saber:'Cómo se reserva el espacio, qué material se puede pedir prestado y con cuánta anticipación.',
+   preguntar:'Encargado o Encargada de CRA',
+   completar:'Sistema de reserva y horario de atención.'},
+
+  {id:'taller', nombre:'Taller de la especialidad de Administración', cat:'Técnico-profesional',
+   que:'El espacio donde se imparte la formación diferenciada técnico-profesional de Administración.',
+   saber:'Qué equipamiento hay, cómo se coordina su uso y cuál es el vínculo con las prácticas profesionales.',
+   preguntar:'Jefatura de especialidad',
+   completar:'Equipamiento disponible y normas de uso del taller.'},
+
+  {id:'capilla', nombre:'Capilla u oratorio', cat:'Identidad',
+   que:'El espacio de oración y celebración de la comunidad. En un colegio de Iglesia no es un detalle: es parte del proyecto educativo.',
+   saber:'Cuáles son los momentos de oración de la jornada, qué se espera de quien trabaja aquí en esas instancias, y cuáles son las celebraciones del año.',
+   preguntar:'Pastoral o Dirección',
+   completar:'Los momentos de oración de la jornada y el calendario de celebraciones.'},
+
+  {id:'patio', nombre:'Patio y comedor', cat:'Espacios comunes',
+   que:'Los espacios comunes donde ocurre buena parte de la convivencia diaria.',
+   saber:'Cómo funcionan los turnos de patio, dónde y a qué hora almuerzan los funcionarios, y qué se espera de un adulto durante el recreo.',
+   preguntar:'Inspectoría General',
+   completar:'Sistema de turnos de patio y horario de colación de funcionarios.'},
+
+  {id:'enfermeria', nombre:'Enfermería y primeros auxilios', cat:'Seguridad',
+   que:'El punto de atención ante accidentes escolares y malestares durante la jornada.',
+   saber:'Qué hacer ante un accidente escolar, dónde está el botiquín, cuál es la vía de evacuación de tu sala y dónde queda la zona de seguridad. Esto se aprende antes de necesitarlo, no durante.',
+   preguntar:'Encargado de seguridad o Inspectoría General',
+   completar:'Protocolo de accidentes escolares, plano de evacuación y ubicación de la zona de seguridad.'}
+];
+
+var CARGOS = [
+  {id:'docente',   nombre:'Docente de aula', piloto:true,
+   nota:'Este es el cargo piloto: la ruta está desarrollada completa. Es la recomendación de partir por un solo cargo, probarlo con una persona real y recién después extenderlo a los demás.'},
+  {id:'asistente', nombre:'Asistente de la educación', piloto:false,
+   nota:'Ruta en diseño. Falta levantarla con Recursos Humanos: qué hitos tiene realmente este cargo, quién lo acompaña y en qué plazos.'},
+  {id:'admin',     nombre:'Administrativo', piloto:false,
+   nota:'Ruta en diseño. Falta levantarla con Recursos Humanos: qué hitos tiene realmente este cargo, quién lo acompaña y en qué plazos.'},
+  {id:'reemplazo', nombre:'Docente de reemplazo', piloto:false,
+   nota:'Ruta en diseño. Es el caso más exigente: la inducción tiene que caber en un día, porque el reemplazo entra a hacer clases de inmediato.'}
+];
+
+var MOMENTOS = [
+  {rotulo:'Día 1', titulo:'Bienvenida y pertenencia',
+   texto:'El objetivo del primer día no es que aprenda a usar el sistema: es que sepa dónde está, quién es quién y que tiene a alguien a quien preguntarle.',
+   pasos:['<b>Recorrido guiado</b> por el establecimiento y presentación de los equipos.',
+          '<b>Entrega del kit de bienvenida:</b> PEI, Reglamento Interno y calendario académico.',
+          '<b>Asignación de un mentor o mentora</b>, con nombre y horario concreto en que está disponible.',
+          '<b>Entrega de credencial, llaves y accesos.</b> Sin esto, la primera semana se pierde en pedir permiso para todo.']},
+  {rotulo:'Semanas 1 y 2', titulo:'Los procesos administrativos',
+   texto:'Aquí se aprende lo que hace que el trabajo funcione: registrar, planificar, entregar. Conviene acompañarlo, no solo explicarlo.',
+   pasos:['<b>Activación del sistema de gestión académica</b> y primera práctica guiada.',
+          '<b>Registro de asistencia y calificaciones</b> hecho junto a alguien la primera vez.',
+          '<b>Revisión de los protocolos institucionales</b>, sobre todo convivencia y accidentes escolares.',
+          '<b>Primera planificación entregada</b> en el formato oficial, con retroalimentación.']},
+  {rotulo:'Semanas 3 a 8', titulo:'Acompañamiento en el trabajo',
+   texto:'Ya está funcionando. Ahora se trata de acompañar la práctica real y de abrir la relación con las familias, que es lo que más inseguridad genera.',
+   pasos:['<b>Observación de clase</b> con retroalimentación acordada de antemano, no sorpresiva.',
+          '<b>Apoyo en la comunicación con apoderados:</b> guiones, canales y qué se responde y qué se deriva.',
+          '<b>Participación en la reunión de nivel</b> con un rol claro, no solo como oyente.',
+          '<b>Primera revisión con el mentor:</b> qué está resultando y qué no.']},
+  {rotulo:'Mes 3 en adelante', titulo:'Evaluación y proyección',
+   texto:'Es el momento en que la inducción termina o se transforma en acompañamiento permanente. Si no se mide, no se sabe cuál de las dos ocurrió.',
+   pasos:['<b>Autoevaluación de adaptación</b> a los 30, 60 y 90 días.',
+          '<b>Revisión de avances con el mentor</b> y cierre formal de la inducción.',
+          '<b>Plan de desarrollo</b> acordado para el resto del año.',
+          '<b>Retroalimentación al proceso:</b> qué le faltó a esta inducción, según quien la vivió.']}
+];
+
+var HITOS = {
+  docente:[
+    {t:'Recibir credencial, llaves y accesos',            m:'Día 1'},
+    {t:'Conocer a mi mentor o mentora',                   m:'Día 1'},
+    {t:'Recorrer el colegio y ubicar los 12 espacios',    m:'Día 1'},
+    {t:'Leer el PEI y el Reglamento Interno',             m:'Semana 1'},
+    {t:'Activar mi cuenta del sistema de gestión',        m:'Semana 1'},
+    {t:'Registrar asistencia por primera vez, acompañado',m:'Semana 1'},
+    {t:'Conocer el protocolo de accidentes escolares y la vía de evacuación', m:'Semana 1'},
+    {t:'Entregar mi primera planificación',               m:'Semana 2'},
+    {t:'Presentar las normas de convivencia a mi curso',  m:'Semana 2'},
+    {t:'Enviar mi presentación a los apoderados',         m:'Semana 3'},
+    {t:'Agendar la primera observación de aula',          m:'Semana 4'},
+    {t:'Participar en mi primera reunión de nivel',       m:'Semana 4'}
+  ],
+  asistente:[
+    {t:'Recibir credencial, llaves y accesos',            m:'Día 1'},
+    {t:'Conocer a mi jefatura directa',                   m:'Día 1'},
+    {t:'Recorrer el colegio y ubicar los 12 espacios',    m:'Día 1'},
+    {t:'Leer el Reglamento Interno',                      m:'Semana 1'},
+    {t:'Conocer el protocolo de accidentes escolares y la vía de evacuación', m:'Semana 1'}
+  ],
+  admin:[
+    {t:'Recibir credencial, llaves y accesos',            m:'Día 1'},
+    {t:'Conocer a mi jefatura directa',                   m:'Día 1'},
+    {t:'Recorrer el colegio y ubicar los 12 espacios',    m:'Día 1'},
+    {t:'Leer el Reglamento Interno',                      m:'Semana 1'},
+    {t:'Activar mis accesos a los sistemas administrativos', m:'Semana 1'}
+  ],
+  reemplazo:[
+    {t:'Recibir credencial y acceso a la sala',           m:'Primera hora'},
+    {t:'Saber a quién recurrir durante la jornada',       m:'Primera hora'},
+    {t:'Ubicar la sala, el libro de clases y el baño',    m:'Primera hora'},
+    {t:'Conocer la vía de evacuación de mi sala',         m:'Primera hora'},
+    {t:'Recibir la planificación de la clase que voy a hacer', m:'Primera hora'}
+  ]
+};
+
+var RECURSOS = {
+  docente:[
+    {b:'PEI y Reglamento Interno',       s:'El proyecto educativo y las normas del establecimiento. Vienen en el kit de bienvenida.'},
+    {b:'Protocolos de convivencia',      s:'Qué hacer y a quién derivar en cada tipo de situación.'},
+    {b:'Sistema de gestión académica',   s:'Asistencia, calificaciones y anotaciones. Pide una práctica guiada, no solo la clave.'},
+    {b:'Formato de planificación',       s:'El formato oficial de UTP y el calendario de entregas.'},
+    {b:'Calendario académico',           s:'Fechas, evaluaciones y actividades del año escolar.'},
+    {b:'Protocolo de accidentes',        s:'Qué hacer ante un accidente escolar y dónde está la zona de seguridad.'}
+  ],
+  asistente:[
+    {b:'Reglamento Interno',             s:'Las normas del establecimiento y tu rol dentro de ellas.'},
+    {b:'Protocolos de convivencia',      s:'Qué hacer y a quién derivar en cada tipo de situación.'},
+    {b:'Protocolo de accidentes',        s:'Qué hacer ante un accidente escolar y dónde está la zona de seguridad.'}
+  ],
+  admin:[
+    {b:'Reglamento Interno',             s:'Las normas del establecimiento y tu rol dentro de ellas.'},
+    {b:'Sistemas administrativos',       s:'Accesos, permisos y procedimientos internos.'},
+    {b:'Protocolo de accidentes',        s:'Qué hacer ante un accidente escolar y dónde está la zona de seguridad.'}
+  ],
+  reemplazo:[
+    {b:'Planificación de la clase',      s:'Qué se va a hacer en la hora que vas a cubrir.'},
+    {b:'Normas mínimas de convivencia',  s:'Lo esencial del Reglamento Interno para una jornada.'},
+    {b:'Vía de evacuación',              s:'Por dónde se sale desde la sala en la que estarás.'}
+  ]
+};
+
+var PULSO = [
+  {t:'Sé a quién preguntarle cuando algo no me resulta.',                  ir:'#recorrido', que:'el recorrido: cada parada dice a quién preguntarle'},
+  {t:'Conozco los espacios del colegio y me muevo sin perderme.',          ir:'#recorrido', que:'el recorrido virtual'},
+  {t:'Entiendo cómo se registran la asistencia y las calificaciones.',     ir:'#ruta',      que:'el momento «Semanas 1 y 2» de la ruta'},
+  {t:'Sé qué se espera de mí en la relación con los apoderados.',          ir:'#ruta',      que:'el momento «Semanas 3 a 8» de la ruta'},
+  {t:'Me siento parte del equipo con el que trabajo.',                     ir:'#colegio',  que:'la sección de cultura y forma de trabajo'},
+  {t:'Conozco el proyecto educativo del colegio y qué lo distingue.',      ir:'#colegio',  que:'la historia y el contexto del colegio'}
+];
+
+var ESCALA_PULSO = ['Todavía no','Más o menos','Bastante','Sí, con claridad'];
+
+var GLOSARIO = [
+  {s:'PEI',      n:'Proyecto Educativo Institucional', c:'Gestión', d:'El documento que declara quién es el colegio: su misión, su visión, su sello y el tipo de persona que quiere formar. Todo lo demás debería poder explicarse desde ahí.'},
+  {s:'PME',      n:'Plan de Mejoramiento Educativo', c:'Gestión', d:'La planificación anual de mejora del establecimiento, con metas y acciones. Es el instrumento con que el colegio se compromete formalmente ante el Ministerio.'},
+  {s:'UTP',      n:'Unidad Técnico-Pedagógica', c:'Gestión', d:'El equipo que acompaña lo pedagógico: planificación, evaluación, cobertura curricular y observación de aula.'},
+  {s:'JEC',      n:'Jornada Escolar Completa', c:'Gestión', d:'El régimen de jornada extendida. Define cuántas horas está el estudiante en el colegio y, en consecuencia, cómo se distribuye el horario del equipo.'},
+  {s:'PIE',      n:'Programa de Integración Escolar', c:'Pedagogía', d:'El equipo y el programa que apoyan a estudiantes con necesidades educativas especiales. Trabaja en codocencia con el profesor de asignatura.'},
+  {s:'NEE',      n:'Necesidades Educativas Especiales', c:'Pedagogía', d:'Apoyos que un estudiante requiere para aprender en igualdad de condiciones. Pueden ser transitorias o permanentes.'},
+  {s:'SEP',      n:'Subvención Escolar Preferencial', c:'Normativa', d:'Recursos adicionales que el Estado entrega por estudiantes prioritarios, con destino y rendición regulados. Está detrás de buena parte de lo que se puede o no se puede comprar.'},
+  {s:'RBD',      n:'Rol Base de Datos', c:'Normativa', d:'El número único con que el Ministerio identifica a cada establecimiento. El de este colegio es 25779.'},
+  {s:'DEPROV',   n:'Departamento Provincial de Educación', c:'Normativa', d:'La oficina territorial del Ministerio de Educación con la que el colegio se relaciona directamente.'},
+  {s:'MINEDUC',  n:'Ministerio de Educación', c:'Normativa', d:'La autoridad nacional en educación: define currículum, normativa y financiamiento.'},
+  {s:'Sostenedor', n:'', c:'Normativa', d:'La persona o institución responsable legal y financiera del establecimiento. Aquí es la Fundación Belén Educa.'},
+  {s:'Superintendencia', n:'Superintendencia de Educación', c:'Normativa', d:'Fiscaliza el uso de los recursos y el cumplimiento de la normativa. Es donde llegan las denuncias de la comunidad.'},
+  {s:'Agencia de Calidad', n:'', c:'Normativa', d:'Evalúa y orienta a los establecimientos según sus resultados de aprendizaje y otros indicadores.'},
+  {s:'SIMCE',    n:'Sistema de Medición de la Calidad de la Educación', c:'Pedagogía', d:'Las pruebas nacionales estandarizadas que se aplican en determinados niveles.'},
+  {s:'PAES',     n:'Prueba de Acceso a la Educación Superior', c:'Pedagogía', d:'La prueba de admisión a la educación superior. Reemplazó a la PSU.'},
+  {s:'CRA',      n:'Centro de Recursos para el Aprendizaje', c:'Pedagogía', d:'La biblioteca escolar y su material de apoyo. Suele administrar también equipamiento audiovisual.'},
+  {s:'OA',       n:'Objetivo de Aprendizaje', c:'Pedagogía', d:'Lo que el currículum nacional define que un estudiante debe aprender en cada asignatura y nivel.'},
+  {s:'OAE / OAG', n:'Objetivos de Aprendizaje de la Especialidad y Genéricos', c:'Técnico-profesional', d:'Los aprendizajes de la formación diferenciada TP. Los OAE son propios de cada especialidad; los OAG son transversales a todas.'},
+  {s:'TP',       n:'Técnico Profesional', c:'Técnico-profesional', d:'La modalidad de enseñanza media que entrega un título técnico de nivel medio junto con la licencia de enseñanza media.'},
+  {s:'Práctica profesional', n:'', c:'Técnico-profesional', d:'El período de trabajo en una empresa o institución que el estudiante debe completar para titularse.'},
+  {s:'MBE',      n:'Marco para la Buena Enseñanza', c:'Pedagogía', d:'El estándar nacional que describe lo que se espera del ejercicio docente. Es la referencia con que se observa y retroalimenta una clase.'},
+  {s:'Decreto 67', n:'', c:'Normativa', d:'La norma que rige evaluación, calificación y promoción escolar. Define, entre otras cosas, que la evaluación es principalmente formativa.'},
+  {s:'Evaluación diferenciada', n:'', c:'Pedagogía', d:'Adecuación de la evaluación para estudiantes que lo requieren, sin bajar el objetivo de aprendizaje.'},
+  {s:'Libro de clases', n:'', c:'Normativa', d:'El registro oficial del curso: asistencia, calificaciones y observaciones. Es un documento público y auditable; lo que se escribe ahí tiene consecuencias legales.'},
+  {s:'Hoja de vida', n:'', c:'Convivencia', d:'La sección del libro de clases donde se registran observaciones de un estudiante. Se redacta describiendo hechos, no juicios sobre la persona.'},
+  {s:'Convivencia Escolar', n:'', c:'Convivencia', d:'El área que trabaja las relaciones dentro de la comunidad y aplica el Reglamento Interno. Tiene por ley un encargado o encargada.'},
+  {s:'Reglamento Interno', n:'', c:'Convivencia', d:'Las normas de convivencia del establecimiento y los procedimientos ante cada situación. Se entrega a toda la comunidad y debe estar público.'},
+  {s:'Protocolo de actuación', n:'', c:'Convivencia', d:'El paso a paso obligatorio ante situaciones específicas: accidentes, maltrato, vulneración de derechos, consumo. No es opcional ni interpretable.'},
+  {s:'Consejo de profesores', n:'', c:'Gestión', d:'La instancia formal de reunión del equipo docente. Según el tema, puede ser resolutiva o consultiva.'},
+  {s:'Consejo Escolar', n:'', c:'Gestión', d:'Instancia de participación con representantes de todos los estamentos: dirección, docentes, asistentes, apoderados y estudiantes.'},
+  {s:'Profesor jefe', n:'', c:'Pedagogía', d:'Docente a cargo de un curso: acompaña su proceso, cita a los apoderados y coordina al equipo de asignaturas.'},
+  {s:'Asistente de la educación', n:'', c:'Gestión', d:'Funcionario no docente del establecimiento: inspectoría, administración, auxiliares, técnicos en párvulos y profesionales de apoyo.'},
+  {s:'Reunión de nivel', n:'', c:'Gestión', d:'Reunión del equipo de docentes que trabaja con un mismo nivel, para coordinar y revisar casos.'},
+  {s:'ATE',      n:'Asistencia Técnica Educativa', c:'Gestión', d:'Instituciones externas que prestan asesoría o capacitación al establecimiento.'},
+  {s:'Zona de seguridad', n:'', c:'Seguridad', d:'El lugar al que se evacua ante una emergencia. Cada sala tiene una vía asignada, y es de las primeras cosas que hay que saber.'},
+  {s:'Accidente escolar', n:'', c:'Seguridad', d:'Cobertura estatal ante lesiones ocurridas durante la jornada o el trayecto. Activa un protocolo con plazos y formularios: hay que conocerlo antes de necesitarlo.'}
+];
+
+/* ============================== 2. CÁLCULO ==============================
+   Funciones puras: reciben datos y devuelven datos. No tocan la pantalla,
+   así que se pueden verificar solas con el botón «Verificar el motor».   */
+
+var LS_CLAVE  = 'aurea.induccion.v1';
+var DB_NOMBRE = 'aurea-fotos';
+
+function limitar(v,min,max){ return v<min?min:(v>max?max:v); }
+
+/* Una foto 360 equirectangular es siempre el doble de ancha que de alta.
+   Se acepta un margen de 3% porque algunas apps recortan un par de píxeles. */
+function esPanoramica(w,h){
+  if(!(w>0 && h>0)) return false;
+  return Math.abs((w/h) - 2) <= 0.06;
+}
+
+/* WebGL 1 exige potencias de dos para poder repetir la textura en horizontal,
+   que es justo lo que necesita una panorámica para no mostrar una costura. */
+function potHasta(n, tope){
+  var p = 1;
+  while(p*2 <= n && p*2 <= tope) p *= 2;
+  return p;
+}
+
+function medidaTextura(ancho, maxTextura){
+  var tope = Math.min(maxTextura || 4096, 4096);
+  var w = potHasta(ancho, tope);
+  if(w < 256) w = 256;
+  return {w:w, h:w/2};
+}
+
+function rutaFoto(id){ return 'fotos/' + id + '.jpg'; }
+
+function cargoPorId(id){
+  for(var i=0;i<CARGOS.length;i++){ if(CARGOS[i].id===id) return CARGOS[i]; }
+  return CARGOS[0];
+}
+function hitosDe(id){ return HITOS[id] || []; }
+function recursosDe(id){ return RECURSOS[id] || []; }
+
+function progreso(marcados, total){
+  if(!(total>0)) return 0;
+  return limitar((marcados/total)*100, 0, 100);
+}
+
+/* Quita tildes y mayúsculas para que buscar "practica" encuentre "práctica". */
+function normalizar(s){
+  return String(s==null?'':s).toLowerCase()
+    .replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e')
+    .replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o')
+    .replace(/[úùüû]/g,'u').replace(/ñ/g,'n');
+}
+
+function filtrarGlosario(termino){
+  var q = normalizar(termino).trim();
+  if(!q) return GLOSARIO.slice();
+  var out = [];
+  for(var i=0;i<GLOSARIO.length;i++){
+    var g = GLOSARIO[i];
+    if(normalizar(g.s+' '+g.n+' '+g.d+' '+g.c).indexOf(q) !== -1) out.push(g);
+  }
+  return out;
+}
+
+function promedio(nums){
+  if(!nums || !nums.length) return null;
+  var s=0,n=0;
+  for(var i=0;i<nums.length;i++){ if(typeof nums[i]==='number' && !isNaN(nums[i])){ s+=nums[i]; n++; } }
+  return n ? s/n : null;
+}
+
+/* El pulso 30/60/90: 6 afirmaciones de 1 a 4. Se traduce a un porcentaje
+   para que se lea igual que el avance de los hitos.                      */
+function evaluarPulso(respuestas){
+  var validas = [];
+  for(var i=0;i<respuestas.length;i++){
+    var v = Number(respuestas[i]);
+    if(v>=1 && v<=4) validas.push(v);
+  }
+  if(validas.length < PULSO.length) return {completo:false, faltan:PULSO.length - validas.length};
+  var prom = promedio(validas);
+  var pct = ((prom - 1) / 3) * 100;
+  var nivel = pct >= 80 ? {clave:'ok',     etiqueta:'Adaptación encaminada'}
+            : pct >= 55 ? {clave:'medio',  etiqueta:'Vas avanzando, con puntos que reforzar'}
+            :             {clave:'inicio', etiqueta:'Todavía estás aterrizando'};
+  /* El punto más bajo. Con empate gana el primero de la lista: criterio
+     declarado, no azar. */
+  var iDebil = 0;
+  for(var j=1;j<respuestas.length;j++){ if(Number(respuestas[j]) < Number(respuestas[iDebil])) iDebil = j; }
+  return {completo:true, promedio:prom, porcentaje:pct, nivel:nivel, debil:PULSO[iDebil], iDebil:iDebil};
+}
+
+/* ============================= 3. VISOR 360 =============================
+   WebGL escrito a mano. En vez de dibujar una esfera, se dibujan dos
+   triángulos que cubren la pantalla y por cada píxel se calcula hacia
+   dónde apunta el rayo. Sale más corto, más rápido y sin costura.       */
+
+var VS = 'attribute vec2 p;varying vec2 uv;void main(){uv=p;gl_Position=vec4(p,0.0,1.0);}';
+var FS = [
+'precision highp float;',
+'varying vec2 uv;',
+'uniform sampler2D tex;',
+'uniform float tanFov, aspecto, giro, alto;',
+'void main(){',
+'  vec3 d = normalize(vec3(uv.x*tanFov*aspecto, uv.y*tanFov, -1.0));',
+'  float ca = cos(alto), sa = sin(alto);',
+'  d = vec3(d.x, d.y*ca - d.z*sa, d.y*sa + d.z*ca);',
+'  float cg = cos(giro), sg = sin(giro);',
+'  d = vec3(d.x*cg + d.z*sg, d.y, -d.x*sg + d.z*cg);',
+'  float u = atan(d.z, d.x)/6.2831853 + 0.5;',
+'  float v = acos(clamp(d.y,-1.0,1.0))/3.14159265;',
+'  gl_FragColor = texture2D(tex, vec2(u, v));',
+'}'].join('\n');
+
+var GIRO_FRENTE = -Math.PI/2;   /* con este giro, el centro de la foto queda al frente */
+
+function crearVisor(lienzo){
+  var gl = null;
+  try{
+    var op = {antialias:false, alpha:false, depth:false, preserveDrawingBuffer:false};
+    gl = lienzo.getContext('webgl', op) || lienzo.getContext('experimental-webgl', op);
+  }catch(e){ gl = null; }
+  if(!gl) return null;
+
+  function compilar(tipo, fuente){
+    var s = gl.createShader(tipo);
+    gl.shaderSource(s, fuente); gl.compileShader(s);
+    if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) return null;
+    return s;
+  }
+  var vs = compilar(gl.VERTEX_SHADER, VS), fs = compilar(gl.FRAGMENT_SHADER, FS);
+  if(!vs || !fs) return null;
+  var prog = gl.createProgram();
+  gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+  gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  var locP = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(locP);
+  gl.vertexAttribPointer(locP, 2, gl.FLOAT, false, 0, 0);
+
+  var uTanFov = gl.getUniformLocation(prog,'tanFov'),
+      uAsp    = gl.getUniformLocation(prog,'aspecto'),
+      uGiro   = gl.getUniformLocation(prog,'giro'),
+      uAlto   = gl.getUniformLocation(prog,'alto'),
+      uTex    = gl.getUniformLocation(prog,'tex');
+  gl.uniform1i(uTex, 0);
+
+  var textura = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, textura);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+  var est = {giro:GIRO_FRENTE, alto:0, fov:75*Math.PI/180, hayFoto:false};
+
+  function medir(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(1, Math.round(lienzo.clientWidth  * dpr));
+    var h = Math.max(1, Math.round(lienzo.clientHeight * dpr));
+    if(lienzo.width !== w || lienzo.height !== h){ lienzo.width = w; lienzo.height = h; }
+    gl.viewport(0,0,lienzo.width,lienzo.height);
+  }
+
+  function dibujar(){
+    if(!est.hayFoto) return;
+    medir();
+    gl.uniform1f(uTanFov, Math.tan(est.fov/2));
+    gl.uniform1f(uAsp, lienzo.width / Math.max(1,lienzo.height));
+    gl.uniform1f(uGiro, est.giro);
+    gl.uniform1f(uAlto, est.alto);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
+  return {
+    gl:gl,
+    estado:est,
+    cargar:function(imagen){
+      var m = medidaTextura(imagen.naturalWidth || imagen.width,
+                            gl.getParameter(gl.MAX_TEXTURE_SIZE));
+      var c = document.createElement('canvas');
+      c.width = m.w; c.height = m.h;
+      c.getContext('2d').drawImage(imagen, 0, 0, m.w, m.h);
+      gl.bindTexture(gl.TEXTURE_2D, textura);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, c);
+      est.hayFoto = true;
+      this.centrar();
+      return m;
+    },
+    mover:function(dGiro, dAlto){
+      est.giro += dGiro;
+      est.alto = limitar(est.alto + dAlto, -Math.PI/2 + 0.02, Math.PI/2 - 0.02);
+      dibujar();
+    },
+    zoom:function(d){
+      est.fov = limitar(est.fov + d, 30*Math.PI/180, 100*Math.PI/180);
+      dibujar();
+    },
+    centrar:function(){ est.giro = GIRO_FRENTE; est.alto = 0; est.fov = 75*Math.PI/180; dibujar(); },
+    redibujar:dibujar
+  };
+}
+
+/* ============================== 4. PRUEBAS ============================== */
+
+function casi(a,b,t){ return Math.abs(a-b) < (t===undefined?0.0001:t); }
+
+var PRUEBAS = [
+  ['Una foto 2:1 se reconoce como panorámica 360', function(){
+    return esPanoramica(4096,2048) && esPanoramica(5376,2688) && esPanoramica(2000,1000);
+  }],
+  ['Una foto de celular normal no se toma como 360', function(){
+    return !esPanoramica(4032,3024) && !esPanoramica(1920,1080) && !esPanoramica(1000,1000);
+  }],
+  ['El margen de tolerancia acepta recortes de un par de píxeles', function(){
+    return esPanoramica(4096,2040) && !esPanoramica(4096,1800);
+  }],
+  ['Medidas inválidas no rompen la detección', function(){
+    return !esPanoramica(0,0) && !esPanoramica(-4,-2) && !esPanoramica(100,0);
+  }],
+  ['La textura baja a la potencia de dos anterior', function(){
+    return potHasta(5376,4096)===4096 && potHasta(3000,4096)===2048 && potHasta(2048,4096)===2048;
+  }],
+  ['La textura nunca supera el tope de la tarjeta gráfica', function(){
+    return potHasta(8192,2048)===2048 && medidaTextura(8000,2048).w===2048;
+  }],
+  ['La textura mantiene la proporción 2:1', function(){
+    var m = medidaTextura(5000,4096);
+    return m.w===4096 && m.h===2048 && medidaTextura(300,4096).h===128;
+  }],
+  ['Una foto diminuta se sube igual, con un mínimo razonable', function(){
+    return medidaTextura(80,4096).w===256;
+  }],
+  ['limitar respeta los bordes', function(){
+    return limitar(5,0,3)===3 && limitar(-2,0,3)===0 && limitar(1.5,0,3)===1.5;
+  }],
+  ['El nombre del archivo de cada parada es predecible', function(){
+    return rutaFoto('porteria')==='fotos/porteria.jpg' && rutaFoto('utp')==='fotos/utp.jpg';
+  }],
+  ['Las 12 paradas tienen id único y los cuatro textos', function(){
+    if(PARADAS.length!==12) return false;
+    var vistos={};
+    for(var i=0;i<PARADAS.length;i++){
+      var p=PARADAS[i];
+      if(vistos[p.id]) return false;
+      vistos[p.id]=true;
+      if(!p.nombre||!p.cat||!p.que||!p.saber||!p.preguntar||!p.completar) return false;
+    }
+    return true;
+  }],
+  ['Cada cargo tiene hitos y recursos, y solo uno es el piloto', function(){
+    var pilotos=0;
+    for(var i=0;i<CARGOS.length;i++){
+      var c=CARGOS[i];
+      if(c.piloto) pilotos++;
+      if(!hitosDe(c.id).length || !recursosDe(c.id).length) return false;
+    }
+    return pilotos===1 && cargoPorId('docente').piloto===true;
+  }],
+  ['Un cargo inexistente no revienta la ruta', function(){
+    return hitosDe('inventado').length===0 && cargoPorId('inventado').id==='docente';
+  }],
+  ['El avance se calcula en porcentaje y no se sale de rango', function(){
+    return casi(progreso(6,12),50) && progreso(0,0)===0 && casi(progreso(12,12),100) && casi(progreso(30,12),100);
+  }],
+  ['La búsqueda del glosario ignora tildes y mayúsculas', function(){
+    var a = filtrarGlosario('PRACTICA'), b = filtrarGlosario('práctica');
+    return a.length>0 && a.length===b.length;
+  }],
+  ['La búsqueda encuentra por sigla, por nombre y por definición', function(){
+    return filtrarGlosario('UTP').length>0 &&
+           filtrarGlosario('Integración Escolar').length>0 &&
+           filtrarGlosario('evacua').length>0;
+  }],
+  ['Una búsqueda vacía devuelve el glosario completo', function(){
+    return filtrarGlosario('').length===GLOSARIO.length && filtrarGlosario('   ').length===GLOSARIO.length;
+  }],
+  ['Una búsqueda sin resultados devuelve lista vacía, no error', function(){
+    return filtrarGlosario('xyzqw').length===0;
+  }],
+  ['Las siglas del glosario no se repiten', function(){
+    var v={};
+    for(var i=0;i<GLOSARIO.length;i++){
+      var k=normalizar(GLOSARIO[i].s);
+      if(v[k]) return false;
+      v[k]=true;
+      if(!GLOSARIO[i].d || !GLOSARIO[i].c) return false;
+    }
+    return true;
+  }],
+  ['El pulso avisa si falta responder', function(){
+    var r = evaluarPulso([4,4,4]);
+    return r.completo===false && r.faltan===3;
+  }],
+  ['El pulso convierte el promedio a porcentaje: 1 es 0% y 4 es 100%', function(){
+    var bajo = evaluarPulso([1,1,1,1,1,1]), alto = evaluarPulso([4,4,4,4,4,4]);
+    return casi(bajo.porcentaje,0) && casi(alto.porcentaje,100) && alto.nivel.clave==='ok';
+  }],
+  ['El pulso señala el punto más bajo y a dónde ir', function(){
+    var r = evaluarPulso([4,4,4,1,4,4]);
+    return r.iDebil===3 && r.debil.ir==='#ruta';
+  }],
+  ['Con empate en el punto más bajo gana el primero de la lista', function(){
+    var r = evaluarPulso([1,1,4,4,4,4]);
+    return r.iDebil===0;
+  }],
+  ['Los umbrales del pulso cortan donde dicen', function(){
+    return evaluarPulso([2,2,2,2,2,2]).nivel.clave==='inicio' &&
+           evaluarPulso([3,3,3,3,3,3]).nivel.clave==='medio' &&
+           evaluarPulso([4,4,4,4,3,4]).nivel.clave==='ok';
+  }]
+];
+
+function correrPruebas(){
+  var ok=0, fallos=[];
+  for(var i=0;i<PRUEBAS.length;i++){
+    var r=false;
+    try{ r = PRUEBAS[i][1]()===true; }catch(e){ fallos.push(PRUEBAS[i][0]+' — error: '+e.message); continue; }
+    if(r) ok++; else fallos.push(PRUEBAS[i][0]);
+  }
+  return {total:PRUEBAS.length, ok:ok, fallos:fallos};
+}
+
+/* ============================== 5. INTERFAZ ============================== */
+
+function $(id){ return document.getElementById(id); }
+function ce(tag,clase){ var e=document.createElement(tag); if(clase) e.className=clase; return e; }
+function svgIco(href,tam){
+  var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('width',tam||18); s.setAttribute('height',tam||18); s.setAttribute('aria-hidden','true');
+  var u=document.createElementNS('http://www.w3.org/2000/svg','use');
+  u.setAttribute('href',href); s.appendChild(u); return s;
+}
+
+var estado = {cargo:'docente', parada:0, hitos:{}, pulso:[]};
+var visor = null, iParada = 0, fotosLocales = {};
+
+function leerGuardado(){
+  try{
+    var d = JSON.parse(localStorage.getItem(LS_CLAVE) || 'null');
+    if(!d) return;
+    if(d.cargo && HITOS[d.cargo]) estado.cargo = d.cargo;
+    if(d.hitos && typeof d.hitos === 'object') estado.hitos = d.hitos;
+    if(Object.prototype.toString.call(d.pulso)==='[object Array]') estado.pulso = d.pulso;
+  }catch(e){ /* navegador sin almacenamiento: la página funciona igual, sin recordar */ }
+}
+function guardar(){ try{ localStorage.setItem(LS_CLAVE, JSON.stringify(estado)); }catch(e){} }
+
+/* ------------------- Fotos cargadas desde el computador -------------------
+   Van a IndexedDB porque una panorámica pesa más de lo que aguanta
+   localStorage. Quedan solo en este navegador: no se suben a ninguna parte. */
+function conDB(cb){
+  if(!window.indexedDB){ cb(null); return; }
+  var req;
+  try{ req = indexedDB.open(DB_NOMBRE, 1); }catch(e){ cb(null); return; }
+  req.onupgradeneeded = function(){ try{ req.result.createObjectStore('fotos'); }catch(e){} };
+  req.onsuccess = function(){ cb(req.result); };
+  req.onerror   = function(){ cb(null); };
+}
+function guardarFotoLocal(id, blob, cb){
+  conDB(function(db){
+    if(!db){ cb(false); return; }
+    try{
+      var tx = db.transaction('fotos','readwrite');
+      tx.objectStore('fotos').put(blob, id);
+      tx.oncomplete = function(){ cb(true); };
+      tx.onerror = function(){ cb(false); };
+    }catch(e){ cb(false); }
+  });
+}
+function cargarIndiceFotos(cb){
+  conDB(function(db){
+    if(!db){ cb(); return; }
+    try{
+      var tx = db.transaction('fotos','readonly'), req = tx.objectStore('fotos').getAllKeys();
+      req.onsuccess = function(){
+        var k = req.result || [];
+        for(var i=0;i<k.length;i++) fotosLocales[k[i]] = true;
+        cb();
+      };
+      req.onerror = function(){ cb(); };
+    }catch(e){ cb(); }
+  });
+}
+function leerFotoLocal(id, cb){
+  conDB(function(db){
+    if(!db){ cb(null); return; }
+    try{
+      var req = db.transaction('fotos','readonly').objectStore('fotos').get(id);
+      req.onsuccess = function(){ cb(req.result || null); };
+      req.onerror = function(){ cb(null); };
+    }catch(e){ cb(null); }
+  });
+}
+function borrarFotoLocal(id, cb){
+  conDB(function(db){
+    if(!db){ cb(); return; }
+    try{
+      var tx = db.transaction('fotos','readwrite');
+      if(id) tx.objectStore('fotos')['delete'](id); else tx.objectStore('fotos').clear();
+      tx.oncomplete = function(){
+        if(id) delete fotosLocales[id]; else fotosLocales = {};
+        cb();
+      };
+      tx.onerror = function(){ cb(); };
+    }catch(e){ cb(); }
+  });
+}
+
+/* ---------------------------- Panorámica de prueba ----------------------------
+   Se dibuja sola, para poder mostrar el visor 360 funcionando aunque todavía
+   no exista ninguna foto del colegio. */
+function panoramicaDemo(){
+  var w=2048, h=1024, c=ce('canvas'); c.width=w; c.height=h;
+  var x=c.getContext('2d'), sector=w/8;
+  var cielo=x.createLinearGradient(0,0,0,h/2);
+  cielo.addColorStop(0,'#2e1520'); cielo.addColorStop(1,'#c9a570');
+  x.fillStyle=cielo; x.fillRect(0,0,w,h/2);
+  var suelo=x.createLinearGradient(0,h/2,0,h);
+  suelo.addColorStop(0,'#7a2436'); suelo.addColorStop(1,'#1d1416');
+  x.fillStyle=suelo; x.fillRect(0,h/2,w,h/2);
+
+  /* Sectores alternados: al girar se nota de inmediato que la vista se mueve. */
+  x.fillStyle='rgba(255,255,255,.05)';
+  for(var k=0;k<8;k+=2) x.fillRect(k*sector,0,sector,h);
+
+  x.textAlign='center'; x.textBaseline='middle';
+  var rumbos=['N','NE','E','SE','S','SO','O','NO'];
+  for(var i=0;i<8;i++){
+    var px = i*sector + sector/2;
+    x.strokeStyle='rgba(239,227,216,.28)'; x.lineWidth=2;
+    x.beginPath(); x.moveTo(i*sector,0); x.lineTo(i*sector,h); x.stroke();
+    x.fillStyle='#fdfbf7'; x.font='bold 96px Georgia, serif';
+    x.fillText(rumbos[i], px, h/2 - 120);
+    x.fillStyle='rgba(185,147,90,.95)'; x.font='bold 26px system-ui, sans-serif';
+    x.fillText('D E M O', px, h/2 + 90);
+  }
+  x.strokeStyle='#efe3d8'; x.lineWidth=4;
+  x.beginPath(); x.moveTo(0,h/2); x.lineTo(w,h/2); x.stroke();
+  return c;
+}
+
+/* ------------------------------- El recorrido ------------------------------- */
+function mostrarCapa(cual){
+  $('lienzo').classList.toggle('oculto', cual!=='360');
+  $('fotoPlana').classList.toggle('oculto', cual!=='plana');
+  $('visorVacio').classList.toggle('oculto', cual!=='vacio');
+  $('etiqueta360').classList.toggle('oculto', cual!=='360');
+  /* Un canvas oculto mide 0: si se dibuja antes de mostrarlo, el visor queda en
+     negro. Por eso se redibuja recién cuando ya está visible. */
+  if(cual==='360' && visor) visor.redibujar();
+}
+
+function pintarParada(){
+  var p = PARADAS[iParada];
+  $('visorCat').textContent = 'Parada ' + (iParada+1) + ' de ' + PARADAS.length + ' · ' + p.cat;
+  $('visorTitulo').textContent = p.nombre;
+  $('btnAnterior').disabled = (iParada===0);
+  $('btnSiguiente').disabled = (iParada===PARADAS.length-1);
+  $('btnQuitarFoto').classList.toggle('oculto', !fotosLocales[p.id]);
+  $('textoVacio').innerHTML = 'Todavía no hay imagen de <b>' + p.nombre.toLowerCase() +
+    '</b>. Se puede cargar ahora con el botón de abajo, o dejarla en la carpeta <code>fotos/</code> con el nombre <code>' +
+    p.id + '.jpg</code>.';
+  $('ayudaFoto').innerHTML = 'Archivo esperado para esta parada: <code>fotos/' + p.id +
+    '.jpg</code>. Si la foto es 360°, debe medir el doble de ancho que de alto.';
+
+  var f = ce('div');
+  var cat = ce('span','ficha-parada__cat'); cat.textContent = p.cat; f.appendChild(cat);
+  var h = ce('h3'); h.textContent = p.nombre; f.appendChild(h);
+  var d = ce('p','ficha-parada__d'); d.textContent = p.que; f.appendChild(d);
+  f.appendChild(bloque('Qué necesitas saber aquí', p.saber));
+  f.appendChild(bloque('A quién preguntarle', p.preguntar));
+  var c = bloque('Por completar con el colegio', p.completar); c.className='bloque bloque--oro';
+  f.appendChild(c);
+  var z = $('fichaParada'); z.textContent=''; z.appendChild(f);
+
+  var botones = $('listaParadas').children;
+  for(var i=0;i<botones.length;i++){
+    botones[i].setAttribute('aria-current', i===iParada ? 'true':'false');
+    botones[i].tabIndex = i===iParada ? 0 : -1;
+  }
+  cargarFotoDeParada(p);
+}
+
+function bloque(rotulo, texto){
+  var b = ce('div','bloque');
+  var s = ce('span'); s.textContent = rotulo; b.appendChild(s);
+  var p = ce('p'); p.textContent = texto; b.appendChild(p);
+  return b;
+}
+
+function mostrarImagen(img){
+  var ancho = img.naturalWidth || img.width, alto = img.naturalHeight || img.height;
+  if(esPanoramica(ancho, alto) && visor){
+    mostrarCapa('360');       /* primero mostrar, después dibujar */
+    visor.cargar(img);
+  } else {
+    $('fotoPlana').src = img.src;
+    $('fotoPlana').alt = 'Fotografía de ' + PARADAS[iParada].nombre;
+    mostrarCapa('plana');
+    if(esPanoramica(ancho, alto)) $('etiqueta360').classList.remove('oculto');
+  }
+}
+
+function cargarFotoDeParada(p){
+  mostrarCapa('vacio');
+  $('cargando').classList.remove('oculto');
+  var idEsperado = p.id;
+
+  function intentarArchivo(){
+    var img = new Image();
+    img.onload = function(){
+      if(PARADAS[iParada].id !== idEsperado) return;   /* cambió de parada mientras cargaba */
+      $('cargando').classList.add('oculto');
+      mostrarImagen(img);
+    };
+    img.onerror = function(){
+      if(PARADAS[iParada].id !== idEsperado) return;
+      $('cargando').classList.add('oculto');
+      mostrarCapa('vacio');
+    };
+    img.src = rutaFoto(idEsperado);
+  }
+
+  if(fotosLocales[idEsperado]){
+    leerFotoLocal(idEsperado, function(blob){
+      if(PARADAS[iParada].id !== idEsperado) return;
+      if(!blob){ intentarArchivo(); return; }
+      var url = URL.createObjectURL(blob), img = new Image();
+      img.onload = function(){
+        $('cargando').classList.add('oculto');
+        if(PARADAS[iParada].id === idEsperado) mostrarImagen(img);
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 30000);
+      };
+      img.onerror = function(){ URL.revokeObjectURL(url); intentarArchivo(); };
+      img.src = url;
+    });
+  } else {
+    intentarArchivo();
+  }
+}
+
+function irAParada(i){
+  iParada = limitar(i, 0, PARADAS.length-1);
+  estado.parada = iParada; guardar();
+  pintarParada();
+}
+
+function pintarListaParadas(){
+  var z = $('listaParadas'); z.textContent='';
+  PARADAS.forEach(function(p, i){
+    var b = ce('button','parada');
+    b.type='button'; b.setAttribute('role','tab');
+    var n = ce('b'); n.textContent = (i+1) + '. ' + p.nombre; b.appendChild(n);
+    var s = ce('small');
+    var pt = ce('i','punto-foto'); pt.setAttribute('aria-hidden','true');
+    s.appendChild(pt); s.appendChild(document.createTextNode(p.cat));
+    b.appendChild(s);
+    b.addEventListener('click', function(){ irAParada(i); });
+    b.addEventListener('keydown', function(ev){
+      var d = ev.key==='ArrowRight'||ev.key==='ArrowDown' ? 1 :
+              ev.key==='ArrowLeft' ||ev.key==='ArrowUp'   ? -1 : 0;
+      if(d){ ev.preventDefault(); var j=(i+d+PARADAS.length)%PARADAS.length; irAParada(j); z.children[j].focus(); }
+    });
+    z.appendChild(b);
+  });
+  marcarPuntosFoto();
+}
+
+function marcarPuntosFoto(){
+  var z = $('listaParadas');
+  PARADAS.forEach(function(p,i){
+    var pt = z.children[i] && z.children[i].querySelector('.punto-foto');
+    if(!pt) return;
+    pt.className = 'punto-foto' + (fotosLocales[p.id] ? ' punto-foto--si' : '');
+  });
+}
+
+/* ---------------------------- Ruta y momentos ---------------------------- */
+function conectarTabs(tabs, alCambiar){
+  function activar(i, foco){
+    for(var k=0;k<tabs.length;k++){
+      tabs[k].setAttribute('aria-selected', k===i ? 'true':'false');
+      tabs[k].tabIndex = k===i ? 0 : -1;
+    }
+    if(foco) tabs[i].focus();
+    alCambiar(i);
+  }
+  tabs.forEach(function(t, idx){
+    t.addEventListener('click', function(){ activar(idx,false); });
+    t.addEventListener('keydown', function(ev){
+      var d = ev.key==='ArrowRight'||ev.key==='ArrowDown' ? 1 :
+              ev.key==='ArrowLeft' ||ev.key==='ArrowUp'   ? -1 : 0;
+      if(d){ ev.preventDefault(); activar((idx+d+tabs.length)%tabs.length, true); }
+      else if(ev.key==='Home'){ ev.preventDefault(); activar(0,true); }
+      else if(ev.key==='End'){ ev.preventDefault(); activar(tabs.length-1,true); }
+    });
+  });
+  return activar;
+}
+
+function pintarMomento(i){
+  var m = MOMENTOS[i];
+  $('momPaso').textContent = 'Momento ' + (i+1) + ' de ' + MOMENTOS.length + ' · ' + m.rotulo;
+  $('momTitulo').textContent = m.titulo;
+  $('momTexto').textContent = m.texto;
+  var ul = $('momLista'); ul.textContent='';
+  m.pasos.forEach(function(p){ var li=ce('li'); li.innerHTML = p; ul.appendChild(li); });
+}
+
+function pintarCargo(){
+  var c = cargoPorId(estado.cargo);
+  var n = $('notaCargo');
+  n.className = 'nota nota--' + (c.piloto ? 'ok' : 'alerta');
+  n.querySelector('use').setAttribute('href', c.piloto ? '#i-check' : '#i-alerta');
+  n.querySelector('span').textContent = c.nota;
+  pintarHitos();
+  pintarRecursos();
+}
+
+/* -------------------------------- Los hitos -------------------------------- */
+function marcadosDe(cargo){
+  var a = estado.hitos[cargo];
+  if(Object.prototype.toString.call(a) !== '[object Array]'){
+    a = []; estado.hitos[cargo] = a;
+  }
+  return a;
+}
+
+function pintarHitos(){
+  var lista = hitosDe(estado.cargo), marcados = marcadosDe(estado.cargo);
+  var z = $('listaHitos'); z.textContent='';
+  lista.forEach(function(h, i){
+    var lab = ce('label','hito');
+    var inp = ce('input'); inp.type='checkbox'; inp.checked = !!marcados[i];
+    inp.addEventListener('change', function(){
+      marcadosDe(estado.cargo)[i] = inp.checked;
+      guardar(); actualizarProgreso();
+    });
+    var t = ce('span','hito__t'); t.textContent = h.t;
+    var m = ce('span','hito__m'); m.textContent = h.m;
+    t.appendChild(m);
+    lab.appendChild(inp); lab.appendChild(t);
+    z.appendChild(lab);
+  });
+  actualizarProgreso();
+}
+
+function actualizarProgreso(){
+  var lista = hitosDe(estado.cargo), marcados = marcadosDe(estado.cargo);
+  var n = 0;
+  for(var i=0;i<lista.length;i++){ if(marcados[i]) n++; }
+  $('contadorHitos').textContent = n + '/' + lista.length;
+  $('barraProgreso').style.width = progreso(n, lista.length) + '%';
+  $('cifraHitos').textContent = String(lista.length);
+}
+
+function pintarRecursos(){
+  var z = $('listaRecursos'); z.textContent='';
+  recursosDe(estado.cargo).forEach(function(r){
+    var d = ce('div','recurso');
+    var b = ce('b'); b.textContent = r.b; d.appendChild(b);
+    var s = ce('small'); s.textContent = r.s; d.appendChild(s);
+    z.appendChild(d);
+  });
+}
+
+/* --------------------------------- El pulso --------------------------------- */
+function pintarPulso(){
+  var z = $('listaPulso'); z.textContent='';
+  PULSO.forEach(function(p, i){
+    var caja = ce('div','recurso'); caja.style.background='#fff';
+    caja.style.border='1px solid var(--linea)'; caja.style.marginBottom='.5rem';
+    var b = ce('b'); b.style.fontSize='.88rem'; b.style.color='var(--tinta)';
+    b.textContent = (i+1) + '. ' + p.t; caja.appendChild(b);
+    var fila = ce('div');
+    fila.style.cssText = 'display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem';
+    ESCALA_PULSO.forEach(function(et, v){
+      var lab = ce('label');
+      lab.style.cssText = 'font-size:.72rem;display:inline-flex;align-items:center;gap:.25rem;'+
+                          'border:1px solid var(--linea-2);border-radius:8px;padding:.25rem .5rem;cursor:pointer';
+      var inp = ce('input'); inp.type='radio'; inp.name='pulso'+i; inp.value=String(v+1);
+      inp.style.cssText='accent-color:var(--vino);margin:0';
+      if(Number(estado.pulso[i])===v+1) inp.checked = true;
+      inp.addEventListener('change', function(){ estado.pulso[i] = v+1; guardar(); });
+      lab.appendChild(inp); lab.appendChild(document.createTextNode(et));
+      fila.appendChild(lab);
+    });
+    caja.appendChild(fila);
+    z.appendChild(caja);
+  });
+}
+
+function mostrarPulso(){
+  var r = evaluarPulso(estado.pulso), z = $('salidaPulso');
+  z.textContent=''; z.classList.remove('oculto');
+  if(!r.completo){
+    var n = ce('div','nota nota--alerta');
+    n.appendChild(svgIco('#i-alerta'));
+    var p = ce('p');
+    p.textContent = 'Faltan ' + r.faltan + (r.faltan===1?' afirmación':' afirmaciones') + ' por responder.';
+    n.appendChild(p); z.appendChild(n);
+    return r;
+  }
+  var caja = ce('div','nota nota--' + (r.nivel.clave==='ok'?'ok':(r.nivel.clave==='medio'?'info':'alerta')));
+  caja.appendChild(svgIco(r.nivel.clave==='ok' ? '#i-check' : '#i-info'));
+  var p2 = ce('p');
+  var b = ce('b'); b.textContent = r.nivel.etiqueta + ' · ' + Math.round(r.porcentaje) + '%';
+  p2.appendChild(b);
+  p2.appendChild(document.createElement('br'));
+  p2.appendChild(document.createTextNode(
+    'Lo más flojo por ahora es: «' + r.debil.t + '» Para eso conviene volver a ' + r.debil.que + '.'));
+  caja.appendChild(p2);
+  z.appendChild(caja);
+  var a = ce('a','btn btn--suave btn--sm');
+  a.href = r.debil.ir; a.textContent = 'Ir a esa parte';
+  z.appendChild(a);
+  return r;
+}
+
+/* -------------------------------- El glosario -------------------------------- */
+function pintarGlosario(termino){
+  var res = filtrarGlosario(termino), z = $('listaGlosario');
+  z.textContent='';
+  res.forEach(function(g){
+    var d = ce('div','termino');
+    var b = ce('b'); b.textContent = g.s; d.appendChild(b);
+    if(g.n){ var i = ce('i'); i.textContent = g.n; d.appendChild(i); }
+    else { var i2 = ce('i'); i2.textContent = g.c; d.appendChild(i2); }
+    var p = ce('p'); p.textContent = g.d; d.appendChild(p);
+    z.appendChild(d);
+  });
+  $('sinResultados').classList.toggle('oculto', res.length>0);
+  return res.length;
+}
+
+/* --------------------------------- El equipo --------------------------------- */
+var EQUIPO = [
+  {n:'Sofía Muñoz',   r:'Coordinación del proyecto'},
+  {n:'Por completar', r:'Integrante 2'},
+  {n:'Por completar', r:'Integrante 3'},
+  {n:'Por completar', r:'Integrante 4'}
+];
+
+function pintarEquipo(){
+  var z = $('listaEquipo'); z.textContent='';
+  EQUIPO.forEach(function(p){
+    var a = ce('article','persona');
+    var s = ce('span','persona__ico'); s.appendChild(svgIco('#i-persona',22)); a.appendChild(s);
+    var b = ce('b'); b.textContent = p.n;
+    if(p.n==='Por completar'){ b.style.color='var(--tinta-3)'; b.style.fontStyle='italic'; }
+    a.appendChild(b);
+    var sm = ce('small'); sm.textContent = p.r; a.appendChild(sm);
+    z.appendChild(a);
+  });
+}
+
+/* ------------------------------- Utilidades ------------------------------- */
+function descargar(nombre, contenido){
+  try{
+    var url = URL.createObjectURL(new Blob([contenido],{type:'text/plain;charset=utf-8'}));
+    var a = ce('a'); a.href=url; a.download=nombre;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    return true;
+  }catch(e){ return false; }
+}
+function mostrarAviso(el, tipo, texto){
+  if(!texto){ el.classList.add('oculto'); return; }
+  el.className = 'nota nota--' + tipo;
+  var u = el.querySelector('use');
+  if(u) u.setAttribute('href', tipo==='ok' ? '#i-check' : '#i-alerta');
+  el.querySelector('span').textContent = texto;
+  el.classList.remove('oculto');
+}
+
+/* ------------------------------- Arranque ------------------------------- */
+function iniciar(){
+  leerGuardado();
+
+  /* menú */
+  var btnMenu = $('btnMenu'), nav = $('navPrincipal');
+  btnMenu.addEventListener('click', function(){
+    var abierto = nav.classList.toggle('abierto');
+    btnMenu.setAttribute('aria-expanded', abierto?'true':'false');
+  });
+  nav.addEventListener('click', function(ev){
+    if(ev.target.tagName==='A'){ nav.classList.remove('abierto'); btnMenu.setAttribute('aria-expanded','false'); }
+  });
+
+  /* ---- recorrido ---- */
+  visor = crearVisor($('lienzo'));
+  pintarListaParadas();
+  $('cifraParadas').textContent = String(PARADAS.length);
+
+  $('btnAnterior').addEventListener('click', function(){ irAParada(iParada-1); });
+  $('btnSiguiente').addEventListener('click', function(){ irAParada(iParada+1); });
+  $('btnCentrar').addEventListener('click', function(){ if(visor) visor.centrar(); });
+  $('btnPantalla').addEventListener('click', function(){
+    var v = $('visor');
+    if(document.fullscreenElement) document.exitFullscreen();
+    else if(v.requestFullscreen) v.requestFullscreen();
+  });
+
+  /* arrastrar para mirar */
+  var lienzo = $('lienzo'), arrastrando=false, ux=0, uy=0;
+  lienzo.addEventListener('pointerdown', function(ev){
+    if(!visor) return;
+    arrastrando=true; ux=ev.clientX; uy=ev.clientY;
+    lienzo.classList.add('arrastrando');
+    try{ lienzo.setPointerCapture(ev.pointerId); }catch(e){}
+  });
+  lienzo.addEventListener('pointermove', function(ev){
+    if(!arrastrando || !visor) return;
+    var k = visor.estado.fov / Math.max(1, lienzo.clientHeight);
+    visor.mover(-(ev.clientX-ux)*k, -(ev.clientY-uy)*k);
+    ux=ev.clientX; uy=ev.clientY;
+  });
+  function soltar(ev){
+    arrastrando=false; lienzo.classList.remove('arrastrando');
+    try{ lienzo.releasePointerCapture(ev.pointerId); }catch(e){}
+  }
+  lienzo.addEventListener('pointerup', soltar);
+  lienzo.addEventListener('pointercancel', soltar);
+  lienzo.addEventListener('wheel', function(ev){
+    if(!visor) return;
+    ev.preventDefault(); visor.zoom(ev.deltaY>0 ? 0.06 : -0.06);
+  }, {passive:false});
+  lienzo.addEventListener('keydown', function(ev){
+    if(!visor) return;
+    var paso = 0.09;
+    if(ev.key==='ArrowLeft'){  ev.preventDefault(); visor.mover(-paso,0); }
+    else if(ev.key==='ArrowRight'){ ev.preventDefault(); visor.mover(paso,0); }
+    else if(ev.key==='ArrowUp'){    ev.preventDefault(); visor.mover(0,-paso); }
+    else if(ev.key==='ArrowDown'){  ev.preventDefault(); visor.mover(0,paso); }
+    else if(ev.key==='+'||ev.key==='='){ ev.preventDefault(); visor.zoom(-0.1); }
+    else if(ev.key==='-'){ ev.preventDefault(); visor.zoom(0.1); }
+  });
+  window.addEventListener('resize', function(){ if(visor) visor.redibujar(); });
+  document.addEventListener('fullscreenchange', function(){
+    if(visor) setTimeout(function(){ visor.redibujar(); }, 60);
+  });
+
+  /* cargar y quitar fotos */
+  $('btnCargarFoto').addEventListener('click', function(){ $('inputFoto').click(); });
+  $('inputFoto').addEventListener('change', function(){
+    var f = this.files && this.files[0];
+    this.value = '';
+    if(!f) return;
+    var id = PARADAS[iParada].id;
+    guardarFotoLocal(id, f, function(ok){
+      if(!ok){ window.alert('Este navegador no permitió guardar la foto. Prueba con Chrome o Edge, o deja la foto en la carpeta fotos/.'); return; }
+      fotosLocales[id] = true;
+      marcarPuntosFoto();
+      pintarParada();
+    });
+  });
+  $('btnQuitarFoto').addEventListener('click', function(){
+    var id = PARADAS[iParada].id;
+    borrarFotoLocal(id, function(){ marcarPuntosFoto(); pintarParada(); });
+  });
+  $('btnBorrarFotos').addEventListener('click', function(){
+    if(!window.confirm('Se van a borrar todas las fotos cargadas en este navegador. Las que estén en la carpeta fotos/ no se tocan. ¿Continuar?')) return;
+    borrarFotoLocal(null, function(){ marcarPuntosFoto(); pintarParada(); });
+  });
+  $('btnDemo').addEventListener('click', function(){
+    if(!visor){
+      window.alert('Este navegador no tiene WebGL disponible, así que el visor 360 no puede funcionar. Las fotos normales sí se ven.');
+      return;
+    }
+    mostrarCapa('360');
+    visor.cargar(panoramicaDemo());
+    $('cargando').classList.add('oculto');
+    $('lienzo').focus();
+  });
+
+  /* La primera parada se pinta de inmediato. El índice de fotos guardadas llega
+     después, si llega: en file:// hay navegadores que nunca resuelven IndexedDB,
+     y la página no puede quedar en blanco esperándolo. */
+  irAParada(Number(estado.parada) || 0);
+  cargarIndiceFotos(function(){
+    marcarPuntosFoto();
+    if(fotosLocales[PARADAS[iParada].id]) pintarParada();
+  });
+
+  /* ---- ruta por cargo ---- */
+  var zc = $('listaCargos');
+  var tabsCargo = CARGOS.map(function(c){
+    var b = ce('button'); b.type='button'; b.setAttribute('role','tab');
+    b.appendChild(document.createTextNode(c.nombre));
+    if(c.piloto){ var e=ce('span','piloto'); e.textContent='piloto'; b.appendChild(e); }
+    zc.appendChild(b);
+    return b;
+  });
+  var irCargo = conectarTabs(tabsCargo, function(i){
+    estado.cargo = CARGOS[i].id; guardar(); pintarCargo();
+  });
+
+  var zm = $('lineaMomentos');
+  var tabsMomento = MOMENTOS.map(function(m){
+    var b = ce('button','momento'); b.type='button'; b.setAttribute('role','tab');
+    var t = ce('b'); t.textContent = m.rotulo; b.appendChild(t);
+    var s = ce('small'); s.textContent = m.titulo; b.appendChild(s);
+    zm.appendChild(b);
+    return b;
+  });
+  var irMomento = conectarTabs(tabsMomento, pintarMomento);
+
+  var idx = 0;
+  for(var k=0;k<CARGOS.length;k++){ if(CARGOS[k].id===estado.cargo) idx=k; }
+  irCargo(idx, false);
+  irMomento(0, false);
+
+  /* ---- hitos y pulso ---- */
+  pintarPulso();
+  $('btnPulso').addEventListener('click', mostrarPulso);
+  $('btnImprimir').addEventListener('click', function(){ window.print(); });
+  $('btnReiniciar').addEventListener('click', function(){
+    if(!window.confirm('Se van a desmarcar todos los hitos de «' + cargoPorId(estado.cargo).nombre + '». ¿Continuar?')) return;
+    estado.hitos[estado.cargo] = [];
+    guardar(); pintarHitos();
+  });
+
+  /* ---- glosario ---- */
+  $('cifraTerminos').textContent = String(GLOSARIO.length);
+  pintarGlosario('');
+  $('buscarTermino').addEventListener('input', function(){ pintarGlosario(this.value); });
+
+  pintarEquipo();
+
+  /* ---- contacto ---- */
+  var sel = $('cCargoNuevo');
+  CARGOS.forEach(function(c){ var o=ce('option'); o.value=c.id; o.textContent=c.nombre; sel.appendChild(o); });
+  sel.value = estado.cargo;
+
+  var fc = $('formContacto'), av = $('avisoContacto'), esArchivo = (location.protocol === 'file:');
+  function textoSolicitud(){
+    var campos = [
+      ['Nombre', $('cNombre').value], ['Cargo', $('cCargo').value],
+      ['Correo', $('cCorreo').value],
+      ['Cargo del funcionario nuevo', sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : ''],
+      ['Visto bueno de dirección', $('cAutorizacion').checked ? 'Sí' : 'No'],
+      ['Mensaje', $('cMensaje').value]
+    ];
+    var t = 'ÁUREA SOLUTIONS · solicitud de inducción\r\nGenerada el ' + new Date().toLocaleString('es-CL') + '\r\n\r\n';
+    for(var i=0;i<campos.length;i++) t += campos[i][0] + ': ' + (campos[i][1] || '(sin completar)') + '\r\n';
+    return t + '\r\nEsta solicitud se generó en el navegador. No se envió a ningún servidor.\r\n';
+  }
+  fc.addEventListener('submit', function(ev){
+    if(esArchivo){
+      ev.preventDefault();
+      if(!fc.reportValidity()) return;
+      mostrarAviso(av,'alerta','Esta copia se está viendo desde el computador, no desde un sitio publicado, así que el envío a Netlify no está disponible. La solicitud se descargó como archivo para que no se pierda.');
+      descargar('solicitud-aurea.txt', textoSolicitud());
+      return;
+    }
+    mostrarAviso(av,'ok','Enviando la solicitud…');
+  });
+  $('btnDescargarSolicitud').addEventListener('click', function(){
+    if(!fc.reportValidity()) return;
+    descargar('solicitud-aurea.txt', textoSolicitud());
+    mostrarAviso(av,'ok','Solicitud descargada como archivo de texto. Se puede adjuntar a un correo.');
+  });
+
+  /* ---- pruebas ---- */
+  function mostrarPruebas(){
+    var r = correrPruebas(), caja = $('salidaPruebas');
+    caja.className = 'nota nota--' + (r.fallos.length ? 'stop' : 'ok');
+    caja.classList.remove('oculto');
+    var s = caja.querySelector('span'); s.textContent='';
+    var b = ce('b');
+    b.textContent = r.fallos.length
+      ? r.ok + ' de ' + r.total + ' verificaciones pasaron. Hay ' + r.fallos.length + ' con problemas:'
+      : 'Las ' + r.total + ' verificaciones del motor pasaron.';
+    s.appendChild(b);
+    if(r.fallos.length){
+      var ul = ce('ul'); ul.style.cssText='margin:.5rem 0 0;padding-left:1.1rem';
+      r.fallos.forEach(function(f){ var li=ce('li'); li.textContent=f; ul.appendChild(li); });
+      s.appendChild(ul);
+    } else {
+      var sp = ce('span');
+      sp.textContent = ' Incluye la detección de fotos 360, el tamaño de textura, la búsqueda del glosario y el cálculo del pulso 30/60/90. WebGL: ' +
+        (visor ? 'disponible.' : 'no disponible en este navegador (las fotos normales igual funcionan).');
+      s.appendChild(sp);
+    }
+    return r;
+  }
+  $('btnPruebas').addEventListener('click', mostrarPruebas);
+  if(/[?&]pruebas=1/.test(location.search)){
+    window.RESULTADO_PRUEBAS = mostrarPruebas();
+    $('salidaPruebas').scrollIntoView({block:'center'});
+  }
+}
+
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', iniciar);
+else iniciar();
+
+})();
+</script>
+
+</body>
+</html>

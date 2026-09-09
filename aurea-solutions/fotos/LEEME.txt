@@ -1,0 +1,46 @@
+CARPETA DE FOTOS DEL RECORRIDO · ÁUREA SOLUTIONS
+================================================
+
+Dejen aquí las fotos de cada parada. El nombre del archivo tiene que ser
+exactamente el que aparece abajo, en minúsculas y terminado en .jpg
+
+   porteria.jpg      1.  Portería y acceso
+   secretaria.jpg    2.  Secretaría y recepción
+   direccion.jpg     3.  Dirección
+   utp.jpg           4.  Unidad Técnico-Pedagógica (UTP)
+   profesores.jpg    5.  Sala de profesores
+   convivencia.jpg   6.  Inspectoría y Convivencia Escolar
+   salas.jpg         7.  Pabellón de salas
+   cra.jpg           8.  Biblioteca CRA
+   taller.jpg        9.  Taller de la especialidad de Administración
+   capilla.jpg       10. Capilla u oratorio
+   patio.jpg         11. Patio y comedor
+   enfermeria.jpg    12. Enfermería y primeros auxilios
+
+DOS TIPOS DE FOTO SIRVEN
+------------------------
+La página detecta sola de cuál se trata, no hay que configurar nada.
+
+1. FOTO 360 (se puede mirar alrededor arrastrando, como en Street View)
+   Tiene que ser equirectangular: el DOBLE DE ANCHA QUE DE ALTA.
+   Ejemplos válidos: 4096 x 2048 · 5376 x 2688 · 2048 x 1024
+   Si la proporción no es 2:1, la página la muestra como foto normal.
+
+2. FOTO NORMAL de celular
+   Cualquier proporción. Se muestra como una imagen fija.
+   Sirve perfectamente para empezar.
+
+RECOMENDACIONES
+---------------
+- Peso: bajo 3 MB por foto. Una panorámica de 4096x2048 en calidad media basta.
+- Formato: .jpg (no .png, no .heic). Si el iPhone entrega .HEIC, conviértanla.
+- Luz: de día, con las luces encendidas. Los pasillos salen muy oscuros.
+- Sin personas identificables, salvo que tengan autorización de uso de imagen.
+- No fotografíen libros de clases, pantallas ni documentos con datos de personas.
+
+SI NO QUIEREN USAR ESTA CARPETA
+-------------------------------
+La página también deja cargar las fotos desde el computador, con el botón
+"Cargar foto de esta parada". Esas fotos quedan guardadas solo en ese navegador
+(sirve muy bien para el día de la feria), pero NO se publican con el sitio.
+Para que las vea cualquier persona, tienen que estar en esta carpeta.

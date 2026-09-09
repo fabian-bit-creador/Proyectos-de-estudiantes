@@ -83,6 +83,10 @@ code{font-family:var(--mono);font-size:.86em;background:rgba(0,0,0,.055);border-
 .nav{display:flex;align-items:center;gap:2rem;}
 .nav a{font-size:.89rem;font-weight:500;color:var(--tinta-2);text-decoration:none;}
 .nav a:hover{color:var(--violeta-700);}
+/* .nav a gana en especificidad sobre .btn--v: sin esto, el botón de la barra
+   queda con texto oscuro sobre fondo violeta y no se lee. */
+.nav a.btn{color:var(--violeta-700);}
+.nav a.btn--v{color:#fff;}
 .btn-menu{display:none;background:none;border:0;color:var(--violeta-700);padding:.5rem;border-radius:10px;cursor:pointer;}
 .btn-menu:hover{background:var(--violeta-50);}
 @media (max-width:980px){

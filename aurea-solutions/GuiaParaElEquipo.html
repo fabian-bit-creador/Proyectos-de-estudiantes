@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guía para el equipo · Áurea Solutions</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236b1d2f'/><path d='M50 20 L74 78 H62 L50 46 L38 78 H26 Z' fill='%23b9935a'/></svg>">
+<style>
+:root{--vino:#6b1d2f;--vino-osc:#4d1421;--tinta:#241b1c;--tinta-2:#5c4a48;--tinta-3:#8a7370;
+      --crema:#fdfbf7;--arena:#efe3d8;--arena-2:#e3d3c5;--rosa:#cf8992;--rosa-cla:#f7e9eb;
+      --dorado:#b9935a;--dorado-cla:#f3e8d6;--dorado-osc:#8a6b3c;--linea:#eadfd9;
+      --verde:#2f6b4f;--verde-cla:#e6f2ec;--alerta:#a8501a;--alerta-cla:#fdf0e4;
+      --stop:#a3242b;--stop-cla:#fbeaea;--info:#2b5c7a;--info-cla:#e7f1f7;
+      --serif:Georgia,"Times New Roman",serif;
+      --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--arena);color:var(--tinta);font-family:var(--sans);font-size:16.5px;line-height:1.68}
+.hoja{max-width:52rem;margin:2.5rem auto;background:var(--crema);padding:3.2rem;border-radius:20px;
+      box-shadow:0 18px 44px -18px rgba(36,27,28,.3)}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.16;margin:0}
+h1{font-size:clamp(1.9rem,4.6vw,2.7rem);letter-spacing:-.02em}
+h2{font-size:1.55rem;margin:3rem 0 .3rem;padding-top:1.6rem;border-top:2px solid var(--dorado);color:var(--vino)}
+h3{font-size:1.15rem;margin:1.9rem 0 .4rem}
+h4{font-size:1rem;margin:1.3rem 0 .3rem;color:var(--vino)}
+p{margin:0 0 .9rem} p:last-child{margin-bottom:0}
+a{color:var(--vino)}
+ul,ol{margin:.6rem 0 1rem;padding-left:1.3rem}
+li{margin-bottom:.45rem}
+code{font-family:var(--mono);font-size:.85em;background:var(--arena);border-radius:5px;padding:.12rem .38rem}
+.sub{font-size:1.05rem;color:var(--tinta-2);margin-top:1rem}
+.meta{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--dorado-osc)}
+table{width:100%;border-collapse:collapse;margin:1.1rem 0;font-size:.92rem}
+th,td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--linea);vertical-align:top}
+th{background:var(--arena);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--vino)}
+td:first-child{white-space:nowrap;font-weight:600}
+.caja{border-radius:14px;padding:1.1rem 1.3rem;margin:1.2rem 0;font-size:.95rem}
+.caja p:last-child{margin-bottom:0}
+.caja--stop{background:var(--stop-cla);border:1px solid #f0c2c2}
+.caja--ok{background:var(--verde-cla);border:1px solid #bfe0ce}
+.caja--info{background:var(--info-cla);border:1px solid #bcd6e6}
+.caja--oro{background:var(--dorado-cla);border:1px solid var(--dorado)}
+.caja b{color:var(--vino)}
+.caja--stop b{color:var(--stop)}
+.caja--ok b{color:var(--verde)}
+.tarea{display:flex;gap:.8rem;align-items:flex-start;background:#fff;border:1px solid var(--linea);
+       border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.6rem}
+.tarea__n{flex-shrink:0;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--vino);color:#fff;
+          display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;font-family:var(--sans)}
+.tarea b{display:block;font-size:.97rem}
+.tarea small{display:block;font-size:.85rem;color:var(--tinta-2);margin-top:.15rem;line-height:1.55}
+.quien{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+       padding:.12rem .5rem;border-radius:5px;margin-top:.4rem;background:var(--rosa-cla);color:var(--vino)}
+.pie{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--linea);font-size:.85rem;color:var(--tinta-3)}
+@media print{body{background:#fff}.hoja{box-shadow:none;margin:0;max-width:none;padding:0;border-radius:0}
+  h2{page-break-after:avoid}.tarea,.caja,table{page-break-inside:avoid}}
+@media (max-width:640px){.hoja{margin:0;border-radius:0;padding:1.6rem 1.2rem}}
+</style>
+</head>
+<body>
+<div class="hoja">
+
+<p class="meta">Feria Técnico Profesional 2026 · IV°A Administración · Grupo N°8</p>
+<h1>Áurea Solutions: qué se cambió y qué les toca a ustedes</h1>
+<p class="sub">Este archivo acompaña a <code>AureaSolutions.html</code>. La primera parte explica qué se corrigió y por qué. La segunda es la lista de lo que solo ustedes pueden hacer. La tercera responde la pregunta del recorrido tipo Street View.</p>
+
+<div class="caja caja--ok">
+  <p><b>Lo primero, para que quede claro:</b> el proyecto está bien elegido. La inducción de personal nuevo es un problema real de recursos humanos, se puede medir y se puede intervenir. El Informe Nº1 sacó 28 de 30. Lo que sigue no es una crítica al proyecto: es la lista de lo que le falta para que funcione el 8 de octubre.</p>
+</div>
+
+<h2>1. Qué estaba fallando</h2>
+
+<h3>1.1 El formulario decía que había registrado la consulta, y no registraba nada</h3>
+<p>Este era el problema más serio. El formulario terminaba así:</p>
+<p><code>form.onsubmit = e =&gt; { e.preventDefault(); alert('Consulta registrada...'); form.reset() }</code></p>
+<p>Traducido: mostraba un cartel que decía «Consulta registrada. Un integrante del equipo se pondrá en contacto contigo», borraba lo escrito y <strong>no enviaba nada a ninguna parte</strong>. Además, ninguno de los campos tenía atributo <code>name</code>, así que aunque se hubiera intentado enviar, no había nada que enviar.</p>
+<div class="caja caja--stop">
+  <p><b>Por qué importa en la feria.</b> Si un profesor del jurado completa el formulario y le aparece «consulta registrada», va a preguntar dónde llegó esa consulta. Decir «en realidad no llega a ninguna parte» delante del jurado es peor que no haber puesto el formulario.</p>
+</div>
+<p>En la versión nueva el formulario tiene <code>name</code>, <code>method="POST"</code>, <code>data-netlify="true"</code>, un campo trampa contra spam y <code>name</code> en cada campo. Y mientras no esté publicado, el botón descarga la solicitud como archivo en vez de mentir.</p>
+
+<h3>1.2 El logo no se veía</h3>
+<p>El archivo apuntaba a <code>&lt;img src="aurea-logo-original.png"&gt;</code>, una imagen que no venía con el HTML. Al abrirlo en cualquier computador que no fuera el de ustedes, aparecía el ícono de imagen rota donde debía estar la marca.</p>
+<p>Como no teníamos el logo original, se dibujó uno nuevo en SVG: <strong>una espiral áurea real</strong>, construida sobre la sucesión de Fibonacci (55, 34, 21, 13, 8, 5, 3, 2). «Áurea» viene de la proporción áurea, así que el logo dice el nombre del equipo sin escribirlo. Al ser SVG, nunca se pixela y no depende de ningún archivo aparte.</p>
+<p>Si prefieren su logo original: reemplacen el bloque <code>&lt;symbol id="logo-aurea"&gt;</code> por <code>&lt;image href="aurea-logo.png" width="120" height="120"/&gt;</code> y dejen el PNG junto al HTML.</p>
+
+<h3>1.3 La metodología estaba descrita, pero no se ejecutaba</h3>
+<p>La página explicaba muy bien las cuatro etapas de la inducción. Pero un visitante de la feria leía la explicación y se iba sin ver nada funcionando: no había recorrido, no había ruta por cargo, no había forma de saber qué significaba UTP o PIE.</p>
+
+<h3>1.4 Detalles menores que igual se corrigieron</h3>
+<table>
+  <tr><th>Qué pasaba</th><th>Qué se hizo</th></tr>
+  <tr><td>CSS muerto</td><td>Había estilos para un diagrama de red (<code>.map</code>, <code>.node</code>, <code>.line</code>) que ya no existía en la página. Se eliminaron.</td></tr>
+  <tr><td>Campos sin etiqueta</td><td>Los campos solo tenían <code>placeholder</code>. Al escribir, la persona ya no sabe qué le pidieron. Ahora cada campo tiene su <code>&lt;label&gt;</code>.</td></tr>
+  <tr><td>Contenido oculto en celular</td><td>La cita del hero desaparecía en pantallas chicas con <code>display:none</code>. Ahora la frase está en la sección del colegio y se ve siempre.</td></tr>
+  <tr><td>Botones sin estado</td><td>Los botones de etapa no indicaban cuál estaba activa ni se podían recorrer con el teclado. Ahora usan <code>role="tab"</code> y flechas.</td></tr>
+  <tr><td>Variables globales frágiles</td><td>El código usaba <code>stage</code>, <code>title</code>, <code>items</code> sin declararlos, apoyándose en que el navegador los inventa a partir del <code>id</code>. Funciona hasta que deja de funcionar.</td></tr>
+</table>
+
+<h2>2. Qué tiene ahora la página</h2>
+
+<h3>El recorrido virtual</h3>
+<p>Doce paradas del colegio. Cada una explica qué es el lugar, qué necesita saber ahí un funcionario nuevo, a quién preguntarle, y qué falta completar con el colegio.</p>
+<p>El visor acepta <strong>fotos 360°</strong> —se arrastra con el mouse para mirar alrededor, igual que Street View— y también fotos normales de celular. Detecta solo de cuál se trata. Está escrito en WebGL a mano, sin ninguna librería descargada de internet.</p>
+<div class="caja caja--info">
+  <p><b>Pruébenlo ahora mismo, sin fotos.</b> El botón «Ver el visor 360° funcionando (demo)» genera una panorámica de prueba y la carga en el visor. Sirve para mostrar en la feria que la tecnología funciona aunque todavía falten fotos del colegio.</p>
+</div>
+
+<h3>La ruta por cargo</h3>
+<p>La retroalimentación del profesor decía: <em>«diseñen una ruta piloto para un solo cargo»</em>. Eso está implementado literalmente. <strong>Docente de aula</strong> es el cargo piloto y tiene los 12 hitos completos; los otros tres aparecen marcados como «en diseño», con un aviso que dice qué falta levantar con Recursos Humanos.</p>
+<p>Eso no es una carencia: <strong>es el argumento</strong>. Muestra que entendieron que un piloto se prueba con un caso antes de extenderlo.</p>
+
+<h3>Los hitos, el pulso y el glosario</h3>
+<ul>
+  <li><strong>Hitos:</strong> la lista cambia según el cargo, se guarda en el navegador y se puede imprimir o guardar en PDF.</li>
+  <li><strong>Pulso 30/60/90:</strong> seis afirmaciones para que la persona revise su propia adaptación. Le muestra su punto más flojo y a qué parte de la página volver. No recoge datos de nadie: se calcula en el navegador y no queda registrado.</li>
+  <li><strong>Glosario:</strong> 36 siglas escolares chilenas explicadas, con buscador que ignora tildes. Es probablemente lo más útil de toda la página para alguien que llega nuevo.</li>
+</ul>
+
+<h3>Historia y contexto</h3>
+<p>Los datos del Cardenal José María Caro y de Fundación Belén Educa <strong>se verificaron con fuentes</strong>, no se escribieron de memoria: Fundación Belén Educa, Arzobispado de La Serena y Obispado de Rancagua. Aun así, <strong>confírmenlos con dirección antes de publicar</strong>.</p>
+
+<h2>3. La pregunta del Street View: ¿Blender?</h2>
+
+<div class="caja caja--stop">
+  <p><b>Blender no es la herramienta para esto, y con 29 días no alcanza.</b> Blender es un programa de modelado 3D: habría que construir a mano cada edificio, pasillo y sala del colegio, y después resolver cómo exportarlo a la web. Es trabajo de meses y de alguien con oficio en 3D.</p>
+</div>
+
+<p><strong>La buena noticia es que Street View tampoco usa 3D.</strong> Google Street View no es un modelo tridimensional: son <em>fotografías 360°</em> unidas con puntos para saltar de una a otra. Eso sí se puede hacer, y es exactamente lo que ya está construido en la página.</p>
+
+<h4>Los tres niveles, de menor a mayor esfuerzo</h4>
+<table>
+  <tr><th>Nivel</th><th>Con qué</th><th>Tiempo</th><th>Resultado</th></tr>
+  <tr><td>1</td><td>Fotos normales de celular</td><td>Una tarde</td><td>Recorrido con foto fija por parada. Ya funciona hoy.</td></tr>
+  <tr><td>2</td><td>Fotos 360° con el celular</td><td>2 a 3 tardes</td><td>Se mira alrededor arrastrando. <strong>Es la meta realista.</strong></td></tr>
+  <tr><td>3</td><td>Cámara 360 prestada</td><td>Una tarde</td><td>Lo mismo que el nivel 2, con mejor calidad.</td></tr>
+  <tr><td>—</td><td>Blender, Matterport, escaneo 3D</td><td>Meses o dinero</td><td>Fuera de alcance para esta feria.</td></tr>
+</table>
+
+<div class="caja caja--oro">
+  <p><b>Recomendación concreta.</b> Empiecen por el nivel 1 esta semana, con las 12 paradas fotografiadas normal. Eso ya deja la página presentable. Después suban a 360° las paradas que más impresionan —patio, capilla, sala de profesores, taller— y déjenlas conviviendo con las normales. La página acepta las dos mezcladas, así que no hay que terminar todo para mostrar algo.</p>
+</div>
+
+<h4>Cómo tiene que salir una foto 360</h4>
+<p>La única condición técnica es que sea <strong>equirectangular</strong>: el doble de ancha que de alta. Por ejemplo 4096 × 2048. Cualquier aplicación de «foto esférica», «panorama 360» o «photo sphere» que entregue esa proporción sirve; no importa cuál usen.</p>
+<ol>
+  <li><strong>Prueben una sola foto primero.</strong> Tómenla, pónganla en la página con el botón «Cargar foto» y vean si aparece la etiqueta «Vista 360°». Si aparece, la app sirve y pueden tomar las otras once. Si no aparece, la proporción no es 2:1 y hay que probar otra app. <em>No tomen las doce antes de hacer esta prueba.</em></li>
+  <li>Párense <strong>en el centro del espacio</strong> y giren sobre su propio eje, sin desplazarse.</li>
+  <li>De día y con las luces encendidas: los pasillos salen muy oscuros.</li>
+  <li>Guarden en <code>.jpg</code> bajo 3 MB. Si el teléfono entrega <code>.HEIC</code>, conviértanla.</li>
+</ol>
+
+<div class="caja caja--stop">
+  <p><b>Autorización de uso de imagen.</b> Tienen permiso del colegio para hacer el proyecto, pero eso no cubre fotografiar personas. Fotografíen los espacios vacíos, fuera de recreo. Tampoco fotografíen libros de clases, pantallas encendidas ni documentos: ahí hay datos personales de estudiantes.</p>
+</div>
+
+<h2>4. Lo que les toca a ustedes</h2>
+<p>Ordenado por urgencia. Lo primero es lo que más peso tiene en la evaluación.</p>
+
+<div class="tarea"><span class="tarea__n">1</span><div>
+  <b>Validar con Recursos Humanos que la inducción es el problema</b>
+  <small>Es textualmente lo que pidió la retroalimentación del Informe Nº1 y es lo único que todavía no está hecho. Basta una conversación con quien ve RR.HH. en el colegio y dejarla registrada: a cuántos funcionarios nuevos recibieron este año, qué inducción existe hoy y qué se cae. Sin esa evidencia, el proyecto es una buena idea sin diagnóstico.</small>
+  <span class="quien">Antes que cualquier otra cosa</span></div></div>
+
+<div class="tarea"><span class="tarea__n">2</span><div>
+  <b>Llenar la carpeta de Drive</b>
+  <small>«Grupo N°8 Áurea Solutions» está vacía. Aunque el trabajo exista, si no está ahí no se puede evaluar. Suban el informe, esta página y el registro de la conversación con RR.HH.</small>
+  <span class="quien">Esta semana</span></div></div>
+
+<div class="tarea"><span class="tarea__n">3</span><div>
+  <b>Probar la ruta con una persona real</b>
+  <small>Un solo funcionario que haya llegado este año. Que recorra la página completa delante de ustedes y anoten dónde se pierde, qué no entiende y qué le falta. Eso convierte el proyecto en algo validado y les da la mejor diapositiva de la presentación.</small>
+  <span class="quien">Antes del 8 de octubre</span></div></div>
+
+<div class="tarea"><span class="tarea__n">4</span><div>
+  <b>Completar los 12 recuadros «Por completar con el colegio»</b>
+  <small>Cada parada del recorrido tiene uno. Son datos que ninguna persona externa puede saber: horarios reales, cómo se pide un permiso, cómo se reserva el CRA, dónde está la zona de seguridad. Se editan en el bloque <code>PARADAS</code> del código, campo <code>completar</code>.</small>
+  <span class="quien">Reparto entre las cuatro</span></div></div>
+
+<div class="tarea"><span class="tarea__n">5</span><div>
+  <b>Escribir la sección de cultura desde el PEI</b>
+  <small>Está marcada en amarillo en la página. Sale del Proyecto Educativo Institucional y del Reglamento Interno, no de internet. El punto más valioso es el último: «lo que no está escrito». Pregúntenle lo mismo a alguien con años en el colegio y a alguien que llegó hace poco; las respuestas distintas son el hallazgo.</small>
+  <span class="quien">Reparto entre las cuatro</span></div></div>
+
+<div class="tarea"><span class="tarea__n">6</span><div>
+  <b>Tomar las fotos</b>
+  <small>Empiecen por la prueba de una sola foto 360. Los nombres exactos de archivo están en <code>fotos/LEEME.txt</code>.</small>
+  <span class="quien">Dos tardes</span></div></div>
+
+<div class="tarea"><span class="tarea__n">7</span><div>
+  <b>Completar los nombres del equipo</b>
+  <small>Solo estaba confirmado el de Sofía Muñoz. En el código, la lista <code>EQUIPO</code> tiene tres lugares que dicen «Por completar». Cambien también los roles por lo que hizo de verdad cada una.</small>
+  <span class="quien">Cinco minutos</span></div></div>
+
+<div class="tarea"><span class="tarea__n">8</span><div>
+  <b>Publicar y probar el formulario de verdad</b>
+  <small>Publiquen en Netlify, completen el formulario desde el sitio publicado y confirmen que llega el correo. Si no lo prueban, no sabrán si funciona hasta que falle delante del jurado.</small>
+  <span class="quien">Una tarde</span></div></div>
+
+<div class="tarea"><span class="tarea__n">9</span><div>
+  <b>Confirmar los datos históricos con dirección</b>
+  <small>Las fechas del Cardenal Caro, de Belén Educa y de la inauguración del colegio están verificadas con fuentes públicas, pero no con el colegio. Que alguien de dirección las revise antes de publicar.</small>
+  <span class="quien">Un correo</span></div></div>
+
+<h2>5. Cómo publicarla</h2>
+<p>El archivo es uno solo y no depende de internet: funciona igual si el día de la feria no hay wifi.</p>
+<h4>Opción A · Netlify, arrastrando (2 minutos)</h4>
+<ol>
+  <li>Creen una carpeta nueva.</li>
+  <li>Copien dentro <code>AureaSolutions.html</code> y <strong>renómbrenlo a <code>index.html</code></strong>.</li>
+  <li>Copien también la carpeta <code>fotos/</code> con las imágenes.</li>
+  <li>Entren a <code>app.netlify.com</code>, sección <strong>Deploys</strong>, y arrastren la carpeta al recuadro.</li>
+</ol>
+<h4>Para activar el formulario</h4>
+<ol>
+  <li>Publiquen (el formulario no funciona abriendo el archivo desde el computador: ahí descarga la solicitud como archivo, que también sirve).</li>
+  <li>En Netlify, entren a <strong>Forms</strong> y verifiquen que aparezca <code>solicitud-induccion</code>.</li>
+  <li>En <strong>Forms → Settings → Form notifications</strong>, agreguen el correo donde quieren recibirlas.</li>
+</ol>
+<h4>Opción B · seguir en base44</h4>
+<p>Si prefieren mantener base44, pueden pegar el contenido de este HTML como página. Pero el recorrido necesita que la carpeta <code>fotos/</code> esté publicada junto al archivo; si base44 no deja subir archivos sueltos, usen el botón «Cargar foto», que guarda las imágenes en el navegador del computador con que muestren la feria.</p>
+
+<h2>6. Lo que no pude hacer yo</h2>
+<table>
+  <tr><th>Qué</th><th>Por qué</th></tr>
+  <tr><td>Tomar las fotos</td><td>Hay que estar en el colegio. Es de ustedes.</td></tr>
+  <tr><td>Ver su página en base44</td><td>La dirección <code>aurea-teach-flow.base44.app</code> está bloqueada por el filtro de red desde donde trabajo. Trabajé con el HTML que entregaron, que era equivalente.</td></tr>
+  <tr><td>Leer el PEI y el Reglamento Interno</td><td>No están públicos y no los tengo. Por eso esa sección quedó como espacio a completar en vez de inventada.</td></tr>
+  <tr><td>Saber los horarios y procedimientos reales</td><td>Mismo motivo. Los 12 recuadros amarillos marcan exactamente qué falta.</td></tr>
+  <tr><td>Conseguir la autorización de uso de imagen</td><td>La tramita el colegio.</td></tr>
+  <tr><td>Confirmar que la inducción es el problema</td><td>Eso es la validación con RR.HH., y es trabajo de campo del equipo.</td></tr>
+</table>
+
+<h2>7. Verificación</h2>
+<p>La página trae <strong>24 verificaciones automáticas</strong> de su propio motor. Se corren con el botón «Verificar el motor», al final del recorrido, o agregando <code>?pruebas=1</code> al final de la dirección.</p>
+<p>Comprueban la detección de fotos 360, el cálculo del tamaño de textura, la búsqueda del glosario, el avance de los hitos y el cálculo del pulso 30/60/90. Además se probó el comportamiento completo en el navegador: 41 comprobaciones, incluida una que lee los píxeles del visor para confirmar que efectivamente está dibujando.</p>
+<div class="caja caja--ok">
+  <p><b>Úsenlo en la feria.</b> Si alguien del jurado pregunta si funciona de verdad, aprieten el botón delante de ellos. Un proyecto que se verifica solo dice más que cualquier explicación.</p>
+</div>
+
+<p class="pie">
+  Guía preparada junto con <code>AureaSolutions.html</code> para el equipo Áurea Solutions (Grupo N°8, IV°A Administración), Colegio Cardenal José María Caro, Fundación Belén Educa, La Pintana. Feria Técnico Profesional 2026.
+</p>
+
+</div>
+</body>
+</html>
