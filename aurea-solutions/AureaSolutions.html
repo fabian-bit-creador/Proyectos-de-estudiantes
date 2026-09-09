@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Áurea Solutions · Inducción en el Colegio Cardenal José María Caro</title>
-<meta name="description" content="Sistema de inducción para funcionarios nuevos del Colegio Cardenal José María Caro: recorrido virtual del establecimiento, ruta por cargo, historia y cultura institucional, y glosario escolar.">
+<title>Áurea Solutions · Inducción de docentes nuevos · Colegio Cardenal José María Caro</title>
+<meta name="description" content="Sistema de inducción para docentes que ingresan al Colegio Cardenal José María Caro: Mapa Caro con recorrido 360°, ruta de acompañamiento, capacitación Syscol, contexto institucional y glosario escolar.">
 <meta name="author" content="Áurea Solutions · IV°A Administración · Feria Técnico Profesional 2026">
 <meta name="theme-color" content="#6b1d2f">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236b1d2f'/><path d='M50 20 L74 78 H62 L50 46 L38 78 H26 Z' fill='%23b9935a'/></svg>">
@@ -26,6 +26,9 @@
   --alerta:#a8501a;    --alerta-cla:#fdf0e4;
   --stop:#a3242b;      --stop-cla:#fbeaea;
   --info:#2b5c7a;      --info-cla:#e7f1f7;
+  /* Colores de gráfico. Validados: azul y rojo mantienen ΔE 20 en deuteranopía,
+     que es donde el verde y el rojo habituales se confunden. */
+  --pos:#1a6ea8;       --neg:#b3252c;        --neutro:#a89a92;
   --r:14px; --r-lg:20px; --r-xl:28px;
   --sombra:0 2px 14px rgba(36,27,28,.07);
   --sombra-alta:0 18px 44px -18px rgba(36,27,28,.34);
@@ -256,6 +259,63 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
 .hito-h .anio{font-family:var(--mono);font-size:.75rem;color:var(--dorado-osc);letter-spacing:.06em}
 .hito-h p{font-size:.9rem;color:var(--tinta-2);margin:.25rem 0 0}
 
+/* =========================== Diagnóstico y gráficos =========================== */
+.cifras{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:2.4rem}
+@media (min-width:720px){.cifras{grid-template-columns:repeat(3,1fr)}}
+.cifra{background:#fff;border:1px solid var(--linea);border-radius:var(--r-lg);padding:1.4rem 1.5rem;
+       border-top:4px solid var(--vino)}
+.cifra span{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-3)}
+.cifra b{display:block;font-family:var(--serif);font-size:2.5rem;line-height:1.05;margin:.15rem 0 .2rem;
+         color:var(--vino);font-variant-numeric:tabular-nums}
+.cifra small{display:block;font-size:.85rem;color:var(--tinta-2);line-height:1.5}
+.cifra--alerta{border-top-color:var(--neg)} .cifra--alerta b{color:var(--neg)}
+
+.grafico{background:#fff;border:1px solid var(--linea);border-radius:var(--r-lg);padding:1.5rem 1.6rem;margin-top:1rem}
+.grafico h4{font-size:.98rem;margin-bottom:1rem;color:var(--tinta);line-height:1.4}
+.barra-enc{display:flex;gap:2px;height:2.9rem;border-radius:8px;overflow:hidden}
+.barra-enc i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:.82rem;
+         font-weight:700;color:#fff;min-width:2px;padding:0 .3rem;font-variant-numeric:tabular-nums}
+.leyenda{display:grid;grid-template-columns:1fr;gap:.75rem 1.6rem;margin-top:1rem;font-size:.82rem;color:var(--tinta-2)}
+@media (min-width:640px){.leyenda{grid-template-columns:1fr 1fr}}
+.leyenda>span{display:flex;align-items:flex-start;gap:.5rem}
+.leyenda i{width:.75rem;height:.75rem;border-radius:3px;flex-shrink:0;margin-top:.3rem}
+.leyenda b{display:block;font-weight:700;color:var(--tinta)}
+.leyenda small{display:block;font-size:.79rem;color:var(--tinta-3);line-height:1.45}
+.fuente{font-size:.78rem;color:var(--tinta-3);margin-top:1rem;font-style:italic}
+
+.pedidos{display:grid;gap:.55rem;grid-template-columns:1fr;margin-top:1rem}
+@media (min-width:700px){.pedidos{grid-template-columns:1fr 1fr}}
+.pedido{display:flex;gap:.6rem;align-items:flex-start;background:#fff;border:1px solid var(--linea);
+        border-radius:10px;padding:.65rem .85rem;font-size:.89rem}
+.pedido b{background:var(--vino);color:#fff;border-radius:5px;font-size:.7rem;padding:.08rem .4rem;
+          flex-shrink:0;margin-top:.15rem;font-variant-numeric:tabular-nums}
+
+/* ============================== Semáforo ============================== */
+.semaforo{display:grid;gap:.9rem;grid-template-columns:1fr;margin-top:2rem;max-width:56rem}
+@media (min-width:720px){.semaforo{grid-template-columns:repeat(3,1fr)}}
+.luz{font:inherit;cursor:pointer;text-align:left;border-radius:var(--r-lg);padding:1.3rem 1.4rem;
+     border:2px solid var(--linea-2);background:#fff;display:flex;flex-direction:column;gap:.5rem}
+.luz:hover{border-color:var(--tinta-3)}
+.luz__t{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:.98rem}
+.luz__p{width:1.15rem;height:1.15rem;border-radius:50%;flex-shrink:0}
+.luz small{font-size:.83rem;color:var(--tinta-2);line-height:1.5}
+.luz__n{font-family:var(--serif);font-size:1.7rem;color:var(--tinta);font-variant-numeric:tabular-nums}
+.luz--v{border-color:#2f6b4f} .luz--v .luz__p{background:#2f6b4f}
+.luz--a{border-color:#b9935a} .luz--a .luz__p{background:#b9935a}
+.luz--r{border-color:var(--neg)} .luz--r .luz__p{background:var(--neg)}
+.luz[aria-pressed="true"]{background:var(--arena);box-shadow:inset 0 0 0 1px var(--tinta-3)}
+
+/* ============================== Syscol ============================== */
+.modulos{display:grid;gap:.7rem;grid-template-columns:1fr;margin-top:1.6rem}
+@media (min-width:760px){.modulos{grid-template-columns:1fr 1fr}}
+.modulo{display:flex;gap:.85rem;align-items:flex-start;background:#fff;border:1px solid var(--linea);
+        border-radius:var(--r);padding:1rem 1.15rem}
+.modulo__n{flex-shrink:0;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--dorado-cla);
+           color:var(--dorado-osc);display:flex;align-items:center;justify-content:center;
+           font-weight:700;font-size:.85rem}
+.modulo b{display:block;font-size:.94rem}
+.modulo small{display:block;font-size:.85rem;color:var(--tinta-2);line-height:1.5;margin-top:.1rem}
+
 /* --------------------------------- Avisos --------------------------------- */
 .nota{display:flex;gap:.75rem;border-radius:var(--r);padding:1rem 1.15rem;font-size:.9rem;
       line-height:1.55;margin-bottom:1.2rem}
@@ -283,8 +343,8 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
 .campo--check input{width:1.15rem;height:1.15rem;flex-shrink:0;margin-top:.15rem;accent-color:var(--vino)}
 
 /* --------------------------------- Equipo --------------------------------- */
-.equipo{display:grid;gap:1rem;grid-template-columns:repeat(2,1fr);max-width:52rem;margin:2.6rem auto 0}
-@media (min-width:640px){.equipo{grid-template-columns:repeat(4,1fr)}}
+.equipo{display:grid;gap:1rem;grid-template-columns:1fr;max-width:46rem;margin:2.6rem auto 0}
+@media (min-width:640px){.equipo{grid-template-columns:repeat(3,1fr)}}
 .persona{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.7rem;
          border-radius:var(--r-lg);border:1px solid var(--linea);padding:1.5rem 1rem;background:#fff}
 .persona__ico{display:flex;width:3.2rem;height:3.2rem;align-items:center;justify-content:center;
@@ -368,18 +428,19 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
   <div class="wrap barra__in">
     <a class="marca" href="#inicio">
       <svg class="marca__logo" viewBox="0 0 120 120" role="img" aria-label="Áurea Solutions"><use href="#logo-aurea"/></svg>
-      <span><b>Áurea Solutions</b><small>Inducción de funcionarios</small></span>
+      <span><b>Áurea Solutions</b><small>Inducción docente</small></span>
     </a>
     <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="navPrincipal" aria-label="Abrir menú">
       <svg width="24" height="24" aria-hidden="true"><use href="#i-menu"/></svg>
     </button>
     <nav class="nav" id="navPrincipal" aria-label="Navegación principal">
-      <a href="#recorrido">Recorrido</a>
-      <a href="#ruta">Ruta por cargo</a>
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#recorrido">Mapa Caro</a>
+      <a href="#ruta">Ruta</a>
+      <a href="#syscol">Syscol</a>
       <a href="#colegio">El colegio</a>
       <a href="#glosario">Glosario</a>
-      <a href="#equipo">Equipo</a>
-      <a class="btn btn--v btn--sm" href="#recorrido">Entrar al recorrido</a>
+      <a class="btn btn--v btn--sm" href="#recorrido">Entrar al Mapa Caro</a>
     </nav>
   </div>
 </header>
@@ -391,13 +452,13 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
     <div>
       <span class="eyebrow">Colegio Cardenal José María Caro · Fundación Belén Educa</span>
       <h1>Que nadie llegue a trabajar aquí <em>sin conocer el lugar</em>.</h1>
-      <p class="hero__sub">Un funcionario nuevo llega el lunes y tiene que aprender al mismo tiempo dónde queda todo, cómo se trabaja y qué significan veinte siglas que nadie le explicó. Áurea Solutions arma esa inducción en un solo lugar: <strong>un recorrido por el colegio, una ruta según el cargo y el contexto de la institución</strong>.</p>
+      <p class="hero__sub">Un docente nuevo llega el lunes y tiene que aprender al mismo tiempo dónde queda todo, cómo se trabaja y qué significan veinte siglas que nadie le explicó. Áurea Solutions reúne los <strong>cuatro entregables del proyecto</strong> en un solo lugar: el acompañamiento, la capacitación Syscol, el Mapa Caro y esta página.</p>
       <div class="acciones" style="margin-top:2rem">
         <a class="btn btn--v" href="#recorrido">Recorrer el colegio <svg width="17" height="17" aria-hidden="true"><use href="#i-der"/></svg></a>
         <a class="btn" href="#ruta">Ver la ruta por cargo</a>
       </div>
       <div class="hero__cifras">
-        <div><b id="cifraParadas">12</b>Paradas del recorrido</div>
+        <div><b id="cifraParadas">16</b>Espacios del Mapa Caro</div>
         <div><b id="cifraHitos">0</b>Hitos de tu ruta</div>
         <div><b id="cifraTerminos">0</b>Siglas explicadas</div>
       </div>
@@ -408,13 +469,48 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
   </div>
 </section>
 
+<!-- ======================= DIAGNÓSTICO (Informe Nº2) ======================= -->
+<section id="diagnostico">
+  <div class="wrap">
+    <div class="cab centrado">
+      <span class="eyebrow">Validación con usuarios reales</span>
+      <h2>Esto no es una suposición: se preguntó</h2>
+      <p>El 3 de septiembre de 2026 el equipo encuestó a <strong>17 docentes</strong> de distintas asignaturas del colegio, y antes entrevistó a la <strong>Jefa Administrativa</strong>. Todo lo que hace esta página sale de esas respuestas.</p>
+    </div>
+
+    <div class="cifras">
+      <div class="cifra"><span>Docentes encuestados</span><b>17</b><small>De distintas asignaturas y áreas, el 3 de septiembre de 2026.</small></div>
+      <div class="cifra cifra--alerta"><span>No se sintieron acompañados</span><b>5</b><small>De 17. Cuatro «no muchas veces» y uno que declara no haberse sentido acompañado nunca.</small></div>
+      <div class="cifra cifra--alerta"><span>Recibieron poca información</span><b>3</b><small>De 17 (17,6%) dice que la orientación sobre horarios, ubicaciones, cursos, funciones y normas fue insuficiente.</small></div>
+    </div>
+
+    <div id="graficos"></div>
+
+    <div class="grafico" style="margin-top:1.4rem">
+      <h4>Lo que los propios docentes pidieron mejorar, ordenado por cuántas veces se repitió</h4>
+      <div class="pedidos" id="listaPedidos"></div>
+      <p class="fuente">Respuestas abiertas a «¿Qué aspecto de la inducción o acompañamiento mejorarías?» y «¿Qué información consideras importante recibir?». Agrupadas por tema; una misma respuesta puede tocar más de uno.</p>
+    </div>
+
+    <div class="cita" style="margin-top:1.6rem">
+      <p>&laquo;Tal vez un acompañamiento en sus tareas administrativas, porque es bastante tarea administrativa&hellip; podrían tener un bloque de capacitación en Syscol.&raquo;</p>
+      <footer>Carolina Fuentes, Jefa Administrativa del Colegio Cardenal José María Caro. Entrevista del Informe Nº1.</footer>
+    </div>
+
+    <div class="nota nota--info" style="margin-top:1.6rem">
+      <svg width="18" height="18" aria-hidden="true"><use href="#i-info"/></svg>
+      <p><b>Lo que la evidencia sí permite decir.</b> La mayoría de los docentes se adaptó bien: eso también salió en la encuesta y hay que decirlo. El problema no es general, es <b>desigual</b>: cinco de diecisiete no recibieron el mismo acompañamiento que el resto. Por eso el proyecto no promete bajar la rotación &mdash;no hay datos para afirmar eso&mdash; sino <b>emparejar</b> lo que recibe cada persona que llega.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ========================= RECORRIDO VIRTUAL ========================= -->
 <section id="recorrido">
   <div class="wrap">
     <div class="cab centrado no-imprimir">
-      <span class="eyebrow eyebrow--oro">Recorrido virtual</span>
+      <span class="eyebrow eyebrow--oro">Entregable Nº3 &middot; Mapa Caro</span>
       <h2>Conocer el colegio antes del primer día</h2>
-      <p>Esta es la parte que un texto no puede reemplazar. El visor acepta <strong>fotos 360°</strong> (se arrastra para mirar alrededor, como en Street View) y también <strong>fotos normales</strong> de celular. Cada parada explica qué es el lugar, qué hay que saber ahí y a quién preguntarle.</p>
+      <p><strong>«Entregar ubicación de las salas»</strong> fue lo más repetido en la encuesta. Este es el Mapa Caro del Informe Nº2, funcionando: acepta <strong>fotos 360°</strong> &mdash;se arrastra para mirar alrededor, como en Street View&mdash; y también fotos normales de celular. Cada parada explica qué es el lugar, qué hay que saber ahí y a quién preguntarle.</p>
     </div>
 
     <div class="recorrido">
@@ -482,9 +578,9 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
 <section id="ruta" style="background:linear-gradient(180deg,var(--crema),var(--arena) 70%)">
   <div class="wrap">
     <div class="cab centrado">
-      <span class="eyebrow">Hoja de ruta</span>
-      <h2>Una ruta distinta según el cargo</h2>
-      <p>Un docente de aula, un asistente de la educación y alguien de administración no necesitan lo mismo el primer día. Se elige <strong>un solo cargo</strong> y la ruta, los hitos y los recursos se ajustan a ese cargo.</p>
+      <span class="eyebrow">Entregable Nº1 &middot; Acompañamiento Áurea</span>
+      <h2>La ruta del docente nuevo</h2>
+      <p>El proyecto está dirigido a los <strong>docentes que ingresan al colegio</strong>: por eso esa ruta es la que está desarrollada completa. Los otros tres cargos quedan planteados como extensión futura, no como promesa.</p>
     </div>
 
     <div class="cargos no-imprimir" id="listaCargos" role="tablist" aria-label="Cargo del funcionario nuevo"></div>
@@ -506,7 +602,7 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
 <section id="hitos">
   <div class="wrap">
     <div class="cab centrado no-imprimir">
-      <span class="eyebrow eyebrow--oro">Seguimiento</span>
+      <span class="eyebrow eyebrow--oro">Entregable Nº4 &middot; Seguimiento</span>
       <h2>Tus hitos y cómo vas</h2>
       <p>La lista se guarda en este mismo navegador y cambia según el cargo elegido más arriba. Nadie más la ve: <strong>no se envía a ningún servidor</strong>.</p>
     </div>
@@ -534,6 +630,29 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
         </div>
         <div id="salidaPulso" class="oculto" style="margin-top:1rem"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ENTREGABLE Nº2 · CAPACITACIÓN SYSCOL ===================== -->
+<section id="syscol" style="background:var(--dorado-cla)">
+  <div class="wrap wrap--angosto">
+    <div class="cab centrado">
+      <span class="eyebrow eyebrow--oro">Entregable Nº2 &middot; Capacitación Syscol</span>
+      <h2>La parte administrativa es la que más cuesta</h2>
+      <p>Lo dijo la Jefa Administrativa y lo confirmó la encuesta: lo que descoloca a un docente nuevo no es hacer clases, es todo lo que hay que registrar alrededor. Esta es la estructura de la capacitación.</p>
+    </div>
+
+    <div class="nota nota--info" style="margin-top:2rem;background:#fff">
+      <svg width="18" height="18" aria-hidden="true"><use href="#i-reloj"/></svg>
+      <p><b>Cuándo hacerla.</b> La recomendación de la Jefa Administrativa fue aprovechar <b>el día sin estudiantes</b> con un bloque al inicio de la jornada, antes de la presentación formal con los cursos. Confirmen con dirección cuál es ese día en el horario vigente.</p>
+    </div>
+
+    <div class="modulos" id="listaSyscol"></div>
+
+    <div class="nota nota--alerta" style="margin-top:1.6rem;background:#fff">
+      <svg width="18" height="18" aria-hidden="true"><use href="#i-alerta"/></svg>
+      <p><b>Esto es la estructura, no el manual.</b> Los pasos concretos de cada módulo dependen de cómo está configurado Syscol en este colegio, y eso lo tiene que entregar quien lo administra. No inventen pantallas ni capturas: pídanlas.</p>
     </div>
   </div>
 </section>
@@ -632,8 +751,26 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
 
     <div class="equipo" id="listaEquipo"></div>
     <p class="fina" style="max-width:48rem;margin:1.8rem auto 0;text-align:center">
-      Solo tenemos confirmado el nombre de Sofía Muñoz. <b>Completen los otros tres</b> y ajusten los roles a lo que cada una hizo de verdad: las instrucciones están en la guía del equipo.
+      Los roles vienen del Informe Nº1. Si cambiaron durante el proyecto, actualícenlos: las instrucciones están en la guía del equipo.
     </p>
+  </div>
+</section>
+
+<!-- ========================= SEMÁFORO DE INTEGRACIÓN ========================= -->
+<section id="semaforo">
+  <div class="wrap">
+    <div class="cab centrado">
+      <span class="eyebrow">Para el estand de la feria</span>
+      <h2>Semáforo de integración</h2>
+      <p>Es el panel que el equipo presupuestó para la feria, en versión digital. Quien pasa por el estand responde cómo se sentiría si mañana empezara a trabajar aquí, y el conteo se ve en vivo.</p>
+    </div>
+
+    <div class="semaforo" id="listaSemaforo"></div>
+
+    <div class="acciones no-imprimir" style="margin-top:1.3rem">
+      <button class="btn btn--suave btn--sm" id="btnBorrarSemaforo">Reiniciar el conteo</button>
+    </div>
+    <p class="fina" style="margin-top:.8rem">Los votos se guardan solo en este navegador y son anónimos: no se pide ningún dato. Sirve para el estand, no como instrumento de medición.</p>
   </div>
 </section>
 
@@ -643,7 +780,7 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
     <div class="cab centrado">
       <span class="eyebrow">Contacto</span>
       <h2>Solicitar el acompañamiento</h2>
-      <p>Si alguien del establecimiento quiere probar esta inducción con un funcionario nuevo, aquí queda el registro.</p>
+      <p>Si alguien del establecimiento quiere probar esta inducción con un docente nuevo, aquí queda el registro. También es la «sección de dudas» que el Informe Nº2 define para la página.</p>
     </div>
 
     <div class="nota nota--stop" style="margin-top:2.2rem">
@@ -669,7 +806,7 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
           <input type="email" name="correo" id="cCorreo" required autocomplete="email" placeholder="nombre@cjmc.beleneduca.cl">
         </label>
         <label class="campo">
-          <span>Cargo del funcionario nuevo</span>
+          <span>Cargo de quien ingresa</span>
           <select name="cargoNuevo" id="cCargoNuevo"></select>
         </label>
         <label class="campo ancho">
@@ -702,11 +839,13 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
     <div class="pie__in">
       <div class="pie__marca">
         <svg width="46" height="46" aria-hidden="true"><use href="#logo-aurea"/></svg>
-        <div><b>Áurea Solutions</b><small>Inducción de funcionarios nuevos</small></div>
+        <div><b>Áurea Solutions</b><small>Inducción de docentes nuevos</small></div>
       </div>
       <nav class="pie__nav" aria-label="Pie de página">
-        <a href="#recorrido">Recorrido</a>
-        <a href="#ruta">Ruta por cargo</a>
+        <a href="#diagnostico">Diagnóstico</a>
+        <a href="#recorrido">Mapa Caro</a>
+        <a href="#ruta">Ruta</a>
+        <a href="#syscol">Syscol</a>
         <a href="#hitos">Hitos</a>
         <a href="#colegio">El colegio</a>
         <a href="#glosario">Glosario</a>
@@ -715,7 +854,7 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
     </div>
     <p class="pie__nota">
       Proyecto escolar de la especialidad de Administración &middot; Colegio Cardenal José María Caro, Fundación Belén Educa, La Pintana &middot; Feria Técnico Profesional 2026.<br>
-      Áurea Solutions no es una empresa constituida ni presta servicios comerciales. Todo lo que se marque o se cargue en esta página queda solamente en el navegador de quien la usa: no se envía a ningún servidor.
+      Áurea Solutions no es una empresa constituida ni presta servicios comerciales. Todo lo que se marque, vote o cargue en esta página queda solamente en el navegador de quien la usa: no se envía a ningún servidor.
     </p>
   </div>
 </footer>
@@ -738,81 +877,146 @@ section{padding:4.6rem 0;border-top:1px solid var(--linea)}
 
 var PARADAS = [
   {id:'porteria', nombre:'Portería y acceso', cat:'Acceso',
-   que:'La entrada principal del colegio, en San Leandro 0368, La Pintana. Es el primer punto de control y donde se registra el ingreso de quien no es de la comunidad.',
-   saber:'A qué hora abre y cierra, qué se necesita para entrar los primeros días mientras no tienes credencial, y por dónde entran los apoderados y las visitas.',
+   que:'La entrada principal del colegio, en San Leandro 0368, La Pintana. Primer punto de control y registro de ingreso.',
+   saber:'A qué hora abre y cierra, qué se necesita para entrar los primeros días mientras no tienes credencial, y por dónde entran apoderados y visitas.',
    preguntar:'Portería o Inspectoría General',
-   completar:'Horario real de apertura y cierre, y el procedimiento exacto para el ingreso de visitas.'},
+   completar:'Horario real de apertura y cierre, y el procedimiento de ingreso de visitas.'},
 
   {id:'secretaria', nombre:'Secretaría y recepción', cat:'Administración',
-   que:'Donde se tramita casi todo lo administrativo: contratos, certificados, permisos, materiales, correspondencia.',
-   saber:'Cómo se pide un permiso, cómo se solicitan materiales, dónde se firma, y con cuánta anticipación hay que avisar una ausencia.',
-   preguntar:'Secretaría',
-   completar:'Nombre del cargo de quien atiende, horario de atención y los formularios que se usan.'},
+   que:'Donde se tramita lo administrativo: contratos, certificados, permisos, materiales, correspondencia.',
+   saber:'Cómo se pide un permiso, cómo se solicitan materiales, dónde se firma y con cuánta anticipación se avisa una ausencia. En la encuesta aparecieron varias veces los días de pago y el horario: pregúntalos aquí.',
+   preguntar:'Secretaría o Jefatura Administrativa',
+   completar:'Horario de atención, días de pago y los formularios que se usan.'},
 
   {id:'direccion', nombre:'Dirección', cat:'Gestión',
-   que:'La oficina del equipo directivo. Aquí se toman las decisiones de conducción del establecimiento.',
+   que:'La oficina del equipo directivo, donde se toman las decisiones de conducción del establecimiento.',
    saber:'Quién dirige el colegio, cómo se pide una reunión y qué temas se resuelven aquí y no en otra parte.',
    preguntar:'Dirección o Secretaría',
-   completar:'Horario de atención al equipo y la vía formal para solicitar una entrevista.'},
+   completar:'Horario de atención y la vía formal para solicitar una entrevista.'},
 
   {id:'utp', nombre:'Unidad Técnico-Pedagógica (UTP)', cat:'Gestión',
    que:'El equipo que acompaña lo pedagógico: planificaciones, evaluaciones, cobertura curricular y observación de aula.',
-   saber:'En qué formato se entregan las planificaciones, cuándo se entregan, cómo se agenda una observación de clase y a quién se le consulta una duda de evaluación.',
+   saber:'En qué formato y cuándo se entregan las planificaciones, cómo se agenda una observación de clase y a quién se consulta una duda de evaluación. Aquí también se pide la pauta de evaluación de desempeño, que varios docentes mencionaron en la encuesta.',
    preguntar:'Jefatura de UTP',
-   completar:'Formato oficial de planificación y el calendario de entregas del semestre.'},
+   completar:'Formato oficial de planificación, calendario de entregas y pauta de evaluación de desempeño.'},
 
   {id:'profesores', nombre:'Sala de profesores', cat:'Espacios de trabajo',
    que:'El espacio de trabajo y descanso del equipo docente entre clases.',
-   saber:'Dónde está tu casillero, dónde se guardan los materiales, cómo funciona el café, y cuál es el mural donde se publican los avisos importantes.',
-   preguntar:'Cualquier colega, o tu docente mentor',
+   saber:'Dónde está tu casillero, dónde se guardan los materiales y cuál es el mural donde se publican los avisos importantes.',
+   preguntar:'Cualquier colega, o tu dupla de acompañamiento',
    completar:'Dónde se publican los avisos oficiales y si hay casilleros asignados.'},
 
   {id:'convivencia', nombre:'Inspectoría y Convivencia Escolar', cat:'Convivencia',
    que:'Donde se abordan la disciplina, los conflictos y la aplicación del Reglamento Interno.',
-   saber:'Qué situaciones se derivan aquí y cuáles se resuelven en el aula, cómo se registra una situación y qué protocolos existen. Esto es lo que más rápido se necesita y lo último que suele explicarse.',
+   saber:'Qué situaciones se derivan aquí y cuáles se resuelven en el aula, cómo se registra una situación y qué protocolos existen. En la encuesta los protocolos ante incidentes y las normas de convivencia entre pares aparecieron varias veces.',
    preguntar:'Encargado o Encargada de Convivencia Escolar',
-   completar:'Los protocolos vigentes y el procedimiento paso a paso para derivar una situación.'},
+   completar:'Protocolos vigentes y el procedimiento paso a paso para derivar una situación.'},
 
-  {id:'salas', nombre:'Pabellón de salas', cat:'Aula',
-   que:'Las salas de clases donde vas a trabajar la mayor parte del tiempo.',
-   saber:'Cómo están numeradas las salas, dónde está el libro de clases, qué equipamiento tiene cada sala y qué hacer si el proyector no funciona.',
-   preguntar:'Inspectoría o tu profesor jefe de nivel',
-   completar:'Numeración real de las salas y qué equipamiento tiene cada una.'},
+  {id:'modulos', nombre:'Módulos de Media y Básica', cat:'Aula',
+   que:'Los pabellones de salas donde se hacen las clases. Es lo que más se pidió en la encuesta: saber dónde queda cada sala.',
+   saber:'Cómo están numeradas las salas, dónde está el libro de clases, qué equipamiento tiene cada una y qué hacer si el proyector no funciona.',
+   preguntar:'Inspectoría o tu jefatura de nivel',
+   completar:'Numeración real de las salas de cada módulo y qué equipamiento tiene cada una.'},
 
-  {id:'cra', nombre:'Biblioteca CRA', cat:'Aula',
-   que:'El Centro de Recursos para el Aprendizaje: libros, material didáctico y, en muchos colegios, equipamiento audiovisual.',
-   saber:'Cómo se reserva el espacio, qué material se puede pedir prestado y con cuánta anticipación.',
-   preguntar:'Encargado o Encargada de CRA',
-   completar:'Sistema de reserva y horario de atención.'},
+  {id:'musica', nombre:'Sala de Música', cat:'Aula',
+   que:'Sala especializada con instrumentos y equipamiento de audio.',
+   saber:'Cómo se reserva si no eres profesor de la asignatura y qué normas de uso tiene el equipamiento.',
+   preguntar:'Docente de Música o UTP',
+   completar:'Sistema de reserva y normas de uso.'},
 
-  {id:'taller', nombre:'Taller de la especialidad de Administración', cat:'Técnico-profesional',
-   que:'El espacio donde se imparte la formación diferenciada técnico-profesional de Administración.',
+  {id:'ciencias', nombre:'Laboratorio de Ciencias', cat:'Aula',
+   que:'Sala especializada para actividades experimentales.',
+   saber:'Normas de seguridad, qué materiales hay y cómo se solicitan con anticipación.',
+   preguntar:'Docente de Ciencias o Coordinación',
+   completar:'Protocolo de seguridad del laboratorio y sistema de solicitud de materiales.'},
+
+  {id:'tecnologia', nombre:'Sala de Tecnología', cat:'Aula',
+   que:'Sala con equipamiento tecnológico para trabajo de los estudiantes.',
+   saber:'Cómo se reserva, qué equipos hay disponibles y quién los administra.',
+   preguntar:'Encargado de la sala o UTP',
+   completar:'Sistema de reserva e inventario de equipos.'},
+
+  {id:'talleres', nombre:'Talleres TP · Administración', cat:'Técnico-profesional',
+   que:'El espacio de la formación diferenciada técnico-profesional de Administración.',
    saber:'Qué equipamiento hay, cómo se coordina su uso y cuál es el vínculo con las prácticas profesionales.',
    preguntar:'Jefatura de especialidad',
    completar:'Equipamiento disponible y normas de uso del taller.'},
 
-  {id:'capilla', nombre:'Capilla u oratorio', cat:'Identidad',
-   que:'El espacio de oración y celebración de la comunidad. En un colegio de Iglesia no es un detalle: es parte del proyecto educativo.',
-   saber:'Cuáles son los momentos de oración de la jornada, qué se espera de quien trabaja aquí en esas instancias, y cuáles son las celebraciones del año.',
-   preguntar:'Pastoral o Dirección',
-   completar:'Los momentos de oración de la jornada y el calendario de celebraciones.'},
+  {id:'cra', nombre:'Biblioteca CRA', cat:'Aula',
+   que:'Centro de Recursos para el Aprendizaje: libros, material didáctico y equipamiento audiovisual.',
+   saber:'Cómo se reserva el espacio, qué material se puede pedir prestado y con cuánta anticipación.',
+   preguntar:'Encargado o Encargada de CRA',
+   completar:'Sistema de reserva y horario de atención.'},
 
-  {id:'patio', nombre:'Patio y comedor', cat:'Espacios comunes',
+  {id:'capilla', nombre:'Capilla u oratorio', cat:'Identidad',
+   que:'El espacio de oración y celebración de la comunidad. En un colegio de Iglesia es parte del proyecto educativo, no un detalle.',
+   saber:'Cuáles son los momentos de oración de la jornada, qué se espera de quien trabaja aquí en esas instancias y cuáles son las celebraciones del año. La encuesta pidió explícitamente conocer «la cultura escolar» y «las rutinas de Belén Educa».',
+   preguntar:'Pastoral o Dirección',
+   completar:'Momentos de oración de la jornada y calendario de celebraciones.'},
+
+  {id:'casino', nombre:'Casino y patio', cat:'Espacios comunes',
    que:'Los espacios comunes donde ocurre buena parte de la convivencia diaria.',
-   saber:'Cómo funcionan los turnos de patio, dónde y a qué hora almuerzan los funcionarios, y qué se espera de un adulto durante el recreo.',
+   saber:'Cómo funcionan los turnos de patio, dónde y a qué hora almuerzan los funcionarios, y los horarios de recreo.',
    preguntar:'Inspectoría General',
-   completar:'Sistema de turnos de patio y horario de colación de funcionarios.'},
+   completar:'Turnos de patio, horario de colación de funcionarios y horarios de recreo.'},
+
+  {id:'banos', nombre:'Baños de profesores y estudiantes', cat:'Espacios comunes',
+   que:'Parece obvio y es de lo primero que se pregunta el primer día. Está en la lista del Mapa Caro del Informe Nº2.',
+   saber:'Dónde está el baño de funcionarios, si necesita llave y dónde están los de estudiantes en cada módulo.',
+   preguntar:'Portería o cualquier colega',
+   completar:'Ubicación exacta en cada módulo y si el de funcionarios requiere llave.'},
 
   {id:'enfermeria', nombre:'Enfermería y primeros auxilios', cat:'Seguridad',
    que:'El punto de atención ante accidentes escolares y malestares durante la jornada.',
-   saber:'Qué hacer ante un accidente escolar, dónde está el botiquín, cuál es la vía de evacuación de tu sala y dónde queda la zona de seguridad. Esto se aprende antes de necesitarlo, no durante.',
+   saber:'Qué hacer ante un accidente escolar, dónde está el botiquín, cuál es la vía de evacuación de tu sala y dónde queda la zona de seguridad. Se aprende antes de necesitarlo, no durante.',
    preguntar:'Encargado de seguridad o Inspectoría General',
-   completar:'Protocolo de accidentes escolares, plano de evacuación y ubicación de la zona de seguridad.'}
+   completar:'Protocolo de accidentes escolares, plano de evacuación y zona de seguridad.'}
+];
+
+/* --------- Evidencia del Informe Nº2: encuesta a 17 docentes, 03/09/2026 --------- */
+var ENCUESTA = {
+  n:17, fecha:'3 de septiembre de 2026',
+  preguntas:[
+    {p:'¿Te sentiste acompañado o acompañada durante tus primeras semanas de trabajo?',
+     partes:[{et:'Sí', det:'12 de 17 docentes', n:12, tono:'pos'},
+             {et:'No', det:'4 respondieron «no muchas veces» y 1 «nunca»', n:5, tono:'neg'}]},
+    {p:'¿Recibiste orientación sobre horarios, ubicaciones, cursos, funciones y normas del colegio?',
+     partes:[{et:'Mucha o suficiente', det:'5 «mucha» y 9 «suficiente»', n:14, tono:'pos'},
+             {et:'Poca', det:'3 de 17 docentes', n:3, tono:'neg'}]}
+  ]
+};
+
+/* Respuestas abiertas agrupadas por tema. Una respuesta puede tocar más de uno. */
+var PEDIDOS = [
+  {t:'Horarios, recreos y rutinas',            n:7, ir:'#recorrido', donde:'Mapa Caro · casino y patio'},
+  {t:'Ubicación de salas y espacios',          n:6, ir:'#recorrido', donde:'Mapa Caro'},
+  {t:'Acompañamiento en aula y primeros días', n:5, ir:'#ruta',      donde:'Ruta · semanas 3 a 8'},
+  {t:'Contexto y cultura escolar',             n:4, ir:'#colegio',   donde:'El colegio'},
+  {t:'Protocolos y convivencia',               n:3, ir:'#glosario',  donde:'Glosario'},
+  {t:'Funciones y roles de cada quien',        n:3, ir:'#recorrido', donde:'Mapa Caro · a quién preguntarle'},
+  {t:'Remuneración y días de pago',            n:3, ir:'#recorrido', donde:'Mapa Caro · secretaría'},
+  {t:'Syscol y funcionamiento de aplicaciones',n:2, ir:'#syscol',    donde:'Capacitación Syscol'},
+  {t:'Adaptaciones de estudiantes PIE',        n:1, ir:'#glosario',  donde:'Glosario · PIE y NEE'}
+];
+
+var SYSCOL = [
+  {t:'Acceso y perfil',              d:'Cómo ingresar, qué ve cada cargo y qué hacer cuando la clave no funciona el primer día.'},
+  {t:'Registro de asistencia',       d:'El registro diario, en qué plazo se cierra y qué se hace si quedó sin registrar una hora.'},
+  {t:'Calificaciones',               d:'Ingreso de notas, plazos del período y cierre. Qué se puede corregir después y qué no.'},
+  {t:'Anotaciones y hoja de vida',   d:'Cómo se redacta un registro que describe hechos y no juicios sobre la persona. Es un documento con consecuencias legales.'},
+  {t:'Comunicación con apoderados',  d:'Qué queda registrado en la plataforma y qué se responde por otra vía.'},
+  {t:'Planificación y cobertura',    d:'Dónde se sube la planificación y qué revisa UTP a partir de eso.'}
+];
+
+var SEMAFORO = [
+  {id:'verde',   c:'v', t:'Me siento preparado',      d:'Sé dónde queda todo y a quién preguntarle.'},
+  {id:'amarillo',c:'a', t:'Necesito orientación',     d:'Me las arreglo, pero hay cosas que todavía no sé.'},
+  {id:'rojo',    c:'r', t:'No sé por dónde empezar',  d:'Llegaría sin saber dónde queda nada.'}
 ];
 
 var CARGOS = [
   {id:'docente',   nombre:'Docente de aula', piloto:true,
-   nota:'Este es el cargo piloto: la ruta está desarrollada completa. Es la recomendación de partir por un solo cargo, probarlo con una persona real y recién después extenderlo a los demás.'},
+   nota:'Este es el cargo del proyecto: los 17 docentes encuestados y la entrevista con la Jefa Administrativa son sobre este cargo, así que es el único con evidencia detrás. Pruébenlo con una persona real antes de extenderlo.'},
   {id:'asistente', nombre:'Asistente de la educación', piloto:false,
    nota:'Ruta en diseño. Falta levantarla con Recursos Humanos: qué hitos tiene realmente este cargo, quién lo acompaña y en qué plazos.'},
   {id:'admin',     nombre:'Administrativo', piloto:false,
@@ -852,7 +1056,7 @@ var HITOS = {
   docente:[
     {t:'Recibir credencial, llaves y accesos',            m:'Día 1'},
     {t:'Conocer a mi mentor o mentora',                   m:'Día 1'},
-    {t:'Recorrer el colegio y ubicar los 12 espacios',    m:'Día 1'},
+    {t:'Recorrer el Mapa Caro y ubicar los espacios',     m:'Día 1'},
     {t:'Leer el PEI y el Reglamento Interno',             m:'Semana 1'},
     {t:'Activar mi cuenta del sistema de gestión',        m:'Semana 1'},
     {t:'Registrar asistencia por primera vez, acompañado',m:'Semana 1'},
@@ -866,14 +1070,14 @@ var HITOS = {
   asistente:[
     {t:'Recibir credencial, llaves y accesos',            m:'Día 1'},
     {t:'Conocer a mi jefatura directa',                   m:'Día 1'},
-    {t:'Recorrer el colegio y ubicar los 12 espacios',    m:'Día 1'},
+    {t:'Recorrer el Mapa Caro y ubicar los espacios',     m:'Día 1'},
     {t:'Leer el Reglamento Interno',                      m:'Semana 1'},
     {t:'Conocer el protocolo de accidentes escolares y la vía de evacuación', m:'Semana 1'}
   ],
   admin:[
     {t:'Recibir credencial, llaves y accesos',            m:'Día 1'},
     {t:'Conocer a mi jefatura directa',                   m:'Día 1'},
-    {t:'Recorrer el colegio y ubicar los 12 espacios',    m:'Día 1'},
+    {t:'Recorrer el Mapa Caro y ubicar los espacios',     m:'Día 1'},
     {t:'Leer el Reglamento Interno',                      m:'Semana 1'},
     {t:'Activar mis accesos a los sistemas administrativos', m:'Semana 1'}
   ],
@@ -991,6 +1195,25 @@ function medidaTextura(ancho, maxTextura){
   var w = potHasta(ancho, tope);
   if(w < 256) w = 256;
   return {w:w, h:w/2};
+}
+
+function porcentaje(n, total){
+  if(!(total>0)) return 0;
+  return limitar((n/total)*100, 0, 100);
+}
+
+/* Los pedidos se muestran de mayor a menor. Ante empate manda el orden de la
+   lista, que es un criterio declarado y no el azar del navegador. */
+function pedidosOrdenados(){
+  return PEDIDOS.map(function(p,i){ return {p:p, i:i}; })
+    .sort(function(a,b){ return (b.p.n - a.p.n) || (a.i - b.i); })
+    .map(function(x){ return x.p; });
+}
+
+function totalEncuesta(pregunta){
+  var t=0;
+  for(var i=0;i<pregunta.partes.length;i++) t += pregunta.partes[i].n;
+  return t;
 }
 
 function rutaFoto(id){ return 'fotos/' + id + '.jpg'; }
@@ -1206,8 +1429,8 @@ var PRUEBAS = [
   ['El nombre del archivo de cada parada es predecible', function(){
     return rutaFoto('porteria')==='fotos/porteria.jpg' && rutaFoto('utp')==='fotos/utp.jpg';
   }],
-  ['Las 12 paradas tienen id único y los cuatro textos', function(){
-    if(PARADAS.length!==12) return false;
+  ['Las paradas del Mapa Caro tienen id único y los cuatro textos', function(){
+    if(PARADAS.length<12) return false;
     var vistos={};
     for(var i=0;i<PARADAS.length;i++){
       var p=PARADAS[i];
@@ -1257,6 +1480,39 @@ var PRUEBAS = [
     }
     return true;
   }],
+  ['Los porcentajes de la encuesta no se salen de rango', function(){
+    return casi(porcentaje(12,17),70.588,0.01) && porcentaje(0,17)===0 &&
+           porcentaje(5,0)===0 && casi(porcentaje(30,17),100);
+  }],
+  ['Cada pregunta de la encuesta suma exactamente los 17 encuestados', function(){
+    for(var i=0;i<ENCUESTA.preguntas.length;i++){
+      if(totalEncuesta(ENCUESTA.preguntas[i]) !== ENCUESTA.n) return false;
+    }
+    return true;
+  }],
+  ['Los segmentos de cada barra suman 100%', function(){
+    for(var i=0;i<ENCUESTA.preguntas.length;i++){
+      var q = ENCUESTA.preguntas[i], t = totalEncuesta(q), suma = 0;
+      for(var j=0;j<q.partes.length;j++) suma += porcentaje(q.partes[j].n, t);
+      if(!casi(suma,100,0.001)) return false;
+    }
+    return true;
+  }],
+  ['Los pedidos se ordenan de mayor a menor', function(){
+    var o = pedidosOrdenados();
+    if(o.length !== PEDIDOS.length) return false;
+    for(var i=1;i<o.length;i++){ if(o[i].n > o[i-1].n) return false; }
+    return o[0].n===7;
+  }],
+  ['Cada pedido apunta a una sección que existe en la página', function(){
+    var ok = {'#recorrido':1,'#ruta':1,'#colegio':1,'#glosario':1,'#syscol':1,'#hitos':1};
+    for(var i=0;i<PEDIDOS.length;i++){ if(!ok[PEDIDOS[i].ir]) return false; }
+    return true;
+  }],
+  ['El semáforo tiene las tres luces del panel presupuestado', function(){
+    return SEMAFORO.length===3 && SEMAFORO[0].id==='verde' &&
+           SEMAFORO[1].id==='amarillo' && SEMAFORO[2].id==='rojo';
+  }],
   ['El pulso avisa si falta responder', function(){
     var r = evaluarPulso([4,4,4]);
     return r.completo===false && r.faltan===3;
@@ -1301,7 +1557,7 @@ function svgIco(href,tam){
   u.setAttribute('href',href); s.appendChild(u); return s;
 }
 
-var estado = {cargo:'docente', parada:0, hitos:{}, pulso:[]};
+var estado = {cargo:'docente', parada:0, hitos:{}, pulso:[], semaforo:{}, miVoto:null};
 var visor = null, iParada = 0, fotosLocales = {};
 
 function leerGuardado(){
@@ -1311,6 +1567,8 @@ function leerGuardado(){
     if(d.cargo && HITOS[d.cargo]) estado.cargo = d.cargo;
     if(d.hitos && typeof d.hitos === 'object') estado.hitos = d.hitos;
     if(Object.prototype.toString.call(d.pulso)==='[object Array]') estado.pulso = d.pulso;
+    if(d.semaforo && typeof d.semaforo === 'object') estado.semaforo = d.semaforo;
+    if(typeof d.miVoto === 'string') estado.miVoto = d.miVoto;
   }catch(e){ /* navegador sin almacenamiento: la página funciona igual, sin recordar */ }
 }
 function guardar(){ try{ localStorage.setItem(LS_CLAVE, JSON.stringify(estado)); }catch(e){} }
@@ -1703,12 +1961,107 @@ function pintarGlosario(termino){
   return res.length;
 }
 
+/* ------------------- Gráficos de la encuesta y semáforo ------------------- */
+var TONOS = {pos:'var(--pos)', neg:'var(--neg)', neutro:'var(--neutro)'};
+
+function pintarGraficos(){
+  var z = $('graficos'); z.textContent='';
+  ENCUESTA.preguntas.forEach(function(q){
+    var total = totalEncuesta(q);
+    var caja = ce('div','grafico');
+    var h = ce('h4'); h.textContent = q.p; caja.appendChild(h);
+
+    var barra = ce('div','barra-enc');
+    barra.setAttribute('role','img');
+    var descr = [];
+    q.partes.forEach(function(pt){
+      var pct = porcentaje(pt.n, total);
+      var seg = ce('i');
+      seg.style.width = pct + '%';
+      seg.style.background = TONOS[pt.tono];
+      /* Etiqueta directa dentro del segmento: es lo que permite leer el gráfico
+         sin depender del color. */
+      if(pct >= 14) seg.textContent = pt.n + ' · ' + Math.round(pct) + '%';
+      barra.appendChild(seg);
+      descr.push(pt.et + ': ' + pt.n + ' de ' + total);
+    });
+    barra.setAttribute('aria-label', descr.join('. ') + '.');
+    caja.appendChild(barra);
+
+    var ley = ce('div','leyenda');
+    q.partes.forEach(function(pt){
+      var sp = ce('span');
+      var pi = ce('i'); pi.style.background = TONOS[pt.tono];
+      sp.appendChild(pi);
+      var txt = ce('span');
+      var b = ce('b'); b.textContent = pt.et + ' — ' + pt.n + ' de ' + total; txt.appendChild(b);
+      var sm = ce('small'); sm.textContent = pt.det; txt.appendChild(sm);
+      sp.appendChild(txt);
+      ley.appendChild(sp);
+    });
+    caja.appendChild(ley);
+    z.appendChild(caja);
+  });
+}
+
+function pintarPedidos(){
+  var z = $('listaPedidos'); z.textContent='';
+  pedidosOrdenados().forEach(function(p){
+    var d = ce('div','pedido');
+    var b = ce('b'); b.textContent = String(p.n); d.appendChild(b);
+    var t = ce('span');
+    t.appendChild(document.createTextNode(p.t + ' '));
+    var a = ce('a'); a.href = p.ir; a.textContent = '→ ' + p.donde;
+    a.style.cssText = 'font-size:.8rem;white-space:nowrap';
+    t.appendChild(a);
+    d.appendChild(t);
+    z.appendChild(d);
+  });
+}
+
+function pintarSyscol(){
+  var z = $('listaSyscol'); z.textContent='';
+  SYSCOL.forEach(function(m, i){
+    var d = ce('div','modulo');
+    var n = ce('span','modulo__n'); n.textContent = String(i+1); d.appendChild(n);
+    var c = ce('div');
+    var b = ce('b'); b.textContent = m.t; c.appendChild(b);
+    var sm = ce('small'); sm.textContent = m.d; c.appendChild(sm);
+    d.appendChild(c);
+    z.appendChild(d);
+  });
+}
+
+function pintarSemaforo(){
+  var z = $('listaSemaforo'); z.textContent='';
+  if(!estado.semaforo) estado.semaforo = {};
+  SEMAFORO.forEach(function(l){
+    var b = ce('button','luz luz--' + l.c);
+    b.type = 'button';
+    b.setAttribute('aria-pressed', estado.miVoto===l.id ? 'true':'false');
+    var t = ce('span','luz__t');
+    var pt = ce('span','luz__p'); t.appendChild(pt);
+    t.appendChild(document.createTextNode(l.t));
+    b.appendChild(t);
+    var sm = ce('small'); sm.textContent = l.d; b.appendChild(sm);
+    var n = ce('span','luz__n');
+    var votos = Number(estado.semaforo[l.id]) || 0;
+    n.textContent = votos + (votos===1 ? ' voto' : ' votos');
+    b.appendChild(n);
+    b.addEventListener('click', function(){
+      estado.semaforo[l.id] = (Number(estado.semaforo[l.id])||0) + 1;
+      estado.miVoto = l.id;
+      guardar(); pintarSemaforo();
+    });
+    z.appendChild(b);
+  });
+}
+
 /* --------------------------------- El equipo --------------------------------- */
 var EQUIPO = [
-  {n:'Sofía Muñoz',   r:'Coordinación del proyecto'},
-  {n:'Por completar', r:'Integrante 2'},
-  {n:'Por completar', r:'Integrante 3'},
-  {n:'Por completar', r:'Integrante 4'}
+  {n:'Sofía Muñoz',   r:'Líder, impulsora y cohesionadora'},
+  {n:'Anhais Molina', r:'Marketing, imagen del equipo y finalización'},
+  {n:'Pascal Delgado',r:'Implementadora e investigadora de recursos'}
 ];
 
 function pintarEquipo(){
@@ -1896,6 +2249,14 @@ function iniciar(){
   $('buscarTermino').addEventListener('input', function(){ pintarGlosario(this.value); });
 
   pintarEquipo();
+  pintarGraficos();
+  pintarPedidos();
+  pintarSyscol();
+  pintarSemaforo();
+  $('btnBorrarSemaforo').addEventListener('click', function(){
+    if(!window.confirm('Se va a reiniciar el conteo del semáforo. ¿Continuar?')) return;
+    estado.semaforo = {}; estado.miVoto = null; guardar(); pintarSemaforo();
+  });
 
   /* ---- contacto ---- */
   var sel = $('cCargoNuevo');

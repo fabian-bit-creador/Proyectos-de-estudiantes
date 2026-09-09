@@ -10,12 +10,18 @@ exactamente el que aparece abajo, en minúsculas y terminado en .jpg
    utp.jpg           4.  Unidad Técnico-Pedagógica (UTP)
    profesores.jpg    5.  Sala de profesores
    convivencia.jpg   6.  Inspectoría y Convivencia Escolar
-   salas.jpg         7.  Pabellón de salas
-   cra.jpg           8.  Biblioteca CRA
-   taller.jpg        9.  Taller de la especialidad de Administración
-   capilla.jpg       10. Capilla u oratorio
-   patio.jpg         11. Patio y comedor
-   enfermeria.jpg    12. Enfermería y primeros auxilios
+   modulos.jpg       7.  Módulos de Media y Básica
+   musica.jpg        8.  Sala de Música
+   ciencias.jpg      9.  Laboratorio de Ciencias
+   tecnologia.jpg    10. Sala de Tecnología
+   talleres.jpg      11. Talleres TP · Administración
+   cra.jpg           12. Biblioteca CRA
+   capilla.jpg       13. Capilla u oratorio
+   casino.jpg        14. Casino y patio
+   banos.jpg         15. Baños de profesores y estudiantes
+   enfermeria.jpg    16. Enfermería y primeros auxilios
+
+Los espacios salen de la lista del Mapa Caro del Informe Nº2.
 
 DOS TIPOS DE FOTO SIRVEN
 ------------------------

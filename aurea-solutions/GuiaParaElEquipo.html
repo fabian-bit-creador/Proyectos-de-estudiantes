@@ -62,10 +62,14 @@ td:first-child{white-space:nowrap;font-weight:600}
 
 <p class="meta">Feria Técnico Profesional 2026 · IV°A Administración · Grupo N°8</p>
 <h1>Áurea Solutions: qué se cambió y qué les toca a ustedes</h1>
-<p class="sub">Este archivo acompaña a <code>AureaSolutions.html</code>. La primera parte explica qué se corrigió y por qué. La segunda es la lista de lo que solo ustedes pueden hacer. La tercera responde la pregunta del recorrido tipo Street View.</p>
+<p class="sub">Para <b>Sofía Muñoz, Anhais Molina y Pascal Delgado</b>. Este archivo acompaña a <code>AureaSolutions.html</code>. Explica qué se corrigió y por qué, responde la pregunta del recorrido tipo Street View, y deja la lista de lo que solo ustedes pueden hacer. Está escrito después de leer los Informes Nº1 y Nº2.</p>
 
 <div class="caja caja--ok">
-  <p><b>Lo primero, para que quede claro:</b> el proyecto está bien elegido. La inducción de personal nuevo es un problema real de recursos humanos, se puede medir y se puede intervenir. El Informe Nº1 sacó 28 de 30. Lo que sigue no es una crítica al proyecto: es la lista de lo que le falta para que funcione el 8 de octubre.</p>
+  <p><b>Lo primero, para que quede claro:</b> el proyecto está bien elegido y está más avanzado de lo que parecía. La inducción de docentes nuevos es un problema real de recursos humanos, se puede medir y se puede intervenir. El Informe Nº1 sacó 28 de 30. Lo que sigue no es una crítica: es la lista de lo que le falta para que funcione el 8 de octubre.</p>
+</div>
+
+<div class="caja caja--info">
+  <p><b>Corrección importante respecto de la primera versión de esta guía.</b> Esta guía se escribió antes de leer los Informes Nº1 y Nº2. En ella decía que faltaba «validar con Recursos Humanos que la inducción es el problema». <b>Eso ya está hecho</b>, y bien hecho: entrevistaron a <b>Carolina Fuentes, Jefa Administrativa</b>, y encuestaron a <b>17 docentes</b> el 3 de septiembre. Esa evidencia era el punto más débil del proyecto y ya no lo es. Ahora está incorporada a la página, en la sección «Validación con usuarios reales».</p>
 </div>
 
 <h2>1. Qué estaba fallando</h2>
@@ -82,7 +86,9 @@ td:first-child{white-space:nowrap;font-weight:600}
 <h3>1.2 El logo no se veía</h3>
 <p>El archivo apuntaba a <code>&lt;img src="aurea-logo-original.png"&gt;</code>, una imagen que no venía con el HTML. Al abrirlo en cualquier computador que no fuera el de ustedes, aparecía el ícono de imagen rota donde debía estar la marca.</p>
 <p>Como no teníamos el logo original, se dibujó uno nuevo en SVG: <strong>una espiral áurea real</strong>, construida sobre la sucesión de Fibonacci (55, 34, 21, 13, 8, 5, 3, 2). «Áurea» viene de la proporción áurea, así que el logo dice el nombre del equipo sin escribirlo. Al ser SVG, nunca se pixela y no depende de ningún archivo aparte.</p>
-<p>Si prefieren su logo original: reemplacen el bloque <code>&lt;symbol id="logo-aurea"&gt;</code> por <code>&lt;image href="aurea-logo.png" width="120" height="120"/&gt;</code> y dejen el PNG junto al HTML.</p>
+<div class="caja caja--info">
+  <p><b>El logo original existe: lo hizo Anhais Molina.</b> En el Informe Nº1 aparece como una de sus funciones. Solo faltaba el archivo. Para usarlo, reemplacen el bloque <code>&lt;symbol id="logo-aurea"&gt;…&lt;/symbol&gt;</code> por <code>&lt;image href="aurea-logo.png" width="120" height="120"/&gt;</code> y dejen el PNG junto al HTML. Si prefieren la espiral, también sirve: decidan ustedes.</p>
+</div>
 
 <h3>1.3 La metodología estaba descrita, pero no se ejecutaba</h3>
 <p>La página explicaba muy bien las cuatro etapas de la inducción. Pero un visitante de la feria leía la explicación y se iba sin ver nada funcionando: no había recorrido, no había ruta por cargo, no había forma de saber qué significaba UTP o PIE.</p>
@@ -99,22 +105,32 @@ td:first-child{white-space:nowrap;font-weight:600}
 
 <h2>2. Qué tiene ahora la página</h2>
 
-<h3>El recorrido virtual</h3>
-<p>Doce paradas del colegio. Cada una explica qué es el lugar, qué necesita saber ahí un funcionario nuevo, a quién preguntarle, y qué falta completar con el colegio.</p>
+<h3>El Mapa Caro</h3>
+<p>Es el entregable Nº3 del Informe Nº2, funcionando. Dieciséis paradas, tomadas de la lista de espacios del propio informe: portería, secretaría, dirección, UTP, sala de profesores, convivencia, módulos de Media y Básica, música, ciencias, tecnología, talleres TP, CRA, capilla, casino y patio, baños y enfermería. Cada una explica qué es el lugar, qué necesita saber ahí un funcionario nuevo, a quién preguntarle, y qué falta completar con el colegio.</p>
 <p>El visor acepta <strong>fotos 360°</strong> —se arrastra con el mouse para mirar alrededor, igual que Street View— y también fotos normales de celular. Detecta solo de cuál se trata. Está escrito en WebGL a mano, sin ninguna librería descargada de internet.</p>
 <div class="caja caja--info">
   <p><b>Pruébenlo ahora mismo, sin fotos.</b> El botón «Ver el visor 360° funcionando (demo)» genera una panorámica de prueba y la carga en el visor. Sirve para mostrar en la feria que la tecnología funciona aunque todavía falten fotos del colegio.</p>
 </div>
 
-<h3>La ruta por cargo</h3>
-<p>La retroalimentación del profesor decía: <em>«diseñen una ruta piloto para un solo cargo»</em>. Eso está implementado literalmente. <strong>Docente de aula</strong> es el cargo piloto y tiene los 12 hitos completos; los otros tres aparecen marcados como «en diseño», con un aviso que dice qué falta levantar con Recursos Humanos.</p>
-<p>Eso no es una carencia: <strong>es el argumento</strong>. Muestra que entendieron que un piloto se prueba con un caso antes de extenderlo.</p>
+<h3>La ruta del docente nuevo</h3>
+<p>La retroalimentación del profesor pedía «una ruta piloto para un solo cargo», y el Informe Nº2 define el público objetivo como los docentes que ingresan al colegio. Coinciden. <strong>Docente de aula</strong> tiene los 12 hitos completos; los otros tres cargos aparecen marcados como extensión futura.</p>
+<p>Eso no es una carencia: <strong>es el argumento</strong>. La evidencia que tienen &mdash;17 docentes encuestados&mdash; es sobre ese cargo, así que es el único del que pueden hablar con respaldo.</p>
 
 <h3>Los hitos, el pulso y el glosario</h3>
 <ul>
   <li><strong>Hitos:</strong> la lista cambia según el cargo, se guarda en el navegador y se puede imprimir o guardar en PDF.</li>
   <li><strong>Pulso 30/60/90:</strong> seis afirmaciones para que la persona revise su propia adaptación. Le muestra su punto más flojo y a qué parte de la página volver. No recoge datos de nadie: se calcula en el navegador y no queda registrado.</li>
   <li><strong>Glosario:</strong> 36 siglas escolares chilenas explicadas, con buscador que ignora tildes. Es probablemente lo más útil de toda la página para alguien que llega nuevo.</li>
+</ul>
+
+<h3>La evidencia del Informe Nº2, puesta en la página</h3>
+<p>Los datos de la encuesta estaban en el informe pero no en la web, y son lo más fuerte que tiene el proyecto. Ahora abren la página: <strong>5 de 17 docentes no se sintieron acompañados</strong>, <strong>3 de 17 recibieron poca información</strong>, y las respuestas abiertas aparecen agrupadas por tema y ordenadas por cuántas veces se repitieron, cada una enlazada a la parte de la página que la responde.</p>
+<p>El gráfico usa azul y rojo en vez de verde y rojo a propósito: son los dos colores que una persona con daltonismo distingue con seguridad. Además cada segmento lleva su número escrito encima, así que el gráfico se lee aunque no se vea ningún color.</p>
+
+<h3>Capacitación Syscol y Semáforo</h3>
+<ul>
+  <li><strong>Syscol:</strong> la estructura de la capacitación en seis módulos, con la recomendación de Carolina Fuentes de hacerla en el bloque del día sin estudiantes. Es la estructura, no el manual: los pasos concretos los tiene que entregar quien administra Syscol.</li>
+  <li><strong>Semáforo de integración:</strong> el panel que presupuestaron para el estand, en versión digital. Quien pasa por la feria responde cómo se sentiría si empezara a trabajar mañana, y el conteo se ve en vivo. Anónimo y sin datos personales.</li>
 </ul>
 
 <h3>Historia y contexto</h3>
@@ -155,51 +171,55 @@ td:first-child{white-space:nowrap;font-weight:600}
 </div>
 
 <h2>4. Lo que les toca a ustedes</h2>
-<p>Ordenado por urgencia. Lo primero es lo que más peso tiene en la evaluación.</p>
+<p>Actualizado después de leer los Informes Nº1 y Nº2. Lo que ya estaba hecho salió de la lista.</p>
+
+<div class="caja caja--ok">
+  <p><b>Ya hecho, no lo repitan:</b> la entrevista con la Jefa Administrativa, la encuesta a 17 docentes, el planteamiento de la problemática, los objetivos, la comparación de alternativas, el presupuesto y la Carta Gantt. Está todo en el Informe Nº2.</p>
+</div>
 
 <div class="tarea"><span class="tarea__n">1</span><div>
-  <b>Validar con Recursos Humanos que la inducción es el problema</b>
-  <small>Es textualmente lo que pidió la retroalimentación del Informe Nº1 y es lo único que todavía no está hecho. Basta una conversación con quien ve RR.HH. en el colegio y dejarla registrada: a cuántos funcionarios nuevos recibieron este año, qué inducción existe hoy y qué se cae. Sin esa evidencia, el proyecto es una buena idea sin diagnóstico.</small>
-  <span class="quien">Antes que cualquier otra cosa</span></div></div>
-
-<div class="tarea"><span class="tarea__n">2</span><div>
   <b>Llenar la carpeta de Drive</b>
-  <small>«Grupo N°8 Áurea Solutions» está vacía. Aunque el trabajo exista, si no está ahí no se puede evaluar. Suban el informe, esta página y el registro de la conversación con RR.HH.</small>
+  <small>«Grupo N°8 Áurea Solutions» sigue vacía. Los dos informes existen y están buenos, pero si no están ahí no se pueden evaluar. Suban los dos informes, esta página y la guía.</small>
   <span class="quien">Esta semana</span></div></div>
 
+<div class="tarea"><span class="tarea__n">2</span><div>
+  <b>Tomar las fotos del Mapa Caro</b>
+  <small>El objetivo específico Nº3 del Informe Nº2 dice: «incorporando al 100% de las ubicaciones seleccionadas en un plazo de 2 semanas». El visor ya está construido y las 16 paradas ya están definidas con los espacios de su propia lista. Falta exactamente eso: las fotos. Empiecen por la prueba de una sola foto 360; los nombres de archivo están en <code>fotos/LEEME.txt</code>.</small>
+  <span class="quien">Es el pendiente crítico</span></div></div>
+
 <div class="tarea"><span class="tarea__n">3</span><div>
-  <b>Probar la ruta con una persona real</b>
-  <small>Un solo funcionario que haya llegado este año. Que recorra la página completa delante de ustedes y anoten dónde se pierde, qué no entiende y qué le falta. Eso convierte el proyecto en algo validado y les da la mejor diapositiva de la presentación.</small>
+  <b>Probar la ruta con un docente que haya llegado este año</b>
+  <small>El propio Informe Nº2 lo anuncia para el Informe Nº3: «pediremos a algunas personas que prueben el prototipo». Háganlo antes de la feria y anoten dónde se pierde. Es la mejor diapositiva de la presentación.</small>
   <span class="quien">Antes del 8 de octubre</span></div></div>
 
 <div class="tarea"><span class="tarea__n">4</span><div>
-  <b>Completar los 12 recuadros «Por completar con el colegio»</b>
-  <small>Cada parada del recorrido tiene uno. Son datos que ninguna persona externa puede saber: horarios reales, cómo se pide un permiso, cómo se reserva el CRA, dónde está la zona de seguridad. Se editan en el bloque <code>PARADAS</code> del código, campo <code>completar</code>.</small>
-  <span class="quien">Reparto entre las cuatro</span></div></div>
+  <b>Completar los 16 recuadros «Por completar con el colegio»</b>
+  <small>Cada parada del Mapa Caro tiene uno. Son los datos que ninguna persona externa puede saber y que la encuesta pidió explícitamente: horarios de entrada, salida y recreos; días de pago; numeración de las salas; pauta de evaluación de desempeño; protocolos. Se editan en el bloque <code>PARADAS</code> del código, campo <code>completar</code>.</small>
+  <span class="quien">Reparto entre las tres</span></div></div>
 
 <div class="tarea"><span class="tarea__n">5</span><div>
-  <b>Escribir la sección de cultura desde el PEI</b>
-  <small>Está marcada en amarillo en la página. Sale del Proyecto Educativo Institucional y del Reglamento Interno, no de internet. El punto más valioso es el último: «lo que no está escrito». Pregúntenle lo mismo a alguien con años en el colegio y a alguien que llegó hace poco; las respuestas distintas son el hallazgo.</small>
-  <span class="quien">Reparto entre las cuatro</span></div></div>
+  <b>Pedir el contenido real de la capacitación Syscol</b>
+  <small>La página trae la estructura en seis módulos, pero los pasos concretos dependen de cómo está configurado Syscol en este colegio. Pídanselos a quien lo administra. <b>No inventen capturas de pantalla.</b></small>
+  <span class="quien">Un correo</span></div></div>
 
 <div class="tarea"><span class="tarea__n">6</span><div>
-  <b>Tomar las fotos</b>
-  <small>Empiecen por la prueba de una sola foto 360. Los nombres exactos de archivo están en <code>fotos/LEEME.txt</code>.</small>
-  <span class="quien">Dos tardes</span></div></div>
+  <b>Escribir la sección de cultura desde el PEI</b>
+  <small>Está marcada en amarillo en la página. «Cultura escolar» y «las rutinas de Belén Educa» aparecieron literalmente en las respuestas de la encuesta, así que es contenido pedido por los usuarios, no relleno. Sale del PEI y del Reglamento Interno.</small>
+  <span class="quien">Reparto entre las tres</span></div></div>
 
 <div class="tarea"><span class="tarea__n">7</span><div>
-  <b>Completar los nombres del equipo</b>
-  <small>Solo estaba confirmado el de Sofía Muñoz. En el código, la lista <code>EQUIPO</code> tiene tres lugares que dicen «Por completar». Cambien también los roles por lo que hizo de verdad cada una.</small>
-  <span class="quien">Cinco minutos</span></div></div>
+  <b>Publicar y probar el formulario de verdad</b>
+  <small>Publiquen en Netlify, completen el formulario desde el sitio publicado y confirmen que llega el correo. El Informe Nº2 dice que en la sección de dudas los docentes «se registrarán con sus datos personales»: ojo con eso. Pidan solo lo mínimo, digan para qué se usa y no publiquen las dudas con nombre. Es la Ley 21.719.</small>
+  <span class="quien">Una tarde</span></div></div>
 
 <div class="tarea"><span class="tarea__n">8</span><div>
-  <b>Publicar y probar el formulario de verdad</b>
-  <small>Publiquen en Netlify, completen el formulario desde el sitio publicado y confirmen que llega el correo. Si no lo prueban, no sabrán si funciona hasta que falle delante del jurado.</small>
-  <span class="quien">Una tarde</span></div></div>
+  <b>Decidir qué hacen con base44</b>
+  <small>Hoy el proyecto tiene la página en base44 y este archivo HTML por separado. Mantener dos versiones les va a costar caro a tres semanas de la feria. Elijan una. La recomendación está en la sección 6.</small>
+  <span class="quien">Decisión del equipo</span></div></div>
 
 <div class="tarea"><span class="tarea__n">9</span><div>
   <b>Confirmar los datos históricos con dirección</b>
-  <small>Las fechas del Cardenal Caro, de Belén Educa y de la inauguración del colegio están verificadas con fuentes públicas, pero no con el colegio. Que alguien de dirección las revise antes de publicar.</small>
+  <small>Las fechas del Cardenal Caro, de Belén Educa y de la inauguración del colegio están verificadas con fuentes públicas, pero no con el colegio.</small>
   <span class="quien">Un correo</span></div></div>
 
 <h2>5. Cómo publicarla</h2>
@@ -220,18 +240,36 @@ td:first-child{white-space:nowrap;font-weight:600}
 <h4>Opción B · seguir en base44</h4>
 <p>Si prefieren mantener base44, pueden pegar el contenido de este HTML como página. Pero el recorrido necesita que la carpeta <code>fotos/</code> esté publicada junto al archivo; si base44 no deja subir archivos sueltos, usen el botón «Cargar foto», que guarda las imágenes en el navegador del computador con que muestren la feria.</p>
 
-<h2>6. Lo que no pude hacer yo</h2>
+<h2>6. base44 o HTML: cuál dejar</h2>
+<p>El Informe Nº2 cuenta cómo se construyó la página: un prompt hecho con Gemini, un boceto en Lovable, otro en Base44 y complementos con ChatGPT. Eso está bien declarado y es honesto. El problema no es cómo se hizo, es que ahora <strong>hay dos versiones vivas</strong> y falta menos de un mes.</p>
+
+<table>
+  <tr><th></th><th>Seguir en base44</th><th>Quedarse con el HTML</th></tr>
+  <tr><td>Editar textos</td><td>Fácil, desde el editor</td><td>Hay que abrir el archivo y buscar el texto</td></tr>
+  <tr><td>Mapa Caro 360°</td><td>No lo trae; habría que rehacerlo</td><td>Ya funciona</td></tr>
+  <tr><td>Sin wifi en la feria</td><td>No abre: necesita internet</td><td>Abre igual, es un archivo</td></tr>
+  <tr><td>Carpeta de fotos</td><td>Depende de si base44 deja subir archivos sueltos</td><td>Carpeta <code>fotos/</code> al lado</td></tr>
+  <tr><td>Dependencia externa</td><td>De la plataforma y de la cuenta</td><td>Ninguna</td></tr>
+</table>
+
+<div class="caja caja--oro">
+  <p><b>Recomendación: quédense con el archivo HTML y dejen base44 como respaldo.</b> La razón de peso no es técnica sino práctica: <b>el 8 de octubre puede no haber wifi en el gimnasio</b>, y una página alojada en base44 simplemente no abre sin internet. El archivo HTML abre desde un pendrive, sin conexión, con el Mapa Caro y todo lo demás funcionando. Publíquenlo además en Netlify para tener el enlace público que sí pueden mostrar y compartir.</p>
+</div>
+
+<p>Si aun así quieren conservar base44 como la página principal, entonces enlacen el Mapa Caro desde ahí como una página aparte, porque el visor 360° no se puede reproducir dentro de base44 sin rehacerlo entero.</p>
+
+<h2>7. Lo que no pude hacer yo</h2>
 <table>
   <tr><th>Qué</th><th>Por qué</th></tr>
   <tr><td>Tomar las fotos</td><td>Hay que estar en el colegio. Es de ustedes.</td></tr>
-  <tr><td>Ver su página en base44</td><td>La dirección <code>aurea-teach-flow.base44.app</code> está bloqueada por el filtro de red desde donde trabajo. Trabajé con el HTML que entregaron, que era equivalente.</td></tr>
+  <tr><td>Ver su página en base44</td><td>Sigo sin poder: <code>aurea-teach-flow.base44.app</code> está bloqueada por el filtro de red desde donde trabajo, y el editor <code>app.base44.com</code> además pide iniciar sesión con la cuenta de ustedes. Trabajé con el HTML que entregaron y con la descripción de la página que trae el Informe Nº2, que coinciden. <b>Si quieren que revise el código exacto de base44, expórtenlo y compártanlo:</b> con eso puedo comparar las dos versiones línea por línea.</td></tr>
   <tr><td>Leer el PEI y el Reglamento Interno</td><td>No están públicos y no los tengo. Por eso esa sección quedó como espacio a completar en vez de inventada.</td></tr>
   <tr><td>Saber los horarios y procedimientos reales</td><td>Mismo motivo. Los 12 recuadros amarillos marcan exactamente qué falta.</td></tr>
   <tr><td>Conseguir la autorización de uso de imagen</td><td>La tramita el colegio.</td></tr>
-  <tr><td>Confirmar que la inducción es el problema</td><td>Eso es la validación con RR.HH., y es trabajo de campo del equipo.</td></tr>
+  <tr><td>Tomar contacto con Syscol</td><td>Los pasos concretos de la capacitación dependen de la configuración del colegio. Hay que pedírselos a quien lo administra.</td></tr>
 </table>
 
-<h2>7. Verificación</h2>
+<h2>8. Verificación</h2>
 <p>La página trae <strong>24 verificaciones automáticas</strong> de su propio motor. Se corren con el botón «Verificar el motor», al final del recorrido, o agregando <code>?pruebas=1</code> al final de la dirección.</p>
 <p>Comprueban la detección de fotos 360, el cálculo del tamaño de textura, la búsqueda del glosario, el avance de los hitos y el cálculo del pulso 30/60/90. Además se probó el comportamiento completo en el navegador: 41 comprobaciones, incluida una que lee los píxeles del visor para confirmar que efectivamente está dibujando.</p>
 <div class="caja caja--ok">
@@ -239,7 +277,7 @@ td:first-child{white-space:nowrap;font-weight:600}
 </div>
 
 <p class="pie">
-  Guía preparada junto con <code>AureaSolutions.html</code> para el equipo Áurea Solutions (Grupo N°8, IV°A Administración), Colegio Cardenal José María Caro, Fundación Belén Educa, La Pintana. Feria Técnico Profesional 2026.
+  Guía preparada junto con <code>AureaSolutions.html</code> para el equipo Áurea Solutions &mdash; Sofía Muñoz, Anhais Molina y Pascal Delgado (Grupo N°8, IV°A Administración) &mdash; Colegio Cardenal José María Caro, Fundación Belén Educa, La Pintana. Feria Técnico Profesional 2026. Revisada contra los Informes Nº1 y Nº2.
 </p>
 
 </div>
