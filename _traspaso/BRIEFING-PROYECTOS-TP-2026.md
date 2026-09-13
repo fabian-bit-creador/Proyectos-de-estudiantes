@@ -302,9 +302,9 @@ docente nuevo, checklist, capacitación Syscol, semáforo de integración para e
 - **Le importa la honestidad por sobre el lucimiento.** Si algo no se puede hacer, hay que decirlo
   con esa palabra y ofrecer lo más cercano. Si una fuente está bloqueada o un dato no se puede
   verificar, se informa; no se rellena con algo plausible.
-- **Cada proyecto se entrega con dos archivos**: la página corregida y **un documento aparte para
-  el equipo de estudiantes** que explique qué se cambió, qué les toca a ellos y qué no se pudo
-  hacer. Ese segundo archivo es tan importante como el primero.
+- **El entregable es el archivo HTML mejorado, y nada más.** No hace falta redactar guías ni
+  manuales para los estudiantes: lo que se cambió se explica en la respuesta del chat y en el
+  `README.md` de la carpeta, en pocas líneas. El profesor reenvía el HTML al equipo como opción.
 - **Alinear cada mejora con la retroalimentación que él ya escribió** en sus informes. Está en los
   documentos de seguimiento y es vinculante: si él pidió «una ruta piloto para un solo cargo», la
   página se construye así, literalmente.
@@ -325,7 +325,6 @@ Para no duplicar trabajo ni pisarse:
 | Verificar parámetros legales chilenos | …tiene búsqueda web y cita la fuente |
 | Reescribir el HTML completo | …puede generar y entregar archivos grandes |
 | Probar que funciona | …puede ejecutar código o un navegador |
-| Redactar la guía para el equipo | …escribe bien en español |
 | Diseño visual y paleta | …valida contraste y daltonismo, no elige a ojo |
 
 Lo importante es que **cualquiera que toque un archivo lo entregue verificado**, con sus pruebas en
@@ -345,8 +344,8 @@ verde, y anote en el `README.md` de la carpeta qué cambió.
 > 3. La reescribas como **un solo archivo HTML sin dependencias externas**, porque el día de la
 >    feria puede no haber wifi.
 > 4. Le pongas pruebas automáticas adentro, con botón «Verificar el motor».
-> 5. Me entregues **aparte** un documento para las estudiantes: qué cambiaste, qué les toca a
->    ellas y qué no pudiste hacer tú.
+> 5. Me resumas en pocas líneas, en el chat, qué cambiaste y qué queda pendiente para el equipo.
+>    **No me escribas una guía ni un manual aparte: solo el archivo HTML.**
 >
 > Si algo no lo puedes verificar, dímelo en vez de inventarlo.
 
