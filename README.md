@@ -18,6 +18,12 @@ que lo acompaña.
 | [Visión Integral](vision-integral/) | IV°A · Administración | Daniel Cayupe, Zamara Pavez, Sofía Barrientos, Trinidad González | Diagnóstico de clima laboral educativo. Se reparó el formulario que no enviaba nada y se construyó el instrumento en cuatro pasos: mapeo, consulta anónima, análisis con resguardo de anonimato y ficha de microintervención. |
 | [Áurea Solutions](aurea-solutions/) | IV°A · Administración | Sofía Muñoz, Anhais Molina, Pascal Delgado (Grupo N°8) | Inducción de funcionarios nuevos. Se reparó el formulario que decía «consulta registrada» sin enviar nada y se construyó un recorrido virtual del colegio con visor de fotos 360° en WebGL, ruta por cargo con un solo cargo piloto, y glosario de 36 siglas escolares. |
 
+## Para continuar el trabajo con otro asistente
+
+`_traspaso/BRIEFING-PROYECTOS-TP-2026.md` reúne el contexto, las reglas de construcción, el
+catálogo de defectos recurrentes encontrados en las siete páginas y el estado de cada proyecto.
+Está escrito para que cualquier asistente de IA pueda retomar sin haber visto la conversación.
+
 ## Cómo se organiza cada carpeta
 
 ```
