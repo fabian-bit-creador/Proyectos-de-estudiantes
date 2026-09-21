@@ -198,6 +198,39 @@ table.datos input[type=number],table.datos .monto{text-align:right;font-variant-
 @media print{.no-imprimir{display:none !important;} body{background:#fff;}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition-duration:.01ms !important;}}
 </style>
+<style>
+/* Mejoras de accesibilidad y presentación · Feria TP */
+:root{--feria-brand:#194c67}
+body{padding-bottom:5.5rem}
+:focus-visible{outline:3px solid #176da8!important;outline-offset:4px}
+button,a,input,select,textarea{touch-action:manipulation}
+section[id],main[id]{scroll-margin-top:6rem}
+.feria-launch{position:fixed;right:1.2rem;bottom:1.2rem;z-index:90;display:flex;align-items:center;gap:.65rem;border:1px solid #ffffff70;border-radius:999px;padding:.85rem 1.2rem;background:var(--feria-brand);color:#fff;box-shadow:0 8px 30px #172b4030;font:600 14px/1.2 system-ui;cursor:pointer}
+.feria-launch span{font-size:10px;letter-spacing:.09em;text-transform:uppercase;opacity:.8}
+#feria-dialog{box-sizing:border-box;width:min(620px,calc(100% - 24px));max-height:85dvh;overflow:auto;border:1px solid #dbdfe4;border-radius:22px;padding:0;margin:auto;background:#fcfcfa;color:#172b40;box-shadow:0 30px 100px #0005;font:16px/1.6 system-ui}
+#feria-dialog::backdrop{background:#10203099;backdrop-filter:blur(4px)}
+#feria-dialog *{box-sizing:border-box}
+.feria-dialog-head{padding:24px 28px;background:var(--feria-brand);color:#fff;display:flex;gap:20px;justify-content:space-between;align-items:start}
+#feria-dialog h2{font:700 27px/1.15 system-ui;letter-spacing:-.04em;color:inherit;margin:5px 0}
+#feria-dialog p{margin:0;color:inherit}
+#feria-dialog .feria-kicker{font:600 10px/1.5 system-ui;letter-spacing:.14em;text-transform:uppercase;color:inherit}
+#feria-dialog .feria-close{border:1px solid #ffffff80;background:transparent;color:#fff;min-width:44px;min-height:44px;border-radius:50%;font:24px system-ui;cursor:pointer}
+.feria-dialog-body{padding:24px 28px}
+.feria-step{padding:17px 0;border-bottom:1px solid #dce2e6;display:grid;grid-template-columns:32px 1fr;gap:10px}
+.feria-step>b{font:500 15px/2 system-ui;color:var(--feria-brand)}
+#feria-dialog h3{font:700 16px/1.5 system-ui;color:#172b40;margin:0 0 5px}
+#feria-dialog .feria-step p{font:14px/1.6 system-ui;color:#485766}
+#feria-dialog button.feria-go{border:0;padding:8px 0;background:none;color:var(--feria-brand);font:700 14px/1.5 system-ui;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.feria-tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+#feria-dialog .feria-tool{background:#edf0f2;border:1px solid #ced6dd;border-radius:10px;padding:10px 14px;color:#172b40;font:600 13px/1.4 system-ui;cursor:pointer;min-height:44px}
+#feria-result{font:14px/1.6 system-ui;margin-top:14px!important}
+.feria-large{font-size:19px}
+.feria-empty{padding:1.5rem;border:1px dashed #9ba8b3;border-radius:12px;grid-column:1/-1}
+@media(max-width:600px){input:not([type=checkbox]):not([type=radio]),select,textarea{font-size:16px!important}.feria-launch{bottom:1rem;right:1rem}.feria-dialog-body,.feria-dialog-head{padding:20px}.feria-launch span{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+@media print{.feria-launch,#feria-dialog{display:none!important}body{padding-bottom:0}}
+
+.workspace{box-shadow:0 16px 55px #15364a10}.tabs{scrollbar-width:thin}.tabla-scroll:focus-visible{outline:3px solid #176da8}</style>
 </head>
 <body>
 
@@ -598,12 +631,45 @@ const PRIORIDADES = ['Baja','Media','Alta'];
 
 let datos = estructuraLimpia();
 
+
+function validarDatosExpro(entrada){
+ if(!entrada||typeof entrada!=='object'||Array.isArray(entrada))throw Error('Estructura inválida');
+ const d=entrada.datos||entrada;
+ const result={};
+ const definitions={
+ caja:{text:['fecha','concepto','categoria','tipo'],number:['monto']},
+ marketing:{text:['accion','canal','publico','estado'],number:['costo']},
+ admin:{text:['tarea','area','responsable','prioridad','estado'],number:[]}
+ };
+ const aliases={caja:'financeData',marketing:'marketingData',admin:'adminData'};
+ for(const [key,def] of Object.entries(definitions)){
+ const rows=d[key]??d[aliases[key]];
+ if(!Array.isArray(rows)||rows.length>2000)throw Error('Lista inválida: '+key);
+ result[key]=rows.map(row=>{
+ if(!row||typeof row!=='object'||Array.isArray(row))throw Error('Fila inválida');
+ const clean={};
+ def.text.forEach(field=>{if(typeof row[field]!=='string'||row[field].length>1000)throw Error('Texto inválido');clean[field]=row[field];});
+ def.number.forEach(field=>{if(typeof row[field]!=='number'||!Number.isFinite(row[field])||row[field]<0||row[field]>1e12)throw Error('Monto inválido');clean[field]=row[field];});
+ if(key==='caja'&&(!['Entrada','Salida'].includes(clean.tipo)||!CATEGORIAS.includes(clean.categoria)))throw Error('Movimiento inválido');
+ if(key!=='caja'&&!ESTADOS.includes(clean.estado))throw Error('Estado inválido');
+ if(key==='admin'&&!PRIORIDADES.includes(clean.prioridad))throw Error('Prioridad inválida');
+ return clean;
+ });
+ }
+ const eq=d.equilibrio||DATOS_INICIALES.equilibrio;result.equilibrio={};
+ for(const field of Object.keys(DATOS_INICIALES.equilibrio)){
+ if(typeof eq[field]!=='number'||!Number.isFinite(eq[field])||eq[field]<0||eq[field]>1e12)throw Error('Equilibrio inválido');
+ result.equilibrio[field]=eq[field];
+ }
+ return result;
+}
+
 function estructuraLimpia() {
   return JSON.parse(JSON.stringify(DATOS_INICIALES));
 }
 
 function guardar() {
-  try { localStorage.setItem(CLAVE, JSON.stringify(datos)); } catch (e) {}
+  try { localStorage.setItem(CLAVE, JSON.stringify(datos)); return true; } catch (e) { avisar('No se pudo guardar en este navegador. Exporta una copia antes de cerrar.', true); return false; }
 }
 
 function restaurar() {
@@ -612,12 +678,7 @@ function restaurar() {
     if (!crudo) return false;
     const d = JSON.parse(crudo);
     if (!d || typeof d !== 'object') return false;
-    datos = {
-      caja:      Array.isArray(d.caja) ? d.caja : [],
-      marketing: Array.isArray(d.marketing) ? d.marketing : [],
-      admin:     Array.isArray(d.admin) ? d.admin : [],
-      equilibrio: Object.assign({}, DATOS_INICIALES.equilibrio, d.equilibrio || {})
-    };
+    datos = validarDatosExpro(d);
     return true;
   } catch (e) { return false; }
 }
@@ -1008,24 +1069,22 @@ function exportarDatos() {
 function importarDatos(evento) {
   const archivo = evento.target.files && evento.target.files[0];
   if (!archivo) return;
+  if(archivo.size>2000000){avisar('El archivo supera el límite de 2 MB.',true);evento.target.value='';return;}
   const lector = new FileReader();
   lector.onload = (e) => {
     try {
       const leido = JSON.parse(e.target.result);
-      const d = leido.datos || leido;
-      datos = {
-        caja:      Array.isArray(d.caja) ? d.caja : (Array.isArray(d.financeData) ? d.financeData : []),
-        marketing: Array.isArray(d.marketing) ? d.marketing : (Array.isArray(d.marketingData) ? d.marketingData : []),
-        admin:     Array.isArray(d.admin) ? d.admin : (Array.isArray(d.adminData) ? d.adminData : []),
-        equilibrio: Object.assign({}, DATOS_INICIALES.equilibrio, d.equilibrio || {})
-      };
+      const nuevos = validarDatosExpro(leido);
+      if(!window.confirm('Esta copia reemplazará las planillas actuales. ¿Importar los datos?')) return;
+      datos = nuevos;
       cargarCamposEquilibrio();
       pintarTodo();
-      avisar('Datos importados correctamente.');
+      if(guardar()) avisar('Datos importados y guardados correctamente.');
     } catch (err) {
       avisar('El archivo no tiene un formato válido.', true);
     }
   };
+  lector.onerror=()=>avisar('No se pudo leer el archivo. Tus datos actuales se conservan.',true);
   lector.readAsText(archivo);
   evento.target.value = '';
 }
@@ -1040,6 +1099,11 @@ function avisar(mensaje, esError) {
 
 /* ============================== PRUEBAS ============================== */
 const PRUEBAS = [
+ ['Importación válida conserva totales',()=>calcularCaja(validarDatosExpro(DATOS_INICIALES).caja).saldo===calcularCaja(DATOS_INICIALES.caja).saldo],
+ ['Importación rechaza filas nulas',()=>{try{validarDatosExpro({...DATOS_INICIALES,caja:[null]});return false;}catch(e){return true;}}],
+ ['Importación rechaza montos negativos',()=>{try{const d=estructuraLimpia();d.caja[0].monto=-1;validarDatosExpro(d);return false;}catch(e){return true;}}],
+ ['Importación rechaza tipos desconocidos',()=>{try{const d=estructuraLimpia();d.caja[0].tipo='Inventado';validarDatosExpro(d);return false;}catch(e){return true;}}],
+
   ['Sin movimientos, todos los totales son cero',
     () => { const r = calcularCaja([]); return r.entradas === 0 && r.salidas === 0 && r.saldo === 0; }],
 
@@ -1175,5 +1239,41 @@ cargarCamposEquilibrio();
 pintarTodo();
 if (new URLSearchParams(location.search).has('pruebas')) correrPruebas();
 </script>
+
+<button type="button" class="feria-launch" id="feria-launch" aria-haspopup="dialog"><span>Feria TP 2026</span> Presentar proyecto ↗</button>
+<dialog id="feria-dialog" aria-labelledby="feria-title">
+<div class="feria-dialog-head"><div><p class="feria-kicker">Demostración · 3 pasos</p><h2 id="feria-title">Expro</h2><p>Una ruta breve para tu estand.</p></div><button type="button" class="feria-close" id="feria-close" aria-label="Cerrar presentación">×</button></div>
+<div class="feria-dialog-body"><div id="feria-steps"></div><div class="feria-tools"><button type="button" class="feria-tool" id="feria-check">Verificar el motor</button><button type="button" class="feria-tool" id="feria-font" aria-pressed="false">Letra grande</button></div><p id="feria-result" role="status">Las herramientas están en este archivo. Los enlaces externos requieren conexión.</p></div>
+</dialog>
+<script>
+(function(){
+'use strict';
+const cfg={"brand":"#194c67","title":"Expro","steps":[["panel","Revisa la caja","Agrega un movimiento ficticio y muestra cómo cambian el saldo y las categorías."],["panel","Encuentra el equilibrio","Abre Punto de equilibrio y cambia el precio: explica cuántas unidades cubren los costos."],["panel","Respalda el trabajo","Exporta una copia JSON. La importación valida sus datos antes de reemplazar la planilla."]],"test":"btnPruebas"};
+const byId=id=>document.getElementById(id), dlg=byId('feria-dialog');
+byId('feria-launch').addEventListener('click',()=>dlg.showModal());
+byId('feria-close').addEventListener('click',()=>dlg.close());
+cfg.steps.forEach((step,i)=>{
+ const row=document.createElement('div');row.className='feria-step';
+ const num=document.createElement('b');num.textContent=String(i+1).padStart(2,'0');
+ const box=document.createElement('div'),heading=document.createElement('h3'),p=document.createElement('p'),b=document.createElement('button');
+ heading.textContent=step[1];p.textContent=step[2];b.type='button';b.className='feria-go';b.textContent='Ir a la herramienta →';
+ b.addEventListener('click',()=>{dlg.close();if(cfg.title==='Kipu'){switchCategory(step[0]);document.querySelector('#kipuSidebar')?.classList.remove('mobile-open');}
+ const target=byId(step[0])||byId('cat-'+step[0])||byId('herramientas');
+ if(target){target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});}});
+ box.append(heading,p,b);row.append(num,box);byId('feria-steps').append(row);
+});
+byId('feria-font').addEventListener('click',function(){const large=document.documentElement.classList.toggle('feria-large');this.setAttribute('aria-pressed',String(large));});
+byId('feria-check').addEventListener('click',()=>{
+ try{
+ let result,total;
+ if(cfg.title==='AAC.Laboral'){result=runTests();total=result.total;result=result.failures;}
+ else if(cfg.title==='Kipu'){result=correrPruebasKipu();total=PRUEBAS_KIPU.length;}
+ else{result=correrPruebas();if(Array.isArray(result)){total=PRUEBAS.length;}else{total=result.total;result=result.fallos;}}
+ byId('feria-result').textContent=result.length?'Revisar: '+result.join(' · '):total+' de '+total+' comprobaciones superadas. Validan el funcionamiento; no certifican contenido ni normativa.';
+ }catch(error){byId('feria-result').textContent='No se pudo completar la verificación: '+error.message;}
+});
+})();
+</script>
 </body>
 </html>
+

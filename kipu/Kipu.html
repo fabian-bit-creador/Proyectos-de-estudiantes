@@ -608,6 +608,39 @@ body:has(#kipuAppShell){padding-top:72px;}
 @media (max-width: 800px){body:has(#kipuAppShell){padding-top:126px}#kipuAppShell{height:auto}.kipu-topbar{flex-wrap:wrap;padding:10px 12px;gap:8px}.kipu-brand{min-width:auto}.kipu-search-wrap{order:3;flex-basis:100%;max-width:none}#kipuSidebar{top:126px;width:100%;height:auto;bottom:auto;max-height:calc(100vh - 126px);display:none}#kipuSidebar.mobile-open{display:block}#mainContentArea{width:100% !important;margin-left:0 !important;padding:20px 14px 32px !important}.kipu-user-tools .hide-sm{display:none !important}.kipu-quick-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:540px){.kipu-quick-grid{grid-template-columns:1fr}.kipu-user-tools{gap:4px}.kipu-tool-btn,.kipu-exit-btn{padding:0 9px}.kipu-brand-text span{display:none}.kipu-side-btn{padding:12px}.kipu-dashboard-intro{align-items:flex-start;flex-direction:column}}
 </style>
+<style>
+/* Mejoras de accesibilidad y presentación · Feria TP */
+:root{--feria-brand:#71522e}
+body{padding-bottom:5.5rem}
+:focus-visible{outline:3px solid #176da8!important;outline-offset:4px}
+button,a,input,select,textarea{touch-action:manipulation}
+section[id],main[id]{scroll-margin-top:6rem}
+.feria-launch{position:fixed;right:1.2rem;bottom:1.2rem;z-index:90;display:flex;align-items:center;gap:.65rem;border:1px solid #ffffff70;border-radius:999px;padding:.85rem 1.2rem;background:var(--feria-brand);color:#fff;box-shadow:0 8px 30px #172b4030;font:600 14px/1.2 system-ui;cursor:pointer}
+.feria-launch span{font-size:10px;letter-spacing:.09em;text-transform:uppercase;opacity:.8}
+#feria-dialog{box-sizing:border-box;width:min(620px,calc(100% - 24px));max-height:85dvh;overflow:auto;border:1px solid #dbdfe4;border-radius:22px;padding:0;margin:auto;background:#fcfcfa;color:#172b40;box-shadow:0 30px 100px #0005;font:16px/1.6 system-ui}
+#feria-dialog::backdrop{background:#10203099;backdrop-filter:blur(4px)}
+#feria-dialog *{box-sizing:border-box}
+.feria-dialog-head{padding:24px 28px;background:var(--feria-brand);color:#fff;display:flex;gap:20px;justify-content:space-between;align-items:start}
+#feria-dialog h2{font:700 27px/1.15 system-ui;letter-spacing:-.04em;color:inherit;margin:5px 0}
+#feria-dialog p{margin:0;color:inherit}
+#feria-dialog .feria-kicker{font:600 10px/1.5 system-ui;letter-spacing:.14em;text-transform:uppercase;color:inherit}
+#feria-dialog .feria-close{border:1px solid #ffffff80;background:transparent;color:#fff;min-width:44px;min-height:44px;border-radius:50%;font:24px system-ui;cursor:pointer}
+.feria-dialog-body{padding:24px 28px}
+.feria-step{padding:17px 0;border-bottom:1px solid #dce2e6;display:grid;grid-template-columns:32px 1fr;gap:10px}
+.feria-step>b{font:500 15px/2 system-ui;color:var(--feria-brand)}
+#feria-dialog h3{font:700 16px/1.5 system-ui;color:#172b40;margin:0 0 5px}
+#feria-dialog .feria-step p{font:14px/1.6 system-ui;color:#485766}
+#feria-dialog button.feria-go{border:0;padding:8px 0;background:none;color:var(--feria-brand);font:700 14px/1.5 system-ui;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.feria-tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+#feria-dialog .feria-tool{background:#edf0f2;border:1px solid #ced6dd;border-radius:10px;padding:10px 14px;color:#172b40;font:600 13px/1.4 system-ui;cursor:pointer;min-height:44px}
+#feria-result{font:14px/1.6 system-ui;margin-top:14px!important}
+.feria-large{font-size:19px}
+.feria-empty{padding:1.5rem;border:1px dashed #9ba8b3;border-radius:12px;grid-column:1/-1}
+@media(max-width:600px){input:not([type=checkbox]):not([type=radio]),select,textarea{font-size:16px!important}.feria-launch{bottom:1rem;right:1rem}.feria-dialog-body,.feria-dialog-head{padding:20px}.feria-launch span{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+@media print{.feria-launch,#feria-dialog{display:none!important}body{padding-bottom:0}}
+
+.kipu-dashboard-intro h2{letter-spacing:-.03em}.kipu-quick-card{transition:box-shadow .15s ease}.kipu-quick-card:hover{box-shadow:0 6px 18px #71522e18}@media(max-width:700px){.feria-launch{bottom:5.6rem}}</style>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between antialiased selection:bg-kipu-goldlight selection:text-kipu-bronze">
@@ -2365,7 +2398,7 @@ body:has(#kipuAppShell){padding-top:72px;}
                 r.filas[i].entrada, r.filas[i].salida, r.filas[i].saldo
             ]));
             lineas.push(["", "TOTALES", "", r.entradas, r.salidas, r.saldoFinal]);
-            const csv = lineas.map(f => f.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(";")).join("\n");
+            const csv = lineas.map(f => f.map(csvSeguro).join(";")).join("\n");
             const url = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" }));
             const a = document.createElement("a");
             a.href = url; a.download = "kipu-libro-de-caja.csv";
@@ -2375,6 +2408,9 @@ body:has(#kipuAppShell){padding-top:72px;}
 
         // --- PRUEBAS DEL MOTOR -------------------------------------------------
         const PRUEBAS_KIPU = [
+ ["CSV protege fórmulas de texto",()=>csvSeguro('=1+1')==='"\'=1+1"'],
+ ["CSV usa coma decimal",()=>csvSeguro(1.5)==='"1,5"'],
+ ["Los gráficos no interrumpen la aplicación",()=>{drawKipuChart();return true;}],
             ["Sin movimientos, el saldo final es el saldo inicial",
              () => calcularCaja(50000, []).saldoFinal === 50000],
             ["Una entrada suma al saldo",
@@ -2581,7 +2617,7 @@ body:has(#kipuAppShell){padding-top:72px;}
             const targetBtn = document.getElementById('nav-' + catId);
             if (targetBtn) targetBtn.classList.add('active');
 
-            // Update mobile title
+            // Mantener el nombre de la sección en escritorio y móvil.
             const titlesMap = {
                 'dashboard': 'Inicio / Dashboard',
                 'conceptos': 'Fundamentos',
@@ -2599,6 +2635,14 @@ body:has(#kipuAppShell){padding-top:72px;}
             if (catId === 'agenda') { try { showAgendaList('upcoming'); } catch(e){} }
             if (catId === 'inventario') { try { renderInventory(); } catch(e){} }
             if (catId === 'directorio') { try { renderDirectory(); } catch(e){} }
+            const heading = document.querySelector('#mainContentArea > div h2');
+            if (heading && titlesMap[catId]) heading.textContent = titlesMap[catId];
+            document.querySelectorAll('.kipu-side-btn').forEach(btn => {
+              const active=(btn.getAttribute('onclick')||'').includes("'"+catId+"'");
+              btn.classList.toggle('active',active);
+              if(active)btn.setAttribute('aria-current','page');else btn.removeAttribute('aria-current');
+            });
+            if(catId==='graficos') requestAnimationFrame(drawKipuChart);
             const mobileTitle = document.getElementById('mobileNavTitle');
             if (mobileTitle && titlesMap[catId]) {
                 mobileTitle.textContent = titlesMap[catId];
@@ -2984,7 +3028,7 @@ body:has(#kipuAppShell){padding-top:72px;}
             }
             var vals=[a.slice(0,n),b.slice(0,n)],max=Math.max(1,...vals[0],...vals[1]),pad=54,bottom=48,top=30,innerW=w-pad-20,innerH=h-top-bottom,step=innerW/n;
             ctx.strokeStyle=grid;ctx.fillStyle=text;ctx.font='10px sans-serif';ctx.lineWidth=1;
-            for(var g=0;g<5;g++){var y=top+innerH-(innerH*g/4);ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-20,y);ctx.stroke();ctx.fillText(Math.round(max*g/4).toLocaleString('es-CL'),4,y+4);}
+            for(var g=0;g<5;g++){var gridY=top+innerH-(innerH*g/4);ctx.beginPath();ctx.moveTo(pad,gridY);ctx.lineTo(w-20,gridY);ctx.stroke();ctx.fillText(Math.round(max*g/4).toLocaleString('es-CL'),4,gridY+4);}
             function y(v){return top+innerH-(v/max)*innerH;}
             labels.slice(0,n).forEach(function(lab,i){var x=pad+step*i+step/2;ctx.save();ctx.translate(x,h-25);ctx.rotate(labels.length>7?-Math.PI/4:0);ctx.textAlign=labels.length>7?'right':'center';ctx.fillText(lab,0,0);ctx.restore();});
             if(type==='line'){
@@ -2998,7 +3042,20 @@ body:has(#kipuAppShell){padding-top:72px;}
         }
         function syncChartTypeHint(){var type=document.getElementById('chartType')?.value,hint=document.getElementById('chartTypeHint'),wrap=document.getElementById('chartGastosWrap');if(!hint)return;var data={bar:'Las barras muestran columnas visibles para comparar A y B en cada categoría.',line:'Las líneas permiten observar evolución y tendencias.',pie:'El circular reparte el total entre categorías usando los valores A.'};hint.textContent=data[type]||data.bar;if(wrap)wrap.classList.toggle('hidden',type==='pie');}
         function clearKipuChart(){['chartLabels','chartIngresos','chartGastos'].forEach(id=>{var e=document.getElementById(id);if(e)e.value='';});var c=document.getElementById('kipuChartCanvas');if(c){c.getContext('2d').clearRect(0,0,c.width,c.height);c.classList.add('hidden');}document.getElementById('chartEmpty')?.classList.remove('hidden');}
-        function exportKipuCSV(){var labels=chartLabels(),ing=chartData('chartIngresos'),gas=chartData('chartGastos'),n=Math.min(labels.length,ing.length,gas.length),rows=['Periodo,Ingresos,Gastos,Resultado'];for(var i=0;i<n;i++)rows.push([labels[i],ing[i],gas[i],ing[i]-gas[i]].join(','));var blob=new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kipu_graficos.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);}
+        function csvSeguro(v){
+ const value=typeof v==='number'?String(v).replace('.',','):String(v);
+ const safe=typeof v==='string'&&/^[\s]*[=+@\-]/.test(value)?"'"+value:value;
+ return '"'+safe.replace(/"/g,'""')+'"';
+}
+function exportKipuCSV(){
+ const labels=chartLabels(),ing=chartData('chartIngresos'),gas=chartData('chartGastos');
+ const pie=document.getElementById('chartType').value==='pie';
+ const n=pie?Math.min(labels.length,ing.length):Math.min(labels.length,ing.length,gas.length);
+ const rows=[pie?['Categoría','Valor']:['Periodo','Ingresos','Gastos','Resultado']];
+ for(let i=0;i<n;i++)rows.push(pie?[labels[i],ing[i]]:[labels[i],ing[i],gas[i],ing[i]-gas[i]]);
+ const blob=new Blob(['\ufeff'+rows.map(row=>row.map(csvSeguro).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kipu_graficos.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
         function openChartHelp(kind){var data={general:{title:'¿Cómo se usan los gráficos?',use:'Elige el tipo, edita datos, título y colores y pulsa Actualizar. Puedes guardar el diseño.',example:'Barras: Ene,Feb,Mar · A=1000,1200,900 · B=700,800,650.'},bar:{title:'Gráfico de barras',use:'Cada período muestra barras visibles para A y B. Es ideal para comparar.',example:'Enero tendrá una barra de ingresos y otra de gastos, con sus valores encima.'},line:{title:'Gráfico de líneas',use:'Muestra la evolución de A y B a lo largo del tiempo.',example:'Ingresos 1000 → 1200 → 1500 y gastos 700 → 800 → 900.'},pie:{title:'Gráfico circular',use:'Muestra la proporción de cada categoría usando A.',example:'Arriendo 40, Sueldos 35, Servicios 15, Publicidad 10.'}}[kind]||null;if(!data)return;document.getElementById('chartHelpTitle').textContent=data.title;document.getElementById('chartHelpUse').textContent=data.use;document.getElementById('chartHelpExample').textContent=data.example;document.getElementById('chartHelpModal').classList.remove('hidden');}
         function closeChartHelp(){document.getElementById('chartHelpModal')?.classList.add('hidden');}
 
@@ -3355,6 +3412,44 @@ function toggleKipuSidebar(){ var sb=document.getElementById('kipuSidebar'); if(
         </div>
     </div>
 
+<script>
+document.querySelectorAll('.icon-btn[title]').forEach(b=>{if(!b.hasAttribute('aria-label'))b.setAttribute('aria-label',b.title);});
+</script>
+
+<button type="button" class="feria-launch" id="feria-launch" aria-haspopup="dialog"><span>Feria TP 2026</span> Presentar proyecto ↗</button>
+<dialog id="feria-dialog" aria-labelledby="feria-title">
+<div class="feria-dialog-head"><div><p class="feria-kicker">Demostración · 3 pasos</p><h2 id="feria-title">Kipu</h2><p>Una ruta breve para tu estand.</p></div><button type="button" class="feria-close" id="feria-close" aria-label="Cerrar presentación">×</button></div>
+<div class="feria-dialog-body"><div id="feria-steps"></div><div class="feria-tools"><button type="button" class="feria-tool" id="feria-check">Verificar el motor</button><button type="button" class="feria-tool" id="feria-font" aria-pressed="false">Letra grande</button></div><p id="feria-result" role="status">Las herramientas están en este archivo. Los enlaces externos requieren conexión.</p></div>
+</dialog>
+<script>
+(function(){
+'use strict';
+const cfg={"brand":"#71522e","title":"Kipu","steps":[["caja","Distingue caja y utilidad","Carga el día de ejemplo y muestra por qué el arqueo no cuadra."],["inventario","Gestiona existencias","Agrega un producto ficticio y usa las entradas y salidas de stock."],["graficos","Explica los resultados","Alterna barras, líneas y circular; descarga la tabla de datos en CSV."]],"test":null};
+const byId=id=>document.getElementById(id), dlg=byId('feria-dialog');
+byId('feria-launch').addEventListener('click',()=>dlg.showModal());
+byId('feria-close').addEventListener('click',()=>dlg.close());
+cfg.steps.forEach((step,i)=>{
+ const row=document.createElement('div');row.className='feria-step';
+ const num=document.createElement('b');num.textContent=String(i+1).padStart(2,'0');
+ const box=document.createElement('div'),heading=document.createElement('h3'),p=document.createElement('p'),b=document.createElement('button');
+ heading.textContent=step[1];p.textContent=step[2];b.type='button';b.className='feria-go';b.textContent='Ir a la herramienta →';
+ b.addEventListener('click',()=>{dlg.close();if(cfg.title==='Kipu'){switchCategory(step[0]);document.querySelector('#kipuSidebar')?.classList.remove('mobile-open');}
+ const target=byId(step[0])||byId('cat-'+step[0])||byId('herramientas');
+ if(target){target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});}});
+ box.append(heading,p,b);row.append(num,box);byId('feria-steps').append(row);
+});
+byId('feria-font').addEventListener('click',function(){const large=document.documentElement.classList.toggle('feria-large');this.setAttribute('aria-pressed',String(large));});
+byId('feria-check').addEventListener('click',()=>{
+ try{
+ let result,total;
+ if(cfg.title==='AAC.Laboral'){result=runTests();total=result.total;result=result.failures;}
+ else if(cfg.title==='Kipu'){result=correrPruebasKipu();total=PRUEBAS_KIPU.length;}
+ else{result=correrPruebas();if(Array.isArray(result)){total=PRUEBAS.length;}else{total=result.total;result=result.fallos;}}
+ byId('feria-result').textContent=result.length?'Revisar: '+result.join(' · '):total+' de '+total+' comprobaciones superadas. Validan el funcionamiento; no certifican contenido ni normativa.';
+ }catch(error){byId('feria-result').textContent='No se pudo completar la verificación: '+error.message;}
+});
+})();
+</script>
 </body>
 
 </html>

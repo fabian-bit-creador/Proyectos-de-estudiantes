@@ -6,6 +6,15 @@ mejorar las páginas web de los estudiantes.
 Cada proyecto vive en su propia carpeta, con su código y el informe de revisión
 que lo acompaña.
 
+## Portada
+
+`index.html` es el portal de la colección: lista los ocho proyectos con buscador y filtro por
+curso. Cada tarjeta tiene **Abrir**, que lleva al archivo de su carpeta, y **Descargar HTML**, que
+entrega una copia suelta para llevar en un pendrive. Esa copia va embebida en el propio portal, así
+que la portada funciona sin conexión y sin el resto de los archivos al lado; el precio es que pesa
+1,1 MB y que las copias embebidas hay que regenerarlas cuando un proyecto cambia. El botón «Abrir»
+siempre muestra la versión vigente.
+
 ## Proyectos
 
 | Proyecto | Curso | Equipo | Qué contiene |
@@ -18,6 +27,14 @@ que lo acompaña.
 | [Visión Integral](vision-integral/) | IV°A · Administración | Daniel Cayupe, Zamara Pavez, Sofía Barrientos, Trinidad González | Diagnóstico de clima laboral educativo. Se reparó el formulario que no enviaba nada y se construyó el instrumento en cuatro pasos: mapeo, consulta anónima, análisis con resguardo de anonimato y ficha de microintervención. |
 | [Áurea Solutions](aurea-solutions/) | IV°A · Administración | Sofía Muñoz, Anhais Molina, Pascal Delgado (Grupo N°8) | Inducción de funcionarios nuevos. Se reparó el formulario que decía «consulta registrada» sin enviar nada y se construyó un recorrido virtual del colegio con visor de fotos 360° en WebGL, ruta por cargo con un solo cargo piloto, y glosario de 36 siglas escolares. |
 | [AAC.Laboral](aac-laboral/) | IV°A · Administración, mención RR.HH. | — | Orientación sobre derechos laborales con fichas por régimen (Código del Trabajo, Estatuto Docente y Estatuto Administrativo). Se agregaron 6 fichas, buscador tolerante al singular y calculadoras de feriado, hora extra y plazos. |
+
+## Capa común de feria
+
+Los ocho proyectos comparten un botón flotante «Presentar proyecto» que abre una guía de tres pasos
+para usar en el estand. Es un `<dialog>` con `showModal()`, así que atrapa el foco, se cierra con
+Escape y no aparece al imprimir. Junto con él se unificó el contorno de foco, se agregó
+`touch-action:manipulation` para quitar el retardo de toque en celular y `scroll-margin-top` para
+que los anclajes no queden bajo la barra fija.
 
 ## Para continuar el trabajo con otro asistente
 
