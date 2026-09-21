@@ -1,0 +1,1179 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DocentePro · Evaluación de desempeño · Colegio Cardenal José María Caro</title>
+<meta name="description" content="Instrumento de evaluación de desempeño por cargo con la estructura de ponderación de Fundación Belén Educa. Calcula el porcentaje de logro, exporta a Excel e imprime la pauta.">
+<meta name="theme-color" content="#E21D4D">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23E21D4D'/><path d='M28 30h26a20 20 0 0 1 0 40H28z' fill='none' stroke='%23fff' stroke-width='9'/></svg>">
+<style>
+/* ===================================================================
+   DocentePro · IV°A Administración · Feria Técnico Profesional 2026
+   Un solo archivo. Sin CDN, sin fuentes remotas, sin librerías.
+   Paleta heredada de la aplicación original en Base44.
+   =================================================================== */
+:root{
+  --papel:#FFF0F1; --tinta:#871235; --tinta-2:#9d4360; --tinta-3:#b07286;
+  --primario:#E21D4D; --primario-osc:#b81440; --secundario:#FB7086;
+  --suave:#FFE3E6; --linea:#F3D3D8; --linea-2:#e8bcc4; --blanco:#fff;
+  --ok:#1d7a4d; --ok-suave:#e4f4ec;
+  /* Colores de los tres ambitos en la barra del marcador. Validados entre si
+     y contra la pista: separacion suficiente a vista normal y con daltonismo. */
+  --amb-funciones:#E21D4D; --amb-rasgos:#8a5a00; --amb-impacto:#1a6ea8;
+  --meta:#1a6ea8; --meta-suave:#e6f0f7;
+  --desarrollo:#b8721a; --desarrollo-suave:#fdf0e0;
+  --insuf:#b3252c; --insuf-suave:#fbeaea;
+  --r:12px; --r-lg:18px; --r-xl:26px;
+  --sombra:0 2px 14px rgba(135,18,53,.07);
+  --sombra-alta:0 18px 44px -18px rgba(135,18,53,.3);
+  --titulo:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --texto:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--texto);
+     font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4{margin:0;font-family:var(--titulo);line-height:1.15;letter-spacing:-.015em}
+p{margin:0 0 .85rem} p:last-child{margin-bottom:0}
+a{color:var(--primario)}
+img,svg{max-width:100%;display:block}
+code{font-family:var(--mono);font-size:.86em;background:var(--suave);border-radius:5px;padding:.1rem .35rem}
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+  outline:3px solid var(--primario);outline-offset:3px;border-radius:8px}
+.saltar{position:absolute;left:-9999px;top:0;z-index:200;background:var(--primario);color:#fff;
+        padding:.8rem 1.3rem;font-weight:700;border-radius:0 0 12px 0}
+.saltar:focus{left:0}
+.oculto{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.3rem}
+.wrap--angosto{max-width:58rem}
+section{padding:3.4rem 0}
+.eyebrow{display:block;font-size:.72rem;font-weight:800;letter-spacing:.14em;
+         text-transform:uppercase;color:var(--primario)}
+.cab h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin-top:.6rem}
+.cab p{margin-top:.8rem;color:var(--tinta-2)}
+.fina{font-size:.83rem;color:var(--tinta-3);line-height:1.6}
+.dato{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tinta-3)}
+
+/* ------------------------------ Franja ------------------------------ */
+.franja{background:var(--suave);border-bottom:1px solid var(--linea);color:var(--tinta);font-size:.83rem}
+.franja .wrap{display:flex;gap:.6rem;align-items:flex-start;padding:.55rem 1.3rem}
+
+/* ----------------------------- Cabecera ----------------------------- */
+.barra{position:sticky;top:0;z-index:60;background:var(--papel);border-bottom:1px solid var(--linea)}
+.barra__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.4rem}
+.marca{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit}
+.marca b{display:block;font-family:var(--titulo);font-size:1.12rem;color:var(--tinta);line-height:1.1}
+.marca small{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-3)}
+.logos{display:flex;align-items:center;gap:.6rem}
+.logo-hueco{display:flex;align-items:center;justify-content:center;height:2.5rem;min-width:2.5rem;
+            padding:0 .5rem;border:1.5px dashed var(--linea-2);border-radius:10px;
+            font-size:.58rem;line-height:1.1;text-align:center;color:var(--tinta-3);background:var(--blanco)}
+.nav{display:flex;align-items:center;gap:1.4rem}
+.nav button{font:inherit;font-size:.86rem;font-weight:600;color:var(--tinta-2);background:none;
+            border:0;cursor:pointer;padding:.3rem 0;border-bottom:2px solid transparent}
+.nav button:hover{color:var(--primario)}
+.nav button[aria-current="true"]{color:var(--primario);border-bottom-color:var(--primario)}
+.btn-menu{display:none;background:none;border:0;color:var(--primario);padding:.5rem;border-radius:10px;cursor:pointer}
+@media (max-width:960px){
+  .btn-menu{display:block}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;
+       gap:0;background:var(--papel);border-bottom:1px solid var(--linea);padding:.5rem 1.3rem 1rem;box-shadow:var(--sombra)}
+  .nav.abierto{display:flex}
+  .nav button{text-align:left;padding:.7rem .3rem;border-bottom:1px solid var(--linea)}
+  .marca small,.logos{display:none}
+}
+
+/* ------------------------------ Botones ------------------------------ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:inherit;font-weight:600;
+     font-size:.9rem;padding:.65rem 1.25rem;border-radius:999px;border:1.5px solid var(--primario);
+     background:transparent;color:var(--primario);cursor:pointer;text-decoration:none;
+     transition:background-color .15s ease,color .15s ease}
+.btn--p{background:var(--primario);color:#fff}
+.btn--p:hover{background:var(--primario-osc)}
+.btn--suave{background:var(--suave);border-color:var(--linea-2);color:var(--tinta)}
+.btn--suave:hover{background:var(--linea)}
+.btn--sm{font-size:.82rem;padding:.45rem 1rem}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.acciones{display:flex;flex-wrap:wrap;gap:.65rem}
+
+/* -------------------------------- Hero -------------------------------- */
+.hero{background:linear-gradient(135deg,var(--primario),var(--secundario));color:#fff;
+      border-radius:var(--r-xl);padding:2.2rem;box-shadow:var(--sombra-alta);margin-top:2rem}
+.hero h1{font-size:clamp(1.7rem,4vw,2.5rem);color:#fff}
+.hero p{margin-top:.9rem;color:#ffe9ec;max-width:44rem}
+.hero .dato{color:#ffd3da}
+
+/* ------------------------------- Tarjetas ------------------------------- */
+.tarjeta{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r-lg);
+         padding:1.4rem;box-shadow:var(--sombra)}
+.rejilla{display:grid;gap:1rem;grid-template-columns:1fr}
+@media (min-width:700px){.rejilla--2{grid-template-columns:1fr 1fr}}
+@media (min-width:900px){.rejilla--4{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r-lg);
+     padding:1.1rem 1.25rem;border-top:4px solid var(--primario)}
+.kpi span{font-size:.7rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-3)}
+.kpi b{display:block;font-family:var(--titulo);font-size:2.1rem;line-height:1.05;margin:.1rem 0 .15rem;
+       font-variant-numeric:tabular-nums}
+.kpi small{display:block;font-size:.8rem;color:var(--tinta-2);line-height:1.45}
+
+/* ------------------------------- Vistas ------------------------------- */
+.vista[hidden]{display:none}
+
+/* --------------------------- Motor de evaluación --------------------------- */
+.campo{display:block;font-size:.86rem;margin-bottom:1rem}
+.campo>span:first-child{display:block;font-weight:700;color:var(--tinta-2);margin-bottom:.3rem}
+.campo input,.campo select,.campo textarea{font:inherit;font-size:.93rem;width:100%;padding:.62rem .8rem;
+  border:1px solid var(--linea-2);border-radius:10px;background:var(--blanco);color:var(--tinta)}
+.form3{display:grid;gap:0 1.1rem;grid-template-columns:1fr}
+@media (min-width:760px){.form3{grid-template-columns:1fr 1fr 1fr}.form3 .ancho{grid-column:1/-1}}
+
+.ambito{margin-top:1.6rem}
+.ambito__cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.6rem;
+             padding:.6rem .9rem;background:var(--suave);border-radius:10px;margin-bottom:.7rem}
+.ambito__cab h3{font-size:1.02rem}
+.ambito__peso{font-family:var(--mono);font-size:.78rem;color:var(--tinta-2);font-variant-numeric:tabular-nums}
+
+.estandar{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);
+          padding:.9rem 1rem;margin-bottom:.6rem}
+.estandar__t{font-size:.92rem;font-weight:600;line-height:1.45;margin-bottom:.6rem}
+.estandar__t .peso{font-family:var(--mono);font-size:.72rem;color:var(--tinta-3);font-weight:400;
+                   white-space:nowrap;margin-left:.4rem}
+.niveles{display:grid;gap:.35rem;grid-template-columns:1fr}
+@media (min-width:640px){.niveles{grid-template-columns:repeat(var(--n,4),1fr)}}
+.nivel{position:relative}
+.nivel input{position:absolute;opacity:0;width:0;height:0}
+.nivel span{display:flex;flex-direction:column;gap:.1rem;height:100%;border:1.5px solid var(--linea-2);
+            border-radius:9px;padding:.45rem .55rem;cursor:pointer;font-size:.74rem;line-height:1.3;
+            background:var(--blanco);color:var(--tinta-2)}
+.nivel span b{font-size:.78rem;font-family:var(--titulo)}
+.nivel input:checked+span{border-width:2px;padding:calc(.45rem - .5px) calc(.55rem - .5px)}
+.nivel--1 input:checked+span{border-color:var(--insuf);background:var(--insuf-suave);color:var(--insuf)}
+.nivel--2 input:checked+span{border-color:var(--desarrollo);background:var(--desarrollo-suave);color:var(--desarrollo)}
+.nivel--3 input:checked+span{border-color:var(--meta);background:var(--meta-suave);color:var(--meta)}
+.nivel--4 input:checked+span{border-color:var(--ok);background:var(--ok-suave);color:var(--ok)}
+.nivel input:focus-visible+span{outline:3px solid var(--primario);outline-offset:2px}
+/* Marca textual del nivel elegido: en pantalla sobra el color, en papel no.
+   Se declara aqui y solo se muestra dentro de @media print. */
+.nivel span::after{content:'';display:none;font-family:var(--titulo);font-size:.72rem;margin-top:.15rem}
+.estandar__mv{font-size:.76rem;color:var(--tinta-3);margin-top:.5rem;line-height:1.5}
+
+.objetivo{display:flex;flex-wrap:wrap;gap:.7rem;align-items:flex-end;margin-top:.5rem}
+.objetivo label{flex:1;min-width:9rem;margin:0}
+.objetivo__res{font-size:.8rem;font-weight:700;padding:.4rem .7rem;border-radius:8px;white-space:nowrap}
+
+/* ------------------------------ Resultado ------------------------------ */
+.marcador{position:sticky;bottom:0;z-index:40;background:var(--blanco);border:1px solid var(--linea);
+          border-radius:var(--r-lg);padding:1rem 1.2rem;box-shadow:0 -6px 24px rgba(135,18,53,.1);margin-top:1.4rem}
+.marcador__fila{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem}
+.marcador__cifra{font-family:var(--titulo);font-size:2.3rem;line-height:1;font-variant-numeric:tabular-nums}
+.marcador__et{font-size:.82rem;font-weight:700;padding:.3rem .8rem;border-radius:999px}
+/* Nombre propio: .barra ya es el encabezado pegajoso de la linea 61. Si esta
+   regla tambien se llamara .barra, aplastaria la cabecera a .6rem. */
+.barra-mk{height:.6rem;background:var(--suave);border-radius:99px;overflow:hidden;margin-top:.7rem;display:flex;gap:2px}
+.barra-mk i{display:block;height:100%}
+.desglose{display:grid;gap:.5rem;grid-template-columns:1fr;margin-top:.8rem;font-size:.8rem}
+@media (min-width:640px){.desglose{grid-template-columns:repeat(3,1fr)}}
+.desglose div{background:var(--suave);border-radius:8px;padding:.45rem .7rem;font-variant-numeric:tabular-nums}
+.desglose b{display:block;font-family:var(--titulo);font-size:1.05rem}
+.desglose .punto{display:inline-block;width:.6rem;height:.6rem;border-radius:99px;
+                 margin-right:.35rem;vertical-align:baseline}
+
+/* -------------------------------- Avisos -------------------------------- */
+.nota{display:flex;gap:.7rem;border-radius:var(--r);padding:.9rem 1.1rem;font-size:.87rem;
+      line-height:1.55;margin-bottom:1rem}
+.nota svg{flex-shrink:0;margin-top:.15rem}
+.nota p{margin:0}
+.nota--info{background:var(--meta-suave);border:1px solid #c2dcee;color:var(--meta)}
+.nota--ok{background:var(--ok-suave);border:1px solid #bfe3d0;color:var(--ok)}
+.nota--alerta{background:var(--desarrollo-suave);border:1px solid #f0d5ac;color:var(--desarrollo)}
+.nota--stop{background:var(--insuf-suave);border:1px solid #f0c2c2;color:var(--insuf)}
+.nota b{font-weight:700}
+
+/* ------------------------------ Tabla/lista ------------------------------ */
+.tabla-env{overflow-x:auto;border:1px solid var(--linea);border-radius:var(--r);background:var(--blanco)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--linea);vertical-align:top}
+th{background:var(--suave);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tinta);white-space:nowrap}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+
+/* --------------------------------- Sello --------------------------------- */
+.valores{display:grid;gap:.8rem;grid-template-columns:1fr;margin-top:1.4rem}
+@media (min-width:700px){.valores{grid-template-columns:repeat(5,1fr)}}
+.valor{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);padding:1rem;text-align:center}
+.valor b{display:block;font-family:var(--titulo);font-size:1rem;color:var(--primario);margin-bottom:.25rem}
+.valor small{font-size:.78rem;color:var(--tinta-2);line-height:1.45}
+
+/* ---------------------------------- Pie ---------------------------------- */
+.pie{background:var(--tinta);color:var(--suave);padding:2.4rem 0 1.8rem;font-size:.87rem;margin-top:2rem}
+.pie__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.2rem}
+.pie__nota{margin-top:1.4rem;text-align:center;font-size:.78rem;color:var(--secundario);line-height:1.7}
+
+@media print{
+  .no-imprimir{display:none!important}
+  body{background:#fff;font-size:11pt}
+  /* Sin esto el navegador descarta los fondos y la pauta impresa pierde
+     el nivel marcado, la barra por ambito y los cortes objetivos. */
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .nivel input:checked+span::after{display:block;content:'\2713 NIVEL ELEGIDO'}
+  .nivel:not(:has(input:checked)) span{opacity:.55}
+  .encabezado-impresion[hidden]{display:block!important;border-bottom:2px solid #000;padding-bottom:.5rem;margin-bottom:.8rem}
+  section{padding:.4rem 0;border:0}
+  .marcador{position:static;box-shadow:none}
+  .tarjeta,.estandar{break-inside:avoid;box-shadow:none}
+  .hero{background:#fff!important;color:#000;box-shadow:none;border:1px solid #999}
+  .hero h1,.hero p,.hero .dato{color:#000}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<a class="saltar" href="#evaluacion">Saltar a la evaluación</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2.4 17a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-excel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13l6 6M15 13l-6 6"/></symbol>
+  <symbol id="i-imprimir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></symbol>
+  <symbol id="i-balanza" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M5 7h14M5 7 2 14h6zM19 7l-3 7h6z"/></symbol>
+</svg>
+
+<div class="franja no-imprimir">
+  <div class="wrap">
+    <svg width="16" height="16" aria-hidden="true" style="flex-shrink:0;margin-top:.2rem"><use href="#i-alerta"/></svg>
+    <p style="margin:0"><b>Proyecto estudiantil de la Feria Técnico Profesional 2026.</b> Esta aplicación no es un sistema oficial de evaluación del colegio ni de Fundación Belén Educa. Reproduce la <b>estructura</b> del instrumento institucional para fines formativos. Los resultados no constituyen una evaluación válida ni se usan para decisiones laborales.</p>
+  </div>
+</div>
+
+<header class="barra no-imprimir">
+  <div class="wrap barra__in">
+    <a class="marca" href="#inicio">
+      <svg width="38" height="38" viewBox="0 0 100 100" role="img" aria-label="DocentePro">
+        <rect width="100" height="100" rx="22" fill="#E21D4D"/>
+        <path d="M28 30h26a20 20 0 0 1 0 40H28z" fill="none" stroke="#fff" stroke-width="9"/>
+      </svg>
+      <span><b>DocentePro</b><small>Evaluación de desempeño</small></span>
+    </a>
+    <div class="logos" aria-label="Logos institucionales">
+      <span class="logo-hueco">Logo<br>colegio</span>
+      <span class="logo-hueco">Logo<br>Belén Educa</span>
+    </div>
+    <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
+      <svg width="24" height="24" aria-hidden="true"><use href="#i-menu"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Secciones"></nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- ============================== PANEL ============================== -->
+<section class="vista" id="v-panel">
+  <div class="wrap">
+    <div class="hero">
+      <p class="dato">Colegio Cardenal José María Caro · Fundación Belén Educa</p>
+      <h1>La evaluación de desempeño, con la fórmula que el colegio realmente usa.</h1>
+      <p>Elige un cargo, califica cada estándar en sus niveles de desarrollo y obtén el porcentaje de logro ponderado. Después imprime la pauta o descárgala en Excel.</p>
+    </div>
+
+    <div class="rejilla rejilla--4" style="margin-top:1.6rem">
+      <div class="kpi"><span>Cargos con pauta</span><b id="kpiCargos">0</b><small id="kpiCargosDet">—</small></div>
+      <div class="kpi"><span>Estándares del cargo</span><b id="kpiEst">0</b><small id="kpiEstDet">—</small></div>
+      <div class="kpi"><span>Evaluados</span><b id="kpiEval">0</b><small id="kpiEvalDet">Estándares con nivel asignado</small></div>
+      <div class="kpi"><span>Logro ponderado</span><b id="kpiLogro">—</b><small id="kpiLogroDet">Se calcula al completar</small></div>
+    </div>
+
+    <div class="rejilla rejilla--2" style="margin-top:1.4rem">
+      <article class="tarjeta">
+        <h3 style="font-size:1.08rem;margin-bottom:.5rem">Cómo se calcula</h3>
+        <p style="font-size:.92rem;color:var(--tinta-2)">La estructura viene del instrumento institucional de Fundación Belén Educa. Cada estándar tiene un <b>peso</b> y un número propio de <b>niveles de desarrollo</b>, que no siempre son cuatro.</p>
+        <div style="background:var(--suave);border-radius:10px;padding:.85rem 1rem;margin-top:.8rem;font-family:var(--mono);font-size:.82rem;line-height:1.8">
+          logro del estándar = nivel obtenido ÷ niveles del estándar<br>
+          ponderado = logro × peso del estándar<br>
+          <b>logro total = suma de los ponderados</b>
+        </div>
+        <p class="fina" style="margin-top:.8rem">Dividir por los niveles de cada estándar es lo que evita que un estándar de tres niveles valga menos que uno de cuatro solo por tener menos opciones.</p>
+      </article>
+      <article class="tarjeta">
+        <h3 style="font-size:1.08rem;margin-bottom:.5rem">Ponderación por ámbito</h3>
+        <div class="tabla-env" style="border:0">
+          <table>
+            <thead><tr><th>Ámbito</th><th class="num">Peso</th></tr></thead>
+            <tbody>
+              <tr><td>Funciones del cargo</td><td class="num">50 %</td></tr>
+              <tr><td>Rasgos Belén</td><td class="num">25 %</td></tr>
+              <tr><td>Indicadores de impacto</td><td class="num">25 %</td></tr>
+              <tr><td><b>Total</b></td><td class="num"><b>100 %</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fina" style="margin-top:.8rem">Los indicadores de impacto son asistencia y puntualidad, y se miden con cortes objetivos de porcentaje en vez de con juicio del evaluador.</p>
+      </article>
+    </div>
+
+    <div class="acciones no-imprimir" style="margin-top:1.4rem">
+      <button class="btn btn--p" data-ir="evaluacion">Evaluar un cargo</button>
+      <button class="btn btn--suave" data-ir="sello">Ver el Sello Belén</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ EVALUACIÓN ============================ -->
+<section class="vista" id="v-evaluacion" hidden>
+  <div class="wrap">
+    <div class="cab no-imprimir">
+      <span class="eyebrow">01 / Instrumento</span>
+      <h2>Pauta de evaluación por cargo</h2>
+      <p>Selecciona el cargo, completa los datos y califica cada estándar. El resultado se recalcula solo.</p>
+    </div>
+
+    <div class="encabezado-impresion" hidden>
+      <h2 style="margin:0">Pauta de evaluación de desempeño</h2>
+      <p style="margin:.2rem 0 0"><b id="impCargo">—</b></p>
+      <p style="margin:.2rem 0 0;font-size:.85rem">Colegio Cardenal José María Caro · Fundación Belén Educa ·
+        Ejercicio formativo de la Feria Técnico Profesional 2026. <b>No es una evaluación oficial del colegio.</b></p>
+    </div>
+
+    <div class="tarjeta" style="margin-top:1.4rem">
+      <div class="form3">
+        <label class="campo"><span>Cargo evaluado</span><select id="selCargo"></select></label>
+        <label class="campo"><span>Nombre de la persona evaluada</span><input type="text" id="fNombre" placeholder="Nombre y apellido" autocomplete="off"></label>
+        <label class="campo"><span>Evaluador o evaluadora</span><input type="text" id="fEvaluador" placeholder="Cargo de la jefatura" autocomplete="off"></label>
+        <label class="campo"><span>Ciclo o nivel</span><input type="text" id="fCiclo" placeholder="Ej.: Prekínder A" autocomplete="off"></label>
+        <label class="campo"><span>Período evaluado</span><input type="text" id="fPeriodo" placeholder="Ej.: Primer semestre 2026" autocomplete="off"></label>
+        <label class="campo"><span>Fecha</span><input type="date" id="fFecha"></label>
+      </div>
+      <p id="notaCargo" class="nota" role="status" style="margin-bottom:0"><svg width="17" height="17" aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+    </div>
+
+    <div id="zonaAmbitos"></div>
+
+    <div class="marcador" id="marcador">
+      <div class="marcador__fila">
+        <div>
+          <span class="dato">Logro ponderado total</span>
+          <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap">
+            <span class="marcador__cifra" id="mkCifra">—</span>
+            <span class="marcador__et" id="mkEtiqueta">Sin evaluar</span>
+          </div>
+        </div>
+        <div class="acciones no-imprimir">
+          <button class="btn btn--suave btn--sm" id="btnImprimir"><svg width="15" height="15" aria-hidden="true"><use href="#i-imprimir"/></svg> Imprimir / PDF</button>
+          <button class="btn btn--suave btn--sm" id="btnExcel"><svg width="15" height="15" aria-hidden="true"><use href="#i-excel"/></svg> Excel (CSV)</button>
+          <button class="btn btn--suave btn--sm" id="btnLimpiar">Limpiar</button>
+        </div>
+      </div>
+      <div class="barra-mk" id="mkBarra" role="img" aria-label="Avance del logro por ámbito"></div>
+      <div class="desglose" id="mkDesglose"></div>
+      <p class="fina" id="mkAviso" style="margin-top:.7rem"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ INDICADORES ============================ -->
+<section class="vista" id="v-indicadores" hidden>
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">02 / Cortes objetivos</span>
+      <h2>Asistencia y puntualidad</h2>
+      <p>Son los dos únicos estándares que no dependen del juicio del evaluador: se calculan con el porcentaje del período. Estos cortes están tomados del instrumento institucional.</p>
+    </div>
+    <div id="zonaCortes" style="margin-top:1.4rem"></div>
+  </div>
+</section>
+
+<!-- =============================== SELLO =============================== -->
+<section class="vista" id="v-sello" hidden>
+  <div class="wrap">
+    <div class="cab">
+      <span class="eyebrow">03 / Identidad</span>
+      <h2>El Sello Belén</h2>
+      <p>El ámbito «Rasgos Belén» pesa un 25 % de la evaluación. No es un adorno: es la parte del instrumento que mide la coherencia con el proyecto educativo.</p>
+    </div>
+    <div class="valores" id="zonaValores"></div>
+    <div class="nota nota--info" style="margin-top:1.4rem">
+      <svg width="17" height="17" aria-hidden="true"><use href="#i-info"/></svg>
+      <p><b>Fuente.</b> Los cinco valores del Sello Belén están publicados por Fundación Belén Educa. Las descripciones de esta página son una redacción del proyecto para explicar cada valor en clave de desempeño laboral, no una cita textual del PEI. <b>Conviene contrastarlas con el Proyecto Educativo del colegio antes de presentar.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== MÉTODO ============================== -->
+<section class="vista" id="v-metodo" hidden>
+  <div class="wrap wrap--angosto">
+    <div class="cab">
+      <span class="eyebrow">04 / Método</span>
+      <h2>Qué es verificable y qué es propuesta</h2>
+      <p>En un proyecto sobre evaluación de desempeño, decir de dónde sale cada dato es parte del trabajo.</p>
+    </div>
+    <div id="zonaMetodo" style="margin-top:1.4rem"></div>
+    <div class="acciones no-imprimir" style="margin-top:1.4rem">
+      <button class="btn btn--suave btn--sm" id="btnPruebas">Verificar el motor</button>
+    </div>
+    <p id="salidaPruebas" class="nota oculto" role="status" style="margin-top:.9rem"><span></span></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie__in">
+      <div style="display:flex;align-items:center;gap:.8rem">
+        <svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true">
+          <rect width="100" height="100" rx="22" fill="#fff"/>
+          <path d="M28 30h26a20 20 0 0 1 0 40H28z" fill="none" stroke="#E21D4D" stroke-width="9"/>
+        </svg>
+        <div><b style="font-family:var(--titulo);font-size:1.05rem;color:#fff">DocentePro</b>
+        <small style="display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--secundario)">Evaluación de desempeño</small></div>
+      </div>
+      <div class="logos">
+        <span class="logo-hueco" style="background:transparent;color:var(--secundario);border-color:var(--secundario)">Logo<br>colegio</span>
+        <span class="logo-hueco" style="background:transparent;color:var(--secundario);border-color:var(--secundario)">Logo<br>Belén Educa</span>
+      </div>
+    </div>
+    <p class="pie__nota">
+      Proyecto de título · IV°A Administración de Empresas · Colegio Cardenal José María Caro, Fundación Belén Educa, La Pintana · Feria Técnico Profesional 2026.<br>
+      Los datos que se escriban aquí quedan solo en este navegador: no se envían a ningún servidor. No ingreses evaluaciones reales de personas identificables.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================================
+   DocentePro · motor de evaluación de desempeño
+   ---------------------------------------------------------------------
+   1. DATOS     · las pautas por cargo. Es lo único que se edita para
+                  agregar un cargo nuevo.
+   2. CÁLCULO   · funciones puras, sin DOM. Verificables solas.
+   3. INTERFAZ  · pinta el resultado de la capa 2.
+
+   La estructura de ponderación (50/25/25), los cuatro niveles de
+   desarrollo y los cortes de asistencia y puntualidad provienen del
+   instrumento institucional de Fundación Belén Educa.
+   ===================================================================== */
+
+/* ================================ 1. DATOS ================================ */
+
+var NIVELES = [
+  {n:1, nombre:'Insuficiente',  desc:'No alcanza lo esperado'},
+  {n:2, nombre:'En Desarrollo', desc:'Avanza, aún con brechas'},
+  {n:3, nombre:'Meta',          desc:'Cumple lo esperado'},
+  {n:4, nombre:'Sobresaliente', desc:'Supera lo esperado'}
+];
+
+/* Pesos por ámbito, tomados del instrumento institucional. */
+var AMBITOS = [
+  {id:'funciones', nombre:'Funciones del cargo',     peso:50},
+  {id:'rasgos',    nombre:'Rasgos Belén',            peso:25},
+  {id:'impacto',   nombre:'Indicadores de impacto',  peso:25}
+];
+
+/* Cortes objetivos: no dependen del juicio del evaluador. */
+var CORTES = {
+  asistencia:{
+    titulo:'Asistencia del colaborador',
+    tramos:[{hasta:94,   nivel:1, et:'menos de 94 %'},
+            {hasta:96,   nivel:2, et:'94 % a 95,99 %'},
+            {hasta:98.01,nivel:3, et:'96 % a 98 %'},
+            {hasta:Infinity, nivel:4, et:'más de 98 %'}]
+  },
+  puntualidad:{
+    titulo:'Puntualidad al ingreso',
+    tramos:[{hasta:90,  nivel:1, et:'menos de 90 %'},
+            {hasta:94,  nivel:2, et:'90 % a 93,99 %'},
+            {hasta:100, nivel:3, et:'94 % a 99,99 %'},
+            {hasta:Infinity, nivel:4, et:'100 %'}]
+  }
+};
+
+var VALORES_BELEN = [
+  {v:'Justicia',      d:'Dar a cada estudiante lo que necesita, que no siempre es lo mismo para todos.'},
+  {v:'Amor',          d:'Tratar bien, incluso cuando cuesta. Se nota en el trato cotidiano, no en los discursos.'},
+  {v:'Responsabilidad', d:'Hacerse cargo de lo comprometido y avisar a tiempo cuando algo no se va a poder.'},
+  {v:'Fortaleza',     d:'Sostener el trabajo en contextos exigentes sin bajar lo que se espera de cada estudiante.'},
+  {v:'Esperanza',     d:'Trabajar creyendo que este estudiante puede, y actuar en consecuencia.'}
+];
+
+/* --- Pauta 1: instrumento institucional (Asistente de aula, 2022) --------- */
+var CARGOS = [
+{
+ id:'asistente-aula',
+ nombre:'Asistente de aula',
+ origen:'institucional',
+ nota:'Estándares, niveles de desarrollo y medios de verificación tomados del instrumento de evaluación de desempeño de Fundación Belén Educa. Los pesos por estándar se repartieron en partes iguales dentro de cada ámbito (ver la sección Método).',
+ estandares:[
+  {a:'funciones', t:'Participar activamente en las experiencias de aprendizaje, ayudando en el dominio de grupo de niños y niñas, e interactuando a través de conversaciones y preguntas.', niveles:4, mv:'Observaciones de la Coordinadora de Educación Parvularia'},
+  {a:'funciones', t:'Apoyar la evaluación de objetivos de aprendizaje a través de diferentes estrategias e instrumentos de evaluación.', niveles:4, mv:'Observaciones de la Coordinadora / Registro de monitoreo'},
+  {a:'funciones', t:'Mantenerse informada del panorama semanal o mensual de actividades pedagógicas y de los datos relevantes del grupo.', niveles:4, mv:'Planilla de registro'},
+  {a:'funciones', t:'Participar de actividades educativas y formativas generadas para el trabajo con las familias.', niveles:3, mv:'Registro de asistencia de actividades formativas con las familias'},
+  {a:'funciones', t:'Verificar que los diferentes espacios (aula, patio, baños) sean un lugar seguro, organizado y que permita el bienestar de niños y niñas.', niveles:3, mv:'Observaciones de la Coordinadora de Educación Parvularia'},
+  {a:'funciones', t:'Mantener en buen estado el material de paneles, zonas, sectores y distintivos que sirven de andamiaje para los aprendizajes.', niveles:4, mv:'Observaciones de la Coordinadora de Educación Parvularia'},
+  {a:'funciones', t:'Elaborar recursos educativos según las experiencias planificadas, en buen estado, cantidad adecuada y seguros.', niveles:4, mv:'Reporte por escrito de la educadora de párvulos'},
+  {a:'funciones', t:'Establecer vínculos positivos y estables que permitan a niños y niñas sentirse seguros, contenidos y protegidos.', niveles:4, mv:'Observación de Coordinadora / Reporte de la educadora'},
+  {a:'funciones', t:'Realizar de forma activa el turno de patio, manteniéndose visible y con juegos dirigidos.', niveles:4, mv:'Observación de Coordinadora de Educación Parvularia'},
+  {a:'funciones', t:'Participar en la recepción y despedida de los niños y niñas.', niveles:3, mv:'Observación de Coordinadora de Educación Parvularia'},
+  {a:'rasgos', t:'Contribuir positivamente al ambiente laboral.', niveles:4, mv:'Actas de reuniones / Retroalimentación escrita de la Coordinadora'},
+  {a:'rasgos', t:'Proponer mejoras y cambios para el desarrollo integral de los estudiantes.', niveles:4, mv:'Retroalimentación por escrito de la Coordinadora'},
+  {a:'rasgos', t:'Manejar en forma efectiva las contingencias.', niveles:4, mv:'Registro de convivencia escolar / Syscol'},
+  {a:'impacto', t:'Asistencia del colaborador.', niveles:4, corte:'asistencia', mv:'Registro de asistencia del período'},
+  {a:'impacto', t:'Puntualidad al ingreso al comienzo de la jornada.', niveles:4, corte:'puntualidad', mv:'Registro de marcaje del período'}
+ ]
+},
+/* --- Pauta 2: propuesta del proyecto, construida desde DocentePro --------- */
+{
+ id:'docente-aula',
+ nombre:'Docente de aula',
+ origen:'propuesta',
+ nota:'Propuesta del proyecto, no instrumento oficial. Los estándares se construyeron a partir de los indicadores que la aplicación original mostraba (Sello Belén, vínculo familiar, SYSCOL, inclusión y planificación), respetando la estructura institucional de ponderación. Debe validarse con la dirección antes de cualquier uso.',
+ estandares:[
+  {a:'funciones', t:'Planificar las clases en el formato acordado y entregarlas dentro de los plazos de la unidad técnico-pedagógica.', niveles:4, mv:'Planificaciones entregadas / Registro de UTP'},
+  {a:'funciones', t:'Registrar el leccionario en SYSCOL de forma oportuna y completa.', niveles:4, mv:'Reporte de SYSCOL del período'},
+  {a:'funciones', t:'Registrar calificaciones y observaciones dentro de los plazos establecidos.', niveles:4, mv:'Reporte de SYSCOL del período'},
+  {a:'funciones', t:'Aplicar las adecuaciones curriculares de los estudiantes con necesidades educativas especiales, en coordinación con el equipo PIE.', niveles:4, mv:'Planificación con adecuaciones / Retroalimentación del equipo PIE'},
+  {a:'funciones', t:'Realizar las entrevistas de apoderados comprometidas para el período y dejar registro de cada una.', niveles:3, mv:'Registro de entrevistas'},
+  {a:'funciones', t:'Conducir la oración de la mañana y la clase de orientación según el calendario formativo.', niveles:3, mv:'Observación de jefatura / Registro de la jefatura de nivel'},
+  {a:'funciones', t:'Mantener un clima de aula que permita el trabajo de todo el curso.', niveles:4, mv:'Observación de aula'},
+  {a:'funciones', t:'Participar en los consejos y reuniones de nivel con aportes al trabajo del equipo.', niveles:3, mv:'Actas de consejo y de reunión de nivel'},
+  {a:'rasgos', t:'Contribuir positivamente al ambiente laboral y respetar los acuerdos del equipo.', niveles:4, mv:'Retroalimentación escrita de la jefatura'},
+  {a:'rasgos', t:'Manejar en forma efectiva las contingencias, derivando según los protocolos del Reglamento Interno.', niveles:4, mv:'Registro de convivencia escolar / SYSCOL'},
+  {a:'rasgos', t:'Actuar con coherencia con los valores del Sello Belén en el trato con estudiantes y familias.', niveles:4, mv:'Observación de jefatura / Retroalimentación escrita'},
+  {a:'impacto', t:'Asistencia del colaborador.', niveles:4, corte:'asistencia', mv:'Registro de asistencia del período'},
+  {a:'impacto', t:'Puntualidad al ingreso al comienzo de la jornada.', niveles:4, corte:'puntualidad', mv:'Registro de marcaje del período'}
+ ]
+}
+];
+
+var LS_CLAVE = 'docentepro.evaluacion.v1';
+
+/* ============================== 2. CÁLCULO ==============================
+   Funciones puras: reciben datos y devuelven datos. No tocan la pantalla. */
+
+function limitar(v,min,max){ return v<min?min:(v>max?max:v); }
+
+function cargoPorId(id){
+  for(var i=0;i<CARGOS.length;i++){ if(CARGOS[i].id===id) return CARGOS[i]; }
+  return CARGOS[0];
+}
+
+/* Cuántos estándares tiene cada ámbito en este cargo. */
+function contarPorAmbito(cargo, ambitoId){
+  var n=0;
+  for(var i=0;i<cargo.estandares.length;i++){ if(cargo.estandares[i].a===ambitoId) n++; }
+  return n;
+}
+
+/* El peso de un estándar: el peso del ámbito repartido en partes iguales
+   entre los estándares que lo componen. */
+function pesoEstandar(cargo, ambitoId){
+  var amb=null;
+  for(var i=0;i<AMBITOS.length;i++){ if(AMBITOS[i].id===ambitoId) amb=AMBITOS[i]; }
+  if(!amb) return 0;
+  var n=contarPorAmbito(cargo, ambitoId);
+  return n ? amb.peso/n : 0;
+}
+
+/* logro del estándar = nivel obtenido / niveles del estándar.
+   Dividir por los niveles propios evita que un estándar de tres niveles
+   valga menos que uno de cuatro solo por tener menos opciones. */
+function logroEstandar(nivel, niveles){
+  var v=Number(nivel), n=Number(niveles);
+  if(!(v>=1) || !(n>=1) || v>n) return null;
+  return v/n;
+}
+
+function ponderadoEstandar(nivel, niveles, peso){
+  var l=logroEstandar(nivel, niveles);
+  return l===null ? null : l*Number(peso);
+}
+
+/* Convierte un porcentaje de asistencia o puntualidad en nivel 1 a 4. */
+function nivelPorCorte(tipo, porcentaje){
+  var c=CORTES[tipo];
+  if(!c) return null;
+  var p=Number(porcentaje);
+  if(!(p>=0 && p<=100)) return null;
+  for(var i=0;i<c.tramos.length;i++){ if(p < c.tramos[i].hasta) return c.tramos[i].nivel; }
+  return c.tramos[c.tramos.length-1].nivel;
+}
+
+/* Bandas de logro total. El instrumento institucional no define umbrales
+   globales, así que estos se derivan de los propios niveles: un cargo
+   evaluado íntegramente en Meta sobre cuatro niveles alcanza 75 %. */
+var BANDAS=[
+  {min:0,  clave:'insuf',      etiqueta:'Insuficiente',  color:'var(--insuf)',      fondo:'var(--insuf-suave)'},
+  {min:50, clave:'desarrollo', etiqueta:'En Desarrollo', color:'var(--desarrollo)', fondo:'var(--desarrollo-suave)'},
+  {min:75, clave:'meta',       etiqueta:'Meta',          color:'var(--meta)',       fondo:'var(--meta-suave)'},
+  {min:90, clave:'sobresale',  etiqueta:'Sobresaliente', color:'var(--ok)',         fondo:'var(--ok-suave)'}
+];
+function bandaDe(pct){
+  if(pct===null || pct===undefined) return null;
+  var b=BANDAS[0];
+  for(var i=0;i<BANDAS.length;i++){ if(pct>=BANDAS[i].min) b=BANDAS[i]; }
+  return b;
+}
+
+/* El cálculo completo de una evaluación. */
+function calcular(cargo, respuestas){
+  var porAmbito={}, total=0, evaluados=0, pesoEvaluado=0;
+  AMBITOS.forEach(function(a){
+    porAmbito[a.id]={nombre:a.nombre, peso:a.peso, obtenido:0, evaluados:0, total:contarPorAmbito(cargo,a.id)};
+  });
+  cargo.estandares.forEach(function(e, i){
+    var peso=pesoEstandar(cargo, e.a);
+    var p=ponderadoEstandar(respuestas[i], e.niveles, peso);
+    if(p===null) return;
+    porAmbito[e.a].obtenido += p;
+    porAmbito[e.a].evaluados++;
+    total += p;
+    evaluados++;
+    pesoEvaluado += peso;
+  });
+  AMBITOS.forEach(function(a){
+    var pa=porAmbito[a.id];
+    pa.pct = pa.peso>0 ? (pa.obtenido/pa.peso)*100 : 0;
+  });
+  var completo = evaluados===cargo.estandares.length;
+  return {
+    porAmbito:porAmbito,
+    total:total,
+    evaluados:evaluados,
+    totalEstandares:cargo.estandares.length,
+    completo:completo,
+    /* Con la pauta incompleta, el parcial se calcula sobre el peso ya
+       evaluado; así no parece que a alguien le falta logro cuando en
+       realidad falta evaluarlo. */
+    parcial: pesoEvaluado>0 ? (total/pesoEvaluado)*100 : null,
+    banda: completo ? bandaDe(total) : null
+  };
+}
+
+/* Guardia de inyección de fórmulas: sin esto, escribir "=1+1" en un
+   nombre hace que Excel lo ejecute al abrir el archivo. */
+function csvSeguro(v){
+  var s = (v===null||v===undefined) ? '' :
+          (typeof v==='number' ? String(v).replace('.',',') : String(v));
+  if(typeof v!=='number' && /^[\s]*[=+@\-\t\r]/.test(s)) s = "'"+s;
+  return '"'+s.replace(/"/g,'""')+'"';
+}
+
+function aCSV(cargo, respuestas, meta, res, pcts){
+  pcts = pcts || {};
+  var L=[];
+  L.push(['DocentePro · pauta de evaluación de desempeño'].map(csvSeguro).join(';'));
+  L.push(['Cargo', cargo.nombre].map(csvSeguro).join(';'));
+  L.push(['Origen de la pauta', cargo.origen==='institucional' ? 'Instrumento institucional' : 'Propuesta del proyecto, sin validar'].map(csvSeguro).join(';'));
+  L.push(['Persona evaluada', meta.nombre||''].map(csvSeguro).join(';'));
+  L.push(['Evaluador', meta.evaluador||''].map(csvSeguro).join(';'));
+  L.push(['Ciclo o nivel', meta.ciclo||''].map(csvSeguro).join(';'));
+  L.push(['Período', meta.periodo||''].map(csvSeguro).join(';'));
+  L.push(['Fecha', meta.fecha||''].map(csvSeguro).join(';'));
+  L.push('');
+  L.push(['Ámbito','Estándar','Peso %','Niveles','Dato objetivo %','Nivel obtenido','Logro %','Ponderado %','Medio de verificación'].map(csvSeguro).join(';'));
+  cargo.estandares.forEach(function(e,i){
+    var peso=pesoEstandar(cargo,e.a), l=logroEstandar(respuestas[i], e.niveles);
+    var amb=''; AMBITOS.forEach(function(a){ if(a.id===e.a) amb=a.nombre; });
+    var nom=''; NIVELES.forEach(function(n){ if(n.n===Number(respuestas[i])) nom=n.nombre; });
+    var dato = e.corte && pcts[i]!==undefined && pcts[i]!=='' ? Number(pcts[i]) : '';
+    L.push([amb, e.t, peso, e.niveles, dato, (respuestas[i]?respuestas[i]+' · '+nom:'sin evaluar'),
+            (l===null?'':l*100), (l===null?'':l*peso), e.mv||''].map(csvSeguro).join(';'));
+  });
+  L.push('');
+  AMBITOS.forEach(function(a){
+    var pa=res.porAmbito[a.id];
+    L.push([a.nombre+' · logro del ámbito', pa.pct, 'de un peso de', a.peso].map(csvSeguro).join(';'));
+  });
+  L.push(['LOGRO PONDERADO TOTAL', res.total].map(csvSeguro).join(';'));
+  L.push(['Estado', res.completo ? res.banda.etiqueta : 'Pauta incompleta'].map(csvSeguro).join(';'));
+  L.push('');
+  L.push(['Documento generado por un proyecto escolar. No constituye una evaluación oficial.'].map(csvSeguro).join(';'));
+  return L.join('\r\n');
+}
+
+/* ============================== 3. PRUEBAS ============================== */
+function casi(a,b,t){ return Math.abs(a-b) < (t===undefined?0.001:t); }
+function maximas(c){ return c.estandares.map(function(e){ return e.niveles; }); }
+function minimas(c){ return c.estandares.map(function(){ return 1; }); }
+
+var PRUEBAS=[
+ ['El logro se divide por los niveles del propio estándar', function(){
+   return casi(logroEstandar(3,4),0.75) && casi(logroEstandar(3,3),1) && casi(logroEstandar(1,4),0.25);
+ }],
+ ['Un nivel fuera de rango no puntúa', function(){
+   return logroEstandar(5,4)===null && logroEstandar(0,4)===null && logroEstandar(3,0)===null;
+ }],
+ ['Meta en un estándar de tres niveles es el máximo, no un 75 %', function(){
+   return casi(logroEstandar(3,3),1) && logroEstandar(3,3) > logroEstandar(3,4);
+ }],
+ ['El ponderado multiplica el logro por el peso', function(){
+   return casi(ponderadoEstandar(3,4,5),3.75) && casi(ponderadoEstandar(4,4,12.5),12.5);
+ }],
+ ['El peso del ámbito se reparte entre sus estándares', function(){
+   var c=cargoPorId('asistente-aula');
+   return casi(pesoEstandar(c,'funciones'),5) && casi(pesoEstandar(c,'rasgos'),25/3) && casi(pesoEstandar(c,'impacto'),12.5);
+ }],
+ ['Los pesos de cada pauta suman 100 %', function(){
+   return CARGOS.every(function(c){
+     var s=0; c.estandares.forEach(function(e){ s+=pesoEstandar(c,e.a); });
+     return casi(s,100,0.0001);
+   });
+ }],
+ ['Los ámbitos institucionales suman 100 %', function(){
+   var s=0; AMBITOS.forEach(function(a){ s+=a.peso; });
+   return s===100;
+ }],
+ ['Cada pauta cubre los tres ámbitos', function(){
+   return CARGOS.every(function(c){ return AMBITOS.every(function(a){ return contarPorAmbito(c,a.id)>0; }); });
+ }],
+ ['Corte de asistencia: 93 insuficiente, 95 en desarrollo, 97 meta, 99 sobresaliente', function(){
+   return nivelPorCorte('asistencia',93)===1 && nivelPorCorte('asistencia',95)===2 &&
+          nivelPorCorte('asistencia',97)===3 && nivelPorCorte('asistencia',99)===4;
+ }],
+ ['Corte de asistencia en los bordes exactos', function(){
+   return nivelPorCorte('asistencia',94)===2 && nivelPorCorte('asistencia',96)===3 &&
+          nivelPorCorte('asistencia',98)===3 && nivelPorCorte('asistencia',98.5)===4;
+ }],
+ ['Corte de puntualidad: 89, 92, 95 y 100', function(){
+   return nivelPorCorte('puntualidad',89)===1 && nivelPorCorte('puntualidad',92)===2 &&
+          nivelPorCorte('puntualidad',95)===3 && nivelPorCorte('puntualidad',100)===4;
+ }],
+ ['Un porcentaje inválido no asigna nivel', function(){
+   return nivelPorCorte('asistencia',-3)===null && nivelPorCorte('asistencia',120)===null &&
+          nivelPorCorte('asistencia','x')===null && nivelPorCorte('inventado',95)===null;
+ }],
+ ['La pauta al máximo da exactamente 100 %', function(){
+   return CARGOS.every(function(c){ return casi(calcular(c,maximas(c)).total,100,0.0001); });
+ }],
+ ['La pauta al mínimo queda bajo el 50 %', function(){
+   return CARGOS.every(function(c){ var r=calcular(c,minimas(c)); return r.total>0 && r.total<50; });
+ }],
+ ['Una pauta incompleta no se informa como logro total', function(){
+   var c=cargoPorId('asistente-aula'), r=[]; r[0]=4;
+   var res=calcular(c,r);
+   return res.completo===false && res.banda===null && res.evaluados===1;
+ }],
+ ['El parcial se calcula sobre el peso ya evaluado', function(){
+   var c=cargoPorId('asistente-aula'), r=[]; r[0]=4;
+   return casi(calcular(c,r).parcial,100,0.0001);
+ }],
+ ['Los umbrales de la banda cortan donde dicen', function(){
+   return bandaDe(49.9).clave==='insuf' && bandaDe(50).clave==='desarrollo' &&
+          bandaDe(74.9).clave==='desarrollo' && bandaDe(75).clave==='meta' &&
+          bandaDe(89.9).clave==='meta' && bandaDe(90).clave==='sobresale';
+ }],
+ ['El ámbito informa su propio porcentaje de logro', function(){
+   var c=cargoPorId('asistente-aula'), res=calcular(c,maximas(c));
+   return casi(res.porAmbito.funciones.pct,100) && casi(res.porAmbito.rasgos.pct,100);
+ }],
+ ['El CSV protege las fórmulas de Excel', function(){
+   return csvSeguro('=1+1')==='"\'=1+1"' && csvSeguro('+SUM(A1)')==='"\'+SUM(A1)"' &&
+          csvSeguro('@x')==='"\'@x"' && csvSeguro('Ana')==='"Ana"';
+ }],
+ ['El CSV usa coma decimal y escapa comillas', function(){
+   return csvSeguro(3.75)==='"3,75"' && csvSeguro('di "hola"')==='"di ""hola"""';
+ }],
+ ['El CSV incluye los estándares y el total', function(){
+   var c=cargoPorId('asistente-aula'), r=maximas(c);
+   var t=aCSV(c,r,{nombre:'Ejemplo'},calcular(c,r));
+   return t.indexOf('LOGRO PONDERADO TOTAL')!==-1 && t.indexOf('Medio de verificación')!==-1 &&
+          t.split('\r\n').length > c.estandares.length;
+ }],
+ ['Cada estándar declara ámbito, niveles y medio de verificación', function(){
+   return CARGOS.every(function(c){ return c.estandares.every(function(e){
+     return e.a && e.t && e.niveles>=2 && e.niveles<=4 && e.mv;
+   }); });
+ }],
+ ['Los cinco valores del Sello Belén están completos', function(){
+   return VALORES_BELEN.length===5 && VALORES_BELEN.every(function(v){ return v.v && v.d; });
+ }],
+ ['El CSV neutraliza fórmulas: un texto que parte con = o + queda entre comillas y con apóstrofo', function(){
+   return csvSeguro('=1+1')==='"\'=1+1"' && csvSeguro('+34 9')==='"\'+34 9"' &&
+          csvSeguro('@sueldo')==='"\'@sueldo"' && csvSeguro('Nombre')==='"Nombre"';
+ }],
+ ['El CSV usa coma decimal, no punto', function(){
+   return csvSeguro(12.5)==='"12,5"';
+ }],
+ ['El CSV lleva el dato objetivo que produjo el nivel de asistencia', function(){
+   var c=cargoPorId('asistente-aula');
+   var idx=-1; c.estandares.forEach(function(e,i){ if(e.corte==='asistencia') idx=i; });
+   if(idx<0) return false;
+   var r=maximas(c), pc={}; pc[idx]=99;
+   var t=aCSV(c, r, {}, calcular(c,r), pc);
+   // El 99 tiene que aparecer como celda propia, no solo dentro de un texto.
+   return t.indexOf(';"99";')>-1;
+ }]
+];
+
+function correrPruebas(){
+  var ok=0, fallos=[];
+  for(var i=0;i<PRUEBAS.length;i++){
+    var r=false;
+    try{ r=PRUEBAS[i][1]()===true; }catch(e){ fallos.push(PRUEBAS[i][0]+' — error: '+e.message); continue; }
+    if(r) ok++; else fallos.push(PRUEBAS[i][0]);
+  }
+  return {total:PRUEBAS.length, ok:ok, fallos:fallos};
+}
+
+/* ============================== 4. INTERFAZ ============================== */
+function $(id){ return document.getElementById(id); }
+function ce(t,c){ var e=document.createElement(t); if(c) e.className=c; return e; }
+function ico(href,tam){
+  var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('width',tam||17); s.setAttribute('height',tam||17); s.setAttribute('aria-hidden','true');
+  var u=document.createElementNS('http://www.w3.org/2000/svg','use'); u.setAttribute('href',href);
+  s.appendChild(u); return s;
+}
+function pct(n,d){ return Number(n).toLocaleString('es-CL',{minimumFractionDigits:d===undefined?1:d,maximumFractionDigits:d===undefined?1:d})+' %'; }
+
+var VISTAS=[['panel','Panel'],['evaluacion','Evaluación'],['indicadores','Cortes objetivos'],['sello','Sello Belén'],['metodo','Método']];
+var estado={cargo:CARGOS[0].id, respuestas:[], meta:{}, pcts:{}};
+
+function guardar(){ try{ localStorage.setItem(LS_CLAVE, JSON.stringify(estado)); }catch(e){} }
+function leer(){
+  try{
+    var d=JSON.parse(localStorage.getItem(LS_CLAVE)||'null');
+    if(!d) return;
+    if(d.cargo && CARGOS.some(function(c){return c.id===d.cargo;})) estado.cargo=d.cargo;
+    if(Object.prototype.toString.call(d.respuestas)==='[object Array]') estado.respuestas=d.respuestas;
+    if(d.meta && typeof d.meta==='object') estado.meta=d.meta;
+    if(d.pcts && typeof d.pcts==='object') estado.pcts=d.pcts;
+  }catch(e){}
+}
+
+function pintarAmbitos(){
+  var cargo=cargoPorId(estado.cargo), zona=$('zonaAmbitos');
+  zona.textContent='';
+  AMBITOS.forEach(function(a){
+    var bloque=ce('div','ambito');
+    var cab=ce('div','ambito__cab');
+    var h=ce('h3'); h.textContent=a.nombre; cab.appendChild(h);
+    var p=ce('span','ambito__peso');
+    p.textContent=contarPorAmbito(cargo,a.id)+' estándares · '+a.peso+' % del total · '+
+                  pct(pesoEstandar(cargo,a.id),2)+' cada uno';
+    cab.appendChild(p);
+    bloque.appendChild(cab);
+
+    cargo.estandares.forEach(function(e,i){
+      if(e.a!==a.id) return;
+      var caja=ce('div','estandar');
+      var fs=ce('fieldset'); fs.style.cssText='border:0;padding:0;margin:0;min-width:0';
+      var lg=ce('legend','estandar__t'); lg.style.padding='0';
+      lg.appendChild(document.createTextNode(e.t));
+      var pe=ce('span','peso'); pe.textContent='('+pct(pesoEstandar(cargo,e.a),2)+')';
+      lg.appendChild(pe);
+      fs.appendChild(lg);
+
+      if(e.corte){
+        /* Estándar objetivo: el nivel sale del porcentaje, no del criterio. */
+        var fila=ce('div','objetivo');
+        var lab=ce('label','campo');
+        var sp=ce('span'); sp.textContent=CORTES[e.corte].titulo+' del período (%)';
+        lab.appendChild(sp);
+        var inp=ce('input'); inp.type='number'; inp.min='0'; inp.max='100'; inp.step='0.01';
+        inp.value = estado.pcts[i]!==undefined ? estado.pcts[i] : '';
+        inp.addEventListener('input', function(){
+          estado.pcts[i]=inp.value;
+          var n=nivelPorCorte(e.corte, inp.value);
+          estado.respuestas[i]= n || undefined;
+          guardar(); actualizar();
+        });
+        lab.appendChild(inp);
+        fila.appendChild(lab);
+        var res=ce('span','objetivo__res'); res.id='corte-'+i;
+        fila.appendChild(res);
+        fs.appendChild(fila);
+      } else {
+        var esc=ce('div','niveles');
+        esc.style.setProperty('--n', String(e.niveles));
+        NIVELES.slice(0,e.niveles).forEach(function(n){
+          var l=ce('label','nivel nivel--'+n.n);
+          var r=ce('input'); r.type='radio'; r.name='e'+i; r.value=String(n.n);
+          if(Number(estado.respuestas[i])===n.n) r.checked=true;
+          r.addEventListener('change', function(){ estado.respuestas[i]=n.n; guardar(); actualizar(); });
+          var s=ce('span');
+          var b=ce('b'); b.textContent=n.nombre; s.appendChild(b);
+          s.appendChild(document.createTextNode(n.desc));
+          l.appendChild(r); l.appendChild(s);
+          esc.appendChild(l);
+        });
+        fs.appendChild(esc);
+        if(e.niveles<4){
+          var av=ce('p','estandar__mv');
+          av.textContent='Este estándar tiene '+e.niveles+' niveles en el instrumento: «Meta» es aquí el nivel máximo.';
+          fs.appendChild(av);
+        }
+      }
+      var mv=ce('p','estandar__mv'); mv.textContent='Medio de verificación: '+e.mv;
+      fs.appendChild(mv);
+      caja.appendChild(fs);
+      bloque.appendChild(caja);
+    });
+    zona.appendChild(bloque);
+  });
+}
+
+function actualizar(){
+  var cargo=cargoPorId(estado.cargo), res=calcular(cargo, estado.respuestas);
+
+  // La hoja impresa se archiva sola: tiene que decir de quien y de que periodo es.
+  var quien=[cargo.nombre];
+  ['nombre','ciclo','periodo'].forEach(function(k){
+    var v=(estado.meta[k]||'').trim(); if(v) quien.push(v);
+  });
+  $('impCargo').textContent=quien.join(' · ');
+
+  cargo.estandares.forEach(function(e,i){
+    if(!e.corte) return;
+    var el=$('corte-'+i); if(!el) return;
+    var n=nivelPorCorte(e.corte, estado.pcts[i]);
+    if(!n){ el.textContent='Ingresa el porcentaje'; el.style.background='var(--suave)'; el.style.color='var(--tinta-3)'; return; }
+    var nv=NIVELES[n-1], tramo=CORTES[e.corte].tramos.filter(function(t){ return t.nivel===n; })[0];
+    el.textContent=nv.nombre+' · '+(tramo?tramo.et:'');
+    var col=['var(--insuf)','var(--desarrollo)','var(--meta)','var(--ok)'][n-1];
+    var fon=['var(--insuf-suave)','var(--desarrollo-suave)','var(--meta-suave)','var(--ok-suave)'][n-1];
+    el.style.background=fon; el.style.color=col;
+  });
+
+  $('mkCifra').textContent = res.evaluados ? pct(res.completo ? res.total : res.parcial) : '—';
+  var et=$('mkEtiqueta');
+  if(!res.evaluados){ et.textContent='Sin evaluar'; et.style.background='var(--suave)'; et.style.color='var(--tinta-3)'; }
+  else if(!res.completo){ et.textContent='Parcial · faltan '+(res.totalEstandares-res.evaluados);
+    et.style.background='var(--desarrollo-suave)'; et.style.color='var(--desarrollo)'; }
+  else { et.textContent=res.banda.etiqueta; et.style.background=res.banda.fondo; et.style.color=res.banda.color; }
+
+  var barra=$('mkBarra'); barra.textContent='';
+  var descr=[];
+  AMBITOS.forEach(function(a){
+    var pa=res.porAmbito[a.id];
+    var i2=ce('i'); i2.style.width=(pa.obtenido)+'%';
+    i2.style.background='var(--amb-'+a.id+')';
+    i2.title=a.nombre+': '+pct(pa.obtenido,2)+' de '+a.peso+' %';
+    barra.appendChild(i2);
+    descr.push(a.nombre+': '+pct(pa.obtenido)+' de '+a.peso+' %');
+  });
+  barra.setAttribute('aria-label', descr.join('. '));
+
+  var des=$('mkDesglose'); des.textContent='';
+  AMBITOS.forEach(function(a){
+    var pa=res.porAmbito[a.id], d=ce('div');
+    var b=ce('b'); b.textContent=pct(pa.pct,0); d.appendChild(b);
+    var pt=ce('span','punto'); pt.style.background='var(--amb-'+a.id+')'; d.appendChild(pt);
+    d.appendChild(document.createTextNode(a.nombre+' · aporta '+pct(pa.obtenido,2)+' de '+a.peso+' %'));
+    des.appendChild(d);
+  });
+
+  $('mkAviso').textContent = res.completo
+    ? 'Pauta completa: '+res.totalEstandares+' estándares evaluados. El porcentaje es el logro ponderado sobre 100 %.'
+    : 'Van '+res.evaluados+' de '+res.totalEstandares+' estándares. Mientras la pauta esté incompleta se muestra el logro sobre lo ya evaluado, no sobre el total.';
+
+  $('kpiEval').textContent=res.evaluados+'/'+res.totalEstandares;
+  $('kpiLogro').textContent=res.evaluados ? pct(res.completo?res.total:res.parcial,0) : '—';
+  $('kpiLogroDet').textContent=res.completo?('Pauta completa · '+res.banda.etiqueta):'Se calcula al completar';
+  $('kpiEst').textContent=String(cargo.estandares.length);
+  $('kpiEstDet').textContent=cargo.nombre;
+  $('btnExcel').disabled = res.evaluados===0;
+}
+
+function pintarCortes(){
+  var z=$('zonaCortes'); z.textContent='';
+  Object.keys(CORTES).forEach(function(k){
+    var c=CORTES[k], t=ce('article','tarjeta'); t.style.marginBottom='1rem';
+    var h=ce('h3'); h.style.fontSize='1.05rem'; h.textContent=c.titulo; t.appendChild(h);
+    var env=ce('div','tabla-env'); env.style.marginTop='.7rem';
+    var tb=ce('table');
+    var th=ce('thead'); th.innerHTML='<tr><th>Nivel</th><th>Tramo</th><th class="num">Puntaje</th></tr>';
+    tb.appendChild(th);
+    var bd=ce('tbody');
+    c.tramos.forEach(function(tr){
+      var f=ce('tr');
+      var c1=ce('td'); c1.textContent=NIVELES[tr.nivel-1].nombre; f.appendChild(c1);
+      var c2=ce('td'); c2.textContent=tr.et; f.appendChild(c2);
+      var c3=ce('td','num'); c3.textContent=tr.nivel+' de 4'; f.appendChild(c3);
+      bd.appendChild(f);
+    });
+    tb.appendChild(bd); env.appendChild(tb); t.appendChild(env);
+    z.appendChild(t);
+  });
+  var n=ce('div','nota nota--alerta');
+  n.appendChild(ico('#i-alerta'));
+  var p=ce('p');
+  p.innerHTML='<b>Un hueco del instrumento original.</b> La pauta institucional define «94 % de puntualidad» para Meta y «100 %» para Sobresaliente, sin decir qué ocurre entre 95 % y 99 %. Aquí ese tramo se resolvió como Meta, que es la lectura más conservadora. <b>Conviene confirmarlo con Recursos Humanos antes de presentar.</b>';
+  n.appendChild(p);
+  z.appendChild(n);
+}
+
+function pintarValores(){
+  var z=$('zonaValores'); z.textContent='';
+  VALORES_BELEN.forEach(function(v){
+    var d=ce('div','valor');
+    var b=ce('b'); b.textContent=v.v; d.appendChild(b);
+    var s=ce('small'); s.textContent=v.d; d.appendChild(s);
+    z.appendChild(d);
+  });
+}
+
+function pintarMetodo(){
+  var z=$('zonaMetodo'); z.textContent='';
+  var filas=[
+    ['Verificado','Los tres ámbitos y su ponderación 50 / 25 / 25.','Instrumento de evaluación de desempeño de Fundación Belén Educa.'],
+    ['Verificado','Los cuatro niveles: Insuficiente, En Desarrollo, Meta y Sobresaliente.','Mismo instrumento, hoja de rúbrica.'],
+    ['Verificado','Que algunos estándares tengan solo tres niveles.','Columna «Total de niveles de desarrollo» del instrumento.'],
+    ['Verificado','Los cortes de asistencia y puntualidad.','Filas de indicadores de impacto del instrumento.'],
+    ['Verificado','Los estándares y medios de verificación del cargo Asistente de aula.','Hoja de rúbrica del instrumento.'],
+    ['Verificado','Los cinco valores del Sello Belén.','Publicación de Fundación Belén Educa.'],
+    ['Ajustado','El peso de cada estándar se repartió en partes iguales dentro de su ámbito.','En el instrumento los pesos individuales suman 137 %, no 100 %. Los pesos por ámbito sí son consistentes, así que se conservaron esos y se normalizó el reparto interno.'],
+    ['Ajustado','El tramo de puntualidad entre 95 % y 99 % se resolvió como Meta.','El instrumento no lo define.'],
+    ['Propuesta','Los umbrales del resultado global: 50 %, 75 % y 90 %.','El instrumento no define umbrales globales. Se derivaron de los propios niveles: una pauta íntegramente en Meta sobre cuatro niveles alcanza 75 %.'],
+    ['Propuesta','La pauta completa del cargo Docente de aula.','Construida desde los indicadores de la aplicación original. Debe validarse con la dirección.'],
+    ['Pendiente','Los logos institucionales.','Hay dos espacios reservados en la cabecera y el pie. Requieren autorización de uso de marca.'],
+    ['Pendiente','Las pautas de los demás cargos.','Solo se tiene el instrumento de Asistente de aula.']
+  ];
+  var env=ce('div','tabla-env'), t=ce('table');
+  var th=ce('thead'); th.innerHTML='<tr><th>Estado</th><th>Qué</th><th>De dónde sale</th></tr>'; t.appendChild(th);
+  var bd=ce('tbody');
+  filas.forEach(function(f){
+    var tr=ce('tr');
+    var c1=ce('td');
+    var e=ce('span'); e.textContent=f[0];
+    e.style.cssText='font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:.15rem .5rem;border-radius:6px;white-space:nowrap;'+
+      (f[0]==='Verificado'?'background:var(--ok-suave);color:var(--ok)':
+       f[0]==='Ajustado'?'background:var(--desarrollo-suave);color:var(--desarrollo)':
+       f[0]==='Propuesta'?'background:var(--meta-suave);color:var(--meta)':
+                          'background:var(--insuf-suave);color:var(--insuf)');
+    c1.appendChild(e); tr.appendChild(c1);
+    var c2=ce('td'); c2.textContent=f[1]; tr.appendChild(c2);
+    var c3=ce('td'); c3.textContent=f[2]; c3.style.color='var(--tinta-2)'; tr.appendChild(c3);
+    bd.appendChild(tr);
+  });
+  t.appendChild(bd); env.appendChild(t); z.appendChild(env);
+}
+
+function descargar(nombre, contenido, tipo){
+  try{
+    var url=URL.createObjectURL(new Blob([contenido],{type:tipo||'text/plain;charset=utf-8'}));
+    var a=ce('a'); a.href=url; a.download=nombre;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); },2000);
+    return true;
+  }catch(e){ return false; }
+}
+
+function mostrarVista(id){
+  VISTAS.forEach(function(v){
+    var s=$('v-'+v[0]); if(s) s.hidden = v[0]!==id;
+    var b=$('nav-'+v[0]); if(b) b.setAttribute('aria-current', v[0]===id ? 'true':'false');
+  });
+  window.scrollTo({top:0, behavior:'auto'});
+}
+
+function iniciar(){
+  leer();
+
+  var nav=$('nav');
+  VISTAS.forEach(function(v){
+    var b=ce('button'); b.type='button'; b.id='nav-'+v[0]; b.textContent=v[1];
+    b.addEventListener('click', function(){ mostrarVista(v[0]); nav.classList.remove('abierto');
+      $('btnMenu').setAttribute('aria-expanded','false'); });
+    nav.appendChild(b);
+  });
+  $('btnMenu').addEventListener('click', function(){
+    var ab=nav.classList.toggle('abierto');
+    this.setAttribute('aria-expanded', ab?'true':'false');
+  });
+  document.querySelectorAll('[data-ir]').forEach(function(b){
+    b.addEventListener('click', function(){ mostrarVista(b.dataset.ir); });
+  });
+
+  var sel=$('selCargo');
+  CARGOS.forEach(function(c){
+    var o=ce('option'); o.value=c.id; o.textContent=c.nombre+(c.origen==='institucional'?' · instrumento institucional':' · propuesta');
+    sel.appendChild(o);
+  });
+  sel.value=estado.cargo;
+  function notaDelCargo(){
+    var c=cargoPorId(estado.cargo), n=$('notaCargo');
+    n.className='nota nota--'+(c.origen==='institucional'?'ok':'alerta');
+    n.querySelector('use').setAttribute('href', c.origen==='institucional'?'#i-check':'#i-alerta');
+    n.querySelector('span').textContent=c.nota;
+  }
+  sel.addEventListener('change', function(){
+    estado.cargo=sel.value; estado.respuestas=[]; estado.pcts={};
+    guardar(); notaDelCargo(); pintarAmbitos(); actualizar();
+  });
+
+  ['Nombre','Evaluador','Ciclo','Periodo','Fecha'].forEach(function(k){
+    var el=$('f'+k), clave=k.toLowerCase();
+    if(estado.meta[clave]) el.value=estado.meta[clave];
+    // actualizar() ademas refresca el encabezado de la hoja impresa.
+    el.addEventListener('input', function(){ estado.meta[clave]=el.value; guardar(); actualizar(); });
+  });
+
+  $('btnImprimir').addEventListener('click', function(){ window.print(); });
+  $('btnExcel').addEventListener('click', function(){
+    var c=cargoPorId(estado.cargo), res=calcular(c, estado.respuestas);
+    var csv=aCSV(c, estado.respuestas, estado.meta, res, estado.pcts);
+    var n='DocentePro-'+c.id+'-'+(new Date().toISOString().slice(0,10))+'.csv';
+    if(!descargar(n,'\uFEFF'+csv,'text/csv;charset=utf-8'))
+      window.alert('Este navegador no permitió la descarga. Prueba desde el sitio publicado.');
+  });
+  $('btnLimpiar').addEventListener('click', function(){
+    if(!window.confirm('Se van a borrar los niveles marcados y los datos del encabezado. ¿Continuar?')) return;
+    estado.respuestas=[]; estado.pcts={}; estado.meta={};
+    ['Nombre','Evaluador','Ciclo','Periodo','Fecha'].forEach(function(k){ $('f'+k).value=''; });
+    guardar(); pintarAmbitos(); actualizar();
+  });
+
+  $('kpiCargos').textContent=String(CARGOS.length);
+  $('kpiCargosDet').textContent=CARGOS.filter(function(c){return c.origen==='institucional';}).length+
+    ' institucional · '+CARGOS.filter(function(c){return c.origen!=='institucional';}).length+' propuesta';
+
+  notaDelCargo(); pintarAmbitos(); pintarCortes(); pintarValores(); pintarMetodo(); actualizar();
+  mostrarVista('panel');
+
+  function mostrarPruebas(){
+    var r=correrPruebas(), caja=$('salidaPruebas');
+    caja.className='nota nota--'+(r.fallos.length?'stop':'ok');
+    caja.classList.remove('oculto');
+    var s=caja.querySelector('span'); s.textContent='';
+    var b=ce('b');
+    b.textContent=r.fallos.length
+      ? r.ok+' de '+r.total+' verificaciones pasaron. Hay '+r.fallos.length+' con problemas:'
+      : 'Las '+r.total+' verificaciones del motor pasaron.';
+    s.appendChild(b);
+    if(r.fallos.length){
+      var ul=ce('ul'); ul.style.cssText='margin:.5rem 0 0;padding-left:1.1rem';
+      r.fallos.forEach(function(f){ var li=ce('li'); li.textContent=f; ul.appendChild(li); });
+      s.appendChild(ul);
+    } else {
+      var sp=ce('span');
+      sp.textContent=' Incluye la ponderación por ámbito, el logro dividido por los niveles de cada estándar, los cortes de asistencia y puntualidad, y la protección de fórmulas del CSV.';
+      s.appendChild(sp);
+    }
+    return r;
+  }
+  $('btnPruebas').addEventListener('click', mostrarPruebas);
+  if(/[?&]pruebas=1/.test(location.search)){
+    mostrarVista('metodo');
+    window.RESULTADO_PRUEBAS=mostrarPruebas();
+  }
+}
+
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', iniciar);
+else iniciar();
+
+})();
+</script>
+
+</body>
+</html>

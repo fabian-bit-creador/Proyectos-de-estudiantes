@@ -27,6 +27,7 @@ siempre muestra la versión vigente.
 | [Visión Integral](vision-integral/) | IV°A · Administración | Daniel Cayupe, Zamara Pavez, Sofía Barrientos, Trinidad González | Diagnóstico de clima laboral educativo. Se reparó el formulario que no enviaba nada y se construyó el instrumento en cuatro pasos: mapeo, consulta anónima, análisis con resguardo de anonimato y ficha de microintervención. |
 | [Áurea Solutions](aurea-solutions/) | IV°A · Administración | Sofía Muñoz, Anhais Molina, Pascal Delgado (Grupo N°8) | Inducción de funcionarios nuevos. Se reparó el formulario que decía «consulta registrada» sin enviar nada y se construyó un recorrido virtual del colegio con visor de fotos 360° en WebGL, ruta por cargo con un solo cargo piloto, y glosario de 36 siglas escolares. |
 | [AAC.Laboral](aac-laboral/) | IV°A · Administración, mención RR.HH. | — | Orientación sobre derechos laborales con fichas por régimen (Código del Trabajo, Estatuto Docente y Estatuto Administrativo). Se agregaron 6 fichas, buscador tolerante al singular y calculadoras de feriado, hora extra y plazos. |
+| [DocentePro](docentepro/) | IV°A · Administración | — | Evaluación de desempeño. Se reconstruyó la app de Base44 como archivo único y se puso al centro el instrumento real: ponderación 50/25/25, logro = nivel ÷ niveles del estándar, cortes objetivos de asistencia y puntualidad, impresión en PDF con el nivel marcado y exportación a Excel. |
 
 ## Capa común de feria
 
