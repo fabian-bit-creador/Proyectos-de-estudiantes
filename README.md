@@ -29,6 +29,7 @@ siempre muestra la versión vigente.
 | [AAC.Laboral](aac-laboral/) | IV°A · Administración, mención RR.HH. | — | Orientación sobre derechos laborales con fichas por régimen (Código del Trabajo, Estatuto Docente y Estatuto Administrativo). Se agregaron 6 fichas, buscador tolerante al singular y calculadoras de feriado, hora extra y plazos. |
 | [DocentePro](docentepro/) | IV°A · Administración | — | Evaluación de desempeño. Se reconstruyó la app de Base44 como archivo único y se puso al centro el instrumento real: ponderación 50/25/25, logro = nivel ÷ niveles del estándar, cortes objetivos de asistencia y puntualidad, impresión en PDF con el nivel marcado y exportación a Excel. |
 | [Pymedigital](pymedigital/) | Administración | — | Alfabetización digital para pymes de La Pintana. Se unieron las dos páginas en un archivo, se cerró la inyección de HTML del catálogo y el diagnóstico pasó de dar consejos fijos a señalar las dos preguntas peor contestadas. Incluye un mapa de la comuna dibujado en SVG, con los seis CESFAM, cinco ferias libres y la lectura de cobertura por sector. |
+| [Help Wanted](help-wanted/) | III° medio | — | Staffbots para PyMEs. El proyecto prometía que «la PyME define la información» pero no había forma de definirla: ahora el negocio carga sus datos y el bot responde solo con eso, citando de qué dato salió cada respuesta. Incluye las cinco dimensiones del modelo SERVQUAL, autoevaluación de atención y los límites legales de la Ley 19.496. |
 
 ## Capa común de feria
 

@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Wanted — Staffbots para PyMEs</title>
+<meta name="description" content="Proyecto escolar: un asistente que responde las consultas frecuentes de una PyME con la información que el propio negocio carga. Feria Técnico Profesional 2026.">
+<style>
+/* ============================================================
+   Sin Tailwind y sin Google Fonts: la feria es el 8 de octubre
+   y puede no haber wifi. Todo el dibujo vive en este archivo.
+   ============================================================ */
+:root{
+  --papel:#EEEAE0; --papel-dim:#E4DFD1; --papel-claro:#FFFDF7;
+  --tinta:#2A211B; --tinta-2:#5C5147; --tinta-3:#6b6055;
+  --rojo:#B01730; --rojo-osc:#8E1226; --rojo-suave:#F7E4E7;
+  --noche:#151A24; --noche-2:#202733; --noche-3:#303A49; --noche-linea:#465160;
+  --menta:#B8F2D0; --plano:#3B5268; --linea:#C9C2AE;
+  --ok:#1B6B45; --ok-suave:#E3F1EA;
+  --alerta:#8A5A00; --alerta-suave:#FBF0DC;
+  --titulo:'Space Grotesk','Trebuchet MS','Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+  --texto:'IBM Plex Sans','Segoe UI',system-ui,-apple-system,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono','SFMono-Regular',Consolas,'Liberation Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:var(--texto); line-height:1.6; font-size:16px;
+}
+h1,h2,h3,h4{font-family:var(--titulo); line-height:1.15; margin:0 0 .6rem}
+p{margin:0 0 1rem}
+a{color:var(--rojo)}
+.wrap{max-width:1120px; margin:0 auto; padding:0 1.5rem}
+.solo-lectores{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{
+  outline:3px solid var(--plano); outline-offset:3px;
+}
+.saltar{position:absolute;left:1rem;top:-5rem;z-index:100;padding:.75rem 1rem;background:var(--tinta);color:var(--papel);text-decoration:none}
+.saltar:focus{top:1rem}
+.mono{font-family:var(--mono)}
+.ojo{font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--rojo); margin:0 0 1rem; font-weight:500}
+.ojo--menta{color:#7FDCA8}
+
+/* ---------------- Barra superior ---------------- */
+.barra{position:sticky; top:0; z-index:50; background:rgba(238,234,224,.96); border-bottom:1px solid var(--linea); backdrop-filter:blur(8px)}
+.barra__in{display:flex; align-items:center; justify-content:space-between; gap:1rem; height:4.2rem}
+.marca{display:flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--tinta)}
+.marca b{font-family:var(--titulo); font-size:1.05rem; letter-spacing:-.01em}
+.marca span{display:block; font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; color:var(--tinta-3); text-transform:uppercase}
+.nav{display:flex; gap:1.4rem; font-size:.9rem}
+.nav a{white-space:nowrap}
+.marca__txt{display:block}
+.marca b{white-space:nowrap}
+.nav a{color:var(--tinta-3); text-decoration:none}
+.nav a:hover,.nav a[aria-current="true"]{color:var(--tinta)}
+.btn{display:inline-block; border:0; cursor:pointer; font-family:inherit; font-size:.95rem; font-weight:600;
+     padding:.7rem 1.3rem; text-decoration:none; text-align:center}
+.btn--rojo{background:var(--rojo); color:#fff}
+.btn--rojo:hover{background:var(--rojo-osc)}
+.btn--linea{background:transparent; color:var(--tinta); border:1px solid var(--tinta)}
+.btn--linea:hover{background:var(--tinta); color:var(--papel)}
+.btn--sm{padding:.45rem .9rem; font-size:.85rem}
+.btn[disabled]{opacity:.45; cursor:not-allowed}
+.menu-btn{display:none; background:transparent; border:1px solid var(--linea); padding:.4rem .6rem; cursor:pointer; font-size:1.1rem}
+@media (max-width:1080px){
+  .marca__txt span{display:none}
+}
+@media (max-width:980px){
+  .nav{display:none; position:absolute; top:4.2rem; left:0; right:0; background:var(--papel);
+       border-bottom:1px solid var(--linea); flex-direction:column; gap:0; padding:.5rem 1.5rem 1rem}
+  .nav.abierto{display:flex}
+  .marca__txt span{display:none}
+  .nav a{padding:.6rem 0; border-bottom:1px solid var(--linea)}
+  .menu-btn{display:block}
+  .barra .btn--rojo{display:none}
+}
+
+/* ---------------- Secciones ---------------- */
+.seccion{padding:4.5rem 0; border-top:1px solid var(--linea)}
+.seccion--dim{background:var(--papel-dim)}
+.seccion--noche{background:var(--noche); color:#E4EAF0; border-top:1px solid var(--tinta)}
+.seccion--noche h2,.seccion--noche h3{color:#fff}
+.seccion--tinta{background:var(--tinta); color:#D9D2C6; border-top:0}
+.seccion--tinta h2,.seccion--tinta h3{color:var(--papel)}
+.titulo-xl{font-size:clamp(1.9rem,4.4vw,2.7rem); margin-bottom:.8rem}
+.entrada{color:var(--tinta-3); max-width:46rem}
+.seccion--noche .entrada,.seccion--tinta .entrada{color:#BFC7D0}
+
+/* ---------------- Portada ---------------- */
+.portada{padding:3.5rem 0 4rem}
+.portada__grid{display:grid; gap:3rem; align-items:center}
+@media (min-width:960px){.portada__grid{grid-template-columns:1fr 1fr; gap:4rem}}
+.portada h1{font-size:clamp(2.1rem,5.4vw,3.3rem); font-weight:700; letter-spacing:-.02em}
+.portada h1 em{font-style:normal; color:var(--rojo)}
+.portada__bajada{font-size:1.1rem; color:var(--tinta-3); max-width:32rem}
+.acciones{display:flex; flex-wrap:wrap; gap:.9rem; margin-top:1.8rem}
+.senal{display:inline-flex; align-items:center; gap:.6rem; margin-top:1.8rem; font-size:.9rem; color:var(--tinta-3)}
+.senal i{width:.6rem;height:.6rem;border-radius:99px;background:var(--ok);box-shadow:0 0 0 .25rem rgba(27,107,69,.15)}
+
+/* Tarjeta de cartel, la identidad del proyecto */
+.cartel{background:var(--noche); border:1px solid var(--tinta); padding:1.6rem; position:relative; overflow:hidden}
+.cartel::before{content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,rgba(184,242,208,.07) 1px,transparent 1px),
+             linear-gradient(rgba(184,242,208,.07) 1px,transparent 1px);
+  background-size:34px 34px; -webkit-mask-image:linear-gradient(to bottom,black,transparent);
+  mask-image:linear-gradient(to bottom,black,transparent)}
+.cartel > *{position:relative; z-index:1}
+.cartel h2{color:#fff; font-size:1.5rem}
+.rejilla-senal{margin-top:1.2rem; border:1px solid var(--noche-linea); padding:.4rem 1rem; color:#D4DDE5}
+.rejilla-senal p{display:flex; justify-content:space-between; gap:1rem; margin:0;
+  padding:.7rem 0; border-bottom:1px solid var(--noche-linea); font-family:var(--mono); font-size:.72rem}
+.rejilla-senal p:last-child{border-bottom:0}
+.rejilla-senal b{color:var(--menta); font-weight:500}
+
+/* ---------------- Tarjetas y rejillas ---------------- */
+.rejilla{display:grid; gap:1.2rem}
+@media (min-width:700px){.rejilla--2{grid-template-columns:1fr 1fr}}
+@media (min-width:900px){.rejilla--3{grid-template-columns:repeat(3,1fr)}}
+.tarjeta{background:var(--papel-claro); border:1px solid var(--linea); padding:1.5rem}
+.tarjeta h3{font-size:1.1rem}
+.tarjeta p:last-child{margin-bottom:0}
+.tarjeta__num{font-family:var(--mono); font-size:.72rem; color:var(--rojo); letter-spacing:.1em; display:block; margin-bottom:.6rem}
+
+/* ---------------- Formularios ---------------- */
+.campo{display:block; margin-bottom:1rem}
+.campo > span{display:block; font-size:.85rem; color:var(--tinta-3); margin-bottom:.35rem; font-weight:600}
+.campo input,.campo textarea,.campo select{
+  width:100%; font-family:inherit; font-size:.95rem; color:var(--tinta);
+  background:var(--papel-claro); border:1px solid var(--linea); border-radius:0; padding:.6rem .75rem;
+}
+.campo textarea{resize:vertical; min-height:4.5rem}
+.campo .pista{display:block; font-size:.78rem; color:var(--tinta-3); font-weight:400; margin-top:.3rem}
+.form-error{display:block; color:var(--rojo); font-size:.8rem; margin-top:.25rem; min-height:1rem}
+.form2{display:grid; gap:0 1.2rem}
+@media (min-width:720px){.form2{grid-template-columns:1fr 1fr}.form2 .ancho{grid-column:1/-1}}
+
+/* Filas repetibles (productos, preguntas) */
+.filas{display:grid; gap:.6rem; margin-bottom:.8rem}
+.fila-rep{display:grid; gap:.5rem; align-items:start; background:var(--papel-dim); padding:.7rem; border:1px solid var(--linea)}
+@media (min-width:640px){
+  .fila-rep--prod{grid-template-columns:1.6fr .8fr 2fr auto}
+  .fila-rep--faq{grid-template-columns:1fr 1.6fr auto}
+}
+.fila-rep input{width:100%; font-family:inherit; font-size:.9rem; padding:.5rem .6rem; border:1px solid var(--linea); background:var(--papel-claro); color:var(--tinta)}
+.quitar{background:transparent; border:1px solid var(--linea); color:var(--tinta-3); cursor:pointer;
+        font-family:inherit; font-size:.8rem; padding:.45rem .7rem; white-space:nowrap}
+.quitar:hover{border-color:var(--rojo); color:var(--rojo)}
+.vacio{font-size:.87rem; color:var(--tinta-3); font-style:italic; margin:.2rem 0 .8rem}
+
+/* ---------------- El bot ---------------- */
+.bot{background:var(--noche-2); border:1px solid var(--noche-linea); color:#E4EAF0; padding:1.2rem}
+.bot__cab{display:flex; justify-content:space-between; align-items:center; gap:1rem;
+          padding-bottom:1rem; border-bottom:1px solid var(--noche-linea)}
+.bot__ident{display:flex; align-items:center; gap:.7rem}
+.bot__ident i{width:.6rem;height:.6rem;border-radius:99px;background:var(--menta);flex:0 0 auto}
+.bot__ident b{display:block; font-size:.95rem; color:#fff}
+.bot__ident span{font-size:.76rem; color:#A9B3BF}
+.bot__etq{font-family:var(--mono); font-size:.68rem; color:#A9B3BF; letter-spacing:.1em}
+.charla{padding:1.2rem 0; display:grid; gap:.7rem; max-height:22rem; overflow-y:auto}
+.burbuja{max-width:86%; padding:.8rem 1rem; font-size:.92rem; line-height:1.5}
+.burbuja--cliente{margin-left:auto; background:var(--rojo); color:#fff; border-radius:14px 14px 4px 14px}
+.burbuja--bot{background:var(--noche-3); border-radius:14px 14px 14px 4px}
+.burbuja--bot.no-sabe{border-left:3px solid #E0A93C}
+.burbuja__origen{display:block; margin-top:.5rem; font-family:var(--mono); font-size:.66rem;
+                 letter-spacing:.08em; color:#8FA0B2; text-transform:uppercase}
+.bot__form{display:flex; gap:.5rem; margin-top:.4rem}
+.bot__form input{flex:1; min-width:0; font-family:inherit; font-size:.92rem; padding:.7rem .85rem;
+                 border:1px solid var(--noche-linea); background:#fff; color:var(--tinta)}
+.fichas{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.8rem}
+.ficha{background:transparent; border:1px solid #5A6675; color:#CBD4DD; cursor:pointer;
+       font-family:inherit; font-size:.76rem; padding:.35rem .65rem}
+.ficha:hover{background:var(--noche-3)}
+
+/* ---------------- Dimensiones de atención ---------------- */
+.dim{background:var(--papel-claro); border:1px solid var(--linea); padding:1.4rem}
+.dim h3{display:flex; align-items:baseline; gap:.6rem; font-size:1.08rem}
+.dim h3 i{font-family:var(--mono); font-style:normal; font-size:.75rem; color:var(--rojo)}
+.dim__que{font-size:.9rem; color:var(--tinta-3)}
+.dim__bot{background:var(--papel-dim); border-left:3px solid var(--plano); padding:.7rem .9rem;
+          font-size:.87rem; margin-top:.8rem}
+.dim__bot b{display:block; font-family:var(--mono); font-size:.68rem; letter-spacing:.1em;
+            text-transform:uppercase; color:var(--plano); margin-bottom:.25rem}
+
+/* ---------------- Autoevaluación ---------------- */
+.eval-item{border-bottom:1px solid var(--linea); padding:1rem 0}
+.eval-item:last-of-type{border-bottom:0}
+.eval-item > p{margin:0 0 .6rem; font-weight:600}
+.eval-op{display:flex; flex-wrap:wrap; gap:.4rem}
+.eval-op label{flex:1 1 7rem}
+.eval-op input{position:absolute; opacity:0; width:0; height:0}
+.eval-op span{display:block; text-align:center; border:1.5px solid var(--linea); background:var(--papel-claro);
+              padding:.5rem .4rem; font-size:.82rem; cursor:pointer}
+.eval-op input:checked + span{border-color:var(--tinta); background:var(--tinta); color:var(--papel); font-weight:600}
+.eval-op input:focus-visible + span{outline:3px solid var(--plano); outline-offset:2px}
+.resultado{background:var(--papel-claro); border:1px solid var(--linea); padding:1.4rem; margin-top:1.4rem}
+.resultado[hidden]{display:none}
+.puntaje{font-family:var(--titulo); font-size:2.4rem; line-height:1; font-variant-numeric:tabular-nums}
+.medidor{display:grid; gap:.5rem; margin:1.2rem 0}
+.medidor__fila{display:grid; grid-template-columns:10.5rem 1fr 3.2rem; gap:.7rem; align-items:center; font-size:.85rem}
+.medidor__pista{background:var(--papel-dim); height:.75rem; position:relative}
+.medidor__valor{background:var(--plano); height:100%}
+.medidor__fila--floja .medidor__valor{background:var(--alerta)}
+.medidor__fila--floja{font-weight:600}
+.medidor__num{text-align:right; font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:.8rem}
+.etq{display:inline-block; font-size:.78rem; font-weight:700; padding:.25rem .7rem; margin-left:.6rem}
+.etq--ok{background:var(--ok-suave); color:var(--ok)}
+.etq--alerta{background:var(--alerta-suave); color:var(--alerta)}
+.etq--rojo{background:var(--rojo-suave); color:var(--rojo)}
+.pasos{margin:.6rem 0 0; padding-left:1.2rem}
+.pasos li{margin-bottom:.5rem}
+
+/* ---------------- Reglas y límites ---------------- */
+.regla{display:grid; gap:.3rem; padding:1rem 0; border-bottom:1px solid var(--linea)}
+.regla:last-child{border-bottom:0}
+.regla b{font-family:var(--titulo); font-size:1rem}
+.regla span{font-size:.9rem; color:var(--tinta-3)}
+.mal-bien{display:grid; gap:.6rem; margin-top:.7rem}
+@media (min-width:640px){.mal-bien{grid-template-columns:1fr 1fr}}
+.mal,.bien{padding:.7rem .9rem; font-size:.87rem; border-left:3px solid}
+.mal{background:var(--rojo-suave); border-color:var(--rojo)}
+.bien{background:var(--ok-suave); border-color:var(--ok)}
+.mal b,.bien b{display:block; font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.25rem}
+.mal b{color:var(--rojo)} .bien b{color:var(--ok)}
+
+/* ---------------- Pruebas y pie ---------------- */
+.caja-pruebas{margin-top:1rem; background:var(--papel-claro); border:1px solid var(--linea); padding:1rem 1.2rem}
+.caja-pruebas[hidden]{display:none}
+.caja-pruebas p{margin:0; font-weight:700}
+.pruebas-bien{color:var(--ok)} .pruebas-mal{color:var(--rojo)}
+.caja-pruebas ul{margin:.6rem 0 0; padding-left:1.2rem; font-weight:400; font-size:.9rem}
+.pie{border-top:1px solid var(--linea); padding:2rem 0; font-size:.88rem; color:var(--tinta-3)}
+.pie__in{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; align-items:center}
+.aviso{background:var(--alerta-suave); border-left:3px solid var(--alerta); padding:.9rem 1.1rem; font-size:.88rem; margin:1.2rem 0}
+.aviso b{color:var(--alerta)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.001ms !important; transition-duration:.001ms !important}
+}
+@media print{
+  .barra,.no-imprimir,.bot__form,.fichas{display:none !important}
+  body{background:#fff}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .seccion{border-top:0; padding:1rem 0; break-inside:avoid}
+  /* El botón de la autoevaluación imprime solo el resultado: quien la responde
+     en la feria se lleva su hoja, no las catorce páginas del sitio. */
+  body.solo-resultado > *{display:none !important}
+  body.solo-resultado > main{display:block !important}
+  body.solo-resultado main > *{display:none !important}
+  body.solo-resultado main > #autoevaluacion{display:block !important}
+  body.solo-resultado #formEval,
+  body.solo-resultado #autoevaluacion .entrada,
+  body.solo-resultado #autoevaluacion .ojo,
+  body.solo-resultado #autoevaluacion .titulo-xl{display:none !important}
+  body.solo-resultado .cab-impresion{display:block !important}
+  .resultado{border:0; padding:0}
+}
+.cab-impresion{display:none}
+</style>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<p id="avisoVivo" role="status" aria-live="polite" class="solo-lectores"></p>
+
+<header class="barra no-imprimir">
+  <div class="wrap barra__in">
+    <a class="marca" href="#inicio" aria-label="Help Wanted, inicio">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+        <rect x="1" y="1" width="32" height="32" fill="#B01730"/>
+        <path d="M8 9h18a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H8a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z" fill="#EEEAE0"/>
+        <path d="M11.5 13.5h11M11.5 17.5h7" stroke="#B01730" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span class="marca__txt"><b>Help Wanted</b><span>Staffbots para PyMEs</span></span>
+    </a>
+    <button class="menu-btn" id="btnMenu" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">☰</button>
+    <nav class="nav" id="nav" aria-label="Navegación principal">
+      <a href="#configurar">Carga tu negocio</a>
+      <a href="#probar">Prueba el bot</a>
+      <a href="#atender">Cómo atender</a>
+      <a href="#autoevaluacion">Autoevaluación</a>
+      <a href="#limites">Límites y ley</a>
+    </nav>
+    <a href="#configurar" class="btn btn--rojo btn--sm">Configurar mi bot</a>
+  </div>
+</header>
+
+<main id="contenido">
+
+<!-- ============================ PORTADA ============================ -->
+<section class="portada" id="inicio">
+  <div class="wrap portada__grid">
+    <div>
+      <p class="ojo">Staffbots · Feria Técnico Profesional 2026</p>
+      <h1>El negocio pone la información.<br><em>El bot la explica bien.</em></h1>
+      <p class="portada__bajada">Help Wanted no vende un robot que lo sabe todo. Arma un asistente
+        que responde <b>solo lo que la PyME le cargó</b>: precios, horarios, tiempos de entrega y
+        las dudas que más se repiten. Y cuando no sabe algo, lo dice y pasa a una persona.</p>
+      <div class="acciones">
+        <a href="#configurar" class="btn btn--rojo">Cargar mi negocio</a>
+        <a href="#atender" class="btn btn--linea">Cómo atender bien</a>
+      </div>
+      <p class="senal"><i></i>Funciona sin internet: todo ocurre en este mismo archivo.</p>
+    </div>
+
+    <div class="cartel">
+      <p class="ojo ojo--menta">Centro de información</p>
+      <h2>Una respuesta buena empieza por un dato correcto.</h2>
+      <div class="rejilla-senal">
+        <p><span>Productos y precios</span><b id="senalProductos">Sin cargar</b></p>
+        <p><span>Horarios y canales</span><b id="senalHorario">Sin cargar</b></p>
+        <p><span>Entregas y pedidos</span><b id="senalEntrega">Sin cargar</b></p>
+        <p><span>Preguntas propias</span><b id="senalFaq">Sin cargar</b></p>
+      </div>
+      <p style="margin:1rem 0 0;font-size:.85rem;color:#A9B3BF">
+        Este tablero se enciende a medida que cargas la información más abajo. Es lo que la PyME
+        le entrega al bot; sin eso, el bot no tiene nada que decir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ QUÉ OFRECE ============================ -->
+<section class="seccion seccion--dim" aria-labelledby="t-oferta">
+  <div class="wrap">
+    <p class="ojo">Qué ofrece Help Wanted</p>
+    <h2 class="titulo-xl" id="t-oferta">Tres cosas concretas, no un robot mágico.</h2>
+    <p class="entrada">Un proyecto se defiende mejor cuando dice exactamente qué entrega. Esto es lo
+      que Help Wanted le deja a una PyME el primer día.</p>
+    <div class="rejilla rejilla--3" style="margin-top:2rem">
+      <div class="tarjeta">
+        <span class="tarjeta__num">01 / Orden</span>
+        <h3>La información del negocio, en un solo lugar</h3>
+        <p>Precios, horarios, tiempos de entrega y respuestas frecuentes quedan escritos una vez.
+          Deja de depender de que alguien se acuerde.</p>
+      </div>
+      <div class="tarjeta">
+        <span class="tarjeta__num">02 / Respuesta</span>
+        <h3>Las consultas repetidas, contestadas al tiro</h3>
+        <p>«¿A qué hora cierran?», «¿cuánto vale?», «¿hacen despacho?». Son la mayoría de los
+          mensajes y no necesitan a una persona.</p>
+      </div>
+      <div class="tarjeta">
+        <span class="tarjeta__num">03 / Criterio</span>
+        <h3>Un estándar de cómo atender</h3>
+        <p>El bot sigue reglas de atención: no inventa, no promete lo que el negocio no ofrece y
+          deriva a una persona cuando corresponde.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONFIGURAR ============================ -->
+<section class="seccion" id="configurar" aria-labelledby="t-config">
+  <div class="wrap">
+    <p class="ojo">01 / Carga tu negocio</p>
+    <h2 class="titulo-xl" id="t-config">Esto es lo que el bot va a saber.</h2>
+    <p class="entrada">Completa lo que puedas. Cada dato que escribas acá es una respuesta que el
+      bot podrá dar; lo que no escribas, el bot va a reconocer que no lo sabe en vez de inventarlo.
+      <b>Todo queda solo en este navegador</b>: no se envía a ningún servidor.</p>
+
+    <form id="formNegocio" style="margin-top:2rem">
+      <div class="tarjeta">
+        <h3>Lo básico</h3>
+        <div class="form2">
+          <label class="campo"><span>Nombre del negocio</span>
+            <input type="text" id="nNombre" placeholder="Ej.: Panadería Doña Rosa" autocomplete="off"></label>
+          <label class="campo"><span>Rubro</span>
+            <select id="nRubro">
+              <option value="">Selecciona un rubro</option>
+              <option>Alimentación</option><option>Comercio</option><option>Servicios</option>
+              <option>Belleza y salud</option><option>Educación</option><option>Otro</option>
+            </select></label>
+          <label class="campo ancho"><span>Horario de atención
+              <span class="pista">Escríbelo como se lo dirías a un cliente.</span></span>
+            <input type="text" id="nHorario" placeholder="Ej.: lunes a sábado de 9:00 a 20:00; domingo cerrado" autocomplete="off"></label>
+          <label class="campo"><span>Dirección o zona de atención</span>
+            <input type="text" id="nDireccion" placeholder="Ej.: Av. Santa Rosa 1234, La Pintana" autocomplete="off"></label>
+          <label class="campo"><span>Canales de contacto</span>
+            <input type="text" id="nCanales" placeholder="Ej.: WhatsApp +56 9 1234 5678 e Instagram @minegocio" autocomplete="off"></label>
+        </div>
+      </div>
+
+      <div class="tarjeta" style="margin-top:1.2rem">
+        <h3>Entregas y pagos</h3>
+        <div class="form2">
+          <label class="campo"><span>Tiempo de retiro en el local</span>
+            <input type="text" id="nRetiro" placeholder="Ej.: entre 20 y 30 minutos" autocomplete="off"></label>
+          <label class="campo"><span>Despacho a domicilio</span>
+            <input type="text" id="nDespacho" placeholder="Ej.: mismo día en la comuna, $2.000" autocomplete="off"></label>
+          <label class="campo"><span>Medios de pago</span>
+            <input type="text" id="nPagos" placeholder="Ej.: efectivo, débito y transferencia" autocomplete="off"></label>
+          <label class="campo"><span>Cambios y devoluciones</span>
+            <input type="text" id="nDevoluciones" placeholder="Ej.: cambios dentro de 7 días con boleta" autocomplete="off"></label>
+        </div>
+      </div>
+
+      <div class="tarjeta" style="margin-top:1.2rem">
+        <h3>Productos y precios</h3>
+        <p style="font-size:.88rem;color:var(--tinta-3)">Agrega los que más te preguntan. El bot
+          nunca va a inventar un precio que no esté en esta lista.</p>
+        <div class="filas" id="filasProductos"></div>
+        <p class="vacio" id="vacioProductos">Todavía no agregaste ningún producto.</p>
+        <button type="button" class="btn btn--linea btn--sm" id="masProducto">+ Agregar producto</button>
+      </div>
+
+      <div class="tarjeta" style="margin-top:1.2rem">
+        <h3>Preguntas frecuentes propias</h3>
+        <p style="font-size:.88rem;color:var(--tinta-3)">Las dudas que más se repiten en tu negocio,
+          con la respuesta que quieres que se dé siempre igual.</p>
+        <div class="filas" id="filasFaq"></div>
+        <p class="vacio" id="vacioFaq">Todavía no agregaste ninguna pregunta.</p>
+        <button type="button" class="btn btn--linea btn--sm" id="masFaq">+ Agregar pregunta</button>
+      </div>
+
+      <div class="tarjeta" style="margin-top:1.2rem">
+        <h3>Cuando el bot no sabe</h3>
+        <div class="form2">
+          <label class="campo ancho"><span>A quién deriva
+              <span class="pista">Una atención honesta termina en una persona, no en un «no entendí».</span></span>
+            <input type="text" id="nDerivar" placeholder="Ej.: escríbele a Rosa al +56 9 1234 5678 y te responde en el día" autocomplete="off"></label>
+        </div>
+      </div>
+
+      <div class="acciones no-imprimir">
+        <button type="button" class="btn btn--rojo" id="btnGuardar">Guardar y probar el bot</button>
+        <button type="button" class="btn btn--linea" id="btnEjemplo">Cargar un ejemplo</button>
+        <button type="button" class="btn btn--linea" id="btnLimpiar">Borrar todo</button>
+      </div>
+      <p class="form-error" id="avisoNegocio" style="min-height:0"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============================ PROBAR ============================ -->
+<section class="seccion seccion--noche" id="probar" aria-labelledby="t-probar">
+  <div class="wrap">
+    <p class="ojo ojo--menta">02 / Prueba el bot</p>
+    <h2 class="titulo-xl" id="t-probar">Pregúntale como si fueras un cliente.</h2>
+    <p class="entrada">El bot responde únicamente con lo que cargaste arriba. Debajo de cada
+      respuesta dice <b>de qué dato salió</b>, para que se vea que no está inventando.</p>
+
+    <div class="bot" style="margin-top:2rem">
+      <div class="bot__cab">
+        <div class="bot__ident"><i></i><div>
+          <b id="botNombre">Staffbot</b>
+          <span id="botEstado">Sin información cargada</span>
+        </div></div>
+        <span class="bot__etq">Demostración</span>
+      </div>
+      <div class="charla" id="charla" role="log" aria-live="polite" aria-label="Conversación con el bot"></div>
+      <form class="bot__form" id="formBot">
+        <label class="solo-lectores" for="botEntrada">Escribe tu consulta</label>
+        <input type="text" id="botEntrada" placeholder="Ej.: ¿a qué hora cierran?" autocomplete="off">
+        <button type="submit" class="btn btn--rojo btn--sm">Preguntar</button>
+      </form>
+      <div class="fichas" id="fichasBot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CÓMO ATENDER ============================ -->
+<section class="seccion" id="atender" aria-labelledby="t-atender">
+  <div class="wrap">
+    <p class="ojo">03 / Cómo atender bien</p>
+    <h2 class="titulo-xl" id="t-atender">Las cinco cosas que un cliente evalúa.</h2>
+    <p class="entrada">No es opinión. Parasuraman, Zeithaml y Berry midieron la calidad de servicio
+      y encontraron que la gente la juzga por cinco dimensiones (modelo SERVQUAL, 1988). Lo que
+      mide es la <b>brecha</b> entre lo que el cliente esperaba y lo que recibió. Un bot bien hecho
+      trabaja sobre las cinco; uno mal hecho empeora tres.</p>
+    <div class="rejilla rejilla--2" id="dimensiones" style="margin-top:2rem"></div>
+  </div>
+</section>
+
+<!-- ============================ AUTOEVALUACIÓN ============================ -->
+<section class="seccion seccion--dim" id="autoevaluacion" aria-labelledby="t-eval">
+  <div class="wrap">
+    <p class="ojo">04 / Autoevaluación</p>
+    <h2 class="titulo-xl" id="t-eval">¿Cómo está atendiendo tu negocio hoy?</h2>
+    <p class="entrada">Diez afirmaciones, dos por cada dimensión. Responde pensando en cómo atiendes
+      <b>hoy</b>, no en cómo te gustaría atender. Al final sale tu dimensión más débil y los pasos
+      concretos para esa, no una lista genérica.</p>
+
+    <form id="formEval" style="margin-top:2rem">
+      <div class="tarjeta" id="itemsEval"></div>
+      <div class="acciones no-imprimir">
+        <button type="submit" class="btn btn--rojo">Ver mi resultado</button>
+        <button type="button" class="btn btn--linea" id="btnEvalLimpiar">Empezar de nuevo</button>
+      </div>
+    </form>
+
+    <div class="resultado" id="resultadoEval" hidden>
+      <div class="cab-impresion">
+        <h3 style="margin:0 0 .2rem">Autoevaluación de atención al cliente</h3>
+        <p style="margin:0 0 1.2rem;font-size:.85rem;color:var(--tinta-3)">
+          Help Wanted · Proyecto escolar de la Feria Técnico Profesional 2026. Basada en las cinco
+          dimensiones del modelo SERVQUAL. Resultado autoaplicado, referencial.</p>
+      </div>
+      <p class="ojo" style="margin-bottom:.5rem">Tu resultado</p>
+      <p style="margin:0"><span class="puntaje" id="evalPuntaje">—</span><span class="etq" id="evalEtiqueta"></span></p>
+      <p id="evalTexto" style="margin-top:1rem"></p>
+
+      <h3 style="margin-top:1.6rem;font-size:1rem">Por dimensión</h3>
+      <div class="medidor" id="evalMedidor" role="img" aria-label="Puntaje por dimensión"></div>
+
+      <h3 style="margin-top:1.4rem;font-size:1rem">Empieza por aquí</h3>
+      <p id="evalFoco" style="font-size:.92rem;color:var(--tinta-3);margin-bottom:.5rem"></p>
+      <ol class="pasos" id="evalPasos"></ol>
+
+      <div class="acciones no-imprimir">
+        <button type="button" class="btn btn--linea btn--sm" id="btnImprimirEval">Imprimir / PDF</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ LÍMITES Y LEY ============================ -->
+<section class="seccion" id="limites" aria-labelledby="t-limites">
+  <div class="wrap">
+    <p class="ojo">05 / Límites y ley</p>
+    <h2 class="titulo-xl" id="t-limites">Lo que un bot no debe hacer nunca.</h2>
+    <p class="entrada">Esta es la parte que distingue un proyecto serio de una demostración bonita.
+      Un asistente que contesta mal no es neutro: le cuesta clientes al negocio y puede meterlo en
+      un problema legal.</p>
+
+    <div class="rejilla rejilla--2" style="margin-top:2rem">
+      <div class="tarjeta">
+        <h3>Reglas de la casa</h3>
+        <div id="reglasBot"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>Lo que obliga la ley chilena</h3>
+        <p style="font-size:.9rem;color:var(--tinta-3)">Si el bot habla de precios, garantías o
+          despachos, está entregando información comercial y le aplica la Ley 19.496 sobre
+          protección de los derechos de los consumidores.</p>
+        <div id="reglasLey"></div>
+        <p class="aviso" style="margin-bottom:0"><b>Ojo:</b> esto es material de estudio de un
+          proyecto escolar, no asesoría legal. Ante una duda real, la fuente es el SERNAC.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2.5rem;font-size:1.15rem">Cómo se dice, con un ejemplo</h3>
+    <p style="font-size:.92rem;color:var(--tinta-3);max-width:46rem">La misma situación, contestada
+      de dos maneras. La de la izquierda es la que hace que el cliente no vuelva.</p>
+    <div id="ejemplosDialogo" style="margin-top:1rem"></div>
+  </div>
+</section>
+
+<!-- ============================ PASOS ============================ -->
+<section class="seccion seccion--dim" id="pasos" aria-labelledby="t-pasos">
+  <div class="wrap">
+    <p class="ojo">06 / Pasos para el negocio</p>
+    <h2 class="titulo-xl" id="t-pasos">Qué hacer, en orden, la primera semana.</h2>
+    <p class="entrada">Marca lo que ya hiciste. Se guarda en este navegador, así el equipo puede
+      acompañar a una PyME real durante la feria y retomar donde iba.</p>
+    <div class="tarjeta" id="listaPasos" style="margin-top:2rem"></div>
+    <p class="senal" id="pasosAvance"><i></i>Sin pasos marcados todavía.</p>
+  </div>
+</section>
+
+<!-- ============================ PROYECTO ============================ -->
+<section class="seccion seccion--tinta" id="proyecto" aria-labelledby="t-proyecto">
+  <div class="wrap">
+    <div class="rejilla rejilla--2">
+      <div>
+        <p class="ojo" style="color:#E88B9C">El proyecto</p>
+        <h2 class="titulo-xl" id="t-proyecto">Help Wanted, III° medio</h2>
+        <p class="entrada">Un Staffbot es un asistente que responde las consultas frecuentes de una
+          PyME con la información que el propio negocio carga. La apuesta del proyecto no es la
+          tecnología: es que <b>una PyME ordene lo que comunica</b>. Un negocio que no tiene escrito
+          su horario ni sus precios tampoco los responde bien por WhatsApp.</p>
+        <div id="objetivosProyecto"></div>
+      </div>
+      <div class="tarjeta" style="background:transparent;border-color:#4A4038;color:#D9D2C6">
+        <h3 style="color:var(--papel)">Cómo se mide si funciona</h3>
+        <p style="font-size:.9rem;color:#BDB5A9">Un proyecto necesita una forma de saber si sirvió.
+          Estas son medibles con una PyME real durante la feria.</p>
+        <div id="medidasProyecto"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ VERIFICACIÓN ============================ -->
+<section class="seccion" id="verificacion" aria-labelledby="t-verif">
+  <div class="wrap">
+    <p class="ojo">Verificación</p>
+    <h2 class="titulo-xl" id="t-verif">Comprueba que el bot razona bien.</h2>
+    <p class="entrada">La página trae sus propias pruebas. Cada una revisa una regla del proyecto:
+      que el bot no invente precios, que reconozca cuándo no sabe, que derive a una persona y que
+      la autoevaluación apunte a la dimensión correcta. Si el equipo edita el código, este botón
+      avisa si algo se rompió.</p>
+    <button type="button" class="btn btn--rojo" id="btnPruebas" style="margin-top:1rem">Verificar el motor</button>
+    <div id="cajaPruebas" class="caja-pruebas" hidden></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="wrap pie__in">
+    <p style="margin:0">Help Wanted · Proyecto escolar de III° medio · Feria Técnico Profesional 2026.</p>
+    <p style="margin:0">Los datos que cargues quedan solo en este navegador.</p>
+  </div>
+</footer>
+<script>
+(function(){
+'use strict';
+/* ============================================================
+   HELP WANTED · motor del Staffbot
+   Tres capas: DATOS (lo que se sabe), CÁLCULO (funciones puras,
+   sin tocar la pantalla) e INTERFAZ. Las del medio se comprueban
+   solas con el botón «Verificar el motor».
+   ============================================================ */
+
+var LS = 'helpwanted.v1';
+function $(id){ return document.getElementById(id); }
+function ce(t,c){ var e=document.createElement(t); if(c) e.className=c; return e; }
+function avisar(m){ var c=$('avisoVivo'); if(c) c.textContent=m; }
+
+/* ---------------- 1. DATOS ---------------- */
+
+/* Las cinco dimensiones con que la gente juzga un servicio.
+   Modelo SERVQUAL de Parasuraman, Zeithaml y Berry (1988): mide la brecha
+   entre lo que el cliente esperaba y lo que percibió. */
+var DIMENSIONES = [
+  { id:'fiabilidad', nombre:'Fiabilidad',
+    que:'Cumplir lo que se prometió, bien y a la primera. Es la dimensión que más pesa: un cliente perdona la lentitud, no el dato equivocado.',
+    bot:'El bot solo responde con lo que el negocio cargó. Si el precio no está en la lista, no lo inventa.',
+    pasos:['Escribe tus precios y horarios en un solo lugar y ponles fecha de revisión.',
+           'Revisa una vez por semana que lo publicado siga siendo verdad.',
+           'Si algo cambió (precio, horario, stock), corrígelo antes de que lo pregunte un cliente.'] },
+  { id:'respuesta', nombre:'Capacidad de respuesta',
+    que:'Atender rápido y con disposición. No es solo velocidad: es que el cliente sienta que hay alguien dispuesto.',
+    bot:'Las consultas repetidas se contestan al instante, a cualquier hora, y las difíciles pasan a una persona sin hacer esperar.',
+    pasos:['Define un tiempo máximo de respuesta y escríbelo donde el cliente lo vea.',
+           'Contesta primero con un acuse («ya lo estoy viendo»), aunque la respuesta completa demore.',
+           'Deja las preguntas más repetidas contestadas de antemano.'] },
+  { id:'seguridad', nombre:'Seguridad',
+    que:'Que quien atiende sepa de lo que habla y transmita confianza. Incluye la cortesía y el manejo del tema.',
+    bot:'El bot cita de dónde sacó cada dato y no opina de lo que no le cargaron.',
+    pasos:['Escribe la respuesta correcta a las tres preguntas más difíciles de tu rubro.',
+           'Asegúrate de que todos en el negocio respondan lo mismo a esas tres.',
+           'Si no sabes algo frente al cliente, dilo y comprométete a una hora para responder.'] },
+  { id:'empatia', nombre:'Empatía',
+    que:'Atención individual: que el cliente sienta que se le entendió a él, no que recibió un machote.',
+    bot:'El bot usa el nombre y el tono del negocio, y cuando el caso es personal deriva a alguien en vez de insistir.',
+    pasos:['Guarda el nombre y el motivo de consulta de tus clientes frecuentes.',
+           'Evita las respuestas copiadas y pegadas en reclamos: repite el problema con tus palabras antes de responder.',
+           'Pregunta al cerrar: «¿te quedó alguna duda?».'] },
+  { id:'tangibles', nombre:'Elementos tangibles',
+    que:'Todo lo que se ve: el local, la presentación, el catálogo, los mensajes escritos. Es lo primero que juzga alguien que aún no te compró.',
+    bot:'Un catálogo ordenado y mensajes bien escritos son parte del servicio, no un adorno.',
+    pasos:['Ten fotos reales y actuales de lo que vendes, con precio visible.',
+           'Revisa la ortografía de tus respuestas automáticas: se lee como descuido.',
+           'Mantén el horario visible en la puerta y en cada canal digital.'] }
+];
+
+/* Dos afirmaciones por dimensión. La segunda de cada par está invertida:
+   si alguien marca todo «muy de acuerdo» sin leer, el resultado lo delata. */
+var AFIRMACIONES = [
+  { dim:'fiabilidad', texto:'Cuando prometo una fecha o un precio, lo cumplo tal cual.' },
+  { dim:'fiabilidad', texto:'Me ha pasado que un cliente llega con un precio viejo que yo no actualicé.', invertida:true },
+  { dim:'respuesta',  texto:'Contesto los mensajes de clientes el mismo día.' },
+  { dim:'respuesta',  texto:'Hay mensajes que quedan sin responder porque se me pasan.', invertida:true },
+  { dim:'seguridad',  texto:'Si un cliente pregunta algo técnico de mi rubro, sé responderlo.' },
+  { dim:'seguridad',  texto:'Distintas personas de mi negocio responden cosas distintas a la misma pregunta.', invertida:true },
+  { dim:'empatia',    texto:'Reconozco a mis clientes frecuentes y sé qué suelen pedir.' },
+  { dim:'empatia',    texto:'Cuando hay un reclamo, respondo con un texto igual para todos.', invertida:true },
+  { dim:'tangibles',  texto:'Tengo fotos actuales de lo que vendo, con el precio visible.' },
+  { dim:'tangibles',  texto:'Mi horario publicado no coincide del todo con el horario real.', invertida:true }
+];
+
+var ESCALA = [
+  { v:1, et:'Nunca' }, { v:2, et:'A veces' }, { v:3, et:'Casi siempre' }, { v:4, et:'Siempre' }
+];
+
+var REGLAS_BOT = [
+  { b:'No inventa un dato que no tiene', s:'Si el precio no fue cargado, el bot lo dice. Una cifra inventada es una promesa que el negocio tendrá que cumplir o desmentir.' },
+  { b:'No promete lo que el negocio no ofrece', s:'Nada de «claro, te lo despachamos hoy» si no hay despacho configurado.' },
+  { b:'Reconoce cuándo termina su trabajo', s:'Reclamos, casos especiales y cualquier cosa que requiera criterio pasan a una persona, con nombre y canal.' },
+  { b:'No pide datos que no necesita', s:'Para responder un horario no hace falta el RUT ni el teléfono de nadie.' },
+  { b:'No se hace pasar por persona', s:'Si el cliente pregunta, el bot dice que es un asistente. Engañar sobre eso destruye la confianza que construyó.' }
+];
+
+var REGLAS_LEY = [
+  { b:'Información veraz y oportuna', s:'La Ley 19.496 obliga a informar de forma veraz y oportuna sobre precio, características y condiciones. Un bot que responde un precio equivocado está informando mal.' },
+  { b:'Garantía legal: 6 meses', s:'Desde la Ley 21.398 (Pro Consumidor), vigente desde el 24 de marzo de 2022, el consumidor puede elegir entre cambio, reparación o devolución dentro de 6 meses en productos nuevos. Antes eran 3: el bot no puede seguir diciendo 3.' },
+  { b:'El negocio no puede restringir esa garantía', s:'No se puede cobrar por los derechos de la garantía legal ni acortarla alegando que existe una garantía voluntaria.' },
+  { b:'Derecho a retracto: 10 días', s:'En las compras a distancia la persona puede arrepentirse sin dar explicaciones dentro de 10 días desde que recibió el producto.' },
+  { b:'Vida útil y repuestos', s:'Desde el 24 de agosto de 2022 hay que informar la vida útil del producto y por cuánto tiempo habrá repuestos y servicio técnico.' }
+];
+
+var EJEMPLOS_DIALOGO = [
+  { pregunta:'«¿Cuánto cuesta el combo grande?» (y el precio no está cargado)',
+    mal:'Cuesta como $12.000, creo.',
+    bien:'No tengo cargado el precio del combo grande, y prefiero no darte uno equivocado. Te lo confirma Rosa al +56 9 1234 5678 hoy mismo.' },
+  { pregunta:'«Me llegó fallado, ¿me lo cambian?»',
+    mal:'Las devoluciones son solo dentro de 3 meses.',
+    bien:'Lamento que llegara fallado. Por ley puedes elegir cambio, reparación o devolución dentro de 6 meses. Te paso con Rosa para resolverlo hoy.' },
+  { pregunta:'«¿Eres una persona?»',
+    mal:'Sí, ¿en qué te ayudo?',
+    bien:'Soy el asistente de Panadería Doña Rosa. Respondo lo básico al tiro; si necesitas hablar con alguien del equipo, te paso el contacto.' }
+];
+
+var PASOS_NEGOCIO = [
+  'Escribe tu horario real en una sola frase y publícalo en todos tus canales.',
+  'Haz la lista de tus 10 productos más vendidos con su precio actual.',
+  'Anota las 5 preguntas que más te hacen y redacta la respuesta definitiva de cada una.',
+  'Define cuánto demoras en retiro y en despacho, y di la verdad aunque sea más lento.',
+  'Decide a quién se deriva una consulta que el bot no puede responder.',
+  'Revisa que lo que dices de garantías y devoluciones cumpla la ley.',
+  'Prueba el bot con alguien que no conozca tu negocio y anota dónde se traba.',
+  'Fija un día del mes para revisar precios y horarios.'
+];
+
+var OBJETIVOS = [
+  { b:'Ordenar lo que el negocio comunica', s:'Antes del bot, la información tiene que existir escrita. Ese es el primer valor que entrega el proyecto.' },
+  { b:'Responder lo repetido sin ocupar a una persona', s:'Horarios, precios y tiempos son la mayoría de los mensajes y no necesitan criterio.' },
+  { b:'Dejar a las personas lo que sí requiere criterio', s:'Reclamos, pedidos especiales y clientes molestos siguen siendo trabajo humano.' }
+];
+
+var MEDIDAS = [
+  { b:'Cuántas consultas resuelve solo', s:'De cada 10 mensajes, cuántos quedaron respondidos sin que interviniera alguien.' },
+  { b:'Cuántas veces dijo «no sé»', s:'Si son muchas, falta cargar información. Es la métrica que más mejora el bot.' },
+  { b:'Tiempo hasta la primera respuesta', s:'Medir antes y después del bot, con la misma PyME.' },
+  { b:'Cuántas respuestas estaban equivocadas', s:'La única que tiene que dar cero. Una respuesta errónea vale más que diez acertadas.' }
+];
+
+/* ---------------- 2. CÁLCULO (sin tocar la pantalla) ---------------- */
+
+function normalizar(t){
+  return String(t||'').toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')   // saca tildes
+    .replace(/[^a-z0-9ñ\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+
+/* Cada intención tiene palabras clave y el campo del negocio del que sale la
+   respuesta. Se puntúa y gana la de mayor puntaje: con una cadena de "if"
+   seguidos ganaba siempre la última que coincidía, que es un error distinto. */
+var INTENCIONES = [
+  { id:'horario',    campo:'horario',    et:'Horario de atención',
+    claves:['horario','hora','abren','abierto','cierran','cierre','atienden','atencion','domingo','sabado','feriado','abre'] },
+  { id:'direccion',  campo:'direccion',  et:'Dirección',
+    claves:['donde','direccion','ubicados','ubicacion','local','llegar','quedan','queda'] },
+  { id:'canales',    campo:'canales',    et:'Canales de contacto',
+    claves:['contacto','whatsapp','instagram','telefono','llamar','escribir','redes','correo'] },
+  { id:'retiro',     campo:'retiro',     et:'Tiempo de retiro',
+    claves:['retiro','retirar','buscar','demora','demoran','cuanto','espera','listo','pedido'] },
+  { id:'despacho',   campo:'despacho',   et:'Despacho a domicilio',
+    claves:['despacho','domicilio','delivery','envio','envian','reparto','llevan'] },
+  { id:'pagos',      campo:'pagos',      et:'Medios de pago',
+    claves:['pago','pagar','efectivo','debito','credito','transferencia','tarjeta'] },
+  { id:'devoluciones',campo:'devoluciones', et:'Cambios y devoluciones',
+    claves:['devolucion','devolver','cambio','cambiar','garantia','fallado','malo','reclamo'] }
+];
+
+/* Coincidencia exacta vale 2; prefijo de 4 letras o mas vale 1, para que
+   "horarios" encuentre "horario". Solo la clave puede ser mas larga que lo
+   escrito, asi "pago" no cae en cualquier palabra que empiece igual. */
+function puntajeClave(palabra, claves){
+  var p = 0;
+  for(var i=0;i<claves.length;i++){
+    var c = claves[i];
+    if(palabra === c){ p += 2; }
+    // "horar" alcanza a "horario": lo escrito es prefijo de la clave.
+    else if(palabra.length >= 4 && c.length > palabra.length && c.indexOf(palabra) === 0){ p += 1; }
+    // "horarios" alcanza a "horario": la clave es prefijo de lo escrito.
+    else if(c.length >= 4 && palabra.length > c.length && palabra.indexOf(c) === 0){ p += 1; }
+  }
+  return p;
+}
+
+function detectarIntencion(consulta){
+  var palabras = normalizar(consulta).split(' ').filter(Boolean);
+  if(!palabras.length) return null;
+  var mejor = null, mejorP = 0;
+  INTENCIONES.forEach(function(intencion){
+    var p = 0;
+    palabras.forEach(function(w){ p += puntajeClave(w, intencion.claves); });
+    if(p > mejorP){ mejorP = p; mejor = intencion; }
+  });
+  return mejorP > 0 ? { intencion:mejor, puntaje:mejorP } : null;
+}
+
+/* Busca un producto cargado dentro de la consulta. Exige que al menos una
+   palabra del nombre, de 4 letras o mas, aparezca escrita. */
+function buscarProducto(consulta, productos){
+  var texto = ' ' + normalizar(consulta) + ' ';
+  var mejor = null, mejorP = 0;
+  (productos||[]).forEach(function(p){
+    if(!p.nombre) return;
+    var partes = normalizar(p.nombre).split(' ').filter(function(w){ return w.length >= 4; });
+    if(!partes.length) return;
+    var aciertos = 0;
+    partes.forEach(function(w){ if(texto.indexOf(' ' + w) > -1) aciertos++; });
+    if(aciertos > mejorP){ mejorP = aciertos; mejor = p; }
+  });
+  return mejor;
+}
+
+function buscarFaq(consulta, faqs){
+  var palabras = normalizar(consulta).split(' ').filter(function(w){ return w.length >= 4; });
+  if(!palabras.length) return null;
+  var mejor = null, mejorP = 0;
+  (faqs||[]).forEach(function(f){
+    if(!f.pregunta || !f.respuesta) return;
+    var texto = ' ' + normalizar(f.pregunta) + ' ';
+    var aciertos = 0;
+    palabras.forEach(function(w){ if(texto.indexOf(' ' + w) > -1) aciertos++; });
+    if(aciertos > mejorP){ mejorP = aciertos; mejor = f; }
+  });
+  return mejorP >= 2 ? mejor : null;   // con una sola palabra en comun no alcanza
+}
+
+function hayPrecio(consulta){
+  var t = normalizar(consulta);
+  /* "cuanto demora" es tiempo, no plata. Sin esta salida, una pregunta por el
+     retiro terminaba contestada con la lista de precios. */
+  if(/\b(demora|demoran|demoro|tarda|tardan|espera|esperar|tiempo|listo|lista)\b/.test(t)) return false;
+  return /\b(precio|precios|vale|valen|cuesta|cuestan|valor|cobran|cobra)\b/.test(t) ||
+         /\bcuanto\b/.test(t);
+}
+
+function preguntaSiEsPersona(consulta){
+  var t = normalizar(consulta);
+  return /\b(eres|sos|hablo con)\b/.test(t) &&
+         /\b(persona|humano|humana|robot|bot|real|maquina)\b/.test(t);
+}
+
+function formatearPeso(valor){
+  var n = String(valor||'').replace(/[^\d]/g,'');
+  if(!n) return String(valor||'');
+  return '$' + n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+/* El corazón del proyecto: decidir qué responder y de dónde salió.
+   Devuelve siempre { texto, origen, sabe }. sabe=false significa que el bot
+   reconoce que no tiene el dato, y ahí siempre deriva a una persona. */
+function responder(consulta, negocio){
+  var n = negocio || {};
+  var nombre = (n.nombre || '').trim() || 'este negocio';
+  var derivar = (n.derivar || '').trim();
+  var cierre = derivar ? ' ' + derivar : ' Te recomiendo escribirle directamente al negocio.';
+
+  function noSe(que){
+    return { sabe:false, origen:'Dato no cargado',
+             texto:'No tengo cargado ' + que + ' de ' + nombre + ', y prefiero no darte un dato equivocado.' + cierre };
+  }
+
+  if(!String(consulta||'').trim()){
+    return { sabe:true, origen:'Saludo',
+             texto:'Hola, soy el asistente de ' + nombre + '. Pregúntame por horarios, precios, entregas o formas de pago.' };
+  }
+
+  /* Nunca hacerse pasar por persona: es una regla, no una respuesta más. */
+  if(preguntaSiEsPersona(consulta)){
+    return { sabe:true, origen:'Regla de la casa',
+             texto:'Soy el asistente de ' + nombre + ', no una persona. Respondo lo básico al tiro. ' +
+                   (derivar ? 'Para hablar con alguien del equipo: ' + derivar
+                            : 'Para hablar con alguien del equipo, escríbele directamente al negocio.') };
+  }
+
+  /* Una respuesta escrita por el propio negocio gana sobre cualquier regla
+     general: es la voz que la PyME eligió. */
+  var faq = buscarFaq(consulta, n.faqs);
+  if(faq) return { sabe:true, origen:'Pregunta frecuente cargada por el negocio', texto:faq.respuesta };
+
+  if(hayPrecio(consulta)){
+    var prod = buscarProducto(consulta, n.productos);
+    if(prod && prod.precio){
+      return { sabe:true, origen:'Lista de productos',
+               texto: prod.nombre + ' cuesta ' + formatearPeso(prod.precio) + '.' +
+                      (prod.detalle ? ' ' + prod.detalle : '') };
+    }
+    if((n.productos||[]).length && !prod){
+      var lista = n.productos.filter(function(p){ return p.nombre && p.precio; })
+                             .slice(0,4).map(function(p){ return p.nombre + ' ' + formatearPeso(p.precio); });
+      if(lista.length){
+        return { sabe:true, origen:'Lista de productos',
+                 texto:'No identifiqué cuál producto quieres. Estos son algunos con su precio: ' +
+                       lista.join('; ') + '. ¿Cuál te interesa?' };
+      }
+    }
+    return noSe('ese precio');
+  }
+
+  var det = detectarIntencion(consulta);
+  if(det){
+    var valor = (n[det.intencion.campo] || '').trim();
+    if(valor) return { sabe:true, origen:det.intencion.et, texto:valor };
+    return noSe(det.intencion.et.toLowerCase());
+  }
+
+  return { sabe:false, origen:'Fuera de lo cargado',
+           texto:'Esa no la sé responder con la información que tengo de ' + nombre + '.' + cierre };
+}
+
+/* Cuántos de los campos que importan están cargados. Es lo que enciende el
+   tablero de la portada y lo que le dice al equipo qué falta. */
+function completitud(n){
+  var campos = ['horario','direccion','canales','retiro','despacho','pagos','devoluciones','derivar'];
+  var llenos = campos.filter(function(c){ return String((n||{})[c]||'').trim() !== ''; }).length;
+  var prod = ((n||{}).productos||[]).filter(function(p){ return p.nombre && p.precio; }).length;
+  var faq  = ((n||{}).faqs||[]).filter(function(f){ return f.pregunta && f.respuesta; }).length;
+  return { campos:llenos, deCampos:campos.length, productos:prod, faqs:faq,
+           listo: llenos >= 4 && (prod > 0 || faq > 0) };
+}
+
+/* ---------------- Autoevaluación ---------------- */
+
+/* Una afirmación invertida se da vuelta: marcar "siempre" en "se me pasan
+   mensajes" es malo, no bueno. Sin esto, quien responde todo al máximo sin
+   leer sacaría el puntaje perfecto. */
+function valorAfirmacion(respuesta, invertida){
+  var v = Number(respuesta);
+  if(!(v >= 1 && v <= 4)) return null;
+  return invertida ? (5 - v) : v;
+}
+
+function puntajePorDimension(respuestas){
+  var acc = {};
+  DIMENSIONES.forEach(function(d){ acc[d.id] = { suma:0, n:0 }; });
+  AFIRMACIONES.forEach(function(a, i){
+    var v = valorAfirmacion(respuestas[i], a.invertida);
+    if(v === null) return;
+    acc[a.dim].suma += v;
+    acc[a.dim].n += 1;
+  });
+  return DIMENSIONES.map(function(d){
+    var x = acc[d.id];
+    return { id:d.id, nombre:d.nombre, n:x.n,
+             pct: x.n ? (x.suma / (x.n * 4)) * 100 : null };
+  });
+}
+
+function resultadoEvaluacion(respuestas){
+  var faltan = AFIRMACIONES.some(function(a, i){
+    return valorAfirmacion(respuestas[i], a.invertida) === null;
+  });
+  if(faltan) return null;
+  var porDim = puntajePorDimension(respuestas);
+  var completas = porDim.filter(function(d){ return d.pct !== null; });
+  if(completas.length !== DIMENSIONES.length) return null;
+  var total = completas.reduce(function(s,d){ return s + d.pct; }, 0) / completas.length;
+
+  /* La más débil, y con empate gana la que viene antes: el orden de SERVQUAL
+     parte por fiabilidad, que es la que más pesa para el cliente. */
+  var floja = completas.slice().sort(function(a,b){
+    return a.pct - b.pct || DIMENSIONES.findIndex(function(d){return d.id===a.id;}) -
+                            DIMENSIONES.findIndex(function(d){return d.id===b.id;});
+  })[0];
+
+  var banda;
+  if(total < 50)      banda = { et:'Hay que ordenar', clase:'etq--rojo',
+    texto:'Hoy la atención depende de la memoria y de quién esté. Lo primero no es el bot: es dejar por escrito lo básico.' };
+  else if(total < 75) banda = { et:'Va encaminado', clase:'etq--alerta',
+    texto:'Tienes una base, pero se te escapan cosas. Trabajar una sola dimensión, la más débil, es lo que más va a notar el cliente.' };
+  else                banda = { et:'Buen estándar', clase:'etq--ok',
+    texto:'Atiendes bien. Aquí el bot sirve para sostener ese estándar cuando crezca el volumen o no estés.' };
+
+  return { total:total, porDimension:porDim, floja:floja, banda:banda };
+}
+
+function dimensionPorId(id){
+  for(var i=0;i<DIMENSIONES.length;i++){ if(DIMENSIONES[i].id === id) return DIMENSIONES[i]; }
+  return null;
+}
+
+/* ---------------- 3. INTERFAZ ---------------- */
+
+var negocio = { nombre:'', rubro:'', horario:'', direccion:'', canales:'', retiro:'', despacho:'',
+                pagos:'', devoluciones:'', derivar:'', productos:[], faqs:[] };
+var pasosHechos = {};
+var respuestasEval = new Array(AFIRMACIONES.length).fill(null);
+
+var CAMPOS = { nNombre:'nombre', nRubro:'rubro', nHorario:'horario', nDireccion:'direccion',
+               nCanales:'canales', nRetiro:'retiro', nDespacho:'despacho', nPagos:'pagos',
+               nDevoluciones:'devoluciones', nDerivar:'derivar' };
+
+function guardar(){
+  try{ localStorage.setItem(LS, JSON.stringify({ negocio:negocio, pasos:pasosHechos })); }catch(e){}
+}
+function leer(){
+  try{
+    var d = JSON.parse(localStorage.getItem(LS) || 'null');
+    if(!d) return;
+    if(d.negocio && typeof d.negocio === 'object'){
+      Object.keys(negocio).forEach(function(k){
+        if(k === 'productos' || k === 'faqs'){
+          if(Object.prototype.toString.call(d.negocio[k]) === '[object Array]') negocio[k] = d.negocio[k];
+        } else if(typeof d.negocio[k] === 'string'){ negocio[k] = d.negocio[k]; }
+      });
+    }
+    if(d.pasos && typeof d.pasos === 'object') pasosHechos = d.pasos;
+  }catch(e){}
+}
+
+var EJEMPLO = {
+  nombre:'Panadería Doña Rosa', rubro:'Alimentación',
+  horario:'Lunes a sábado de 7:30 a 20:00. Domingo de 8:00 a 14:00.',
+  direccion:'Av. Santa Rosa 1234, La Pintana.',
+  canales:'WhatsApp +56 9 1234 5678 e Instagram @panaderiadonarosa.',
+  retiro:'Los pedidos por encargo están listos en 40 minutos. El pan del día se lleva al momento.',
+  despacho:'Despachamos en La Pintana el mismo día por $2.000. Sobre $20.000, gratis.',
+  pagos:'Efectivo, débito y transferencia.',
+  devoluciones:'Si algo llega en mal estado, lo cambiamos el mismo día mostrando la boleta.',
+  derivar:'Escríbele a Rosa al +56 9 1234 5678 y te responde dentro del día.',
+  productos:[
+    { nombre:'Pan amasado', precio:'2500', detalle:'Precio por kilo, recién salido a las 8:00 y a las 17:00.' },
+    { nombre:'Torta de mil hojas', precio:'18000', detalle:'Por encargo con un día de anticipación.' },
+    { nombre:'Empanada de pino', precio:'2000', detalle:'Horneada, disponible desde las 11:00.' }
+  ],
+  faqs:[
+    { pregunta:'¿Hacen tortas para cumpleaños?', respuesta:'Sí. Las hacemos por encargo con un día de anticipación y podemos escribir el nombre arriba. Cuéntanos para cuántas personas.' },
+    { pregunta:'¿Tienen pan sin gluten?', respuesta:'No tenemos pan sin gluten. Trabajamos harina de trigo en todo el local, así que tampoco podemos asegurar que no haya contacto.' }
+  ]
+};
+
+/* ---------- Filas repetibles ---------- */
+function pintarFilas(cual){
+  var esProd = cual === 'productos';
+  var cont = $(esProd ? 'filasProductos' : 'filasFaq');
+  var vacio = $(esProd ? 'vacioProductos' : 'vacioFaq');
+  var lista = esProd ? negocio.productos : negocio.faqs;
+  cont.textContent = '';
+  vacio.hidden = lista.length > 0;
+
+  lista.forEach(function(item, i){
+    var fila = ce('div', 'fila-rep fila-rep--' + (esProd ? 'prod' : 'faq'));
+    var defs = esProd
+      ? [['nombre','Nombre del producto'], ['precio','Precio, solo números'], ['detalle','Detalle opcional']]
+      : [['pregunta','La pregunta del cliente'], ['respuesta','Tu respuesta definitiva']];
+    defs.forEach(function(d){
+      var inp = ce('input');
+      inp.type = 'text';
+      inp.value = item[d[0]] || '';
+      inp.placeholder = d[1];
+      inp.setAttribute('aria-label', d[1]);
+      inp.addEventListener('input', function(){
+        item[d[0]] = inp.value; guardar(); refrescarSenales();
+      });
+      fila.appendChild(inp);
+    });
+    var quitar = ce('button', 'quitar');
+    quitar.type = 'button';
+    quitar.textContent = 'Quitar';
+    quitar.setAttribute('aria-label', 'Quitar la fila ' + (i + 1));
+    quitar.addEventListener('click', function(){
+      lista.splice(i, 1); guardar(); pintarFilas(cual); refrescarSenales();
+      avisar('Fila eliminada.');
+    });
+    fila.appendChild(quitar);
+    cont.appendChild(fila);
+  });
+}
+
+function refrescarSenales(){
+  var c = completitud(negocio);
+  function marca(id, ok, textoOk){
+    var el = $(id);
+    el.textContent = ok ? textoOk : 'Sin cargar';
+    el.style.color = ok ? 'var(--menta)' : '#8FA0B2';
+  }
+  marca('senalProductos', c.productos > 0, c.productos + (c.productos === 1 ? ' producto' : ' productos'));
+  marca('senalHorario', !!negocio.horario.trim(), 'Listo');
+  marca('senalEntrega', !!(negocio.retiro.trim() || negocio.despacho.trim()), 'Listo');
+  marca('senalFaq', c.faqs > 0, c.faqs + (c.faqs === 1 ? ' pregunta' : ' preguntas'));
+
+  $('botNombre').textContent = negocio.nombre.trim() ? 'Staffbot · ' + negocio.nombre.trim() : 'Staffbot';
+  $('botEstado').textContent = c.listo
+    ? 'Con la información de ' + (negocio.nombre.trim() || 'tu negocio')
+    : 'Faltan datos: responderá «no sé» en casi todo';
+  pintarFichas();
+}
+
+/* Las sugerencias salen de lo que el negocio SÍ cargó: ofrecer una pregunta
+   que el bot no puede responder sería una mala demostración. */
+function pintarFichas(){
+  var cont = $('fichasBot');
+  cont.textContent = '';
+  var sugerencias = [];
+  if(negocio.horario.trim()) sugerencias.push('¿A qué hora cierran?');
+  if(negocio.productos.filter(function(p){return p.nombre && p.precio;}).length){
+    var p = negocio.productos.filter(function(x){return x.nombre && x.precio;})[0];
+    sugerencias.push('Precio de ' + p.nombre.toLowerCase());
+  }
+  if(negocio.despacho.trim()) sugerencias.push('¿Hacen despacho a domicilio?');
+  if(negocio.pagos.trim()) sugerencias.push('¿Aceptan transferencia?');
+  if(negocio.faqs.filter(function(f){return f.pregunta && f.respuesta;}).length){
+    sugerencias.push(negocio.faqs.filter(function(f){return f.pregunta;})[0].pregunta);
+  }
+  sugerencias.push('¿Eres una persona?');
+  sugerencias.push('¿Tienen estacionamiento?');   // a propósito: muestra el "no sé"
+
+  sugerencias.slice(0, 6).forEach(function(s){
+    var b = ce('button', 'ficha');
+    b.type = 'button'; b.textContent = s;
+    b.addEventListener('click', function(){ $('botEntrada').value = s; conversar(s); });
+    cont.appendChild(b);
+  });
+}
+
+/* ---------- El bot en pantalla ---------- */
+function burbuja(texto, quien, origen, sabe){
+  var b = ce('div', 'burbuja burbuja--' + quien + (sabe === false ? ' no-sabe' : ''));
+  b.appendChild(document.createTextNode(texto));
+  if(origen){
+    var o = ce('span', 'burbuja__origen');
+    o.textContent = 'Origen: ' + origen;
+    b.appendChild(o);
+  }
+  var charla = $('charla');
+  charla.appendChild(b);
+  charla.scrollTop = charla.scrollHeight;
+}
+
+function conversar(consulta){
+  burbuja(consulta, 'cliente');
+  var r = responder(consulta, negocio);
+  burbuja(r.texto, 'bot', r.origen, r.sabe);
+  avisar('El asistente respondió.');
+}
+
+/* ---------- Secciones que se pintan desde los datos ---------- */
+function pintarDimensiones(){
+  var z = $('dimensiones'); z.textContent = '';
+  DIMENSIONES.forEach(function(d, i){
+    var c = ce('div', 'dim');
+    var h = ce('h3');
+    var n = ce('i'); n.textContent = '0' + (i + 1);
+    h.appendChild(n); h.appendChild(document.createTextNode(d.nombre));
+    c.appendChild(h);
+    var q = ce('p', 'dim__que'); q.textContent = d.que; c.appendChild(q);
+    var b = ce('div', 'dim__bot');
+    var t = ce('b'); t.textContent = 'Qué hace el bot aquí'; b.appendChild(t);
+    b.appendChild(document.createTextNode(d.bot));
+    c.appendChild(b);
+    z.appendChild(c);
+  });
+}
+
+function pintarReglas(){
+  [['reglasBot', REGLAS_BOT], ['reglasLey', REGLAS_LEY]].forEach(function(par){
+    var z = $(par[0]); z.textContent = '';
+    par[1].forEach(function(r){
+      var d = ce('div', 'regla');
+      var b = ce('b'); b.textContent = r.b;
+      var s = ce('span'); s.textContent = r.s;
+      d.appendChild(b); d.appendChild(s); z.appendChild(d);
+    });
+  });
+
+  var z = $('ejemplosDialogo'); z.textContent = '';
+  EJEMPLOS_DIALOGO.forEach(function(e){
+    var caja = ce('div'); caja.style.cssText = 'margin-bottom:1.4rem';
+    var p = ce('p'); p.style.cssText = 'font-weight:600;margin-bottom:.2rem';
+    p.textContent = e.pregunta; caja.appendChild(p);
+    var mb = ce('div', 'mal-bien');
+    [['mal','Así no', e.mal], ['bien','Así sí', e.bien]].forEach(function(x){
+      var d = ce('div', x[0]);
+      var t = ce('b'); t.textContent = x[1];
+      d.appendChild(t); d.appendChild(document.createTextNode(x[2]));
+      mb.appendChild(d);
+    });
+    caja.appendChild(mb); z.appendChild(caja);
+  });
+
+  [['objetivosProyecto', OBJETIVOS], ['medidasProyecto', MEDIDAS]].forEach(function(par){
+    var z2 = $(par[0]); z2.textContent = '';
+    par[1].forEach(function(r){
+      var d = ce('div', 'regla');
+      d.style.borderColor = '#4A4038';
+      var b = ce('b'); b.textContent = r.b; b.style.color = 'var(--papel)';
+      var s = ce('span'); s.textContent = r.s; s.style.color = '#BDB5A9';
+      d.appendChild(b); d.appendChild(s); z2.appendChild(d);
+    });
+  });
+}
+
+function pintarPasos(){
+  var z = $('listaPasos'); z.textContent = '';
+  PASOS_NEGOCIO.forEach(function(texto, i){
+    var fila = ce('label', 'regla');
+    fila.style.cssText = 'grid-template-columns:auto 1fr;gap:.7rem;align-items:start;cursor:pointer';
+    var chk = ce('input'); chk.type = 'checkbox'; chk.checked = !!pasosHechos[i];
+    chk.style.cssText = 'width:1.1rem;height:1.1rem;margin-top:.25rem;accent-color:var(--rojo)';
+    chk.addEventListener('change', function(){
+      pasosHechos[i] = chk.checked; guardar(); avancePasos();
+    });
+    var s = ce('span'); s.textContent = (i + 1) + '. ' + texto;
+    s.style.cssText = 'color:var(--tinta);font-size:.95rem';
+    fila.appendChild(chk); fila.appendChild(s);
+    z.appendChild(fila);
+  });
+  avancePasos();
+}
+
+function avancePasos(){
+  var hechos = PASOS_NEGOCIO.filter(function(_, i){ return pasosHechos[i]; }).length;
+  $('pasosAvance').lastChild.textContent = hechos === 0
+    ? 'Sin pasos marcados todavía.'
+    : hechos + ' de ' + PASOS_NEGOCIO.length + ' pasos listos.';
+}
+
+function pintarEvaluacion(){
+  var z = $('itemsEval'); z.textContent = '';
+  AFIRMACIONES.forEach(function(a, i){
+    var item = ce('div', 'eval-item');
+    var p = ce('p'); p.textContent = (i + 1) + '. ' + a.texto; item.appendChild(p);
+    var ops = ce('div', 'eval-op');
+    ESCALA.forEach(function(e){
+      var lab = ce('label');
+      var r = ce('input'); r.type = 'radio'; r.name = 'af' + i; r.value = String(e.v);
+      if(Number(respuestasEval[i]) === e.v) r.checked = true;
+      r.addEventListener('change', function(){ respuestasEval[i] = e.v; });
+      var s = ce('span'); s.textContent = e.et;
+      lab.appendChild(r); lab.appendChild(s);
+      ops.appendChild(lab);
+    });
+    item.appendChild(ops);
+    z.appendChild(item);
+  });
+}
+
+function mostrarResultadoEval(){
+  var r = resultadoEvaluacion(respuestasEval);
+  if(!r){
+    $('avisoVivo').textContent = 'Faltan respuestas.';
+    window.alert('Faltan afirmaciones por responder. Contéstalas todas para ver un resultado que sirva.');
+    return;
+  }
+  $('evalPuntaje').textContent = Math.round(r.total) + ' %';
+  var et = $('evalEtiqueta');
+  et.textContent = r.banda.et;
+  et.className = 'etq ' + r.banda.clase;
+  $('evalTexto').textContent = r.banda.texto;
+
+  var med = $('evalMedidor'); med.textContent = '';
+  var descripcion = [];
+  r.porDimension.forEach(function(d){
+    var esFloja = d.id === r.floja.id;
+    var fila = ce('div', 'medidor__fila' + (esFloja ? ' medidor__fila--floja' : ''));
+    var n = ce('span'); n.textContent = d.nombre + (esFloja ? ' · la más débil' : '');
+    var pista = ce('div', 'medidor__pista');
+    var valor = ce('div', 'medidor__valor'); valor.style.width = Math.round(d.pct) + '%';
+    pista.appendChild(valor);
+    var num = ce('span', 'medidor__num'); num.textContent = Math.round(d.pct) + ' %';
+    fila.appendChild(n); fila.appendChild(pista); fila.appendChild(num);
+    med.appendChild(fila);
+    descripcion.push(d.nombre + ' ' + Math.round(d.pct) + ' por ciento');
+  });
+  med.setAttribute('aria-label', 'Puntaje por dimensión: ' + descripcion.join(', ') + '.');
+
+  var dim = dimensionPorId(r.floja.id);
+  $('evalFoco').textContent = 'Tu dimensión más débil es ' + dim.nombre.toLowerCase() + '. ' + dim.que;
+  var ol = $('evalPasos'); ol.textContent = '';
+  dim.pasos.forEach(function(p){ var li = ce('li'); li.textContent = p; ol.appendChild(li); });
+
+  $('resultadoEval').hidden = false;
+  $('resultadoEval').scrollIntoView({ behavior:'smooth', block:'start' });
+  avisar('Resultado listo: ' + Math.round(r.total) + ' por ciento, ' + r.banda.et + '.');
+}
+
+/* ---------- Arranque ---------- */
+function volcarCampos(){
+  Object.keys(CAMPOS).forEach(function(id){
+    var el = $(id); if(el) el.value = negocio[CAMPOS[id]] || '';
+  });
+}
+
+function iniciar(){
+  leer();
+  volcarCampos();
+  pintarFilas('productos'); pintarFilas('faqs');
+  pintarDimensiones(); pintarReglas(); pintarPasos(); pintarEvaluacion();
+  refrescarSenales();
+
+  Object.keys(CAMPOS).forEach(function(id){
+    var el = $(id); if(!el) return;
+    el.addEventListener('input', function(){
+      negocio[CAMPOS[id]] = el.value; guardar(); refrescarSenales();
+    });
+  });
+
+  $('masProducto').addEventListener('click', function(){
+    negocio.productos.push({ nombre:'', precio:'', detalle:'' });
+    guardar(); pintarFilas('productos');
+  });
+  $('masFaq').addEventListener('click', function(){
+    negocio.faqs.push({ pregunta:'', respuesta:'' });
+    guardar(); pintarFilas('faqs');
+  });
+
+  $('btnGuardar').addEventListener('click', function(){
+    guardar();
+    var c = completitud(negocio);
+    var aviso = $('avisoNegocio');
+    if(c.listo){
+      aviso.style.color = 'var(--ok)';
+      aviso.textContent = 'Guardado. El bot ya puede responder con la información de tu negocio.';
+    } else {
+      aviso.style.color = 'var(--alerta)';
+      aviso.textContent = 'Guardado, pero con ' + c.campos + ' de ' + c.deCampos +
+        ' campos y ' + c.productos + ' productos el bot va a decir «no sé» en casi todo.';
+    }
+    $('charla').textContent = '';
+    conversar('');
+    $('probar').scrollIntoView({ behavior:'smooth' });
+  });
+
+  $('btnEjemplo').addEventListener('click', function(){
+    Object.keys(EJEMPLO).forEach(function(k){
+      negocio[k] = (k === 'productos' || k === 'faqs')
+        ? EJEMPLO[k].map(function(o){ var c={}; Object.keys(o).forEach(function(x){c[x]=o[x];}); return c; })
+        : EJEMPLO[k];
+    });
+    guardar(); volcarCampos(); pintarFilas('productos'); pintarFilas('faqs'); refrescarSenales();
+    $('avisoNegocio').style.color = 'var(--tinta-3)';
+    $('avisoNegocio').textContent = 'Se cargó un negocio de ejemplo. Cámbialo por el tuyo cuando quieras.';
+    $('charla').textContent = ''; conversar('');
+    avisar('Ejemplo cargado.');
+  });
+
+  $('btnLimpiar').addEventListener('click', function(){
+    if(!window.confirm('Se va a borrar toda la información del negocio guardada en este navegador. ¿Continuar?')) return;
+    Object.keys(negocio).forEach(function(k){
+      negocio[k] = (k === 'productos' || k === 'faqs') ? [] : '';
+    });
+    guardar(); volcarCampos(); pintarFilas('productos'); pintarFilas('faqs'); refrescarSenales();
+    $('charla').textContent = ''; conversar('');
+    $('avisoNegocio').textContent = '';
+    avisar('Información borrada.');
+  });
+
+  $('formBot').addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = $('botEntrada').value.trim();
+    if(!v) return;
+    conversar(v);
+    $('botEntrada').value = '';
+  });
+
+  $('formEval').addEventListener('submit', function(e){
+    e.preventDefault(); mostrarResultadoEval();
+  });
+  $('btnEvalLimpiar').addEventListener('click', function(){
+    respuestasEval = new Array(AFIRMACIONES.length).fill(null);
+    $('formEval').reset(); pintarEvaluacion();
+    $('resultadoEval').hidden = true;
+    avisar('Autoevaluación reiniciada.');
+  });
+  $('btnImprimirEval').addEventListener('click', function(){
+    document.body.classList.add('solo-resultado');
+    window.print();
+    setTimeout(function(){ document.body.classList.remove('solo-resultado'); }, 500);
+  });
+  window.addEventListener('afterprint', function(){
+    document.body.classList.remove('solo-resultado');
+  });
+
+  var nav = $('nav');
+  $('btnMenu').addEventListener('click', function(){
+    var ab = nav.classList.toggle('abierto');
+    this.setAttribute('aria-expanded', ab ? 'true' : 'false');
+  });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      nav.classList.remove('abierto');
+      $('btnMenu').setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  conversar('');
+}
+
+/* ============================================================
+   PRUEBAS DEL MOTOR
+   Con el botón «Verificar el motor» o con ?pruebas=1 al final
+   de la dirección. Revisan las reglas del proyecto, no el dibujo.
+   ============================================================ */
+var NEG_PRUEBA = {
+  nombre:'Panadería de Prueba',
+  horario:'Lunes a sábado de 8:00 a 20:00.',
+  direccion:'Calle Falsa 123.',
+  despacho:'Despacho el mismo día por $2.000.',
+  pagos:'Efectivo y transferencia.',
+  derivar:'Escríbele a Rosa al +56 9 0000 0000.',
+  retiro:'', canales:'', devoluciones:'',
+  productos:[{ nombre:'Pan amasado', precio:'2500', detalle:'Por kilo.' }],
+  faqs:[{ pregunta:'¿Hacen tortas para cumpleaños?', respuesta:'Sí, por encargo con un día de anticipación.' }]
+};
+
+var PRUEBAS = [
+ ['El bot responde el horario con lo que cargó el negocio', function(){
+   var r = responder('¿a qué hora cierran?', NEG_PRUEBA);
+   return r.sabe === true && r.texto === NEG_PRUEBA.horario && r.origen === 'Horario de atención';
+ }],
+ ['El bot responde el precio de un producto cargado, con formato chileno', function(){
+   var r = responder('¿cuánto cuesta el pan amasado?', NEG_PRUEBA);
+   return r.sabe === true && r.texto.indexOf('$2.500') > -1 && r.origen === 'Lista de productos';
+ }],
+ ['NUNCA inventa un precio que no está cargado', function(){
+   var r = responder('¿cuánto vale la torta de mil hojas?', NEG_PRUEBA);
+   // No conoce ese producto: puede ofrecer los que sí tiene, pero jamás un precio inventado.
+   return r.texto.indexOf('18') === -1 && r.texto.indexOf('mil hojas') === -1;
+ }],
+ ['Cuando no tiene el dato lo dice y deriva a una persona', function(){
+   var r = responder('¿cuánto demora el retiro?', NEG_PRUEBA);
+   return r.sabe === false && r.texto.indexOf('Rosa') > -1;
+ }],
+ ['Una consulta fuera de todo lo cargado también deriva, no se queda en silencio', function(){
+   var r = responder('¿tienen estacionamiento para bicicletas?', NEG_PRUEBA);
+   return r.sabe === false && r.texto.indexOf('Rosa') > -1;
+ }],
+ ['Sin negocio cargado, el bot no finge saber', function(){
+   var r = responder('¿a qué hora abren?', {});
+   return r.sabe === false;
+ }],
+ ['El bot nunca se hace pasar por persona', function(){
+   var r = responder('¿eres una persona?', NEG_PRUEBA);
+   return r.texto.toLowerCase().indexOf('no una persona') > -1 && r.origen === 'Regla de la casa';
+ }],
+ ['La pregunta frecuente del negocio gana sobre la respuesta genérica', function(){
+   var r = responder('¿hacen tortas para cumpleaños?', NEG_PRUEBA);
+   return r.origen === 'Pregunta frecuente cargada por el negocio' &&
+          r.texto.indexOf('encargo') > -1;
+ }],
+ ['Gana la intención con más puntaje, no la última que coincide', function(){
+   // "despacho" y "pago" en la misma frase: debe ganar despacho, que es lo preguntado.
+   var r = responder('¿hacen despacho a domicilio?', NEG_PRUEBA);
+   return r.origen === 'Despacho a domicilio';
+ }],
+ ['Entiende sin tildes y con mayúsculas', function(){
+   var a = responder('¿A QUE HORA CIERRAN?', NEG_PRUEBA);
+   var b = responder('a qué hora cierran', NEG_PRUEBA);
+   return a.texto === b.texto && a.sabe === true;
+ }],
+ ['El plural encuentra el singular: "horarios" llega a "horario"', function(){
+   var r = responder('¿cuáles son los horarios?', NEG_PRUEBA);
+   return r.origen === 'Horario de atención';
+ }],
+ ['Toda respuesta dice de dónde salió', function(){
+   return ['¿a qué hora cierran?','¿cuánto cuesta el pan amasado?','¿tienen wifi?']
+     .every(function(q){ return !!responder(q, NEG_PRUEBA).origen; });
+ }],
+ ['La completitud distingue una ficha lista de una vacía', function(){
+   return completitud(NEG_PRUEBA).listo === true && completitud({}).listo === false;
+ }],
+ ['Una afirmación invertida se da vuelta al puntuar', function(){
+   return valorAfirmacion(4, true) === 1 && valorAfirmacion(1, true) === 4 &&
+          valorAfirmacion(4, false) === 4;
+ }],
+ ['Responder todo al máximo sin leer no da 100 %: las invertidas lo delatan', function(){
+   var todas4 = new Array(AFIRMACIONES.length).fill(4);
+   var r = resultadoEvaluacion(todas4);
+   return r !== null && r.total === 62.5;
+ }],
+ ['Contestar de verdad bien sí da 100 %', function(){
+   var buenas = AFIRMACIONES.map(function(a){ return a.invertida ? 1 : 4; });
+   var r = resultadoEvaluacion(buenas);
+   return r !== null && Math.abs(r.total - 100) < 0.001;
+ }],
+ ['Con la evaluación incompleta no se entrega resultado', function(){
+   var faltante = AFIRMACIONES.map(function(a,i){ return i === 0 ? null : 3; });
+   return resultadoEvaluacion(faltante) === null;
+ }],
+ ['Señala como más débil la dimensión peor evaluada', function(){
+   var resp = AFIRMACIONES.map(function(a){
+     if(a.dim === 'empatia') return a.invertida ? 4 : 1;   // lo peor posible
+     return a.invertida ? 1 : 4;                            // lo mejor posible
+   });
+   var r = resultadoEvaluacion(resp);
+   return r.floja.id === 'empatia' && Math.round(r.floja.pct) === 25;
+ }],
+ ['Las cinco dimensiones traen su explicación y sus pasos', function(){
+   return DIMENSIONES.length === 5 && DIMENSIONES.every(function(d){
+     return d.nombre && d.que && d.bot && d.pasos.length >= 3;
+   });
+ }],
+ ['Hay dos afirmaciones por dimensión y una de cada par es invertida', function(){
+   return DIMENSIONES.every(function(d){
+     var pares = AFIRMACIONES.filter(function(a){ return a.dim === d.id; });
+     return pares.length === 2 && pares.filter(function(a){ return a.invertida; }).length === 1;
+   });
+ }],
+ ['La garantía legal que cita la página es de 6 meses, no de 3', function(){
+   var g = REGLAS_LEY.filter(function(r){ return r.b.indexOf('Garantía') > -1; })[0];
+   return !!g && g.s.indexOf('6 meses') > -1 && g.s.indexOf('21.398') > -1;
+ }]
+];
+
+function correrPruebas(){
+  var ok = 0, fallos = [];
+  for(var i = 0; i < PRUEBAS.length; i++){
+    var r = false;
+    try{ r = PRUEBAS[i][1]() === true; }
+    catch(e){ fallos.push(PRUEBAS[i][0] + ' — error: ' + e.message); continue; }
+    if(r) ok++; else fallos.push(PRUEBAS[i][0]);
+  }
+  return { total:PRUEBAS.length, ok:ok, fallos:fallos };
+}
+
+function mostrarPruebas(){
+  var caja = $('cajaPruebas'), r = correrPruebas();
+  caja.textContent = '';
+  var t = ce('p', r.fallos.length ? 'pruebas-mal' : 'pruebas-bien');
+  t.textContent = r.fallos.length
+    ? 'No pasaron ' + r.fallos.length + ' de ' + r.total + ' verificaciones.'
+    : 'Las ' + r.total + ' verificaciones del motor pasaron.';
+  caja.appendChild(t);
+  if(r.fallos.length){
+    var ul = ce('ul');
+    r.fallos.forEach(function(f){ var li = ce('li'); li.textContent = f; ul.appendChild(li); });
+    caja.appendChild(ul);
+  }
+  caja.hidden = false;
+}
+
+iniciar();
+$('btnPruebas').addEventListener('click', mostrarPruebas);
+if(/[?&]pruebas=1/.test(location.search)){
+  mostrarPruebas();
+  $('verificacion').scrollIntoView();
+}
+})();
+</script>
+</body>
+</html>
