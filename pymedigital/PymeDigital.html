@@ -120,6 +120,76 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .pruebas-mal{ color:#B3261E; }
 .caja-pruebas ul{ margin:.6rem 0 0; padding-left:1.2rem; font-weight:400; font-size:.9rem; }
 
+/* ---------- Mapa de la comuna ---------- */
+.mapa-capas{ display:flex; flex-wrap:wrap; gap:.5rem; margin:1rem 0 .4rem; }
+.capa-btn{
+  display:inline-flex; align-items:center; gap:.45rem;
+  background: var(--blanco); border:1.5px solid var(--gris-linea);
+  color: var(--gris-carbon); border-radius:999px;
+  padding:.4rem .9rem; font-size:.85rem; font-family:inherit; font-weight:600; cursor:pointer;
+}
+.capa-btn[aria-pressed="false"]{ opacity:.45; border-style:dashed; }
+.capa-btn:hover{ border-color: var(--azul-cielo); }
+.punto-capa{
+  display:inline-block; width:.7rem; height:.7rem; border-radius:99px; flex:0 0 auto;
+  margin-right:.3rem; vertical-align:middle;
+}
+.punto-capa--cuadrado{ border-radius:2px; }
+.punto-capa--rombo{ border-radius:2px; transform: rotate(45deg); }
+.mapa-caja{
+  background: var(--blanco); border:1px solid var(--gris-linea); border-radius:14px;
+  padding:1rem; box-shadow: 0 3px 12px rgba(10,31,68,.05);
+}
+.mapa-svg{ width:100%; height:auto; display:block; background:#F7FAFD; border-radius:10px; }
+/* En celular el esquema completo deja los rotulos ilegibles. Se mantiene el
+   tamano y se desplaza de lado, como la tabla. */
+@media (max-width:680px){
+  .mapa-lienzo{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .mapa-lienzo .mapa-svg{ min-width:660px; }
+  .mapa-pista{ display:block; }
+}
+.mapa-pista{ display:none; font-size:.8rem; color: var(--gris-pizarra); margin:.5rem 0 0; }
+.m-comuna{ fill:#fff; stroke: var(--azul-real); stroke-width:2.5; }
+.m-avenida line{ stroke: var(--azul-cielo); stroke-width:2; stroke-dasharray:none; }
+.m-rotulo-av text{ font-size:15px; fill: var(--azul-real); font-weight:700; }
+.m-rotulo-av, .m-sector, .m-vecina{ font-family: var(--fuente-texto); }
+.m-sector text{ font-size:16px; fill: var(--gris-carbon); font-weight:700; text-anchor:middle; }
+.m-sector text, .m-rotulo-av text{
+  paint-order: stroke fill; stroke:#F7FAFD; stroke-width:4px; stroke-linejoin:round;
+}
+.m-vecina text{ font-size:15px; fill: var(--gris-pizarra); font-weight:700; text-anchor:middle; }
+.m-vecina .m-via{ font-size:12px; font-weight:400; }
+.marca{ cursor:default; }
+.marca:hover > *, .marca:focus-visible > *{ stroke: var(--azul-tinta); stroke-width:3; }
+.marca:focus-visible{ outline:3px solid var(--azul-indigo); outline-offset:2px; }
+.mapa-aviso{ font-size:.84rem; color: var(--gris-pizarra); margin:.8rem 0 0; }
+.mapa-sub{
+  font-family: var(--fuente-titulo); font-size:1.05rem; margin:2rem 0 .4rem;
+  color: var(--azul-tinta);
+}
+.mapa-nota{ font-size:.86rem; color: var(--gris-pizarra); margin:0 0 .8rem; }
+.mapa-tabla-caja{ overflow-x:auto; border:1px solid var(--gris-linea); border-radius:12px; background: var(--blanco); }
+.mapa-tabla{ width:100%; border-collapse:collapse; font-size:.86rem; min-width:640px; }
+.mapa-tabla th, .mapa-tabla td{ padding:.55rem .8rem; text-align:left; border-bottom:1px solid var(--gris-linea); }
+.mapa-tabla th{ background: var(--azul-polvo); font-family: var(--fuente-titulo); font-size:.78rem;
+                text-transform:uppercase; letter-spacing:.04em; color: var(--azul-tinta); }
+.mapa-tabla tbody tr:last-child td{ border-bottom:0; }
+.cobertura{ display:grid; gap:.45rem; }
+.sector-fila{
+  display:grid; gap:.15rem; background: var(--blanco); border:1px solid var(--gris-linea);
+  border-left:4px solid var(--azul-cielo); border-radius:10px; padding:.6rem .9rem; font-size:.87rem;
+}
+.sector-fila b{ font-family: var(--fuente-titulo); }
+.sector-fila em{ font-style:normal; color: var(--gris-pizarra); font-size:.82rem; }
+.sector-fila--oportunidad{ border-left-color:#eb6834; background:#FFF6F1; }
+.sector-fila--oportunidad em{ color:#8a3a12; font-weight:600; }
+.mapa-fuentes{ margin-top:1.4rem; font-size:.85rem; color: var(--gris-pizarra); }
+.mapa-fuentes summary{ cursor:pointer; font-weight:600; color: var(--azul-real); }
+.mapa-fuentes ul{ margin:.5rem 0 0; padding-left:1.2rem; }
+@media (min-width:640px){
+  .sector-fila{ grid-template-columns: 1.1fr .9fr 1.2fr; align-items:baseline; gap:1rem; }
+}
+
 /* ---------- Utilidad de tarjeta (layout de bloques) ---------- */
 .bloque{
   background: var(--blanco);
@@ -857,6 +927,7 @@ header.con-sombra{ box-shadow: 0 6px 18px rgba(0,0,0,.22); }
     </a>
     <nav class="header-nav">
       <a href="#catalogo">Catálogo</a>
+        <a href="#mapa">Mapa de la comuna</a>
       <a href="#registro">Formulario</a>
       <a href="#servicios">Nuestro servicio</a>
     </nav>
@@ -1263,6 +1334,117 @@ header.con-sombra{ box-shadow: 0 6px 18px rgba(0,0,0,.22); }
   </div>
 </section>
 
+<!-- ================= MAPA DE LA COMUNA ================= -->
+<section class="seccion" id="mapa">
+  <div class="contenedor">
+    <span class="etiqueta">Mapa de la comuna</span>
+    <h2 class="seccion-titulo">Dónde está cada pyme y qué tiene cerca</h2>
+    <p class="seccion-intro">Las pymes inscritas aparecen en su sector, junto a las ferias libres y
+      los servicios que ya mueven público en La Pintana. Sirve para responder la pregunta que hace
+      un cliente: <b>¿me queda cerca?</b> Y la que se hace el emprendedor: <b>¿hay alguien más
+      en mi sector?</b></p>
+
+    <div class="mapa-capas no-imprimir" role="group" aria-label="Capas del mapa">
+      <button type="button" class="capa-btn" data-capa="pymes" aria-pressed="true">
+        <span class="punto-capa" style="background:#2a78d6"></span> Pymes registradas
+      </button>
+      <button type="button" class="capa-btn" data-capa="ferias" aria-pressed="true">
+        <span class="punto-capa punto-capa--cuadrado" style="background:#eb6834"></span> Ferias libres
+      </button>
+      <button type="button" class="capa-btn" data-capa="servicios" aria-pressed="true">
+        <span class="punto-capa punto-capa--rombo" style="background:#1baf7a"></span> Servicios y equipamiento
+      </button>
+    </div>
+
+    <p class="catalogo-cuenta" id="mapaCuenta" role="status"></p>
+
+    <div class="mapa-caja">
+      <div class="mapa-lienzo">
+      <svg viewBox="0 0 1000 780" class="mapa-svg" role="img"
+           aria-label="Esquema de la comuna de La Pintana con sus comunas vecinas, sus avenidas principales, sus sectores y los puntos del catálogo. El detalle de cada punto está en la tabla que sigue.">
+        <title>Esquema de la comuna de La Pintana</title>
+
+        <!-- Comunas vecinas, cada una por el lado que corresponde -->
+        <g class="m-vecina">
+          <text x="330" y="66">San Ramón</text>
+          <text x="330" y="86" class="m-via">por Venancia Leiva</text>
+          <text x="672" y="62">La Granja</text>
+          <text x="672" y="82" class="m-via">por calle Santo Tomás</text>
+          <text x="900" y="266">La Florida</text>
+          <text x="900" y="286" class="m-via">por Av. La Serena</text>
+          <text x="898" y="556">Puente Alto</text>
+          <text x="898" y="576" class="m-via">por Av. La Serena</text>
+          <text x="300" y="742">San Bernardo</text>
+          <text x="300" y="762" class="m-via">por calle Los Álamos</text>
+          <text x="66" y="330">El Bosque</text>
+          <text x="66" y="350" class="m-via">por Av. San Francisco</text>
+        </g>
+
+        <!-- Cuerpo de la comuna -->
+        <path class="m-comuna"
+              d="M200 115 L810 108 L845 300 L838 520 L700 690 L300 685 L175 480 L185 235 Z"/>
+
+        <!-- Avenidas principales -->
+        <g class="m-avenida">
+          <line x1="520" y1="110" x2="482" y2="688"/>
+          <line x1="182" y1="320" x2="843" y2="308"/>
+          <line x1="176" y1="466" x2="836" y2="458"/>
+        </g>
+        <g class="m-rotulo-av">
+          <text x="532" y="176" transform="rotate(88 532 176)">Av. Santa Rosa</text>
+          <text x="196" y="302">Av. Observatorio</text>
+          <text x="192" y="448">Av. Lo Blanco</text>
+        </g>
+
+        <!-- Sectores -->
+        <g class="m-sector">
+          <text x="300" y="162">Santo Tomás</text>
+          <text x="684" y="167">Pablo de Rokha</text>
+          <text x="256" y="352">Flor Fernández</text>
+          <text x="444" y="352">El Roble</text>
+          <text x="717" y="342">San Rafael</text>
+          <text x="326" y="532">Santiago Nueva</text>
+          <text x="326" y="550">Extremadura</text>
+          <text x="652" y="547">El Castillo</text>
+        </g>
+
+        <!-- Las marcas se dibujan desde el codigo -->
+        <g id="capaMarcas"></g>
+      </svg>
+      </div>
+      <p class="mapa-pista">En celular el mapa se desplaza de lado con el dedo.</p>
+
+      <p class="mapa-aviso">Esquema dibujado a mano, <b>no a escala y sin Google Maps</b>: así la
+        página abre sin internet. Los límites, las comunas vecinas y las avenidas son los reales.
+        La posición de cada punto dentro del cuadro es aproximada, salvo los que la tabla marca
+        como «sobre su avenida». <b>La dirección exacta está siempre en la tabla.</b></p>
+    </div>
+
+    <h3 class="mapa-sub">Todos los puntos, con su dirección</h3>
+    <div class="mapa-tabla-caja">
+      <table class="mapa-tabla">
+        <thead>
+          <tr><th>Nombre</th><th>Qué es</th><th>Dirección o días</th><th>Sector</th><th>Cómo se ubicó</th></tr>
+        </thead>
+        <tbody id="mapaTablaCuerpo"></tbody>
+      </table>
+    </div>
+
+    <h3 class="mapa-sub">Cobertura por sector</h3>
+    <p class="mapa-nota">Esta es la lectura que sirve para decidir: un sector con feria libre y sin
+      ninguna pyme inscrita es una vitrina que nadie está usando.</p>
+    <div id="coberturaSectores" class="cobertura"></div>
+
+    <h3 class="mapa-sub">Cómo llegan tus clientes</h3>
+    <div class="rejilla rejilla--2" id="conectividad"></div>
+
+    <details class="mapa-fuentes">
+      <summary>Fuentes de los datos del mapa</summary>
+      <ul id="listaFuentesMapa"></ul>
+    </details>
+  </div>
+</section>
+
 <!-- ================= REGISTRO ================= -->
 <section class="seccion registro" id="registro">
   <div class="contenedor">
@@ -1288,6 +1470,11 @@ header.con-sombra{ box-shadow: 0 6px 18px rgba(0,0,0,.22); }
             <option value="Otro">Otro</option>
           </select>
           <span class="form-error" id="errRubro"></span>
+        </div>
+        <div class="form-campo">
+          <label for="rSector">Sector de la comuna</label>
+          <select id="rSector"></select>
+          <span class="form-error" id="errSector"></span>
         </div>
         <div class="form-campo">
           <label for="rDireccion">Dirección (en La Pintana)</label>
@@ -1430,6 +1617,102 @@ header.con-sombra{ box-shadow: 0 6px 18px rgba(0,0,0,.22); }
    la pantalla. Se comprueban solas al final del archivo.
    ============================================================ */
 var MOTOR = {};
+
+/* ============================================================
+   MAPA DE LA COMUNA
+   Es un esquema dibujado a mano, no un mapa a escala y no usa
+   Google Maps: la pagina tiene que abrir sin internet y sin
+   una clave de API que quedaria a la vista en el archivo.
+   Los limites, las comunas vecinas y las avenidas son los
+   reales (fuentes al pie de la seccion). La posicion de cada
+   punto dentro del cuadro es aproximada, salvo los que se
+   marcan como ubicados sobre la avenida que dice su direccion.
+   ============================================================ */
+
+/* Los tres colores de las capas estan validados entre si para
+   daltonismo y contraste. No agregar un cuarto: en un mapa de
+   puntos, cuatro colores ya no se distinguen con seguridad.
+   Lo que haga falta distinguir se hace con la forma y el rotulo. */
+var CAPAS = {
+  pymes:     { nombre:'Pymes registradas',       color:'#2a78d6', forma:'circulo' },
+  ferias:    { nombre:'Ferias libres',           color:'#eb6834', forma:'cuadrado' },
+  servicios: { nombre:'Servicios y equipamiento', color:'#1baf7a', forma:'rombo' }
+};
+
+var SECTORES = [
+  { id:'santo-tomas',  nombre:'Santo Tomás',                 x:300, y:200 },
+  { id:'pablo-rokha',  nombre:'Pablo de Rokha',              x:680, y:205 },
+  { id:'flor-fernandez', nombre:'Flor Fernández',            x:265, y:390 },
+  { id:'el-roble',     nombre:'El Roble',                    x:424, y:398 },
+  { id:'san-rafael',   nombre:'San Rafael',                  x:715, y:380 },
+  { id:'nueva-extremadura', nombre:'Santiago Nueva Extremadura', x:330, y:580 },
+  { id:'el-castillo',  nombre:'El Castillo',                 x:650, y:585 }
+];
+
+/* exacto:true = el punto va sobre la avenida que nombra su direccion.
+   exacto:false = va dentro de su sector, en un lugar aproximado. */
+var PUNTOS = [
+  /* --- Los seis CESFAM de la comuna --- */
+  { capa:'servicios', tipo:'CESFAM', nombre:'CESFAM El Roble',
+    detalle:'Av. Santa Rosa 12975', sector:'el-roble', x:494, y:402, exacto:true },
+  { capa:'servicios', tipo:'CESFAM', nombre:'CESFAM Santo Tomás',
+    detalle:'Santo Tomás 0987', sector:'santo-tomas', x:312, y:238, exacto:false },
+  { capa:'servicios', tipo:'CESFAM', nombre:'CESFAM Pablo de Rokha',
+    detalle:'Pedro Prado 12221', sector:'pablo-rokha', x:692, y:243, exacto:false },
+  { capa:'servicios', tipo:'CESFAM', nombre:'CESFAM San Rafael',
+    detalle:'Av. Porto Alegre 12577', sector:'san-rafael', x:727, y:418, exacto:false },
+  { capa:'servicios', tipo:'CESFAM', nombre:'CESFAM Santiago Nueva Extremadura',
+    detalle:'Av. Juanita 13558', sector:'nueva-extremadura', x:342, y:618, exacto:false },
+  { capa:'servicios', tipo:'CESFAM', nombre:'CESFAM Flor Fernández',
+    detalle:'Dirección por confirmar en el municipio', sector:'flor-fernandez',
+    x:277, y:428, exacto:false },
+
+  /* --- Equipamiento que mueve publico --- */
+  { capa:'servicios', tipo:'Universidad', nombre:'Campus Antumapu · U. de Chile',
+    detalle:'Av. Santa Rosa 11315 · 355 hectáreas · Agronomía, Veterinaria, Forestal e INTA',
+    sector:'el-roble', x:508, y:212, exacto:true },
+
+  /* --- Ferias libres: donde la gente ya va a comprar --- */
+  { capa:'ferias', tipo:'Feria libre', nombre:'Feria El Sauce',
+    detalle:'Av. Observatorio entre Los Mimbres y Av. Los Morros · miércoles y sábado',
+    sector:'pablo-rokha', x:645, y:315, exacto:true },
+  { capa:'ferias', tipo:'Feria libre', nombre:'Feria A. Latorre',
+    detalle:'Almirante Latorre entre Av. Observatorio y Violeta Parra · miércoles y sábado, 07:00 a 16:00',
+    sector:'santo-tomas', x:352, y:333, exacto:true },
+  { capa:'ferias', tipo:'Feria libre', nombre:'Feria El Manzano 3',
+    detalle:'Av. Lo Blanco entre Pasaje Drake e Incahuasi · jueves y domingo',
+    sector:'el-castillo', x:598, y:468, exacto:true },
+  { capa:'ferias', tipo:'Feria libre', nombre:'Feria Santa Rosa',
+    detalle:'Av. Santa Rosa con Joaquín Edwards Bello · jueves y domingo',
+    sector:'el-roble', x:486, y:548, exacto:true },
+  { capa:'ferias', tipo:'Feria libre', nombre:'Feria John Kennedy',
+    detalle:'John Kennedy entre Bernardino Parada y Julio Barrenechea · miércoles y sábado, 07:00 a 16:00',
+    sector:'flor-fernandez', x:268, y:492, exacto:false }
+];
+
+/* La comuna tiene 16 ferias libres segun el municipio; aqui van las
+   cinco cuya ubicacion y dias se pudieron verificar. */
+var FERIAS_TOTALES_COMUNA = 16;
+
+var CONECTIVIDAD = [
+  { titulo:'No hay estación de Metro dentro de la comuna',
+    texto:'La más cercana es Copa Lo Martínez, de la Línea 2. Para un cliente que viene de lejos, el último tramo siempre es en bus o auto: conviene que la ficha diga el paradero, no solo la calle.' },
+  { titulo:'El G28 une los centros cívicos',
+    texto:'Conecta San Bernardo con La Pintana pasando por las estaciones Hospital El Pino y Copa Lo Martínez.' },
+  { titulo:'El 286 llega hasta Las Condes',
+    texto:'Recorrido directo entre La Pintana y el sector oriente, útil para una pyme que quiera vender fuera de la comuna.' },
+  { titulo:'Recorridos que sirven la comuna',
+    texto:'203, 203C, 203N, 216, 228, 229, 302, 302N, G05, G07, G08, G08V, G09, G11, G16, G23, G24, G31 y G35.' }
+];
+
+var FUENTES_MAPA = [
+  'Límites y superficie de la comuna (30,6 km²): ficha comunal de La Pintana.',
+  'Direcciones de los seis CESFAM: red de atención primaria de La Pintana.',
+  'Ferias libres: registro municipal de ferias de La Pintana (16 en total).',
+  'Campus Antumapu: Facultad de Ciencias Agronómicas, Universidad de Chile.',
+  'Recorridos y estación más cercana: Red Movilidad.'
+];
+
 
 /* ============================================================
    DIAGNÓSTICO DIGITAL — lógica del cuestionario (solo en la
@@ -1633,10 +1916,10 @@ if(document.getElementById('diagForm')){
    PYMES_EJEMPLO más abajo.
    ============================================================ */
 var PYMES_EJEMPLO = [
-  { nombre:'Panadería Los Álamos', rubro:'Alimentación', direccion:'Av. Santa Rosa, La Pintana', telefono:'+56 9 5555 1010', descripcion:'Pan amasado, tortas por encargo y venta al por menor.', ejemplo:true },
-  { nombre:'Peluquería Bella Vista', rubro:'Belleza y salud', direccion:'Villa El Castillo, La Pintana', telefono:'+56 9 5555 2020', descripcion:'Cortes, color y tratamientos capilares para toda la familia.', ejemplo:true },
-  { nombre:'Ferretería El Constructor', rubro:'Comercio', direccion:'Sector Nuevo Amanecer, La Pintana', telefono:'+56 9 5555 3030', descripcion:'Materiales de construcción y herramientas para el hogar.', ejemplo:true },
-  { nombre:'Gasfitería Rápida RM', rubro:'Servicios', direccion:'Villa San Rafael, La Pintana', telefono:'+56 9 5555 4040', descripcion:'Reparaciones de gasfitería a domicilio, atención el mismo día.', ejemplo:true }
+  { nombre:'Panadería Los Álamos', rubro:'Alimentación', sector:'el-roble', direccion:'Av. Santa Rosa, La Pintana', telefono:'+56 9 5555 1010', descripcion:'Pan amasado, tortas por encargo y venta al por menor.', ejemplo:true },
+  { nombre:'Peluquería Bella Vista', rubro:'Belleza y salud', sector:'el-castillo', direccion:'Villa El Castillo, La Pintana', telefono:'+56 9 5555 2020', descripcion:'Cortes, color y tratamientos capilares para toda la familia.', ejemplo:true },
+  { nombre:'Ferretería El Constructor', rubro:'Comercio', sector:'nueva-extremadura', direccion:'Sector Nuevo Amanecer, La Pintana', telefono:'+56 9 5555 3030', descripcion:'Materiales de construcción y herramientas para el hogar.', ejemplo:true },
+  { nombre:'Gasfitería Rápida RM', rubro:'Servicios', sector:'san-rafael', direccion:'Villa San Rafael, La Pintana', telefono:'+56 9 5555 4040', descripcion:'Reparaciones de gasfitería a domicilio, atención el mismo día.', ejemplo:true }
 ];
 
 function cargarPymesGuardadas(){
@@ -1658,8 +1941,14 @@ function todasLasPymes(){
 
 /* Busca en todo lo que el visitante ve de la ficha, no solo en el nombre:
    quien escribe "pan" o "Santa Rosa" espera encontrar la panaderia. */
+function nombreDeSector(id){
+  var s = sectorPorId(id);
+  return s ? s.nombre : '';
+}
+
 function textoDePyme(p){
-  return (p.nombre + ' ' + p.rubro + ' ' + p.direccion + ' ' + p.descripcion).toLowerCase();
+  return (p.nombre + ' ' + p.rubro + ' ' + p.direccion + ' ' + p.descripcion + ' ' +
+          nombreDeSector(p.sector)).toLowerCase();
 }
 
 function filtrarPymes(lista, texto, rubro){
@@ -1719,7 +2008,8 @@ function renderCatalogo(){
 
     var fila = document.createElement('div');
     fila.className = 'contacto-fila';
-    var dir = document.createElement('span'); dir.textContent = p.direccion;
+    var dir = document.createElement('span');
+    dir.textContent = p.direccion + (p.sector ? ' · sector ' + nombreDeSector(p.sector) : '');
     var tel = document.createElement('span'); tel.textContent = p.telefono;
     fila.appendChild(dir); fila.appendChild(tel);
     card.appendChild(fila);
@@ -1739,6 +2029,7 @@ function renderCatalogo(){
           pymesRegistradas.splice(i, 1);
           guardarPymes(pymesRegistradas);
           renderCatalogo();
+          pintarMapa();
           avisar('Se quitó «' + p.nombre + '» del catálogo.');
         }
       });
@@ -1811,6 +2102,8 @@ document.getElementById('registroForm').addEventListener('submit', function(e){
   var correo = document.getElementById('rCorreo').value.trim();
   var descripcion = document.getElementById('rDescripcion').value.trim();
 
+  var sector = document.getElementById('rSector').value;
+
   var valido = true;
   function marcarError(id, mensaje){
     document.getElementById(id).textContent = mensaje;
@@ -1819,6 +2112,7 @@ document.getElementById('registroForm').addEventListener('submit', function(e){
 
   marcarError('errNombre', nombre.length < 2 ? 'Ingresa el nombre de tu pyme.' : '');
   marcarError('errRubro', rubro === '' ? 'Selecciona un rubro.' : '');
+  marcarError('errSector', sector === '' ? 'Elige el sector para que aparezca en el mapa.' : '');
   marcarError('errDireccion', direccion.length < 4 ? 'Ingresa una dirección dentro de La Pintana.' : '');
   var telefonoOk = normalizarTelefono(telefono);
   marcarError('errTelefono', telefonoOk === null
@@ -1830,13 +2124,14 @@ document.getElementById('registroForm').addEventListener('submit', function(e){
 
   /* Se guarda normalizado para que el catalogo no mezcle tres formatos del
      mismo numero. */
-  var nuevaPyme = { nombre:nombre, rubro:rubro, direccion:direccion,
+  var nuevaPyme = { nombre:nombre, rubro:rubro, sector:sector, direccion:direccion,
                     telefono:telefonoOk, correo:correo, descripcion:descripcion,
                     ejemplo:false, registrada: new Date().toISOString().slice(0,10) };
   pymesRegistradas.push(nuevaPyme);
   guardarPymes(pymesRegistradas);
   pymeRecien = nuevaPyme;
   renderCatalogo();
+  pintarMapa();
 
   document.getElementById('registroForm').reset();
   avisar('Se inscribió «' + nombre + '». Ya aparece en el catálogo.');
@@ -2004,6 +2299,230 @@ if(btnMisPymes){
   });
 }
 
+/* ---------- Calculo: que hay en cada sector y donde falta cobertura ---------- */
+
+/* Reparte varios puntos que caen en el mismo sector alrededor de su centro,
+   para que no queden uno encima de otro. Es determinista: el mismo indice da
+   siempre la misma posicion, asi el mapa no baila entre repintados. */
+function posicionEnSector(sector, indice){
+  if(!sector) return null;
+  var anillo = Math.floor(indice / 6);
+  var paso = indice % 6;
+  var radio = 26 + anillo * 22;
+  var angulo = (paso * 60 + anillo * 30) * Math.PI / 180;
+  return { x: sector.x + radio * Math.cos(angulo),
+           y: sector.y + radio * Math.sin(angulo) * 0.62 };
+}
+
+function sectorPorId(id){
+  for(var i = 0; i < SECTORES.length; i++){ if(SECTORES[i].id === id) return SECTORES[i]; }
+  return null;
+}
+
+/* Une los puntos fijos con las pymes que se hayan inscrito, cada una en el
+   sector que declaro en el formulario. */
+function puntosDelMapa(pymes){
+  var lista = PUNTOS.slice();
+  var porSector = {};
+  (pymes || []).forEach(function(p){
+    if(!p.sector) return;                 // pyme inscrita antes de existir el campo
+    var s = sectorPorId(p.sector);
+    if(!s) return;
+    porSector[p.sector] = (porSector[p.sector] || 0) + 1;
+    var pos = posicionEnSector(s, porSector[p.sector] - 1 + 3);  // +3 para no choear con los fijos
+    lista.push({ capa:'pymes', tipo: p.ejemplo ? 'Pyme de ejemplo' : 'Pyme registrada',
+                 nombre: p.nombre, detalle: p.rubro + ' · ' + p.direccion,
+                 sector: p.sector, x: pos.x, y: pos.y, exacto:false, esPyme:true });
+  });
+  return lista;
+}
+
+/* Lectura por sector: cuantas pymes hay, que equipamiento y que ferias.
+   Es la parte que sirve para decidir: un sector con feria y sin ninguna pyme
+   inscrita es una vitrina que nadie esta usando. */
+function resumenPorSector(pymes){
+  return SECTORES.map(function(s){
+    var fijos = PUNTOS.filter(function(p){ return p.sector === s.id; });
+    var cuantasPymes = (pymes || []).filter(function(p){ return p.sector === s.id; }).length;
+    var ferias = fijos.filter(function(p){ return p.capa === 'ferias'; }).length;
+    var servicios = fijos.filter(function(p){ return p.capa === 'servicios'; }).length;
+    return { id:s.id, nombre:s.nombre, pymes:cuantasPymes, ferias:ferias, servicios:servicios,
+             sinCobertura: cuantasPymes === 0,
+             oportunidad: cuantasPymes === 0 && ferias > 0 };
+  });
+}
+
+/* ---------- Dibujo de las marcas ---------- */
+
+function formaSVG(forma, x, y, color, esPyme){
+  var ns = 'http://www.w3.org/2000/svg';
+  var el;
+  if(forma === 'cuadrado'){
+    el = document.createElementNS(ns, 'rect');
+    el.setAttribute('x', x - 7); el.setAttribute('y', y - 7);
+    el.setAttribute('width', 14); el.setAttribute('height', 14);
+    el.setAttribute('rx', 2);
+  } else if(forma === 'rombo'){
+    el = document.createElementNS(ns, 'path');
+    el.setAttribute('d', 'M' + x + ' ' + (y-9) + 'L' + (x+9) + ' ' + y +
+                         'L' + x + ' ' + (y+9) + 'L' + (x-9) + ' ' + y + 'Z');
+  } else {
+    el = document.createElementNS(ns, 'circle');
+    el.setAttribute('cx', x); el.setAttribute('cy', y);
+    el.setAttribute('r', esPyme ? 8 : 7);
+  }
+  el.setAttribute('fill', color);
+  /* Anillo blanco: donde dos marcas se tocan, el borde las separa. */
+  el.setAttribute('stroke', '#fff');
+  el.setAttribute('stroke-width', 2);
+  return el;
+}
+
+var capasActivas = { pymes:true, ferias:true, servicios:true };
+
+function pintarMapa(){
+  var g = document.getElementById('capaMarcas');
+  if(!g) return;
+  g.textContent = '';
+  var ns = 'http://www.w3.org/2000/svg';
+  var lista = puntosDelMapa(todasLasPymes()).filter(function(p){ return capasActivas[p.capa]; });
+
+  lista.forEach(function(p){
+    var def = CAPAS[p.capa];
+    var grupo = document.createElementNS(ns, 'g');
+    grupo.setAttribute('class', 'marca');
+    grupo.setAttribute('tabindex', '0');
+    grupo.setAttribute('role', 'img');
+    var rotulo = p.nombre + '. ' + p.tipo + '. ' + p.detalle +
+                 (p.exacto ? '. Ubicado sobre la avenida de su dirección.'
+                           : '. Ubicación aproximada dentro del sector.');
+    grupo.setAttribute('aria-label', rotulo);
+
+    var t = document.createElementNS(ns, 'title');
+    t.textContent = rotulo;
+    grupo.appendChild(t);
+    grupo.appendChild(formaSVG(def.forma, p.x, p.y, def.color, p.esPyme));
+    g.appendChild(grupo);
+  });
+
+  var cuenta = document.getElementById('mapaCuenta');
+  if(cuenta){
+    var np = lista.filter(function(p){ return p.capa === 'pymes'; }).length;
+    cuenta.textContent = lista.length + ' puntos en el mapa · ' + np +
+      (np === 1 ? ' pyme' : ' pymes') + ' · ' +
+      PUNTOS.filter(function(p){ return p.capa === 'ferias'; }).length +
+      ' de las ' + FERIAS_TOTALES_COMUNA + ' ferias libres de la comuna';
+  }
+  pintarTablaMapa(lista);
+  pintarCobertura();
+}
+
+/* La tabla no es un extra: uno de los tres colores queda bajo 3:1 de contraste
+   sobre blanco, y en ese caso el dato tiene que poder leerse sin depender del
+   color. Tambien sirve para imprimir y para lector de pantalla. */
+function pintarTablaMapa(lista){
+  var cuerpo = document.getElementById('mapaTablaCuerpo');
+  if(!cuerpo) return;
+  cuerpo.textContent = '';
+  lista.forEach(function(p){
+    var s = sectorPorId(p.sector);
+    var tr = document.createElement('tr');
+    [ p.nombre, p.tipo, p.detalle, s ? s.nombre : '—',
+      p.exacto ? 'Sobre su avenida' : 'Aproximada en el sector'
+    ].forEach(function(v, i){
+      var td = document.createElement('td');
+      td.textContent = v;
+      if(i === 1){
+        var punto = document.createElement('span');
+        punto.className = 'punto-capa';
+        punto.style.background = CAPAS[p.capa].color;
+        td.insertBefore(punto, td.firstChild);
+      }
+      tr.appendChild(td);
+    });
+    cuerpo.appendChild(tr);
+  });
+}
+
+function pintarCobertura(){
+  var zona = document.getElementById('coberturaSectores');
+  if(!zona) return;
+  zona.textContent = '';
+  resumenPorSector(todasLasPymes()).forEach(function(r){
+    var caja = document.createElement('div');
+    caja.className = 'sector-fila' + (r.oportunidad ? ' sector-fila--oportunidad' : '');
+
+    var n = document.createElement('b'); n.textContent = r.nombre;
+    caja.appendChild(n);
+
+    var d = document.createElement('span');
+    d.textContent = r.pymes + (r.pymes === 1 ? ' pyme' : ' pymes') + ' · ' +
+                    r.servicios + ' de servicio · ' + r.ferias +
+                    (r.ferias === 1 ? ' feria' : ' ferias');
+    caja.appendChild(d);
+
+    var et = document.createElement('em');
+    et.textContent = r.oportunidad
+      ? 'Tiene feria y ninguna pyme inscrita: vitrina sin usar.'
+      : (r.sinCobertura ? 'Sin ninguna pyme inscrita todavía.' : 'Con cobertura.');
+    caja.appendChild(et);
+    zona.appendChild(caja);
+  });
+}
+
+MOTOR.posicionEnSector = posicionEnSector;
+MOTOR.sectorPorId = sectorPorId;
+MOTOR.resumenPorSector = resumenPorSector;
+MOTOR.puntosDelMapa = puntosDelMapa;
+MOTOR.SECTORES = SECTORES;
+MOTOR.PUNTOS = PUNTOS;
+MOTOR.CAPAS = CAPAS;
+
+/* ---------- Arranque del mapa ---------- */
+(function(){
+  var sel = document.getElementById('rSector');
+  if(sel){
+    var vacia = document.createElement('option');
+    vacia.value = ''; vacia.textContent = 'Selecciona el sector';
+    sel.appendChild(vacia);
+    SECTORES.forEach(function(x){
+      var o = document.createElement('option');
+      o.value = x.id; o.textContent = x.nombre;
+      sel.appendChild(o);
+    });
+  }
+
+  var conec = document.getElementById('conectividad');
+  if(conec){
+    CONECTIVIDAD.forEach(function(c){
+      var t = document.createElement('div'); t.className = 'tarjeta';
+      var h = document.createElement('h4'); h.textContent = c.titulo;
+      var pp = document.createElement('p'); pp.textContent = c.texto;
+      t.appendChild(h); t.appendChild(pp); conec.appendChild(t);
+    });
+  }
+
+  var fu = document.getElementById('listaFuentesMapa');
+  if(fu){
+    FUENTES_MAPA.forEach(function(f){
+      var li = document.createElement('li'); li.textContent = f; fu.appendChild(li);
+    });
+  }
+
+  /* Las capas se prenden y apagan; aria-pressed es lo que anuncia el estado. */
+  document.querySelectorAll('.capa-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var cual = b.dataset.capa;
+      capasActivas[cual] = !capasActivas[cual];
+      b.setAttribute('aria-pressed', capasActivas[cual] ? 'true' : 'false');
+      pintarMapa();
+      avisar((capasActivas[cual] ? 'Se muestra la capa ' : 'Se oculta la capa ') + CAPAS[cual].nombre + '.');
+    });
+  });
+
+  pintarMapa();
+})();
+
 /* ============================================================
    PRUEBAS DEL MOTOR
    Se corren con el boton "Verificar el motor" del pie, o abriendo
@@ -2103,6 +2622,59 @@ var PRUEBAS = [
           filas[0].indexOf('Nombre') > -1 &&
           filas[1].indexOf('Registrada en la feria') > -1 &&
           filas[2].indexOf('Dato de ejemplo') > -1;
+ }],
+ ['El mapa tiene los siete sectores de la comuna, cada uno con su posición', function(){
+   return MOTOR.SECTORES.length === 7 && MOTOR.SECTORES.every(function(x){
+     return x.id && x.nombre && typeof x.x === 'number' && typeof x.y === 'number';
+   });
+ }],
+ ['Cada punto del mapa declara capa, tipo, detalle y un sector que existe', function(){
+   return MOTOR.PUNTOS.length > 0 && MOTOR.PUNTOS.every(function(p){
+     return MOTOR.CAPAS[p.capa] && p.tipo && p.nombre && p.detalle &&
+            MOTOR.sectorPorId(p.sector) !== null;
+   });
+ }],
+ ['Están los seis CESFAM de la comuna', function(){
+   return MOTOR.PUNTOS.filter(function(p){ return p.tipo === 'CESFAM'; }).length === 6;
+ }],
+ ['El mapa usa solo tres capas: con cuatro colores los puntos ya no se distinguen', function(){
+   return Object.keys(MOTOR.CAPAS).length === 3;
+ }],
+ ['Dos puntos del mismo sector no quedan uno encima del otro', function(){
+   var s = MOTOR.SECTORES[0];
+   var a = MOTOR.posicionEnSector(s, 0), b = MOTOR.posicionEnSector(s, 1);
+   var dist = Math.sqrt(Math.pow(a.x-b.x,2) + Math.pow(a.y-b.y,2));
+   return dist > 16;
+ }],
+ ['La posición dentro del sector es siempre la misma: el mapa no baila al repintar', function(){
+   var s = MOTOR.SECTORES[2];
+   var a = MOTOR.posicionEnSector(s, 4), b = MOTOR.posicionEnSector(s, 4);
+   return a.x === b.x && a.y === b.y;
+ }],
+ ['Una pyme sin sector no se dibuja en el mapa, pero no rompe nada', function(){
+   var antes = MOTOR.puntosDelMapa([]).length;
+   var con = MOTOR.puntosDelMapa([{nombre:'X', rubro:'Comercio', direccion:'D'}]).length;
+   return antes === con;
+ }],
+ ['Una pyme con sector válido se agrega al mapa en la capa de pymes', function(){
+   var l = MOTOR.puntosDelMapa([{nombre:'X', rubro:'Comercio', direccion:'D', sector:'el-roble'}]);
+   var nuevas = l.filter(function(p){ return p.capa === 'pymes'; });
+   return nuevas.length === 1 && nuevas[0].nombre === 'X' && nuevas[0].sector === 'el-roble';
+ }],
+ ['El resumen marca como oportunidad un sector con feria y sin ninguna pyme', function(){
+   var r = MOTOR.resumenPorSector([]);
+   var conFeria = r.filter(function(x){ return x.ferias > 0; });
+   return conFeria.length > 0 && conFeria.every(function(x){ return x.oportunidad === true; });
+ }],
+ ['Al inscribirse una pyme, su sector deja de estar marcado como oportunidad', function(){
+   var r = MOTOR.resumenPorSector([{nombre:'X', sector:'el-roble'}]);
+   var roble = r.filter(function(x){ return x.id === 'el-roble'; })[0];
+   return roble.pymes === 1 && roble.oportunidad === false && roble.sinCobertura === false;
+ }],
+ ['El buscador del catálogo también encuentra por sector', function(){
+   var lista = [{nombre:'A', rubro:'Comercio', direccion:'Calle 1', descripcion:'x', sector:'el-castillo'},
+                {nombre:'B', rubro:'Comercio', direccion:'Calle 2', descripcion:'x', sector:'el-roble'}];
+   return MOTOR.filtrarPymes(lista, 'castillo', 'todos').length === 1;
  }]
 ];
 
