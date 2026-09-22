@@ -164,7 +164,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .burbuja--bot.no-sabe{border-left:3px solid #E0A93C}
 .burbuja__origen{display:block; margin-top:.5rem; font-family:var(--mono); font-size:.66rem;
                  letter-spacing:.08em; color:#8FA0B2; text-transform:uppercase}
+.pensando{display:flex; gap:.3rem; align-items:center; padding:.9rem 1rem}
+.pensando i{width:.5rem; height:.5rem; border-radius:99px; background:#8FA0B2; display:block;
+            animation:latir 1.1s ease-in-out infinite}
+.pensando i:nth-child(2){animation-delay:.18s}
+.pensando i:nth-child(3){animation-delay:.36s}
+@keyframes latir{0%,60%,100%{opacity:.3; transform:translateY(0)} 30%{opacity:1; transform:translateY(-3px)}}
 .bot__form{display:flex; gap:.5rem; margin-top:.4rem}
+.bot__form input[disabled]{opacity:.6}
 .bot__form input{flex:1; min-width:0; font-family:inherit; font-size:.92rem; padding:.7rem .85rem;
                  border:1px solid var(--noche-linea); background:#fff; color:var(--tinta)}
 .fichas{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.8rem}
@@ -276,6 +283,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
     <nav class="nav" id="nav" aria-label="Navegación principal">
       <a href="#configurar">Carga tu negocio</a>
       <a href="#probar">Prueba el bot</a>
+      <a href="#conocimiento">Conocimiento</a>
       <a href="#atender">Cómo atender</a>
       <a href="#autoevaluacion">Autoevaluación</a>
       <a href="#limites">Límites y ley</a>
@@ -412,11 +420,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
       </div>
 
       <div class="tarjeta" style="margin-top:1.2rem">
-        <h3>Cuando el bot no sabe</h3>
+        <h3>Cómo se comporta</h3>
         <div class="form2">
           <label class="campo ancho"><span>A quién deriva
               <span class="pista">Una atención honesta termina en una persona, no en un «no entendí».</span></span>
             <input type="text" id="nDerivar" placeholder="Ej.: escríbele a Rosa al +56 9 1234 5678 y te responde en el día" autocomplete="off"></label>
+          <label class="campo"><span>Tono de las respuestas
+              <span class="pista">Cambia cómo suena el bot, no lo que dice. Lo que escribiste tú se cita tal cual.</span></span>
+            <select id="nTono">
+              <option value="cercano">Cercano · «te cuento»</option>
+              <option value="formal">Formal · «le informo»</option>
+              <option value="breve">Breve · solo el dato</option>
+            </select></label>
+          <label class="campo"><span>Cuánto se demora en responder
+              <span class="pista">Una respuesta instantánea delata a la máquina. Una pausa corta se siente conversación.</span></span>
+            <select id="nDemora">
+              <option value="0">Al instante</option>
+              <option value="450">Rápido · casi medio segundo</option>
+              <option value="700">Natural · recomendado</option>
+              <option value="1200">Pausado · se nota que «piensa»</option>
+            </select></label>
         </div>
       </div>
 
@@ -453,7 +476,35 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
         <button type="submit" class="btn btn--rojo btn--sm">Preguntar</button>
       </form>
       <div class="fichas" id="fichasBot"></div>
+      <p style="margin:.9rem 0 0;font-size:.76rem;color:#8FA0B2;border-left:3px solid #E0A93C;padding-left:.6rem">
+        La franja al costado marca las respuestas que <b>terminan en una persona</b>: o el bot no
+        tenía el dato, o es una decisión que no le corresponde tomar.</p>
     </div>
+  </div>
+</section>
+
+<!-- ============================ CONOCIMIENTO ============================ -->
+<section class="seccion seccion--dim" id="conocimiento" aria-labelledby="t-conocimiento">
+  <div class="wrap">
+    <p class="ojo">03 / Lo que el bot sabe de atención</p>
+    <h2 class="titulo-xl" id="t-conocimiento">Cómo responde algo que nadie escribió.</h2>
+    <p class="entrada">Esta es la parte que hace la diferencia. Aparte de los datos del negocio, el
+      bot tiene una <b>base de conocimiento de atención</b>: sabe reconocer qué tipo de situación
+      es y qué forma darle a la respuesta, aunque la pregunta exacta no esté en ninguna lista.</p>
+
+    <div class="aviso" style="max-width:46rem">
+      <b>El límite, que conviene poder explicar:</b> el bot resuelve preguntas que nadie escribió,
+      pero <b>nunca inventa un dato del negocio</b>. Si no tiene el precio, no lo estima. Lo que
+      improvisa es la <i>forma</i> de responder, no el contenido. Esa distinción es lo que separa
+      un asistente confiable de uno que mete al negocio en problemas.
+    </div>
+
+    <div class="rejilla rejilla--2" id="protocolos" style="margin-top:1.8rem"></div>
+
+    <h3 style="margin-top:2.5rem;font-size:1.15rem">Y cuando de verdad no sabe</h3>
+    <p style="font-size:.92rem;color:var(--tinta-3);max-width:46rem">Un «no sé» a secas deja a la
+      persona en el aire. El bot siempre cierra ofreciendo lo que <b>sí</b> puede responder, armado
+      con los datos que el negocio cargó. Pruébalo arriba preguntando algo que no exista.</p>
   </div>
 </section>
 
@@ -725,6 +776,99 @@ var MEDIDAS = [
   { b:'Cuántas respuestas estaban equivocadas', s:'La única que tiene que dar cero. Una respuesta errónea vale más que diez acertadas.' }
 ];
 
+/* ============================================================
+   BASE DE CONOCIMIENTO DE ATENCIÓN
+   Esto es lo que el bot sabe sobre CÓMO responder, aparte de
+   los datos del negocio. Sirve para las preguntas que nadie
+   escribió: el bot no inventa el dato, pero sí sabe qué forma
+   darle a la respuesta.
+   Cada protocolo tiene la misma estructura, que es la que se
+   enseña en atención: reconocer lo que pasa, decir lo que sí
+   se puede hacer, y no dejar a la persona sin salida.
+   ============================================================ */
+var PROTOCOLOS = [
+  { id:'reclamo', nombre:'Reclamo o algo salió mal', resuelveSolo:false,
+    claves:['reclamo','reclamar','malo','mala','pesimo','pesima','fallado','fallada','roto','rota',
+            'llego mal','llego tarde','nunca llego','no llego','estafa','vencido','sucio','frio',
+            'molesto','molesta','enojado','enojada','indignado','terrible','horrible','denuncia'],
+    porque:'Un reclamo mal contestado es el que termina en redes sociales. Lo primero no es explicar, es reconocer.',
+    armar:function(ctx){
+      return 'Lamento mucho que hayas tenido ese problema, y gracias por avisarnos: prefiero que nos lo digas a que te quedes con la molestia. ' +
+             'Esto lo tiene que ver una persona del equipo, no yo. ' + ctx.derivacion +
+             (ctx.n.devoluciones ? ' Sobre cambios y devoluciones, la política de ' + ctx.nombre + ' es: ' +
+                                    ctx.sinPunto(ctx.n.devoluciones) + '.' : '');
+    } },
+
+  { id:'descuento', nombre:'Pide descuento o regatea', resuelveSolo:false,
+    claves:['descuento','rebaja','oferta','promocion','mas barato','barato','regalar','gratis',
+            'precio especial','convenio','por mayor','al por mayor','mayorista'],
+    porque:'El bot no puede negociar precios: no es su decisión y una rebaja prometida por error la tiene que pagar el negocio.',
+    armar:function(ctx){
+      return 'Los descuentos no los decido yo, los define el equipo según el caso. ' + ctx.derivacion +
+             (ctx.hayProductos ? ' Mientras tanto te dejo los precios de lista: ' + ctx.listaProductos + '.' : '');
+    } },
+
+  { id:'urgente', nombre:'Necesita algo para hoy o para ya', resuelveSolo:false,
+    claves:['urgente','ahora','hoy','altiro','al tiro','rapido','apurado','apurada','ya mismo',
+            'para hoy','en cuanto','minutos','inmediato'],
+    porque:'Prometer un plazo que el negocio no puede cumplir es la forma más rápida de perder al cliente dos veces.',
+    armar:function(ctx){
+      var partes = [];
+      if(ctx.n.horario) partes.push('el horario de hoy es: ' + ctx.sinPunto(ctx.n.horario));
+      if(ctx.n.retiro) partes.push('para retiro, ' + ctx.minus(ctx.n.retiro));
+      if(ctx.n.despacho) partes.push('para despacho, ' + ctx.minus(ctx.n.despacho));
+      if(!partes.length) return 'Entiendo que es para hoy. No tengo cargados los tiempos de ' + ctx.nombre +
+                                ' y no quiero prometerte un plazo que no se pueda cumplir. ' + ctx.derivacion;
+      return 'Entiendo que lo necesitas pronto. Te digo lo que sí está confirmado: ' + partes.join('; ') +
+             '. Para asegurar que alcanza hoy, confírmalo con el equipo: ' + ctx.derivacionCorta;
+    } },
+
+  { id:'reserva', nombre:'Quiere reservar, encargar o comprar ahora', resuelveSolo:false,
+    claves:['reservar','reserva','encargar','encargo','pedir','pedido','comprar','quiero','apartar',
+            'agendar','hora','cita','tomar pedido'],
+    porque:'Cerrar una venta es una decisión del negocio. El bot deja todo listo para que la persona termine con alguien.',
+    armar:function(ctx){
+      var partes = [];
+      if(ctx.hayProductos) partes.push('lo que hay con precio: ' + ctx.listaProductos);
+      if(ctx.n.pagos) partes.push('se paga con ' + ctx.minus(ctx.n.pagos));
+      if(ctx.n.retiro || ctx.n.despacho) partes.push('la entrega funciona así: ' + ctx.minus(ctx.n.retiro || ctx.n.despacho));
+      return 'Para tomar un pedido te paso con una persona, que es quien puede confirmarlo. ' + ctx.derivacionCorta +
+             (partes.length ? ' Para que llegues con todo listo: ' + partes.join('; ') + '.' : '');
+    } },
+
+  { id:'saludo', nombre:'Saluda, agradece o se despide', resuelveSolo:true,
+    claves:['hola','buenas','buenos dias','buenas tardes','buenas noches','gracias','muchas gracias',
+            'chao','adios','nos vemos','hasta luego','ok','listo','perfecto','bacan'],
+    porque:'Contestar un saludo con un menú de opciones es lo que hace que un bot se sienta una máquina.',
+    armar:function(ctx){
+      return '¡Hola! Soy el asistente de ' + ctx.nombre + '. Te puedo responder ' + ctx.queSeTiene +
+             '. ¿Qué necesitas saber?';
+    } },
+
+  { id:'personal', nombre:'Pregunta algo fuera del negocio', resuelveSolo:true,
+    claves:['como estas','quien eres','que eres','chiste','clima','tiempo hoy','futbol','politica',
+            'como te llamas','cuantos años','novia','edad'],
+    porque:'Un bot que se pone a conversar de otra cosa pierde el hilo y le hace perder tiempo al cliente.',
+    armar:function(ctx){
+      return 'De eso no te puedo ayudar: estoy hecho para responder sobre ' + ctx.nombre + '. ' +
+             'Sí te puedo decir ' + ctx.queSeTiene + '.';
+    } }
+];
+
+/* El tono cambia cómo suena la respuesta, no lo que dice. El dato es el mismo;
+   lo que se ajusta es la forma, que es parte de la atención. */
+var TONOS = {
+  cercano: { nombre:'Cercano', ejemplo:'«Claro, te cuento:»',
+             antes:function(t){ return t; },
+             cierrePregunta:' ¿Te sirve así o necesitas otra cosa?' },
+  formal:  { nombre:'Formal', ejemplo:'«Con gusto le informo:»',
+             antes:function(t){ return t.replace(/\btu\b/g,'su').replace(/\bte\b/g,'le').replace(/\btienes\b/g,'tiene'); },
+             cierrePregunta:' Quedo atento a cualquier otra consulta.' },
+  breve:   { nombre:'Breve', ejemplo:'Solo el dato, sin vueltas.',
+             antes:function(t){ return t; },
+             cierrePregunta:'' }
+};
+
 /* ---------------- 2. CÁLCULO (sin tocar la pantalla) ---------------- */
 
 function normalizar(t){
@@ -738,17 +882,21 @@ function normalizar(t){
    seguidos ganaba siempre la última que coincidía, que es un error distinto. */
 var INTENCIONES = [
   { id:'horario',    campo:'horario',    et:'Horario de atención',
-    claves:['horario','hora','abren','abierto','cierran','cierre','atienden','atencion','domingo','sabado','feriado','abre'] },
+    claves:['horario','hora','horas','abren','abre','abierto','abiertos','cierran','cierra','cierre','cerrado',
+            'atienden','atiende','atencion','domingo','domingos','sabado','sabados','lunes','feriado','feriados',
+            'funcionan','trabajan'] },
   { id:'direccion',  campo:'direccion',  et:'Dirección',
-    claves:['donde','direccion','ubicados','ubicacion','local','llegar','quedan','queda'] },
+    claves:['donde','direccion','ubicados','ubicacion','ubicado','local','llegar','quedan','queda',
+            'calle','sucursal','tienda','llego','encuentro'] },
   { id:'canales',    campo:'canales',    et:'Canales de contacto',
     claves:['contacto','whatsapp','instagram','telefono','llamar','escribir','redes','correo'] },
-  { id:'retiro',     campo:'retiro',     et:'Tiempo de retiro',
-    claves:['retiro','retirar','buscar','demora','demoran','cuanto','espera','listo','pedido'] },
-  { id:'despacho',   campo:'despacho',   et:'Despacho a domicilio',
-    claves:['despacho','domicilio','delivery','envio','envian','reparto','llevan'] },
+  { id:'retiro',     campo:'retiro',     et:'Tiempo de retiro', hermano:'despacho',
+    claves:['retiro','retirar','buscar','demora','demoran','espera','listo','preparacion'] },
+  { id:'despacho',   campo:'despacho',   et:'Despacho a domicilio', hermano:'retiro',
+    claves:['despacho','domicilio','delivery','envio','envian','reparto','llevan','despachan'] },
   { id:'pagos',      campo:'pagos',      et:'Medios de pago',
-    claves:['pago','pagar','efectivo','debito','credito','transferencia','tarjeta'] },
+    claves:['pago','pagos','pagar','paga','efectivo','debito','credito','transferencia','transferir',
+            'tarjeta','tarjetas','redcompra','cuotas'] },
   { id:'devoluciones',campo:'devoluciones', et:'Cambios y devoluciones',
     claves:['devolucion','devolver','cambio','cambiar','garantia','fallado','malo','reclamo'] }
 ];
@@ -832,66 +980,157 @@ function formatearPeso(valor){
   return '$' + n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
+/* Los protocolos se detectan por frase completa y por palabra suelta: "llego
+   tarde" tiene que pesar más que "tarde" sola, que podría ser un horario. */
+function detectarProtocolo(consulta){
+  var t = ' ' + normalizar(consulta) + ' ';
+  var palabras = t.trim().split(' ');
+  var mejor = null, mejorP = 0;
+  PROTOCOLOS.forEach(function(pr){
+    var p = 0;
+    pr.claves.forEach(function(c){
+      if(c.indexOf(' ') > -1){ if(t.indexOf(' ' + c + ' ') > -1) p += 3; }   // frase
+      else { palabras.forEach(function(w){ if(w === c) p += 2; }); }          // palabra
+    });
+    if(p > mejorP){ mejorP = p; mejor = pr; }
+  });
+  return mejorP > 0 ? mejor : null;
+}
+
+/* Lo que el bot SÍ puede responder, escrito como se lo diría a un cliente.
+   Es la mitad útil de un "no sé": deja a la persona con una salida. */
+function queSeTiene(n){
+  var l = [];
+  if((n.horario||'').trim()) l.push('el horario');
+  var prod = (n.productos||[]).filter(function(p){ return p.nombre && p.precio; }).length;
+  if(prod) l.push('el precio de ' + prod + (prod === 1 ? ' producto' : ' productos'));
+  if((n.retiro||'').trim() || (n.despacho||'').trim()) l.push('cómo funcionan las entregas');
+  if((n.pagos||'').trim()) l.push('los medios de pago');
+  if((n.direccion||'').trim()) l.push('dónde queda');
+  if((n.devoluciones||'').trim()) l.push('los cambios y devoluciones');
+  if(!l.length) return 'muy poco todavía: al negocio le falta cargar su información';
+  if(l.length === 1) return l[0];
+  return l.slice(0, -1).join(', ') + ' y ' + l[l.length - 1];
+}
+
+/* Contexto que reciben los protocolos para armar su respuesta. Ninguno inventa
+   un dato: todos salen de aquí, y si no está, no se menciona. */
+function contextoDe(n){
+  var nombre = (n.nombre || '').trim() || 'este negocio';
+  var derivar = (n.derivar || '').trim();
+  var conPrecio = (n.productos||[]).filter(function(p){ return p.nombre && p.precio; });
+  return {
+    n:n, nombre:nombre,
+    derivacion: derivar ? 'Te paso el contacto: ' + derivar
+                        : 'Te recomiendo escribirle directamente al negocio.',
+    derivacionCorta: derivar ? derivar : 'escríbele directamente al negocio.',
+    hayProductos: conPrecio.length > 0,
+    listaProductos: conPrecio.slice(0,4).map(function(p){
+      return p.nombre + ' ' + formatearPeso(p.precio); }).join('; '),
+    queSeTiene: queSeTiene(n),
+    minus: function(t){ t = this.sinPunto(t); return t ? t.charAt(0).toLowerCase() + t.slice(1) : ''; },
+    sinPunto: function(t){ return String(t||'').trim().replace(/[.;]+$/, ''); }
+  };
+}
+
+/* El tono se aplica SOLO a lo que escribe el bot. Lo que cargó el negocio se
+   cita tal cual: son sus palabras, no las nuestras. */
+function aplicarTono(texto, tono, esPregunta){
+  var t = TONOS[tono] || TONOS.cercano;
+  var salida = t.antes(texto);
+  if(esPregunta && t.cierrePregunta && salida.indexOf('?') === -1) salida += t.cierrePregunta;
+  return salida;
+}
+
 /* El corazón del proyecto: decidir qué responder y de dónde salió.
    Devuelve siempre { texto, origen, sabe }. sabe=false significa que el bot
    reconoce que no tiene el dato, y ahí siempre deriva a una persona. */
-function responder(consulta, negocio){
+function responder(consulta, negocio, tono){
   var n = negocio || {};
-  var nombre = (n.nombre || '').trim() || 'este negocio';
-  var derivar = (n.derivar || '').trim();
-  var cierre = derivar ? ' ' + derivar : ' Te recomiendo escribirle directamente al negocio.';
+  var ctx = contextoDe(n);
+  var nombre = ctx.nombre;
 
+  /* generado:true = lo escribió el bot, así que se le puede ajustar el tono.
+     generado:false = son las palabras del negocio y se citan tal cual. */
+  function bot(texto, origen, sabe, pregunta){
+    return { sabe:sabe !== false, origen:origen, generado:true,
+             texto: aplicarTono(texto, tono, pregunta) };
+  }
+  function delNegocio(texto, origen){
+    return { sabe:true, origen:origen, generado:false, texto:texto };
+  }
   function noSe(que){
-    return { sabe:false, origen:'Dato no cargado',
-             texto:'No tengo cargado ' + que + ' de ' + nombre + ', y prefiero no darte un dato equivocado.' + cierre };
+    return bot('No tengo cargado ' + que + ' de ' + nombre + ', y prefiero no darte un dato equivocado. ' +
+               ctx.derivacion + ' Lo que sí te puedo decir es ' + ctx.queSeTiene + '.',
+               'Dato no cargado', false);
   }
 
   if(!String(consulta||'').trim()){
-    return { sabe:true, origen:'Saludo',
-             texto:'Hola, soy el asistente de ' + nombre + '. Pregúntame por horarios, precios, entregas o formas de pago.' };
+    return bot('Hola, soy el asistente de ' + nombre + '. Te puedo responder ' + ctx.queSeTiene +
+               '. ¿Qué necesitas saber?', 'Saludo', true);
   }
 
   /* Nunca hacerse pasar por persona: es una regla, no una respuesta más. */
   if(preguntaSiEsPersona(consulta)){
-    return { sabe:true, origen:'Regla de la casa',
-             texto:'Soy el asistente de ' + nombre + ', no una persona. Respondo lo básico al tiro. ' +
-                   (derivar ? 'Para hablar con alguien del equipo: ' + derivar
-                            : 'Para hablar con alguien del equipo, escríbele directamente al negocio.') };
+    return bot('Soy el asistente de ' + nombre + ', no una persona. Respondo lo básico al tiro. ' +
+               'Para hablar con alguien del equipo: ' + ctx.derivacionCorta, 'Regla de la casa', true);
+  }
+
+  /* Un reclamo se atiende antes de buscar el dato: lo primero es reconocer lo
+     que pasó, no recitar la política de devoluciones. */
+  var prot = detectarProtocolo(consulta);
+  if(prot && prot.id === 'reclamo'){
+    return bot(prot.armar(ctx), 'Protocolo: ' + prot.nombre, prot.resuelveSolo);
   }
 
   /* Una respuesta escrita por el propio negocio gana sobre cualquier regla
      general: es la voz que la PyME eligió. */
   var faq = buscarFaq(consulta, n.faqs);
-  if(faq) return { sabe:true, origen:'Pregunta frecuente cargada por el negocio', texto:faq.respuesta };
+  if(faq) return delNegocio(faq.respuesta, 'Pregunta frecuente cargada por el negocio');
 
   if(hayPrecio(consulta)){
     var prod = buscarProducto(consulta, n.productos);
     if(prod && prod.precio){
-      return { sabe:true, origen:'Lista de productos',
-               texto: prod.nombre + ' cuesta ' + formatearPeso(prod.precio) + '.' +
-                      (prod.detalle ? ' ' + prod.detalle : '') };
+      return delNegocio(prod.nombre + ' cuesta ' + formatearPeso(prod.precio) + '.' +
+                        (prod.detalle ? ' ' + prod.detalle : ''), 'Lista de productos');
     }
-    if((n.productos||[]).length && !prod){
-      var lista = n.productos.filter(function(p){ return p.nombre && p.precio; })
-                             .slice(0,4).map(function(p){ return p.nombre + ' ' + formatearPeso(p.precio); });
-      if(lista.length){
-        return { sabe:true, origen:'Lista de productos',
-                 texto:'No identifiqué cuál producto quieres. Estos son algunos con su precio: ' +
-                       lista.join('; ') + '. ¿Cuál te interesa?' };
-      }
+    if(ctx.hayProductos){
+      return bot('No identifiqué cuál producto quieres. Estos son algunos con su precio: ' +
+                 ctx.listaProductos + '. ¿Cuál te interesa?', 'Lista de productos', true);
     }
     return noSe('ese precio');
   }
 
+  /* Un dato concreto gana sobre un protocolo: si preguntan el horario y está
+     cargado, se responde el horario y punto. */
   var det = detectarIntencion(consulta);
   if(det){
     var valor = (n[det.intencion.campo] || '').trim();
-    if(valor) return { sabe:true, origen:det.intencion.et, texto:valor };
+    if(valor) return delNegocio(valor, det.intencion.et);
+
+    /* El campo está vacío, pero a lo mejor el hermano sirve: quien pregunta por
+       retiro muchas veces se conforma con saber del despacho. */
+    var herm = det.intencion.hermano ? (n[det.intencion.hermano] || '').trim() : '';
+    if(herm){
+      var etHerm = '';
+      INTENCIONES.forEach(function(i){ if(i.campo === det.intencion.hermano) etHerm = i.et.toLowerCase(); });
+      return bot('No tengo cargado ' + det.intencion.et.toLowerCase() + ' de ' + nombre +
+                 '. Lo que sí sé de las entregas es ' + etHerm + ': ' + ctx.minus(herm) +
+                 ' ' + ctx.derivacion, 'Dato no cargado', false);
+    }
     return noSe(det.intencion.et.toLowerCase());
   }
 
-  return { sabe:false, origen:'Fuera de lo cargado',
-           texto:'Esa no la sé responder con la información que tengo de ' + nombre + '.' + cierre };
+  /* Ningún dato calza, pero la situación sí: aquí entra lo que el bot sabe
+     sobre cómo atender, aunque la pregunta no estuviera prevista. */
+  if(prot){
+    return bot(prot.armar(ctx), 'Protocolo: ' + prot.nombre, prot.resuelveSolo);
+  }
+
+  /* Último recurso, y aun así con salida: decir qué sí se puede responder. */
+  return bot('Esa no la sé responder con la información que tengo de ' + nombre +
+             '. Sí te puedo decir ' + ctx.queSeTiene + '. ' + ctx.derivacion,
+             'Fuera de lo cargado', false);
 }
 
 /* Cuántos de los campos que importan están cargados. Es lo que enciende el
@@ -968,13 +1207,14 @@ function dimensionPorId(id){
 /* ---------------- 3. INTERFAZ ---------------- */
 
 var negocio = { nombre:'', rubro:'', horario:'', direccion:'', canales:'', retiro:'', despacho:'',
-                pagos:'', devoluciones:'', derivar:'', productos:[], faqs:[] };
+                pagos:'', devoluciones:'', derivar:'', tono:'cercano', demora:'700',
+                productos:[], faqs:[] };
 var pasosHechos = {};
 var respuestasEval = new Array(AFIRMACIONES.length).fill(null);
 
 var CAMPOS = { nNombre:'nombre', nRubro:'rubro', nHorario:'horario', nDireccion:'direccion',
                nCanales:'canales', nRetiro:'retiro', nDespacho:'despacho', nPagos:'pagos',
-               nDevoluciones:'devoluciones', nDerivar:'derivar' };
+               nDevoluciones:'devoluciones', nDerivar:'derivar', nTono:'tono', nDemora:'demora' };
 
 function guardar(){
   try{ localStorage.setItem(LS, JSON.stringify({ negocio:negocio, pasos:pasosHechos })); }catch(e){}
@@ -1004,6 +1244,7 @@ var EJEMPLO = {
   pagos:'Efectivo, débito y transferencia.',
   devoluciones:'Si algo llega en mal estado, lo cambiamos el mismo día mostrando la boleta.',
   derivar:'Escríbele a Rosa al +56 9 1234 5678 y te responde dentro del día.',
+  tono:'cercano', demora:'700',
   productos:[
     { nombre:'Pan amasado', precio:'2500', detalle:'Precio por kilo, recién salido a las 8:00 y a las 17:00.' },
     { nombre:'Torta de mil hojas', precio:'18000', detalle:'Por encargo con un día de anticipación.' },
@@ -1053,6 +1294,13 @@ function pintarFilas(cual){
   });
 }
 
+function refrescarEstadoBot(){
+  var c = completitud(negocio);
+  $('botEstado').textContent = c.listo
+    ? 'Con la información de ' + (negocio.nombre.trim() || 'tu negocio')
+    : 'Faltan datos: responderá «no sé» en casi todo';
+}
+
 function refrescarSenales(){
   var c = completitud(negocio);
   function marca(id, ok, textoOk){
@@ -1064,11 +1312,10 @@ function refrescarSenales(){
   marca('senalHorario', !!negocio.horario.trim(), 'Listo');
   marca('senalEntrega', !!(negocio.retiro.trim() || negocio.despacho.trim()), 'Listo');
   marca('senalFaq', c.faqs > 0, c.faqs + (c.faqs === 1 ? ' pregunta' : ' preguntas'));
+  pintarProtocolos();
 
   $('botNombre').textContent = negocio.nombre.trim() ? 'Staffbot · ' + negocio.nombre.trim() : 'Staffbot';
-  $('botEstado').textContent = c.listo
-    ? 'Con la información de ' + (negocio.nombre.trim() || 'tu negocio')
-    : 'Faltan datos: responderá «no sé» en casi todo';
+  refrescarEstadoBot();
   pintarFichas();
 }
 
@@ -1113,14 +1360,103 @@ function burbuja(texto, quien, origen, sabe){
   charla.scrollTop = charla.scrollHeight;
 }
 
+/* La demora existe para que la conversación se sienta como una conversación:
+   una respuesta instantánea delata a la máquina y corta el hilo. Se calcula
+   sobre el largo de la respuesta, como demoraría alguien escribiéndola, con un
+   piso y un techo para que en la feria nadie quede esperando. */
+function demoraDe(texto){
+  if(reduceMovimiento()) return 0;
+  var base = Number(negocio.demora);
+  if(!(base >= 0)) base = 700;
+  if(base === 0) return 0;
+  var extra = Math.min(String(texto||'').length * 6, 900);
+  return Math.min(base + extra, 2600);
+}
+
+function reduceMovimiento(){
+  try{ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  catch(e){ return false; }
+}
+
+var pensando = null;
+function mostrarPensando(){
+  /* Si quedó una referencia a un indicador que ya no está en la página (por
+     ejemplo, porque se vació la conversación), se descarta y se crea uno nuevo.
+     Sin esto, el indicador no volvía a aparecer nunca. */
+  if(pensando && !pensando.isConnected) pensando = null;
+  if(pensando) return;
+  pensando = ce('div', 'burbuja burbuja--bot pensando');
+  pensando.setAttribute('aria-hidden', 'true');   // el aviso vivo ya lo anuncia
+  for(var i = 0; i < 3; i++) pensando.appendChild(ce('i'));
+  var charla = $('charla');
+  charla.appendChild(pensando);
+  charla.scrollTop = charla.scrollHeight;
+}
+function quitarPensando(){
+  if(pensando && pensando.parentNode) pensando.parentNode.removeChild(pensando);
+  pensando = null;   // se suelta siempre, aunque el nodo ya lo hayan borrado
+}
+
+var enCurso = null;
+
+/* Un solo lugar para empezar de cero: cancela lo pendiente, suelta la entrada
+   y borra la conversación. */
+function reiniciarCharla(){
+  if(enCurso){ clearTimeout(enCurso); enCurso = null; }
+  quitarPensando();
+  $('charla').textContent = '';
+  $('botEntrada').disabled = false;
+  refrescarEstadoBot();
+}
+
 function conversar(consulta){
-  burbuja(consulta, 'cliente');
-  var r = responder(consulta, negocio);
-  burbuja(r.texto, 'bot', r.origen, r.sabe);
-  avisar('El asistente respondió.');
+  if(String(consulta||'').trim()) burbuja(consulta, 'cliente');
+  var r = responder(consulta, negocio, negocio.tono || 'cercano');
+  var espera = demoraDe(r.texto);
+  var entrada = $('botEntrada');
+
+  if(espera === 0){
+    burbuja(r.texto, 'bot', r.origen, r.sabe);
+    avisar('El asistente respondió.');
+    return;
+  }
+
+  /* Mientras piensa no se aceptan más preguntas: dos respuestas cruzadas
+     confunden más que la espera. */
+  if(enCurso) clearTimeout(enCurso);
+  entrada.disabled = true;
+  $('botEstado').textContent = 'Escribiendo…';
+  mostrarPensando();
+  avisar('El asistente está escribiendo.');
+
+  enCurso = setTimeout(function(){
+    quitarPensando();
+    burbuja(r.texto, 'bot', r.origen, r.sabe);
+    entrada.disabled = false;
+    refrescarEstadoBot();
+    avisar('El asistente respondió.');
+    enCurso = null;
+  }, espera);
 }
 
 /* ---------- Secciones que se pintan desde los datos ---------- */
+function pintarProtocolos(){
+  var z = $('protocolos'); if(!z) return;
+  z.textContent = '';
+  PROTOCOLOS.forEach(function(pr){
+    var c = ce('div', 'dim');
+    var h = ce('h3'); h.textContent = pr.nombre; c.appendChild(h);
+    var q = ce('p', 'dim__que'); q.textContent = pr.porque; c.appendChild(q);
+    var b = ce('div', 'dim__bot');
+    var t = ce('b'); t.textContent = 'Así contestaría'; b.appendChild(t);
+    /* El ejemplo se arma con el negocio que esté cargado: en la feria se ve la
+       respuesta con el nombre real, no una genérica. */
+    b.appendChild(document.createTextNode(pr.armar(contextoDe(negocio))));
+    c.appendChild(b);
+    z.appendChild(c);
+  });
+}
+
 function pintarDimensiones(){
   var z = $('dimensiones'); z.textContent = '';
   DIMENSIONES.forEach(function(d, i){
@@ -1271,7 +1607,7 @@ function iniciar(){
   leer();
   volcarCampos();
   pintarFilas('productos'); pintarFilas('faqs');
-  pintarDimensiones(); pintarReglas(); pintarPasos(); pintarEvaluacion();
+  pintarDimensiones(); pintarProtocolos(); pintarReglas(); pintarPasos(); pintarEvaluacion();
   refrescarSenales();
 
   Object.keys(CAMPOS).forEach(function(id){
@@ -1302,7 +1638,7 @@ function iniciar(){
       aviso.textContent = 'Guardado, pero con ' + c.campos + ' de ' + c.deCampos +
         ' campos y ' + c.productos + ' productos el bot va a decir «no sé» en casi todo.';
     }
-    $('charla').textContent = '';
+    reiniciarCharla();
     conversar('');
     $('probar').scrollIntoView({ behavior:'smooth' });
   });
@@ -1316,7 +1652,7 @@ function iniciar(){
     guardar(); volcarCampos(); pintarFilas('productos'); pintarFilas('faqs'); refrescarSenales();
     $('avisoNegocio').style.color = 'var(--tinta-3)';
     $('avisoNegocio').textContent = 'Se cargó un negocio de ejemplo. Cámbialo por el tuyo cuando quieras.';
-    $('charla').textContent = ''; conversar('');
+    reiniciarCharla(); conversar('');
     avisar('Ejemplo cargado.');
   });
 
@@ -1326,7 +1662,7 @@ function iniciar(){
       negocio[k] = (k === 'productos' || k === 'faqs') ? [] : '';
     });
     guardar(); volcarCampos(); pintarFilas('productos'); pintarFilas('faqs'); refrescarSenales();
-    $('charla').textContent = ''; conversar('');
+    reiniciarCharla(); conversar('');
     $('avisoNegocio').textContent = '';
     avisar('Información borrada.');
   });
@@ -1384,7 +1720,8 @@ var NEG_PRUEBA = {
   despacho:'Despacho el mismo día por $2.000.',
   pagos:'Efectivo y transferencia.',
   derivar:'Escríbele a Rosa al +56 9 0000 0000.',
-  retiro:'', canales:'', devoluciones:'',
+  retiro:'', canales:'', tono:'cercano', demora:'700',
+  devoluciones:'Cambiamos el mismo día mostrando la boleta.',
   productos:[{ nombre:'Pan amasado', precio:'2500', detalle:'Por kilo.' }],
   faqs:[{ pregunta:'¿Hacen tortas para cumpleaños?', respuesta:'Sí, por encargo con un día de anticipación.' }]
 };
@@ -1485,6 +1822,91 @@ var PRUEBAS = [
  ['La garantía legal que cita la página es de 6 meses, no de 3', function(){
    var g = REGLAS_LEY.filter(function(r){ return r.b.indexOf('Garantía') > -1; })[0];
    return !!g && g.s.indexOf('6 meses') > -1 && g.s.indexOf('21.398') > -1;
+ }],
+ ['Un reclamo se reconoce primero, antes de recitar la política', function(){
+   var r = responder('me llegó fallado, esto es pésimo', NEG_PRUEBA);
+   return r.origen.indexOf('Reclamo') > -1 &&
+          r.texto.toLowerCase().indexOf('lamento') === 0 &&
+          r.texto.indexOf('Rosa') > -1;
+ }],
+ ['El reclamo gana sobre la búsqueda del dato, aunque diga «cambio»', function(){
+   var r = responder('me llegó fallado, ¿me lo cambian?', NEG_PRUEBA);
+   return r.origen.indexOf('Reclamo') > -1;
+ }],
+ ['Ante un regateo no negocia: deriva y muestra el precio de lista', function(){
+   var r = responder('¿me haces un descuento?', NEG_PRUEBA);
+   return r.origen.indexOf('descuento') > -1 &&
+          r.texto.indexOf('no los decido yo') > -1 &&
+          r.texto.indexOf('$2.500') > -1;
+ }],
+ ['Un saludo no se contesta con un menú de máquina', function(){
+   var r = responder('hola', NEG_PRUEBA);
+   return r.origen.indexOf('Saluda') > -1 && r.texto.indexOf('Hola') > -1;
+ }],
+ ['Una pregunta fuera del negocio se redirige sin ser cortante', function(){
+   var r = responder('¿cómo estás? cuéntame un chiste', NEG_PRUEBA);
+   return r.origen.indexOf('fuera del negocio') > -1 &&
+          r.texto.indexOf('el horario') > -1;
+ }],
+ ['Un dato concreto gana sobre el protocolo: «hoy» no tapa el horario', function(){
+   var r = responder('¿atienden hoy? ¿hasta qué hora?', NEG_PRUEBA);
+   return r.origen === 'Horario de atención';
+ }],
+ ['Ningún protocolo inventa un dato que el negocio no cargó', function(){
+   var vacio = { nombre:'Negocio Vacío', derivar:'Escríbele al negocio.' };
+   return PROTOCOLOS.every(function(pr){
+     var t = pr.armar(contextoDe(vacio));
+     return !/\$\s?\d/.test(t);   // ninguna cifra de plata inventada
+   });
+ }],
+ ['Un "no sé" siempre ofrece lo que sí se puede responder', function(){
+   var r = responder('¿tienen wifi para los clientes?', NEG_PRUEBA);
+   return r.sabe === false && r.texto.indexOf('Sí te puedo decir') > -1 &&
+          r.texto.indexOf('el horario') > -1;
+ }],
+ ['Si falta el retiro pero hay despacho, ofrece el que sí tiene', function(){
+   var r = responder('¿cuánto demora el retiro?', NEG_PRUEBA);
+   return r.sabe === false && r.texto.indexOf('despacho') > -1 &&
+          r.texto.indexOf('$2.000') > -1;
+ }],
+ ['Con la ficha vacía el bot lo dice, no finge tener respuestas', function(){
+   var r = responder('¿qué me puedes decir?', {});
+   return r.texto.indexOf('falta cargar') > -1;
+ }],
+ ['El tono cambia la forma, no el dato del negocio', function(){
+   var a = responder('¿a qué hora cierran?', NEG_PRUEBA, 'cercano');
+   var b = responder('¿a qué hora cierran?', NEG_PRUEBA, 'formal');
+   // Es texto del negocio: se cita igual en los dos tonos.
+   return a.texto === b.texto && a.generado === false;
+ }],
+ ['El tono formal sí cambia lo que escribe el bot', function(){
+   var a = responder('¿tienen wifi?', NEG_PRUEBA, 'cercano');
+   var b = responder('¿tienen wifi?', NEG_PRUEBA, 'formal');
+   return a.texto !== b.texto && a.generado === true;
+ }],
+ ['Los tres tonos existen y traen su ejemplo', function(){
+   return Object.keys(TONOS).length === 3 &&
+          Object.keys(TONOS).every(function(k){ return TONOS[k].nombre && TONOS[k].ejemplo; });
+ }],
+ ['La marca de «termina en una persona» concuerda con lo que declara el protocolo', function(){
+   var a = responder('me llegó fallado', NEG_PRUEBA);       // reclamo: deriva
+   var b = responder('hola', NEG_PRUEBA);                    // saludo: lo resuelve solo
+   return a.sabe === false && b.sabe === true;
+ }],
+ ['Al encadenar datos no quedan puntos dobles ni «.;»', function(){
+   var conTodo = { nombre:'X', horario:'De 9 a 18.', retiro:'Listo en 20 minutos.',
+                   despacho:'Mismo día por $2.000.', derivar:'Llama al negocio.',
+                   productos:[], faqs:[] };
+   return PROTOCOLOS.every(function(pr){
+     var t = pr.armar(contextoDe(conTodo));
+     return t.indexOf('..') === -1 && t.indexOf('.;') === -1 && t.indexOf('.,') === -1;
+   });
+ }],
+ ['Cada protocolo declara por qué existe y sabe armar su respuesta', function(){
+   return PROTOCOLOS.length >= 6 && PROTOCOLOS.every(function(pr){
+     return pr.nombre && pr.porque && pr.claves.length > 0 &&
+            typeof pr.armar(contextoDe(NEG_PRUEBA)) === 'string';
+   });
  }]
 ];
 

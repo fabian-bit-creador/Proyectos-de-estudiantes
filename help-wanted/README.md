@@ -3,7 +3,7 @@
 Proyecto de **III° medio** — Colegio Cardenal José María Caro. Feria Técnico Profesional 2026.
 
 Archivo: **`HelpWanted.html`** — un solo archivo, sin dependencias externas. Funciona sin internet.
-Verificación: botón «Verificar el motor» o `?pruebas=1`. **21 comprobaciones.**
+Verificación: botón «Verificar el motor» o `?pruebas=1`. **37 comprobaciones.**
 
 ## El problema de fondo: el proyecto no decía qué vendía
 
@@ -57,7 +57,46 @@ El tablero de la portada se enciende a medida que se carga, así se ve qué falt
 - **No se hace pasar por persona.** Si se lo preguntan, lo dice.
 - Lo que escribió el negocio gana sobre cualquier respuesta genérica.
 
-### Cómo atender bien: las cinco dimensiones
+### Cómo responde algo que nadie escribió
+
+Aparte de los datos del negocio, el bot tiene una **base de conocimiento de atención**: reconoce
+qué tipo de situación es y sabe qué forma darle a la respuesta, aunque la pregunta exacta no esté
+en ninguna lista. Son seis protocolos:
+
+| Situación | Por qué existe |
+|---|---|
+| **Reclamo o algo salió mal** | Un reclamo mal contestado es el que termina en redes sociales. Lo primero no es explicar, es reconocer. Se atiende **antes** de buscar el dato: si alguien dice «me llegó fallado, ¿me lo cambian?», el bot no recita la política de devoluciones, primero se hace cargo. |
+| **Pide descuento o regatea** | El bot no puede negociar precios: no es su decisión, y una rebaja prometida por error la paga el negocio. Deriva y muestra el precio de lista. |
+| **Necesita algo para hoy** | Prometer un plazo que el negocio no cumple es perder al cliente dos veces. Arma la respuesta solo con los plazos que estén cargados. |
+| **Quiere reservar o comprar** | Cerrar una venta es decisión del negocio. El bot deja todo listo (precios, medios de pago, cómo es la entrega) y pasa a una persona. |
+| **Saluda o agradece** | Contestar un saludo con un menú de opciones es lo que hace que un bot se sienta una máquina. |
+| **Pregunta algo fuera del negocio** | Redirige sin ser cortante, ofreciendo lo que sí puede responder. |
+
+**El límite, que el equipo tiene que poder explicar:** el bot resuelve preguntas que nadie
+escribió, pero **nunca inventa un dato del negocio**. Si no tiene el precio, no lo estima. Lo que
+improvisa es la *forma* de responder, no el contenido. Hay una prueba automática que recorre los
+seis protocolos con una ficha vacía y falla si alguno deja escapar una cifra de plata.
+
+**Y el «no sé» ahora sirve.** Antes terminaba en «esa no la sé». Ahora siempre cierra ofreciendo
+lo que sí puede responder, armado con lo que el negocio cargó: *«Sí te puedo decir el horario, el
+precio de 3 productos, cómo funcionan las entregas y los medios de pago.»* Además, si falta un
+dato pero está el relacionado, lo ofrece: quien pregunta por el retiro y no está cargado recibe la
+información del despacho.
+
+## Tono y demora
+
+**Tono** (cercano, formal o breve): cambia cómo suena el bot, **no lo que dice**. Y hay una regla
+que importa: el tono se aplica solo a lo que escribe el bot. **Lo que cargó el negocio se cita tal
+cual**, porque son sus palabras, no las nuestras. Una prueba lo verifica.
+
+**Demora**: una respuesta instantánea delata a la máquina y corta el hilo de la conversación. El
+bot muestra un indicador de «escribiendo», bloquea la entrada mientras responde y espera un
+momento antes de contestar. La espera se calcula sobre el largo de la respuesta —como demoraría
+alguien escribiéndola— con piso y techo para que en la feria nadie quede esperando. Es
+configurable: al instante, rápido, natural (recomendado) o pausado. Y se anula sola si el
+navegador pide menos animación.
+
+## Cómo atender bien: las cinco dimensiones
 
 No es opinión. Parasuraman, Zeithaml y Berry (modelo **SERVQUAL**, 1988) midieron que la gente
 juzga un servicio por cinco dimensiones: **fiabilidad, capacidad de respuesta, seguridad, empatía
