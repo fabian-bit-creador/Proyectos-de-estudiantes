@@ -72,6 +72,12 @@ con las fotos se entregó directamente al profesor, para compartirla dentro del
 colegio. Si existe la autorización de uso de imagen y se decide publicarlas, se
 incrustan en esta copia.
 
+## Modo edición
+
+Las instrucciones para el equipo (los recuadros amarillos) y las rutas de archivo bajo
+cada foto vacía solo aparecen agregando **`?editar=1`** a la dirección. Sin eso la página
+se ve terminada, que es como la ve un visitante en la Feria o en una dirección pública.
+
 ## Cómo cambiar el contenido
 
 Todo lo editable está en listas al final del archivo, después del comentario
@@ -80,7 +86,7 @@ Todo lo editable está en listas al final del archivo, después del comentario
 | Lista | Qué contiene |
 | --- | --- |
 | `EQUIPO` | Los 12 integrantes, su área, nivel y reflexión |
-| `CONDUCCION` | EA TP y docentes responsables |
+| `CONDUCCION` | Los siete adultos: la conducción de GLM (EA TP y dos docentes responsables, con su función en el proceso) y las cuatro docentes y educadoras que acompañan la Feria, solo con su cargo |
 | `PROYECTOS` | Los 28 proyectos con líder, curso y especialidad |
 | `FASES` | Las 6 fases del cronograma |
 | `GALERIA` y `FOTOS_COLEGIO` | Los pies de foto |
@@ -90,7 +96,7 @@ invitando a completarlas.
 
 ## Verificación
 
-`?pruebas=1` en la dirección ejecuta 23 comprobaciones: que el equipo tenga los 12
+`?pruebas=1` en la dirección ejecuta 26 comprobaciones: que el equipo tenga los 12
 integrantes de la guía, que estén repartidos 6 y 6, que cada área tenga 4, que los
 nombres de archivo no se repitan, que los acentos se limpien bien, que los filtros
 funcionen, que la página no cargue nada desde internet, que una foto incrustada gane

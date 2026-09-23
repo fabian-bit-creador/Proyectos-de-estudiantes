@@ -184,6 +184,11 @@ img,svg{max-width:100%;display:block;}
                 filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));pointer-events:none;}
 .satelital figcaption{font-size:.78rem;color:var(--tinta-3);margin-top:.45rem;}
 .foto-equipo{margin:0 0 1.6rem;}
+.persona__rol--cargo{text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:.86rem;
+                      font-weight:650;line-height:1.35;margin:.15rem 0 .5rem;}
+.sub-grupo{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-3);
+           font-weight:700;margin:1.8rem 0 .9rem;}
+.sub-grupo:first-of-type{margin-top:0;}
 .foto-equipo .foto{max-width:860px;border-radius:var(--r-lg);box-shadow:var(--sombra);}
 .foto-equipo figcaption{font-size:.85rem;color:var(--tinta-3);margin-top:.5rem;}
 .foto--ancha .foto__ini{font-size:1.4rem;width:auto;min-width:2.8rem;height:2.8rem;padding:0 .7rem;border-radius:999px;}
@@ -293,6 +298,11 @@ img,svg{max-width:100%;display:block;}
 @media (min-width:1000px){.ig-grid{grid-template-columns:repeat(6,1fr);}}
 
 /* ============================== Aviso edición ============================== */
+/* Instrucciones para el equipo: solo con ?editar=1 en la dirección. */
+.aviso-edicion{display:none;}
+body.modo-edicion .aviso-edicion{display:block;}
+.foto__hueco small{display:none;}
+body.modo-edicion .foto__hueco small{display:block;}
 .aviso-edicion{background:#FFFBEB;border:1px dashed #E3C77A;border-radius:var(--r);padding:1.1rem 1.2rem;font-size:.88rem;color:#7A5A12;}
 .aviso-edicion code{font-family:var(--mono);font-size:.85em;background:#fff;border:1px solid #EBD9A8;padding:.08em .35em;border-radius:4px;}
 
@@ -547,7 +557,7 @@ section[id],main[id]{scroll-margin-top:6rem}
     </div>
 
     <div class="aviso-edicion no-imprimir" style="margin-top:1.6rem">
-      <strong>Para poner las fotos:</strong> guarda cada retrato en la carpeta <code>fotos/</code> que está junto a este archivo, con el nombre que aparece bajo cada recuadro (por ejemplo <code>fotos/martin-faundez.jpg</code>). Aparecen solas al recargar. Mientras no existan, se ve el recuadro con las iniciales, que también sirve para presentar. Cuadradas y de al menos 600 × 600 px se ven mejor.
+      <strong>Para poner las fotos:</strong> se pueden incrustar en el archivo (mapa <code>FOTOS_INCRUSTADAS</code> del código, así viajan con el HTML) o guardar en la carpeta <code>fotos/</code> junto a este archivo, con el nombre que aparece bajo cada recuadro (por ejemplo <code>fotos/martin-faundez.jpg</code>). Aparecen solas al recargar. Mientras no existan, se ve el recuadro con las iniciales, que también sirve para presentar. Cuadradas y de al menos 600 × 600 px se ven mejor.
     </div>
   </div>
 </section>
@@ -560,7 +570,10 @@ section[id],main[id]{scroll-margin-top:6rem}
       <h2>Quiénes acompañan el proceso</h2>
       <p>La conducción adulta define prioridades, valida las decisiones relevantes y retroalimenta el trabajo del equipo.</p>
     </div>
+    <h3 class="sub-grupo">Conducción de GLM</h3>
     <div class="rejilla rejilla--3" id="gridDocentes"></div>
+    <h3 class="sub-grupo">Docentes y educadoras que acompañan la Feria</h3>
+    <div class="rejilla rejilla--3" id="gridAcompanan"></div>
   </div>
 </section>
 
@@ -854,12 +867,17 @@ const EQUIPO = [
 ];
 
 const CONDUCCION = [
-  { nombre:'Vanessa Moncada', rol:'Encargada de Área Técnico Profesional',
+  { grupo:'conduccion', nombre:'Vanessa Moncada',
+    rol:'Encargada de Área Técnico Profesional · Docente de Electrónica',
     detalle:'Define prioridades, valida las decisiones relevantes y puede solicitar información o reportes en cualquier momento del proceso.' },
-  { nombre:'Daniela Ortega', rol:'Docente responsable',
+  { grupo:'conduccion', nombre:'Daniela Ortega', rol:'Docente de Administración · Docente responsable',
     detalle:'Orienta el proceso, valida criterios, interviene ante alertas y retroalimenta el trabajo del equipo.' },
-  { nombre:'Fabián Herrera', rol:'Docente responsable',
-    detalle:'Orienta el proceso, valida criterios, interviene ante alertas y retroalimenta el trabajo del equipo.' }
+  { grupo:'conduccion', nombre:'Fabián Herrera', rol:'Docente de Administración · Docente responsable',
+    detalle:'Orienta el proceso, valida criterios, interviene ante alertas y retroalimenta el trabajo del equipo.' },
+  { grupo:'acompana', nombre:'Wendy Sepúlveda',  rol:'Docente de Electrónica' },
+  { grupo:'acompana', nombre:'Diego Quintana',   rol:'Docente de Telecomunicaciones' },
+  { grupo:'acompana', nombre:'Nicole Canales',   rol:'Profesora PIE · IV medio' },
+  { grupo:'acompana', nombre:'Bárbara Ortega',   rol:'Educadora PIE · III medio' }
 ];
 
 /* ------------------------------ LOS PROYECTOS ------------------------------ */
@@ -1046,9 +1064,10 @@ function pintarEquipo() {
 }
 
 function pintarConduccion() {
-  const grid = $('gridDocentes');
-  grid.textContent = '';
+  const grids = { conduccion: $('gridDocentes'), acompana: $('gridAcompanan') };
+  Object.values(grids).forEach(g => { if (g) g.textContent = ''; });
   CONDUCCION.forEach(d => {
+    const grid = grids[d.grupo] || grids.conduccion;
     const art = document.createElement('article');
     art.className = 'tarjeta';
     art.style.display = 'flex';
@@ -1065,12 +1084,13 @@ function pintarConduccion() {
     h.textContent = d.nombre;
     h.style.fontSize = '1.02rem';
     const rol = document.createElement('p');
-    rol.className = 'persona__rol';
+    rol.className = 'persona__rol persona__rol--cargo';
     rol.style.color = 'var(--azul)';
     rol.textContent = d.rol;
     const det = document.createElement('p');
-    det.textContent = d.detalle;
+    det.textContent = d.detalle || '';
     det.style.fontSize = '.88rem';
+    if (!d.detalle) det.hidden = true;
     info.appendChild(h); info.appendChild(rol); info.appendChild(det);
     art.appendChild(info);
     grid.appendChild(art);
@@ -1346,6 +1366,7 @@ function pintarFotoEquipo() {
 }
 
 /* ================================ ARRANQUE ================================ */
+if (/[?&]editar=1/.test(location.search)) document.body.classList.add('modo-edicion');
 pintarFotoEquipo();
 pintarSatelital();
 pintarEquipo();
@@ -1436,6 +1457,21 @@ const PRUEBAS = [
   ['Si hay imagen satelital, lleva su fuente', () => !SATELITAL.imagen || !!SATELITAL.fuente],
   ['La dirección del colegio está completa', () =>
     SATELITAL.direccion.indexOf('San Leandro 0368') === 0],
+  ['Sin ?editar=1, las instrucciones para el equipo no se ven', () => {
+    const av = document.querySelector('.aviso-edicion');
+    return !!av && (document.body.classList.contains('modo-edicion')
+      ? getComputedStyle(av).display !== 'none'
+      : getComputedStyle(av).display === 'none');
+  }],
+  ['Hay siete adultos: tres en la conducción y cuatro que acompañan', () =>
+    CONDUCCION.filter(d => d.grupo === 'conduccion').length === 3 &&
+    CONDUCCION.filter(d => d.grupo === 'acompana').length === 4],
+  ['A nadie se le inventa una función: sin detalle, no se muestra texto', () => {
+    const n = document.querySelectorAll('#gridAcompanan .tarjeta').length;
+    const visibles = [...document.querySelectorAll('#gridAcompanan .tarjeta p:not(.persona__rol)')]
+      .filter(p => !p.hidden && p.textContent.trim()).length;
+    return n === 4 && visibles === 0;
+  }],
   ['La barra y la portada conservan su margen lateral (en celular quedaban pegadas al borde)', () =>
     ['.barra__in', '.hero__grid'].every(sel => {
       const e = document.querySelector(sel);
