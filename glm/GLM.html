@@ -7,6 +7,7 @@
 <meta name="description" content="Equipo de Gestión, Logística y Marketing de la Feria Técnico Profesional 2026. Colegio Cardenal José María Caro, Fundación Belén Educa. 8 de octubre de 2026.">
 <meta name="author" content="Equipo GLM 2026">
 <meta name="theme-color" content="#084CA9">
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="GLM · Feria Técnico Profesional 2026">
 <meta property="og:description" content="Gestión, Logística y Marketing. Acompaña, observa, registra, alerta y apoya. 8 de octubre de 2026.">
@@ -952,11 +953,10 @@ const FOTOS_COLEGIO = [
 const FECHA_FERIA = new Date('2026-10-08T09:00:00');
 
 /* Fotos que viajan DENTRO del archivo, como data: URI, con la misma clave que
-   el nombre del hueco (la que se ve en gris en cada recuadro vacío).
-   En la copia pública de GitHub este mapa va vacío a propósito: las caras de
-   estudiantes, muchos menores de edad, no se publican en un repositorio
-   abierto sin la autorización de uso de imagen. La copia con fotos se entrega
-   directo al profesor. */
+   el nombre del hueco. Se usa solo cuando el HTML se reparte suelto. En el
+   sitio publicado las fotos van como archivos en fotos/ (con autorización de
+   uso de imagen de los apoderados), así que este mapa queda vacío y el HTML
+   se mantiene liviano. */
 const FOTOS_INCRUSTADAS = {};
 
 /* Vista satelital del colegio. Queda vacía hasta que se incruste una imagen
@@ -1356,13 +1356,16 @@ function pintarFotoEquipo() {
   const fig = $('fotoEquipo');
   if (!fig) return;
   fig.textContent = '';
-  if (!FOTOS_INCRUSTADAS['equipo-grupal']) { fig.hidden = true; return; }
-  fig.hidden = false;
-  fig.appendChild(crearFoto('equipo-grupal', 'GLM', true));
+  fig.hidden = true;                    // se muestra recién cuando la foto carga
+  const foto = crearFoto('equipo-grupal', 'GLM', true);
+  const img = foto.querySelector('img');
+  img.alt = 'Integrantes del equipo GLM en el patio del colegio.';
+  img.loading = 'eager';
+  img.addEventListener('load', () => { fig.hidden = false; });
+  fig.appendChild(foto);
   const pie = document.createElement('figcaption');
   pie.textContent = 'Equipo GLM · Feria Técnico Profesional 2026.';
   fig.appendChild(pie);
-  fig.querySelector('img').alt = 'Integrantes del equipo GLM en el patio del colegio.';
 }
 
 /* ================================ ARRANQUE ================================ */

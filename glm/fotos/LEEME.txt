@@ -19,10 +19,21 @@ RETRATOS DEL EQUIPO  (cuadradas, minimo 600 x 600 px)
   fotos/cristobal-del-canto.jpg    -> Cristóbal Del Canto
   fotos/sarai-munoz.jpg            -> Sarai Muñoz
 
-CONDUCCION  (cuadradas, minimo 600 x 600 px)
+CONDUCCION DE GLM  (cuadradas, minimo 600 x 600 px)
   fotos/vanessa-moncada.jpg        -> Vanessa Moncada
   fotos/daniela-ortega.jpg         -> Daniela Ortega
   fotos/fabian-herrera.jpg         -> Fabián Herrera
+
+DOCENTES Y EDUCADORAS QUE ACOMPANAN  (cuadradas, minimo 600 x 600 px)
+  fotos/wendy-sepulveda.jpg        -> Wendy Sepúlveda
+  fotos/diego-quintana.jpg         -> Diego Quintana
+  fotos/nicole-canales.jpg         -> Nicole Canales
+  fotos/barbara-ortega.jpg         -> Bárbara Ortega
+
+EQUIPO Y PREPARACION 2026  (horizontales, minimo 1200 px de ancho)
+  fotos/equipo-grupal.jpg          -> foto grande de la seccion Equipo
+  fotos/preparacion-2026-1.jpg
+  fotos/preparacion-2026-2.jpg
 
 GALERIA DE FERIAS ANTERIORES  (horizontales, minimo 1200 px de ancho)
   fotos/feria-2025-1.jpg
@@ -48,10 +59,13 @@ MURO DE INSTAGRAM  (cuadradas)
   fotos/ig-5.jpg
   fotos/ig-6.jpg
 
-TOTAL: 33 imagenes.
+TOTAL: 40 imagenes. Faltan: vaithiare-gonzalez.jpg y diego-quintana.jpg,
+ademas de las galerias de ferias anteriores, el colegio y el muro.
 
 Si cambia un integrante, edita la lista EQUIPO al final de GLM.html y
 usa el nombre de archivo sin tildes, en minusculas y con guiones.
 
 Antes de publicar una foto de una persona, confirma que exista
 autorizacion de uso de imagen. Es parte del trabajo de Marketing.
+Las fotos de esta carpeta cuentan con autorizacion de los apoderados
+(confirmado por el profesor Fabián Herrera, 23 de septiembre de 2026).

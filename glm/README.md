@@ -59,18 +59,32 @@ puede presentar aunque falten fotos.
 **Antes de publicar la foto de una persona, confirma que exista autorización de uso
 de imagen.** La Guía Operativa lo pide y es responsabilidad de Marketing.
 
-### Fotos que viajan dentro del archivo
+### Dónde están las fotos
 
-La carpeta `fotos/` no viaja cuando el HTML se reenvía por WhatsApp o correo. Por eso
-existe `FOTOS_INCRUSTADAS`: un mapa con la misma clave que el nombre de cada hueco,
-que la página revisa **antes** de buscar el archivo suelto.
+Las fotos van como **archivos en `fotos/`**, no dentro del HTML: así la página pesa
+~125 KB y el sitio publicado las sirve por separado. Las 20 que hay (11 estudiantes,
+6 adultos y 3 del equipo y la preparación) cuentan con **autorización de uso de imagen
+de los apoderados**, confirmada por el profesor el 23 de septiembre de 2026.
 
-**Esta copia pública va con ese mapa vacío, a propósito.** El equipo son estudiantes,
-varios menores de edad, y un repositorio público de GitHub queda indexado y guarda el
-historial para siempre: una cara subida aquí no se puede retirar del todo. La copia
-con las fotos se entregó directamente al profesor, para compartirla dentro del
-colegio. Si existe la autorización de uso de imagen y se decide publicarlas, se
-incrustan en esta copia.
+Existe además `FOTOS_INCRUSTADAS`, un mapa que la página revisa **antes** de buscar la
+carpeta. Sirve solo si alguna vez hay que repartir el HTML suelto por WhatsApp o
+correo, porque la carpeta no viaja con él. En el sitio publicado va vacío.
+
+Faltan las fotos de **Vaithiare González** y **Diego Quintana**: mientras no estén, su
+tarjeta muestra las iniciales.
+
+## Publicación en Vercel
+
+La página es de **uso interno**: para el equipo y para mostrar el proceso al equipo
+directivo. No se presenta en la Feria. Se publica en Vercel desde esta carpeta
+(`glm/` como directorio raíz del proyecto), y cada cambio que llega a `main` en GitHub
+la actualiza sola.
+
+`vercel.json` hace dos cosas: la dirección raíz abre `GLM.html`, y todas las respuestas
+llevan `X-Robots-Tag: noindex, nofollow` para que ni la página ni las fotos aparezcan
+en buscadores. La página trae además la etiqueta `robots` equivalente. Ojo: eso evita
+que la encuentren buscando, **no la protege con clave**; la ve cualquiera que tenga el
+enlace.
 
 ## Modo edición
 
