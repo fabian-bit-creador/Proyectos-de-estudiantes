@@ -75,6 +75,8 @@ tarjeta muestra las iniciales.
 
 ## Publicación en Vercel
 
+**Dirección: https://glm-feria-tp-2026.vercel.app**
+
 La página es de **uso interno**: para el equipo y para mostrar el proceso al equipo
 directivo. No se presenta en la Feria. Se publica en Vercel desde esta carpeta
 (`glm/` como directorio raíz del proyecto), y cada cambio que llega a `main` en GitHub
@@ -85,6 +87,15 @@ llevan `X-Robots-Tag: noindex, nofollow` para que ni la página ni las fotos apa
 en buscadores. La página trae además la etiqueta `robots` equivalente. Ojo: eso evita
 que la encuentren buscando, **no la protege con clave**; la ve cualquiera que tenga el
 enlace.
+
+**Protección del proyecto en Vercel:** «Vercel Authentication» solo en las vistas
+previas. La dirección principal queda abierta para que el equipo y el equipo directivo
+la vean sin cuenta de Vercel. El equipo «Muni App» protege por defecto también la
+dirección principal; este proyecto se ajustó aparte y los demás proyectos del equipo no
+cambiaron. Para cerrarla de nuevo: Vercel → proyecto → Settings → Deployment Protection.
+
+Como el repositorio tiene los proyectos de varios cursos, el proyecto de Vercel solo se
+vuelve a publicar cuando cambia algo dentro de `glm/`.
 
 ## Modo edición
 
