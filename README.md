@@ -8,11 +8,11 @@ que lo acompaña.
 
 ## Portada
 
-`index.html` es el portal de la colección: lista los ocho proyectos con buscador y filtro por
+`index.html` es el portal de la colección: lista los doce proyectos con buscador y filtro por
 curso. Cada tarjeta tiene **Abrir**, que lleva al archivo de su carpeta, y **Descargar HTML**, que
 entrega una copia suelta para llevar en un pendrive. Esa copia va embebida en el propio portal, así
 que la portada funciona sin conexión y sin el resto de los archivos al lado; el precio es que pesa
-1,1 MB y que las copias embebidas hay que regenerarlas cuando un proyecto cambia. El botón «Abrir»
+1,7 MB y que las copias embebidas hay que regenerarlas cuando un proyecto cambia. El botón «Abrir»
 siempre muestra la versión vigente.
 
 ## Proyectos
@@ -30,6 +30,7 @@ siempre muestra la versión vigente.
 | [DocentePro](docentepro/) | IV°A · Administración | — | Evaluación de desempeño. Se reconstruyó la app de Base44 como archivo único y se puso al centro el instrumento real: ponderación 50/25/25, logro = nivel ÷ niveles del estándar, cortes objetivos de asistencia y puntualidad, impresión en PDF con el nivel marcado y exportación a Excel. |
 | [Pymedigital](pymedigital/) | Administración | — | Alfabetización digital para pymes de La Pintana. Se unieron las dos páginas en un archivo, se cerró la inyección de HTML del catálogo y el diagnóstico pasó de dar consejos fijos a señalar las dos preguntas peor contestadas. Incluye un mapa de la comuna dibujado en SVG, con los seis CESFAM, cinco ferias libres y la lectura de cobertura por sector. |
 | [Help Wanted](help-wanted/) | III° medio | — | Staffbots para PyMEs. El proyecto prometía que «la PyME define la información» pero no había forma de definirla: ahora el negocio carga sus datos y el bot responde solo con eso, citando de qué dato salió cada respuesta. Incluye las cinco dimensiones del modelo SERVQUAL, autoevaluación de atención y los límites legales de la Ley 19.496. |
+| [PRAM](pram/) | III°A · Administración | Matías Bustamante, Víctor Sanabria, Ian Arenas, Sabina Huechucoy | Atención al cliente para pymes, con el caso de Sushi IsiMiya. Se conservaron la esencia y los colores y se agregó el logo en la pestaña del navegador. El reclamo del formulario ya no desaparece: queda en un libro de casos con responsable y plazo, la respuesta se arma con la frase guía del protocolo (para copiar o abrir en WhatsApp o correo) y el caso se cierra anotando qué parte del Triángulo del Servicio hay que ajustar. El panel dejó de inventar barras (respuesta = atención × 0,82) y las reseñas dejaron de mostrar un 5.0 fijo. |
 
 ## Capa común de feria
 

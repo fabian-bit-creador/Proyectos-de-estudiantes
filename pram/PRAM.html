@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PRAM: propuesta de mejora de atención al cliente para PYMES.">
+  <title>PRAM | Atención al cliente para PYMES</title>
+  <meta name="theme-color" content="#1a1119">
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAwFBMVEU1EyRHFSv/8+clEh3+vj6Xg4QBAAGvdTbNurajaTT159w5FCY5EyVlS1RwVFzqqzwfERs4FCZMJTFYNENrNC+ETTCbYjPZyMHq29MeERwgEhsoECBIEChXFzBUFjFUFjBOMz6RWDO8qaceEBseEho5Dio4ECg9FClYGDBcSlBgP0t7RS94YmeAYmqojpHcnjrWxr8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByHi+9AAAAQHRSTlP+/v/+//8A/////0u0////7oP/////////SLAQEEyEuP///3CBEiBwIP//////////AAAAAAAAAAAAAAAAAAAAJUlkDgAAAQxJREFUeNp9k+l2wiAQRmdCRU2iaRZjWve6ttrl/Z+uDERgIub7xcm9DHOGAFLKxeFd3AMC7knzhYIg5durcJwnIaGHkwGyjwMcYS9C59ucwfT3OWhz23IhBbN5ENn8MQUfhSieejwkRHHheFCIRo63AmhhPplMP7RRWG4EMILeGNPqy3ItgPCEhlal5STQZ35E7Di20+NN/jiObb9MaNDxUAU1KMSeCvMSsKjHKteu0KjL+i7p/N8XnVlHGNn5ZUYYBwWqW9XZU8G0NnxawechwfFhHRI8jlWWVV3B53ZQqf9/PfIN5B0+YxzXcOKcBI/jBWTCOOJu5/EVPd6EcZaVft1ymachulkvFfwHfRsOHjwI94sAAAAASUVORK5CYII=">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231a1119'/%3E%3Cstop offset='1' stop-color='%235a1733'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url%28%23g%29'/%3E%3Cpath fill='%23fff3e7' fill-rule='evenodd' d='M13 11h16.5a13 13 0 0 1 0 26H23.5v15H13zM23.5 20.5v7h5.5a3.5 3.5 0 0 0 0-7z'/%3E%3Cpath d='M36 56 54 38M45 38h9v9' fill='none' stroke='%23ffbf3f' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAwFBMVEX/8+fq3NPSv7r/vz+RaVNVFzFTFjBRFi9QFi9PFi9OFi5NFS5MFi1LFi1JFSxHFStGFitGFStFFSpEFSpDFSpCFSlBFSlAFSk/FSg9FShCFClAFCg/FCg+FCg9FCc8FCc7FCY6FCY5FCY4FCU4EyU3FCU2FCQ2EyQ1FCQ1EyQzEyMyFCMyEyMxEyIwEyIvEyIuEyEuEiEtEyEsEiArEyAqEyApEh8oEx8nEh4mEh4kEh0kER0jEhwhEhwfEhsdERqL26i+AAAKaklEQVR42tWca3PTPBCFFVdqSNrQKy0tvSWlUC69AKUNfbn8/3/17q4cx3Zs71paM3g1fOzMmWcOJ/JqJfNntX4vFtQvv379xJXW88/n5+f/np9/+PVjDuvpx3z+BOtx/vj0/dGvh8eHh2+wvn7z6/7b/df7L3f3sO5u726hbm4/3d7cfLr59Pkjro/Xi/XhnV/vr2Bdvr+8unx7eTl7O5tN306nU1Ol+U+qGDXDv7R+ZvVM5RX7mkM9UT1SkebvD1TfoL5S3VPdQd2mdQP1GYpUf0TVH0AxrGvQ/Q40U4FmqBnUdDatEP1bwvlnRplUA+f5U8b5Mcf5ocz5PuN8R5xvPlVyvl7hPHtLnEn1RQXpJWdSXaK84PyccZ57zvMi5+/fveZKzndFzp+J8sdMMal+n3G+XHCeEeda0r9b+TnHecXPDyU/f7lLKdf7+brJz9OL6blR8/Nc7OdVzi38DKoL9sj7+Ze+n8u5IfHz1YqfcRmBn3+19fNDg5/vJH5+V+/ni4sa0v9qPqOfQXXe0/9+PnvO55noXuSz13xRTI9/PZ9TzWXS/3Y+T73mI9OnfEY/Y5k+5bPnnJHuRz6fE+mzM9OnfCbOZ0S6P/nsC0n3KJ/Rz+dHZ97TfclnpIxl+pTPnvOZ93Rf8vmMSB+dmj7ls+cMpPuUz1inUKZP+ew5n742fcpn9PPpKXm6P/nsOedI9yGfPefXJ6ZP+ew5nyDp/uQzcj45QdI9ymfkDKQPjSSfrWlVg0GSWGtH6vmMfn69JN3s55aiM/HWXqvmM2k+9KRZPweKxkrskV4+nxDnwzdG4ucI0cj7SiufT4kzkJbkc5RolK2Uz54zkebzOVI0mkQlnz3nNwdGks/RokH2lUI+g+pD0AyiBfmsINok2/H57DkTaX7/rCHaDFx0PqOfDw5T0tz+WUW0MTY2nz3n41dGst9QEm1sZD6jnw+OiTS/39ASDaqj8hk5E2nJ/llNNKqOyOcDqlcHRrJ/1hM9cDH5jJRxGcn+WU+0GWxH5DP6+dXBq1Q0s39WFG2SWXg+vyHOx/tG8j2oKdrY8Hz2nD1ptr+hKnpwGJzPx3nSXH9DVTSgDs1nz3kfRAu+B3VFGxeaz0gZl5H0N5RFJ6H57DkTab6/oSzauMB89qT394ykv6EtOgnMZ8/Zk2b7G9qizXZYPnvOxznSDf06ddE2LJ895709I+k/q4tOwvLZcyZP8/3nZtFJqQYC1WH57DkDaUm/rln0drlf52zC+iMon/f3cO3tGkn/mRFd0a+zDO4kKJ8954x0c/+ZEV3Zr0s40QH5fEycgbSk/8zZo6r/fNWoehCUz57z7q6R9J850pV9Udf4R0H57DkjacH5IEe6uv/c+FejkHz2nIk0fz7Ik67qPx81bj9C8tlz3t02kvPBZtGTuv5zU4LYkHz2nHd2jOQ8hSNd039OGkUH5DNx3tlF0fz5IE+6sv/cKDokn4kzkRacDzKk6/r8DOn2+Yx+Bs1bRnI+yJGuPk+ZNf6Oh+Qz+hnLSM4HedJVfX7XLDogn8kbW0BaMr/BkK45H2z8SXQh+bxDpLfQ0/z8Biu66nyw+RfxMCSfPWcizc9v8KRXz1OOGvd5g6B89rUFogXn3YzoynOr5l3eICifPWcQLZnf4Eivng865jMgCcrnHa+ZSLPzGzLSS85X7EelDfYz1Esjmd9o940o+UjcDsrnHa/5pZHMb+h/jYfls9eMpAXzdfp9j7B8TjUjaX6+Tl30JNzPRFoyj2T13RGUz+hnIi2Zr1Pvmgbms+eckubm67T706H5jJSxjGS+TvskIMbPWyRaMF+nKzoJzuciaWa+zio7OjSfU39MjGT+WfccMTyfF2Uk88+qJ7bbcX5OSfPzz5pn4y4in1PNQFow/6wo2sXkMymeIGnB/LPivEdUPudI8/PPepM18X4m0pL5Z6vIOSafU80kmp1/toqcY/J5sYzkfopVy424fJ5kpAX3U1QmIEc6fgbNm0ZyP0Vj1vRAIZ9RMZaR3E9RmOqt3D8721DOVfp5gqQl9yai56cr9892jStXyucy6cb7KZGT6vtV++dNXjOpLvsZl5HcT4m6E7Bd3d9YE5VboQy6QbTgfkro7YvE7tf1N6xM9Npm2c+gedNI7g+2veeS4D0XN2roPzuh5jWb90aqmUiz9webRY8C5uukoNfWyn4G1WMjuT/IiW4/XycX7Up+Bs1jI7k/yIpuPV+3Jhdd9MYYl5HcHxSQbjm/IRdtc6SJsyfN3x9kRAfM18ntYUt+JtKS+4Mc6fbzdbYN6YKfsYzk/iBHuv183WYr0lnWAeUNWEZyv5sTHTBf59qRzjR70pL73azogPk6KyZd9PMGipbc7+ZJB8zXWbHogp+JtOR+NyM6cL5ubOWkF5RpjYzkfjdHOnS+bnfXYbGk835OPc3f72ZEB8/X+e/BZuC25OeN0RhJ8/e7m0W74Pk6+h60nD2Kfh6PRyBacL+b83TofB32Cjhj21w+bxBnT5q9382RDp2vE2gm0Xk/j0ZEmn9/gxEdPF8n0IyiC37eGI1eGMn7G5zo0Pk6gWYQXfQzaCbS7HsFrOjA+TpJUNuSn0GzJ829v8GTDpqvk/24lPwMqkG04P0NRnQn+VwkvfQzaB4ayfsbHOku8nkpuujnFy+QtOD9DZ5063zeEu/ySn5+gaQl728wojvJ5zLphZ9BM3qaf3+DI93az7Wcna0SnfczLiN5H4kn3S6f6zVPbDXppZ9BN4gWvNsjId0inxs0v6wQXfQzaB4ayftIHOl2+dykuZp03s/DIZHm3znhSWvkM2peFe1KfgbV60byPhIjulU+N3DGWhVd8jNoBtGC95E40hr57Hx/Y+Xbq+zn4TqR5t9H4kjL85nTvDkpW7rs5/X1lDT3PhIjWiOfs35dCfWw7GciLXkfiSOtkM/Lfp0t/jcs+zklzb+PJCAdtX92+f5z/kfRrvrZkxa8j8SI1sjnfP/Z5TmX/UykJe8jcaQV8rnYr6OjXDeq8vOQRAveR+JJR+fzSr9uXJHPK6Sb3kdiRGvkc6H/vFGx31hyXndG8n4dR1ojnzcr+htVfs6Rbn4fiScdn8+Tiv5GlZ/XHZCWvPfFiH7zN/2Mqo3k/brGuQwbtX8unA9K/EykNd6vU8pnkZ+dJx3/ft3f9POCdPT7dX/Tz+Rpjffr/lY+50lHv18X0N8IyudUM0Sewvt1KvsNoZ9BM5KOf7+utl/n9P2Mx2FG4/262vlnq5vPGenu8hlIK+ez50ykO8pnnLvswM/Ok+4mn3fqLB3pZxLdUT77SWLlfM5Id5TPfv5ZOZ/zpDvI53T+2er7OSOtns+L+Wen72dPuot8zubMrWo+50h3kM/L2Xirmc850vr5nJ/nz1TboYqfSXQX+VyY5x9a1G3dSx0/e3t0kM9191Ni83lJuot8rrmfEpvPmehO8rnmfoqGn1PSHeRzzf0UDT970p3kc62fx7F+JtEd5XPl/RQNP6eku8nnrvycku4onzvysxfdo3zOk+5NPi893aN8zkT3KZ9znu5PPhdI9yWfF/U/N0/3h5X3VScAAAAASUVORK5CYII=">
+  <style>
+    :root{--ink:#121212;--paper:#fff;--mist:#f3f3f0;--line:#d7d7d1;--gray:#5d5d58;--serif:Georgia,'Times New Roman',serif;--sans:Inter,Segoe UI,Arial,Helvetica,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.nav{height:72px;background:#111;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 7vw;position:sticky;top:0;z-index:5}.brand{font-weight:800;font-size:21px;letter-spacing:.16em}.brand small{font-size:9px;font-weight:400;letter-spacing:.1em;color:#bbb;margin-left:8px}.navlinks{display:flex;gap:25px;font-size:12px}.navlinks a{opacity:.75}.navlinks a:hover{opacity:1}.nav-cta{font-size:12px;border-bottom:1px solid #fff;padding-bottom:3px}.hamburger{display:none;border:0;background:none;color:#fff;font-size:23px}.hero{min-height:605px;display:grid;grid-template-columns:1.25fr .75fr;background:var(--mist);padding:0 7vw}.hero-copy{align-self:center;padding:65px 7vw 65px 0}.kicker{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#666;margin:0 0 20px}.hero h1,.title{font:500 clamp(41px,5.5vw,76px)/1 var(--serif);letter-spacing:-.055em;margin:0}.hero h1 em{font-weight:400}.lede{font-size:18px;color:#4e4e49;max-width:570px;margin:27px 0}.buttons{display:flex;gap:22px;align-items:center;flex-wrap:wrap}.button{display:inline-block;border:1px solid #111;background:#111;color:#fff;padding:13px 19px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s}.button:hover{transform:translateY(-2px);background:#444}.button.light{background:#fff;color:#111;border-color:#fff}.text-button{font-size:12px;border-bottom:1px solid #111;padding-bottom:3px}.mark-box{background:#111;color:#fff;padding:58px 39px;position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}.mark{font-size:clamp(52px,7.5vw,96px);font-weight:800;letter-spacing:.16em;line-height:.85}.mark-arrow{font-size:57px;margin:7px 0 0 38px;transform:rotate(-36deg);display:block;width:max-content}.mark-box p{font-size:10px;letter-spacing:.13em;line-height:1.8;color:#bcbcb8;margin:0}.mark-box:after{content:'MEJORA';position:absolute;bottom:115px;left:35px;color:#202020;font:500 12vw/1 var(--serif);letter-spacing:-.08em}.section{padding:105px 7vw}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10vw}.title.small{font-size:clamp(38px,4.4vw,61px)}.two-col p{font-size:17px;max-width:470px;margin:0 0 22px}.note{font-size:12px!important;color:var(--gray);border-left:2px solid #111;padding-left:13px}.dark{background:#111;color:#fff}.dark .kicker{color:#aaa}.dark .title{font-size:clamp(37px,4.3vw,60px);max-width:700px}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}.fact{border-top:1px solid #555;padding-top:15px}.fact strong{display:block;font:500 52px/1 var(--serif);letter-spacing:-.05em}.fact p{font-size:13px;color:#c3c3bf;margin:11px 0}.caption{font-size:11px;color:#aaa;margin:35px 0 0}.method{background:var(--mist)}.heading{display:flex;justify-content:space-between;align-items:end;gap:50px;margin-bottom:44px}.heading .title{font-size:clamp(38px,4.3vw,60px)}.heading>p{font-size:13px;max-width:350px;color:var(--gray);margin:0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#fff;padding:29px;min-height:240px;border-top:2px solid #111}.step{font-size:10px;font-weight:700;letter-spacing:.13em;color:#666}.card h3{font:500 29px/1.1 var(--serif);margin:38px 0 10px}.card p{font-size:13px;color:#555;margin:0}.tabs{display:flex;gap:8px}.tab{border:0;background:#eee;padding:12px 17px;font-size:12px;font-weight:700;cursor:pointer}.tab[aria-selected=true]{background:#111;color:#fff}.protocol{border:1px solid var(--line);padding:33px}.protocol[hidden]{display:none}.protocol-head{display:flex;justify-content:space-between;gap:35px;border-bottom:1px solid var(--line);padding-bottom:23px}.protocol h3{font:500 30px/1.1 var(--serif);margin:0}.protocol-head p{font-size:13px;max-width:470px;color:#555;margin:0}.protocol-steps{display:grid;grid-template-columns:repeat(5,1fr);margin-top:30px}.protocol-step{padding:0 18px;border-left:1px solid var(--line);min-height:166px}.protocol-step:first-child{padding-left:0;border:0}.protocol-step span{font-size:11px;color:#666;font-weight:700}.protocol-step h4{font:600 16px/1.1 var(--serif);margin:23px 0 9px}.protocol-step p{font-size:12px;color:#555;margin:0}.tip{margin:28px 0 0;background:var(--mist);padding:15px 17px;font-size:12px}.feedback{background:#111;color:#fff}.feedback-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:10vw}.feedback .title{font-size:clamp(38px,4.5vw,62px)}.feedback-copy>p:not(.kicker){color:#c5c5c1;max-width:360px}.form{background:#fff;color:#111;padding:30px}.form h3{font:500 27px var(--serif);margin:0 0 20px}.field{display:block;margin:15px 0}.field>span,.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #bbb;background:#fff;font-size:13px}.field textarea{height:76px;resize:vertical}.rating{display:flex;gap:4px}.rating button{border:0;background:transparent;color:#bbb;font-size:27px;padding:0;cursor:pointer}.rating button.active{color:#111}.form-message{min-height:21px;font-size:12px;font-weight:700;margin:13px 0 0}.complaint{border-top:1px solid #ddd;margin-top:18px;padding-top:17px}.complaint[hidden]{display:none}.complaint h4{font:500 22px var(--serif);margin:0 0 5px}.complaint>p{font-size:12px;color:#555;margin:0 0 12px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.implementation{background:var(--mist)}.implementation .cards h3{margin-top:26px}.implementation ul{padding-left:17px;font-size:12px;color:#555;margin:16px 0 0}.goals .title{font-size:clamp(38px,4.3vw,60px)}.goals p{max-width:370px}.goal-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.goal{border-top:2px solid #111;padding-top:14px}.goal strong{font:500 58px/1 var(--serif);letter-spacing:-.06em}.goal strong span{font-size:28px}.goal p{font-size:13px;margin:13px 0}.goal small{font-size:10px;color:#666}.dashboard{border:1px solid #222;margin-top:75px}.dash-top{background:#111;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em}.dash-top button{border:0;background:none;color:#fff;font-size:10px;cursor:pointer}.metrics{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}.metric{padding:21px 15px;border-right:1px solid var(--line)}.metric:last-child{border:0}.metric span{display:block;font-size:10px;color:#666}.metric strong{font:500 30px var(--serif);display:block;margin:10px 0 2px}.metric small{font-size:10px;color:#555}.chart{padding:22px 15px}.chart>p{font-size:11px;font-weight:700;margin:0 0 15px}.bar-row{display:grid;grid-template-columns:140px 1fr 37px;gap:10px;align-items:center;margin:11px 0;font-size:11px}.bar{height:7px;background:#ddd}.bar i{display:block;width:0;height:100%;background:#111;transition:width .4s}.contact{background:#111;color:#fff;padding:100px 7vw}.contact .title{font-size:clamp(40px,4.6vw,63px)}.contact p:not(.kicker){color:#bbb;max-width:345px}.contact-list a{display:grid;grid-template-columns:108px 1fr 18px;padding:17px 0;border-top:1px solid #414141;font-size:13px}.contact-list a:last-child{border-bottom:1px solid #414141}.contact-list span{color:#aaa}.contact-list i{font-style:normal}footer{background:#111;color:#fff;border-top:1px solid #3b3b3b;padding:24px 7vw;display:flex;justify-content:space-between;gap:18px;align-items:center}footer p{font-size:10px;color:#aaa;margin:0}.toast{position:fixed;right:18px;bottom:18px;background:#111;color:#fff;padding:14px 17px;font-size:12px;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none}
+    @media(max-width:760px){.nav{height:64px;padding:0 6vw}.navlinks,.nav-cta{display:none}.hamburger{display:block}.navlinks.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:16px;padding:22px 6vw;background:#111;border-top:1px solid #444}.hero{grid-template-columns:1fr;padding:0 7vw}.hero-copy{padding:70px 0 47px}.mark-box{min-height:230px;margin:0 -7vw;padding:29px 7vw}.mark{font-size:62px}.mark-box:after{font-size:24vw;left:7vw;bottom:60px}.two-col,.feedback-grid{grid-template-columns:1fr;gap:38px}.section{padding:75px 7vw}.facts,.cards,.goal-list,.metrics{grid-template-columns:1fr}.heading{display:block}.heading>p{margin-top:18px}.protocol{padding:23px}.protocol-head{display:block}.protocol-head p{margin-top:14px}.protocol-steps{grid-template-columns:1fr}.protocol-step{padding:19px 0;border-left:0;border-top:1px solid var(--line);min-height:0}.protocol-step:first-child{padding-top:0;border-top:0}.protocol-step h4{margin:10px 0 7px}.form-row{grid-template-columns:1fr}.dashboard{margin-top:45px}.metric{border-right:0;border-bottom:1px solid var(--line)}.metric:last-child{border-bottom:0}.bar-row{grid-template-columns:90px 1fr 30px}.contact{padding:75px 7vw}.contact-list a{grid-template-columns:85px 1fr 15px}footer{display:block}footer p{margin-top:10px}}
+    /* Identidad visual Sushi IsiMiya */
+    :root{--paper:#fffaf5;--mist:#f7e9e0;--line:#e7cfc0;--gray:#6c5150;--sushi-red:#d6344e;--sushi-gold:#e8ae48}.nav{background:linear-gradient(90deg,#181218,#351222);border-bottom:2px solid var(--sushi-gold)}.brand{color:#fff0e6}.brand small{color:#f7c6a3}.navlinks a:hover{color:#ffd66c}.nav-cta{border-color:var(--sushi-gold);color:#ffe1a2}.hero{background:linear-gradient(115deg,#fff4e9,#f9d8d5)}.hero h1 em,.kicker{color:#b92543}.lede{color:#583c41}.button{background:var(--sushi-red);border-color:var(--sushi-red);border-radius:3px;box-shadow:0 8px 20px rgba(183,35,62,.22)}.button:hover{background:#a81e38}.text-button{border-color:#b92543;color:#8e1d37}.mark-box{background:linear-gradient(145deg,rgba(18,12,19,.7),rgba(77,13,31,.75)),url('sushi-isimiya-fotos/1788955839572.jpg') center/cover}.mark-box:after{color:rgba(255,255,255,.08)}.mark{color:#fff3e7;text-shadow:0 3px 12px rgba(0,0,0,.45)}.mark-box p{color:#ffe8c4}.dark,.contact,footer{background:linear-gradient(135deg,#1a1119,#321222)}.dark{border-top:3px solid var(--sushi-gold)}.card{border-top-color:var(--sushi-red);box-shadow:0 8px 22px rgba(87,38,46,.08)}.method{background:linear-gradient(120deg,#fff2e8,#f4dde3)}.step{color:#bd2745}.tabs .tab[aria-selected=true],.dash-top{background:#b92342}.tab{background:#f5d9d0}.tip{background:#fff1df;border-left:3px solid var(--sushi-gold)}.feedback{background:linear-gradient(120deg,#24121d,#521730)}.rating button.active{color:var(--sushi-red)}.bar i{background:linear-gradient(90deg,var(--sushi-red),var(--sushi-gold))}.goal{border-color:var(--sushi-red)}
+    .photo-gallery{padding:85px 7vw;background:#1c1319;color:#fff;position:relative;overflow:hidden}.photo-gallery:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 10%,rgba(214,52,78,.35),transparent 30%);pointer-events:none}.gallery-heading{position:relative;display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:30px}.gallery-heading .kicker{color:#ffc5a3}.gallery-heading .title{font-size:clamp(38px,4.4vw,62px)}.gallery-heading p{max-width:360px;margin:0;color:#ead6d5;font-size:14px}.photo-grid{position:relative;display:grid;grid-template-columns:1.25fr .75fr .75fr;grid-template-rows:250px 250px;gap:14px}.photo-card{position:relative;overflow:hidden;border-radius:5px;background:#321522}.photo-card:first-child{grid-row:span 2}.photo-card:nth-child(4){grid-column:span 2}.photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}.photo-card:hover img{transform:scale(1.05)}.photo-card figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 16px 13px;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff8ef}.photo-card:nth-child(4) img{object-position:center 55%}@media(max-width:760px){.photo-gallery{padding:65px 7vw}.gallery-heading{display:block}.gallery-heading p{margin-top:16px}.photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:220px 160px 160px}.photo-card:first-child{grid-column:span 2;grid-row:auto}.photo-card:nth-child(4){grid-column:auto}.photo-card:nth-child(5){grid-column:span 2}}
+    /* Movimiento y carrusel */.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}.reveal.is-visible{opacity:1;transform:none}.carousel{position:relative;overflow:hidden;border-radius:6px;box-shadow:0 22px 45px rgba(0,0,0,.28)}.carousel-track{display:flex;transition:transform .65s cubic-bezier(.22,.61,.36,1)}.carousel-slide{flex:0 0 100%;height:min(68vw,510px);position:relative;margin:0;background:#321522}.carousel-slide img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.07) contrast(1.03);transition:transform .8s cubic-bezier(.22,.61,.36,1),filter .45s ease}.carousel-slide.is-active img{transform:scale(1.025)}.carousel:hover .carousel-slide.is-active img{transform:scale(1.045)}.carousel-slide:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.48),transparent 65%)}.carousel-slide figcaption{position:absolute;z-index:1;left:clamp(22px,5vw,65px);bottom:clamp(20px,5vw,48px);max-width:420px;font:500 clamp(25px,3.4vw,48px)/1.05 var(--serif);letter-spacing:-.04em;color:#fff;text-shadow:0 2px 15px rgba(0,0,0,.55)}.carousel-controls{position:absolute;z-index:2;right:22px;bottom:20px;display:flex;gap:8px}.carousel-controls button{width:42px;height:42px;border:1px solid rgba(255,255,255,.65);border-radius:50%;background:rgba(18,12,19,.55);color:#fff;font-size:22px;cursor:pointer}.carousel-controls button:hover{background:var(--sushi-red)}.carousel-dots{position:absolute;z-index:2;left:clamp(22px,5vw,65px);bottom:22px;display:flex;gap:8px}.carousel-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer}.carousel-dots button[aria-current=true]{background:var(--sushi-gold);transform:scale(1.35)}@media(max-width:760px){.carousel-slide{height:400px}.carousel-slide figcaption{right:20px}}@media(prefers-reduced-motion:reduce){.reveal,.carousel-track,.carousel-slide img{transition:none}.carousel-slide.is-active img{transform:none}}
+    /* Identidad y animaciones */:root{--sushi-red:#ef2450;--sushi-gold:#ffbf3f;--sushi-pink:#ff6b87}.hero{background:radial-gradient(circle at 82% 18%,rgba(255,191,63,.36),transparent 26%),linear-gradient(115deg,#fff9ee,#ffdfe4)}.button{background:linear-gradient(135deg,var(--sushi-red),#c71447);border-color:var(--sushi-red)}.button:hover{background:linear-gradient(135deg,#ff5375,#c9144a)}.mark-box{border-left:4px solid var(--sushi-gold);box-shadow:0 22px 48px rgba(120,10,43,.28)}.pram-letter{display:inline-block;animation:pramEntrance .75s cubic-bezier(.22,.61,.36,1) both,pramGlow 3.4s ease-in-out 1s infinite}.pram-letter:nth-child(2){animation-delay:.1s,1.1s}.pram-letter:nth-child(3){animation-delay:.2s,1.2s}.pram-letter:nth-child(4){animation-delay:.3s,1.3s}.pyme-word{display:inline-block;color:#b81942;font-weight:800;letter-spacing:.035em;animation:pymePulse 2.8s ease-in-out infinite}.contact-list a.location{grid-template-columns:108px 1fr 18px}.contact-list a.location b{line-height:1.45}.contact-list a:hover{color:#ffe29b}.contact-list a:hover i{transform:translate(3px,-3px)}@keyframes pramEntrance{from{opacity:0;transform:translateY(34px) rotate(8deg);filter:blur(4px)}to{opacity:1;transform:translateY(0) rotate(0);filter:blur(0)}}@keyframes pramGlow{0%,100%{color:#fff3e7;text-shadow:0 3px 12px rgba(0,0,0,.45)}50%{color:#ffd36a;text-shadow:0 0 22px rgba(255,191,63,.58)}}@keyframes pymePulse{0%,100%{transform:translateY(0);text-shadow:none}50%{transform:translateY(-2px);color:#e2184c;text-shadow:0 7px 15px rgba(214,52,78,.22)}}@media(prefers-reduced-motion:reduce){.pram-letter,.pyme-word{animation:none}}
+    /* Fotos y vista celular */.carousel{max-width:1180px;margin:auto}.carousel-slide{height:min(72vw,570px)}.carousel-slide img{image-rendering:auto;filter:saturate(1.14) contrast(1.07) brightness(1.03);transform:translateZ(0)}.carousel-slide.is-active img{transform:scale(1.025) translateZ(0)}.view-switcher{position:fixed;right:20px;top:88px;z-index:20}.view-switcher button{border:0;border-radius:999px;background:linear-gradient(135deg,#ef2450,#ab1744);box-shadow:0 10px 24px rgba(125,15,49,.3);color:#fff;padding:12px 17px;font-size:12px;font-weight:800;cursor:pointer}.phone-preview{display:none;position:fixed;z-index:30;inset:0;background:rgba(15,8,13,.72);padding:28px;align-items:center;justify-content:center}.phone-preview.open{display:flex}.phone-frame{position:relative;width:min(390px,calc(100vw - 38px));height:min(844px,calc(100vh - 56px));background:#111;border:9px solid #111;border-radius:38px;box-shadow:0 30px 72px rgba(0,0,0,.55);overflow:hidden}.phone-frame:before{content:'';position:absolute;z-index:2;top:8px;left:50%;width:112px;height:23px;transform:translateX(-50%);border-radius:0 0 16px 16px;background:#111}.phone-frame iframe{display:block;width:100%;height:100%;border:0;background:#fff}.phone-close{position:absolute;top:-3px;right:-54px;width:40px;height:40px;border:1px solid rgba(255,255,255,.6);border-radius:50%;background:#fff;color:#1a1119;font-size:24px;cursor:pointer}.embedded-preview .view-switcher,.embedded-preview .phone-preview{display:none}@media(max-width:760px){.view-switcher{top:auto;right:14px;bottom:14px}.view-switcher button{padding:11px 14px}.carousel-slide{height:440px}.phone-close{top:10px;right:10px;z-index:4}}@media(prefers-reduced-motion:reduce){.carousel-slide img{filter:saturate(1.08) contrast(1.04)}}
+  </style>
+  <style>
+    .reviews{background:linear-gradient(120deg,#fff4e9,#f9d8df)}.review-summary{display:grid;grid-template-columns:.72fr 1.28fr;gap:2px;background:#3b1826;box-shadow:0 18px 42px rgba(109,22,48,.16)}.review-score{padding:42px;color:#fff7ec;background:linear-gradient(145deg,#9d183e,#e62952);text-align:center;display:flex;flex-direction:column;justify-content:center}.review-score strong{font:500 clamp(70px,8vw,108px)/.9 var(--serif);letter-spacing:-.08em}.review-stars{margin:14px 0 12px;color:#ffe077;font-size:clamp(25px,3vw,37px);letter-spacing:.08em}.review-score small{font-size:11px;color:#ffe4d0}.review-rate{padding:36px 40px;background:#fffaf5}.review-rate h3,.service-sins h3{font:500 31px/1.05 var(--serif);margin:0}.review-rate p{max-width:480px;color:#61454d;font-size:14px}.review-picker{display:flex;gap:7px;margin:22px 0 9px}.review-picker button{border:0;background:none;padding:0;color:#e2c5bd;font-size:39px;line-height:1;cursor:pointer;transition:transform .2s,color .2s}.review-picker button:hover,.review-picker button.active{color:#f09d27;transform:translateY(-3px) scale(1.08)}.review-message{min-height:22px!important;font-weight:700;color:#b41f43!important}.service-sins{margin-top:58px}.sin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:26px;background:#ead0cb}.sin-grid article{min-height:150px;padding:23px;background:#fffaf5}.sin-grid strong{display:block;font:600 18px/1.15 var(--serif);color:#a9183e}.sin-grid p{margin:12px 0 0;font-size:13px;color:#624a50}@media(max-width:760px){.review-summary{grid-template-columns:1fr}.review-score{padding:35px}.review-rate{padding:29px 25px}.sin-grid{grid-template-columns:1fr}.sin-grid article{min-height:0}}
+  </style>
+  <style>
+    /* Triángulo del servicio PRAM */
+    .service-triangle{background:linear-gradient(135deg,#20101b,#5a1733);color:#fff;overflow:hidden}.service-triangle .kicker{color:#ffc7ad}.service-triangle .heading>p{color:#f0dadd}.triangle-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:6vw;align-items:center}.triangle-copy>p:not(.kicker){color:#ecd5d8;max-width:390px}.triangle-guide{font-size:12px;color:#f7d3bb;margin:28px 0 0}.triangle-stage{position:relative;width:min(100%,690px);aspect-ratio:1.18;margin:auto}.triangle-stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.triangle-line{fill:none;stroke:rgba(255,240,226,.68);stroke-width:2}.triangle-line.inner{stroke:#ffc86a;stroke-dasharray:5 8}.triangle-node{position:absolute;border:1px solid rgba(255,255,255,.72);border-radius:50%;width:clamp(106px,17vw,144px);height:clamp(106px,17vw,144px);padding:12px;background:#fff8f1;color:#4d1230;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;box-shadow:0 15px 32px rgba(0,0,0,.23);transition:transform .2s,background .2s,box-shadow .2s}.triangle-node:hover,.triangle-node:focus-visible,.triangle-node.selected{background:#ffcb68;color:#38101f;transform:translateY(-5px) scale(1.035);box-shadow:0 20px 35px rgba(0,0,0,.31);outline:none}.triangle-node b{font:600 clamp(14px,2vw,18px)/1.05 var(--serif)}.triangle-node small{font-size:9px;letter-spacing:.09em;text-transform:uppercase;margin-top:7px}.triangle-node.strategy{top:0;left:50%;transform:translateX(-50%)}.triangle-node.strategy:hover,.triangle-node.strategy:focus-visible,.triangle-node.strategy.selected{transform:translateX(-50%) translateY(-5px) scale(1.035)}.triangle-node.people{left:1.5%;bottom:1%}.triangle-node.systems{right:1.5%;bottom:1%}.triangle-node.client{top:47%;left:50%;width:clamp(88px,14vw,118px);height:clamp(88px,14vw,118px);transform:translate(-50%,-50%);background:#e92b54;color:#fff;border-color:#ffc86a}.triangle-node.client:hover,.triangle-node.client:focus-visible,.triangle-node.client.selected{background:#ffbd42;color:#3b1021;transform:translate(-50%,-55%) scale(1.04)}.triangle-detail{background:rgba(255,255,255,.1);border-left:3px solid #ffc86a;padding:18px 20px;margin-top:30px;min-height:105px}.triangle-detail span{font-size:10px;letter-spacing:.12em;color:#ffc86a;font-weight:700}.triangle-detail h3{font:500 27px/1.05 var(--serif);margin:7px 0}.triangle-detail p{font-size:13px;color:#f8e7df;margin:0;max-width:720px}.triangle-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:45px}.triangle-legend article{border-top:1px solid rgba(255,255,255,.42);padding-top:12px}.triangle-legend b{font:500 18px var(--serif)}.triangle-legend p{font-size:11px;color:#e6cfd4;margin:6px 0 0}@media(max-width:760px){.triangle-grid{grid-template-columns:1fr;gap:22px}.triangle-stage{width:min(100%,440px)}.triangle-node{width:104px;height:104px}.triangle-node.client{width:85px;height:85px}.triangle-legend{grid-template-columns:1fr}.triangle-detail{margin-top:24px}}
+  </style>
+  <style>.menu-section{position:relative;background:linear-gradient(rgba(255,244,233,.88),rgba(255,225,229,.9)),url('sushi.webp') center/cover fixed}.menu-intro{max-width:650px;color:#62434a;font-size:16px;margin:18px 0 36px}.menu-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:25px}.menu-group{background:rgba(255,250,245,.96);border-top:4px solid var(--sushi-red);box-shadow:0 12px 26px rgba(98,22,43,.1);padding:27px}.menu-group h3{font:500 31px/1.1 var(--serif);margin:0 0 17px}.menu-item{border-top:1px solid #edcec8;padding:14px 0}.menu-item:first-of-type{border-top:0}.menu-item summary{display:flex;align-items:baseline;justify-content:space-between;gap:13px;cursor:pointer;list-style:none;font-size:13px;font-weight:800}.menu-item summary::-webkit-details-marker{display:none}.menu-item summary:before{content:'🍣';font-size:18px;line-height:1;margin-right:2px}.menu-item summary:after{content:'+';color:var(--sushi-red);font-size:21px;font-weight:400;order:3}.menu-item[open] summary:after{content:'−'}.menu-item .price{color:#b41f43;white-space:nowrap;font-size:15px}.menu-item ul{margin:11px 0 0;padding-left:18px;color:#60464b;font-size:12px}.menu-item:has(summary:first-child:nth-last-child(1)) summary:before{content:'🍣'}.menu-note{margin-top:30px;padding:18px 20px;border-left:4px solid var(--sushi-gold);background:rgba(255,246,223,.96);color:#60464b;font-size:13px}@media(max-width:760px){.menu-section{background-attachment:scroll}.menu-groups{grid-template-columns:1fr}.menu-group{padding:22px}.menu-item summary{font-size:12px}}</style>
+  <style>.about{background:linear-gradient(135deg,#20101b,#5a1733);color:#fff}.about .kicker{color:#ffc86a}.about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;align-items:center}.about .title{font-size:clamp(58px,8vw,110px);color:#fff4e9}.about-copy{color:#f0dadd;font-size:17px;max-width:430px}.team-list{border-top:1px solid rgba(255,255,255,.38)}.team-list p{display:flex;gap:16px;margin:0;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.25);font:500 clamp(19px,2.2vw,28px)/1.1 var(--serif);color:#fff6e9}.team-list span{font:700 10px/2 var(--sans);letter-spacing:.1em;color:#ffc86a}@media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:25px}}</style>
+  <style>.experience{background:linear-gradient(135deg,#fff2e8,#f6dbe1)}.experience-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;align-items:start}.experience-copy p:not(.kicker){font-size:17px;color:#60464b;max-width:390px}.experience-note{font-size:12px!important;border-left:3px solid var(--sushi-gold);padding-left:13px}.experience-form{background:#fffaf5;padding:31px;border-top:4px solid var(--sushi-red);box-shadow:0 16px 34px rgba(96,21,45,.1)}.experience-form h3{font:500 30px/1.1 var(--serif);margin:0 0 18px}.experience-form label{display:block;font-size:12px;font-weight:700;margin-top:15px}.experience-form input,.experience-form textarea{width:100%;margin-top:7px;padding:11px;border:1px solid #d6bdb9;background:#fff;font:13px var(--sans)}.experience-form textarea{height:98px;resize:vertical}.experience-form input[type=file]{padding:8px;background:#fff8f1}.experience-form-message{min-height:20px;margin:12px 0 0;color:#a91b43;font-size:12px;font-weight:700}.experience-feed{margin-top:60px}.experience-feed h3{font:500 35px var(--serif);margin:0 0 20px}.experience-empty{padding:27px;background:#fffaf5;border:1px dashed #d6b4b0;color:#76565c;font-size:14px}.experience-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.experience-card{background:#fffaf5;padding:20px;border-top:3px solid var(--sushi-gold);box-shadow:0 8px 20px rgba(96,21,45,.08)}.experience-card h4{margin:0;color:#a91b43;font:600 21px var(--serif)}.experience-card p{font-size:13px;color:#5e464c}.experience-card img{width:100%;height:190px;margin-top:13px;object-fit:cover;border-radius:2px}@media(max-width:760px){.experience-grid{grid-template-columns:1fr;gap:28px}.experience-form{padding:25px}.experience-cards{grid-template-columns:1fr}}</style>
+  <style>
+    /* ==================== Mejoras 2026: funcionalidad ====================
+       Mismos colores y tipografías del sitio; solo se agregan reglas.      */
+    /* Arreglos */
+    section[id]{scroll-margin-top:78px}
+    .toast{z-index:25;max-width:420px}
+    .toast.show{opacity:1;transform:none}
+    .mark-box{background-color:#2a1220}
+    .carousel-slide.sin-foto{background:linear-gradient(145deg,#2a1220,#5a1733)}
+    .carousel-slide.sin-foto img{display:none}
+    .contact-list a[hidden]{display:none}
+    .enlace-casos{color:#b41f43;border-bottom:1px solid currentColor}
+    /* Barra: entre 761 y 1250 px los enlaces no cabían (ya pasaba con diez:
+       «Quiénes somos» se partía en dos líneas y bajo 850 px la página se
+       desbordaba hacia el lado). Ahora se aprietan y, en pantallas medianas,
+       aparece el mismo menú ☰ que ya usaba el celular. */
+    .navlinks a{white-space:nowrap}
+    @media(max-width:1260px){.navlinks{gap:14px}}
+    @media(max-width:1120px) and (min-width:761px){
+      .navlinks,.nav-cta{display:none}
+      .hamburger{display:block}
+      .navlinks.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:16px;padding:22px 7vw;background:#111;border-top:1px solid #444}
+    }
+
+    /* Panel PRAM con datos reales */
+    .dash-top div{display:flex;gap:18px}
+    .chart>p.chart-nota{margin:16px 0 0;font-size:10px;font-weight:400;line-height:1.5;color:#6c5150;max-width:640px}
+    .patrones{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+    .patrones>div{padding:18px 15px;border-right:1px solid var(--line)}
+    .patrones>div:last-child{border-right:0}
+    .patrones span{display:block;font-size:10px;color:#666}
+    .patrones strong{display:block;font:500 22px/1.15 var(--serif);margin:9px 0 3px}
+    .patrones small{font-size:10px;color:#555}
+
+    /* Libro de casos */
+    .casos{background:linear-gradient(120deg,#24121d,#521730);color:#fff}
+    .casos .kicker{color:#ffc7ad}
+    .casos .heading>p{color:#f0dadd;max-width:430px}
+    .casos-barra{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 24px;margin-bottom:26px}
+    .casos-filtros{display:flex;flex-wrap:wrap;gap:8px}
+    .casos-filtros button{border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff;padding:9px 14px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer}
+    .casos-filtros button b{display:inline-block;min-width:1.5em;margin-left:5px;padding:1px 6px;border-radius:999px;background:rgba(255,255,255,.16);font-size:11px;text-align:center}
+    .casos-filtros button[aria-pressed=true]{background:#ffbf3f;border-color:#ffbf3f;color:#38101f}
+    .casos-filtros button[aria-pressed=true] b{background:rgba(56,16,31,.14)}
+    .casos-acciones{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .casos-plazo{display:flex;align-items:center;gap:8px;font-size:12px;color:#f0dadd}
+    .casos-plazo select{padding:10px;border:1px solid rgba(255,255,255,.45);background:#2a1220;color:#fff;font-size:12px}
+    .casos .button.light{background:#fff;color:#5a1733;border-color:#fff;box-shadow:none}
+    .casos .button.light:hover{background:#fff1df;color:#5a1733}
+    .casos-nuevo{margin-bottom:26px;max-width:760px}
+    .casos-nuevo[hidden]{display:none}
+    .casos-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;align-items:start}
+    .caso{background:#fffaf5;color:#1c1319;border-top:3px solid var(--sushi-red);padding:22px 22px 14px;box-shadow:0 16px 34px rgba(0,0,0,.22);display:flex;flex-direction:column;gap:11px}
+    .caso.resuelto{border-top-color:var(--sushi-gold)}
+    .caso-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .caso-id{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8e1d37}
+    .caso h3{font:500 24px/1.1 var(--serif);margin:5px 0 0}
+    .chip{flex:none;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+    .chip.recibido{background:#fff1df;color:#7a4300;box-shadow:inset 0 0 0 1px #e8ae48}
+    .chip.respondido{background:#f9d8df;color:#8e1d37}
+    .chip.resuelto{background:#3b1826;color:#fff3e7}
+    .caso-plazo{margin:0;font-size:12px;font-weight:700;color:#60464b}
+    .caso-plazo.pronto{color:#8a4b00}
+    .caso-plazo.atrasado{color:#fff;background:#b92342;padding:6px 9px;border-radius:3px}
+    .caso-plazo.fuera{color:#b92342}
+    .caso-desc{margin:0;font:italic 16px/1.45 var(--serif);color:#3b1826}
+    .caso-meta{margin:0;font-size:12px;color:#6c5150}
+    .caso-campo{display:block;font-size:12px;font-weight:700;color:#3b1826}
+    .caso input:not([type=radio]),.caso textarea{display:block;width:100%;margin-top:6px;padding:9px 10px;border:1px solid #d6bdb9;background:#fff;color:#1c1319;font:13px/1.45 var(--sans)}
+    .caso textarea{resize:vertical}
+    .caso-paso{border-top:1px solid #edcec8;padding-top:11px}
+    .caso-paso summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:800;color:#5a1733}
+    .caso-paso summary::-webkit-details-marker{display:none}
+    .caso-paso summary:after{content:'+';color:var(--sushi-red);font-size:20px;font-weight:400;line-height:1}
+    .caso-paso[open] summary:after{content:'−'}
+    .caso-paso>*:not(summary){margin-top:11px}
+    .caso-mensaje textarea{margin-top:0}
+    .caso-botones{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:9px}
+    .mini{display:inline-block;border:1px solid #d6bdb9;background:#fff;color:#5a1733;padding:8px 11px;font-size:12px;font-weight:700;line-height:1.2;cursor:pointer;border-radius:3px}
+    .mini:hover{border-color:#b92342;color:#b92342}
+    .caso .button,.casos-nuevo .button{padding:10px 14px}
+    .caso-revisa{margin:0;font-size:11px;line-height:1.5;color:#6c5150;border-left:3px solid var(--sushi-gold);padding-left:10px}
+    .caso-vertices{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px}
+    .caso-vertices legend{font-size:12px;font-weight:700;color:#3b1826;padding:0;margin-bottom:7px}
+    .caso-vertices label{display:inline-flex;align-items:center;gap:4px;font-size:12px;border:1px solid #d6bdb9;border-radius:999px;padding:6px 11px;background:#fff;color:#3b1826;cursor:pointer}
+    .caso-vertices label:has(input:checked){background:#ffcb68;border-color:#ffbf3f;color:#38101f}
+    .caso-vertices small{font-size:10px;color:#8e1d37}
+    .caso-aviso{margin:0;font-size:12px;font-weight:700;color:#b41f43}
+    .caso-aviso:empty{display:none}
+    .caso-cierre{margin:0;display:grid;gap:6px;font-size:12px;color:#3b1826;background:#fff1df;padding:11px 13px;border-left:3px solid var(--sushi-gold)}
+    .caso-cierre div{display:grid;grid-template-columns:128px 1fr;gap:8px}
+    .caso-cierre dt{font-weight:800}
+    .caso-cierre dd{margin:0}
+    .caso-eliminar{align-self:flex-end;border:0;background:none;color:#8e1d37;font-size:11px;text-decoration:underline;cursor:pointer;padding:2px 0}
+    .casos-vacio{margin:0;padding:24px;border:1px dashed rgba(255,255,255,.4);color:#f0dadd;font-size:14px}
+    .casos-vacio[hidden]{display:none}
+    .casos-nota{margin:24px 0 0;font-size:12px;color:#e6cfd4;max-width:780px}
+    .casos-borrar{border:0;background:none;color:#ffc86a;text-decoration:underline;font-size:12px;cursor:pointer;padding:0;margin-left:4px}
+
+    @media(max-width:760px){
+      .carousel-slide figcaption{bottom:78px}
+      .toast{left:14px;right:14px;bottom:74px;max-width:none}
+      .patrones{grid-template-columns:1fr}
+      .patrones>div{border-right:0;border-bottom:1px solid var(--line)}
+      .patrones>div:last-child{border-bottom:0}
+      .dash-top{flex-wrap:wrap;gap:8px}
+      .casos-barra{display:block}
+      .casos-acciones{margin-top:16px}
+      .casos-lista{grid-template-columns:1fr}
+      .caso{padding:18px 18px 12px}
+      .caso-cierre div{grid-template-columns:1fr;gap:0}
+    }
+    @media print{
+      .reveal{opacity:1!important;transform:none!important;transition:none!important}
+      .view-switcher,.phone-preview,.toast,.hamburger,.carousel-controls,.carousel-dots,.caso-eliminar,.casos-borrar{display:none!important}
+      .nav{position:static}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav"><a class="brand" href="#inicio">PRAM <small>PROYECTO</small></a><button class="hamburger" id="menu" aria-label="Abrir menú" aria-expanded="false">☰</button><nav class="navlinks" id="links" aria-label="Navegación"><a href="#proyecto">Proyecto</a><a href="#triangulo">Triángulo</a><a href="#carta">Carta</a><a href="#protocolos">Protocolos</a><a href="#resenas">Reseñas</a><a href="#experiencias">Experiencias</a><a href="#quienes-somos">Quiénes somos</a><a href="#herramienta">Herramienta</a><a href="#casos">Casos</a><a href="#metas">Metas</a><a href="#contacto">Contacto</a></nav><a class="nav-cta" href="#carta">Ver carta ↘</a></header>
+  <main>
+    <section class="hero" id="inicio"><div class="hero-copy"><p class="kicker">Procesos de Resolución Administrativa y Mejora</p><h1>Atención que<br><em>construye confianza.</em></h1><p class="lede">PRAM es una propuesta de mejora para <span class="pyme-word">PYMES</span>: escuchar a clientes y equipos, ordenar la atención y convertir cada reclamo en una oportunidad concreta de mejora.</p><div class="buttons"><a class="button" href="#proyecto">Conocer PRAM</a><a class="text-button" href="#herramienta">Probar herramienta de evaluación →</a></div></div><div class="mark-box" aria-label="PRAM, Procesos de Resolución Administrativa y Mejora"><div><div class="mark" aria-label="PRAM"><span class="pram-letter">P</span><span class="pram-letter">R</span><span class="pram-letter">A</span><span class="pram-letter">M</span></div><span class="mark-arrow">↗</span></div><p>PROCESOS DE<br>RESOLUCIÓN ADMINISTRATIVA<br>Y MEJORA</p></div></section>
+    <section class="photo-gallery" id="galeria" aria-labelledby="galleryTitle"><div class="gallery-heading"><div><p class="kicker">Sushi IsiMiya</p><h2 class="title" id="galleryTitle">Conoce nuestro espacio.</h2></div><p>Una atención cercana, sabores para compartir y una identidad que se vive en cada detalle.</p></div><div class="carousel" role="region" aria-label="Galería de Sushi IsiMiya"><div class="carousel-track"><figure class="carousel-slide is-active"><img src="sushi-isimiya-fotos/1788955839703.jpg" alt="Entrada de Sushi IsiMiya decorada con banderines" fetchpriority="high" decoding="async"><figcaption>Bienvenidos a Sushi IsiMiya</figcaption></figure><figure class="carousel-slide"><img src="sushi-isimiya-fotos/1788955839572.jpg" alt="Mostrador de Sushi IsiMiya" loading="lazy" decoding="async"><figcaption>Un espacio lleno de personalidad.</figcaption></figure><figure class="carousel-slide"><img src="sushi-isimiya-fotos/1788955839655.jpg" alt="Carta de promociones de Sushi IsiMiya" loading="lazy" decoding="async"><figcaption>Promociones para compartir.</figcaption></figure><figure class="carousel-slide"><img src="sushi-isimiya-fotos/1788955839796.jpg" alt="Fachada de Sushi IsiMiya" loading="lazy" decoding="async"><figcaption>Te esperamos.</figcaption></figure><figure class="carousel-slide"><img src="sushi-isimiya-fotos/1788955839621.jpg" alt="Interior de Sushi IsiMiya" loading="lazy" decoding="async"><figcaption>Detalles que nos representan.</figcaption></figure></div><div class="carousel-dots" aria-label="Seleccionar foto"><button type="button" aria-label="Ver foto 1" aria-current="true"></button><button type="button" aria-label="Ver foto 2"></button><button type="button" aria-label="Ver foto 3"></button><button type="button" aria-label="Ver foto 4"></button><button type="button" aria-label="Ver foto 5"></button></div><div class="carousel-controls"><button type="button" class="carousel-prev" aria-label="Foto anterior">‹</button><button type="button" class="carousel-next" aria-label="Foto siguiente">›</button></div></div></section>    <section class="section" id="proyecto"><p class="kicker">El proyecto</p><div class="two-col"><h2 class="title small">Una mejora pensada para las PYMES.</h2><div><p>PRAM nace para apoyar a pequeñas y medianas empresas que enfrentan dificultades en su atención, comunicación con el público o manejo de opiniones. La propuesta no busca ocultar críticas: busca atenderlas, comprenderlas y mejorar con ellas.</p><p class="note">Caso de aplicación futura: Isimiya. El proyecto podrá adaptar estos procesos a su realidad cuando comience el trabajo con la PYME.</p></div></div></section>
+    <section class="section dark"><p class="kicker">Validación inicial</p><h2 class="title">La atención es parte de la reputación de una PYME.</h2><div class="facts"><article class="fact"><strong>15</strong><p>respuestas fueron registradas en el sondeo inicial del proyecto.</p></article><article class="fact"><strong>93,3%</strong><p>consideró muy importante la atención al cliente en una PYME.</p></article><article class="fact"><strong>93,3%</strong><p>indicó que recomendaría una PYME con excelente atención.</p></article></div><p class="caption">Datos de la validación inicial del informe PRAM. Son antecedentes del proyecto, no resultados de una implementación.</p></section>
+    <section class="section method"><div class="heading"><div><p class="kicker">Metodología PRAM</p><h2 class="title">Escuchar. Resolver. Mejorar.</h2></div><p>Un ciclo sencillo para que una PYME pueda ordenar su atención y dar seguimiento a lo que viven sus clientes.</p></div><div class="cards"><article class="card"><span class="step">01 · ESCUCHAR</span><h3>Recoger información</h3><p>Usar encuestas breves, mensajes y conversaciones para identificar qué espera el cliente y dónde aparecen las dificultades.</p></article><article class="card"><span class="step">02 · RESOLVER</span><h3>Responder con criterio</h3><p>Registrar el caso, responder con respeto y definir una solución posible dentro de un plazo claro.</p></article><article class="card"><span class="step">03 · MEJORAR</span><h3>Aprender del caso</h3><p>Revisar patrones, capacitar al equipo y ajustar procesos para prevenir que el problema se repita.</p></article></div></section>
+    <section class="section service-triangle" id="triangulo"><div class="heading"><div><p class="kicker">Modelo de atención</p><h2 class="title">El Triángulo del Servicio.</h2></div><p>Una herramienta para coordinar lo que la PYME promete, las personas que atienden y los sistemas que respaldan el servicio.</p></div><div class="triangle-grid"><div class="triangle-copy"><p>El cliente está al centro. La experiencia será consistente cuando los tres elementos del modelo trabajen conectados: una estrategia clara, colaboradores preparados y sistemas que faciliten cumplir lo prometido.</p><p class="triangle-guide">Selecciona cada punto del triángulo para conocer su función en PRAM.</p></div><div><div class="triangle-stage" role="group" aria-label="Triángulo del Servicio interactivo"><svg viewBox="0 0 660 540" aria-hidden="true"><path class="triangle-line" d="M330 78 L106 472 L554 472 Z"></path><path class="triangle-line inner" d="M330 278 L330 78 M330 278 L106 472 M330 278 L554 472"></path></svg><button type="button" class="triangle-node strategy" data-service-node="strategy"><b>Estrategia<br>del servicio</b><small>Lo que se promete</small></button><button type="button" class="triangle-node people" data-service-node="people"><b>Colaboradores</b><small>Quienes lo ejecutan</small></button><button type="button" class="triangle-node systems" data-service-node="systems"><b>Sistemas</b><small>Lo que respalda</small></button><button type="button" class="triangle-node client selected" data-service-node="client"><b>Cliente</b><small>Centro</small></button></div><div class="triangle-detail" id="triangleDetail" aria-live="polite"><span>CENTRO DEL MODELO</span><h3>Cliente</h3><p>Sus necesidades, expectativas y opiniones orientan las decisiones de atención y mejora de la PYME.</p></div></div></div><div class="triangle-legend"><article><b>Conectar</b><p>Los tres vértices deben apoyar la experiencia del cliente.</p></article><article><b>Revisar</b><p>Cuando aparece un reclamo, PRAM permite revisar qué parte del triángulo necesita ajuste.</p></article><article><b>Mejorar</b><p>Las soluciones se vuelven sostenibles cuando se aplican en la estrategia, las personas y los sistemas.</p></article></div></section>
+    <section class="section" id="protocolos"><div class="heading"><div><p class="kicker">Guías prácticas</p><h2 class="title">Protocolos de atención.</h2></div><p>Modelos editables. Cada PYME debe definir responsables, canales y plazos de acuerdo con su capacidad real.</p></div><div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="true" aria-controls="admission" id="admissionTab">Admisión y atención</button><button class="tab" role="tab" aria-selected="false" aria-controls="complaint" id="complaintTab">Manejo de reclamos</button></div>
+      <article class="protocol" id="admission" role="tabpanel"><div class="protocol-head"><h3>Protocolo de admisión y atención</h3><p>El primer contacto debe ser claro, cordial y útil. Su meta es comprender la necesidad de la persona y asegurar que sabe qué ocurrirá después.</p></div><div class="protocol-steps"><div class="protocol-step"><span>01</span><h4>Preparar</h4><p>Revisar horarios, información y canales disponibles antes de atender.</p></div><div class="protocol-step"><span>02</span><h4>Recibir</h4><p>Saludar y mostrar disponibilidad para ayudar.</p></div><div class="protocol-step"><span>03</span><h4>Escuchar</h4><p>Hacer preguntas breves para entender la solicitud.</p></div><div class="protocol-step"><span>04</span><h4>Informar</h4><p>Explicar alternativas, condiciones o plazos con claridad.</p></div><div class="protocol-step"><span>05</span><h4>Confirmar</h4><p>Verificar que la persona entendió el siguiente paso.</p></div></div><p class="tip"><b>Frase guía:</b> “Para ayudarte mejor, confirmaré algunos datos y te explicaré qué podemos hacer y en qué plazo.”</p></article>
+      <article class="protocol" id="complaint" role="tabpanel" hidden><div class="protocol-head"><h3>Protocolo de manejo de reclamos</h3><p>Un reclamo es información valiosa. El objetivo es resolver con respeto y mejorar el proceso, sin presionar a nadie para que cambie o elimine una opinión pública.</p></div><div class="protocol-steps"><div class="protocol-step"><span>01</span><h4>Recibir</h4><p>Agradecer, escuchar y registrar fecha, canal y tema del reclamo.</p></div><div class="protocol-step"><span>02</span><h4>Contener</h4><p>Ofrecer una disculpa por la experiencia sin culpar ni discutir.</p></div><div class="protocol-step"><span>03</span><h4>Investigar</h4><p>Revisar antecedentes con el equipo y distinguir alternativas.</p></div><div class="protocol-step"><span>04</span><h4>Resolver</h4><p>Proponer una acción que la PYME pueda cumplir e informar un plazo.</p></div><div class="protocol-step"><span>05</span><h4>Registrar</h4><p>Documentar la solución y prevenir nuevas fallas.</p></div></div><p class="tip"><b>Frase guía:</b> “Lamentamos que tu experiencia no fuera la esperada. Revisaremos lo ocurrido y te responderemos por este canal en el plazo informado.”</p></article>
+    </section>
+    <section class="section feedback" id="herramienta"><div class="feedback-grid"><div class="feedback-copy"><p class="kicker">Herramienta demostrativa</p><h2 class="title">Medir para mejorar.</h2><p>Este formulario ilustra cómo una PYME puede recoger una experiencia después de una compra o servicio. Sus datos no se envían a ningún servidor: funcionan solo como demostración en esta página.</p></div><form class="form" id="feedbackForm" novalidate><h3>Evaluación de atención</h3><div class="field"><span>¿Cómo evaluarías la atención recibida?</span><div class="rating" aria-label="Calificación de atención"><button type="button" data-value="1" aria-label="1 estrella">★</button><button type="button" data-value="2" aria-label="2 estrellas">★</button><button type="button" data-value="3" aria-label="3 estrellas">★</button><button type="button" data-value="4" aria-label="4 estrellas">★</button><button type="button" data-value="5" aria-label="5 estrellas">★</button></div></div><label class="field" for="feedbackComment"><span>Comentario (opcional)</span><textarea id="feedbackComment" placeholder="¿Qué funcionó bien o qué podríamos mejorar?"></textarea></label><button class="button" type="submit">Enviar evaluación →</button><p class="form-message" id="formMessage" aria-live="polite"></p><div class="complaint" id="complaintBox" hidden><h4>Cuéntanos qué ocurrió</h4><p>Este paso ayuda a revisar el caso. Nombre y contacto son opcionales.</p><div class="form-row"><label class="field" for="complaintName"><span>Nombre</span><input id="complaintName" type="text" placeholder="Opcional"></label><label class="field" for="complaintContact"><span>Correo o teléfono</span><input id="complaintContact" type="text" placeholder="Opcional"></label></div><label class="field" for="complaintType"><span>Tipo de situación</span><select id="complaintType"><option>Atención</option><option>Tiempo de espera</option><option>Producto o servicio</option><option>Pedido o entrega</option><option>Otro</option></select></label><label class="field" for="complaintDescription"><span>Descripción</span><textarea id="complaintDescription" placeholder="Describe lo ocurrido para poder revisarlo."></textarea></label><button class="button" type="button" id="complaintSend">Enviar situación</button></div></form></div></section>
+    <section class="section implementation"><div class="heading"><div><p class="kicker">Compromisos de implementación</p><h2 class="title">Lo que una PYME necesita definir.</h2></div><p>El protocolo funciona cuando cada persona sabe qué hacer, a quién derivar un caso y cómo dejar registro.</p></div><div class="cards"><article class="card"><span class="step">RESPONSABLES</span><h3>Quién atiende</h3><p>Definir a las personas responsables de cada canal.</p><ul><li>Nombre o cargo responsable</li><li>Canal asignado</li><li>Horario de revisión</li></ul></article><article class="card"><span class="step">REGISTRO</span><h3>Qué se anota</h3><p>Usar un registro simple para detectar problemas repetidos.</p><ul><li>Fecha y canal</li><li>Tipo de solicitud o reclamo</li><li>Acción y estado del caso</li></ul></article><article class="card"><span class="step">SEGUIMIENTO</span><h3>Cómo se revisa</h3><p>Analizar casos y acordar una acción de mejora con el equipo.</p><ul><li>Frecuencia del problema</li><li>Tiempo de respuesta</li><li>Medida preventiva</li></ul></article></div></section>
+    <section class="section casos" id="casos" aria-labelledby="casosTitulo"><div class="heading"><div><p class="kicker">Libro de casos PRAM</p><h2 class="title" id="casosTitulo">Cada caso, con responsable y plazo.</h2></div><p>Aquí llegan los reclamos del formulario, y el equipo registra los que recibe por WhatsApp, Instagram o en el local. Cada caso se responde con el protocolo y se cierra anotando qué parte del triángulo hay que ajustar.</p></div>
+      <div class="casos-barra"><div class="casos-filtros" role="group" aria-label="Mostrar casos"><button type="button" data-filtro="todos" aria-pressed="true">Todos <b>0</b></button><button type="button" data-filtro="abiertos" aria-pressed="false">Abiertos <b>0</b></button><button type="button" data-filtro="atrasados" aria-pressed="false">Atrasados <b>0</b></button><button type="button" data-filtro="resueltos" aria-pressed="false">Resueltos <b>0</b></button></div><div class="casos-acciones"><label class="casos-plazo" for="plazoHoras">Plazo para responder <select id="plazoHoras"><option value="2">2 horas</option><option value="24">24 horas</option><option value="48">48 horas</option><option value="72">72 horas</option></select></label><button type="button" class="button" id="nuevoCasoBtn" aria-expanded="false" aria-controls="nuevoCaso">+ Registrar caso</button><button type="button" class="button light" id="exportarCasos">Exportar a Excel ↓</button></div></div>
+      <form class="form casos-nuevo" id="nuevoCaso" hidden novalidate><h3>Caso que llegó por otro canal</h3><div class="form-row"><label class="field" for="nuevoCanal"><span>Canal</span><select id="nuevoCanal"><option>WhatsApp</option><option>Instagram</option><option>En el local</option><option>Teléfono</option><option>Página web</option></select></label><label class="field" for="nuevoTipo"><span>Tipo de situación</span><select id="nuevoTipo"><option>Atención</option><option>Tiempo de espera</option><option>Producto o servicio</option><option>Pedido o entrega</option><option>Otro</option></select></label></div><label class="field" for="nuevoDescripcion"><span>Qué ocurrió</span><textarea id="nuevoDescripcion" maxlength="600" placeholder="Lo que contó el cliente, con sus palabras."></textarea></label><div class="form-row"><label class="field" for="nuevoNombre"><span>Nombre del cliente</span><input id="nuevoNombre" maxlength="60" placeholder="Opcional"></label><label class="field" for="nuevoContacto"><span>Celular o correo</span><input id="nuevoContacto" maxlength="80" placeholder="Opcional: para responderle"></label></div><div class="caso-botones"><button class="button" type="submit">Guardar caso</button><button class="mini" type="button" id="nuevoCancelar">Cancelar</button></div><p class="form-message" id="nuevoCasoMsg" aria-live="polite"></p></form>
+      <div class="casos-lista" id="casosLista"></div>
+      <p class="casos-vacio" id="casosVacio">Todavía no hay casos.</p>
+      <p class="casos-nota">Demostración: los casos y las evaluaciones se guardan solo en este navegador, no en un servidor. En un negocio real, pide solo los datos necesarios para responder y bórralos al cerrar el caso. <button type="button" class="casos-borrar" id="borrarDatos">Borrar datos de prueba</button></p>
+      <datalist id="responsablesSugeridos"><option value="Encargado/a del local"><option value="Caja"><option value="Cocina"><option value="Reparto"><option value="Dueño/a"></datalist>
+    </section>
+    <section class="section goals" id="metas"><div class="two-col"><div><p class="kicker">Metas declaradas del proyecto</p><h2 class="title">Progreso que se puede observar.</h2><p>Las siguientes son metas de PRAM para su futura implementación; no son resultados obtenidos.</p></div><div class="goal-list"><article class="goal"><strong>20<span>%</span></strong><p>Aumentar la satisfacción de clientes.</p><small>Meta propuesta: plazo de 30 días.</small></article><article class="goal"><strong>15<span>%</span></strong><p>Reducir reclamos vinculados a la atención.</p><small>Meta propuesta: plazo de 35 días.</small></article><article class="goal"><strong>30<span>%</span></strong><p>Mejorar la resolución de fallas.</p><small>Meta propuesta del proyecto.</small></article></div></div><div class="dashboard"><div class="dash-top"><span>PANEL PRAM · DEMOSTRACIÓN</span><div><button type="button" id="exportarEvaluaciones">Exportar evaluaciones ↓</button><button type="button" id="refresh">Actualizar ↻</button></div></div><div class="metrics"><div class="metric"><span>Evaluaciones de prueba</span><strong id="evalCount">0</strong><small>Formulario y reseñas</small></div><div class="metric"><span>Promedio de atención</span><strong id="average">—</strong><small>Escala de 1 a 5</small></div><div class="metric"><span>Situaciones registradas</span><strong id="caseCount">0</strong><small id="caseDetail">Formulario y registro del equipo</small></div><div class="metric"><span>Casos resueltos</span><strong id="solvedCount">0</strong><small id="solvedDetail">Aún sin casos</small></div></div><div class="chart"><p>Áreas a observar</p><div class="bar-row"><span>Atención</span><div class="bar"><i id="barAttention"></i></div><b id="pctAttention">—</b></div><div class="bar-row"><span>Tiempo de respuesta</span><div class="bar"><i id="barResponse"></i></div><b id="pctResponse">—</b></div><div class="bar-row"><span>Resolución</span><div class="bar"><i id="barResolution"></i></div><b id="pctResolution">—</b></div><p class="chart-nota">Atención: evaluaciones con 4 o 5 estrellas. Tiempo de respuesta: casos respondidos dentro del plazo, entre los ya respondidos o vencidos. Resolución: casos cerrados del total.</p></div><div class="patrones"><div><span>Lo que más se repite</span><strong id="patronTipo">Sin casos aún</strong><small id="patronTipoDetalle">Aparece al registrar casos</small></div><div><span>Parte del triángulo a reforzar</span><strong id="patronVertice">Sin casos cerrados</strong><small id="patronVerticeDetalle">Aparece al cerrar casos</small></div></div></div></section>
+    <section class="contact" id="contacto"><div><p class="kicker">Contacto del proyecto</p><h2 class="title">Seguimos construyendo mejora.</h2><p>Revisa los canales oficiales del equipo PRAM o de la institución responsable.</p></div><div class="contact-list"><a href="https://wa.me/56997340250" target="_blank" rel="noopener"><span>WhatsApp</span><b>+56 9 9734 0250</b><i>↗</i></a><a href="[ENLACE_INSTAGRAM]"><span>Instagram</span><b>[@usuario]</b><i>↗</i></a><a href="mailto:matias.bustamante@cjmc.beleneduca.cl"><span>Correo</span><b>matias.bustamante@cjmc.beleneduca.cl</b><i>↗</i></a><a class="location" href="https://www.google.com/maps/search/?api=1&query=Pablo%20VI%20603%2C%20La%20Pintana%2C%20Regi%C3%B3n%20Metropolitana" target="_blank" rel="noopener"><span>Ubicación</span><b>Pablo VI 603, 8830433 La Pintana, Región Metropolitana</b><i>↗</i></a><a href="#inicio"><span>Aplicación futura</span><b>PYMES e Isimiya</b><i>↗</i></a></div></section>
+    <section class="section reviews" id="resenas"><div class="heading"><div><p class="kicker">Reseñas y aprendizaje</p><h2 class="title">La experiencia se escucha.</h2></div><p>Una reseña permite reconocer lo que funciona e identificar oportunidades de mejora.</p></div><div class="review-summary"><div class="review-score"><strong id="reviewAverage">Nuevo</strong><span class="review-stars" id="reviewStars" aria-label="Aún sin evaluaciones">☆☆☆☆☆</span><small id="reviewCount">Aún sin evaluaciones · escala de 1 a 5</small></div><div class="review-rate"><h3>Deja tu evaluación</h3><p>Selecciona una cantidad de estrellas para registrar tu opinión como demostración.</p><div class="review-picker" aria-label="Seleccionar calificación"><button type="button" data-review-rating="1" aria-label="1 estrella">★</button><button type="button" data-review-rating="2" aria-label="2 estrellas">★</button><button type="button" data-review-rating="3" aria-label="3 estrellas">★</button><button type="button" data-review-rating="4" aria-label="4 estrellas">★</button><button type="button" data-review-rating="5" aria-label="5 estrellas">★</button></div><p class="review-message" id="reviewMessage" aria-live="polite">Selecciona de 1 a 5 estrellas.</p></div></div><div class="service-sins"><div><p class="kicker">Atención al cliente</p><h3>Conductas que PRAM busca evitar.</h3></div><div class="sin-grid"><article><strong>01 · Apatía</strong><p>Falta de interés o desgano al atender al cliente.</p></article><article><strong>02 · Desaire o evasivas</strong><p>Intentar deshacerse del cliente o pasarlo de un lado a otro sin resolver nada.</p></article><article><strong>03 · Frialdad</strong><p>Trato hostil, impaciente o distante.</p></article><article><strong>04 · Aire de superioridad</strong><p>Hablar con condescendencia, usar jerga o menospreciar al cliente.</p></article><article><strong>05 · Robotismo</strong><p>Repetir guiones sin personalizar la atención.</p></article><article><strong>06 · Reglamento o sistema</strong><p>Anteponer reglas internas a las necesidades del cliente.</p></article><article><strong>07 · Ignorar al cliente</strong><p>No saludar, no responder mensajes o no escuchar.</p></article><article><strong>08 · Prometer sin cumplir</strong><p>Mentir o prometer más de lo que se puede cumplir.</p></article><article><strong>09 · Discriminar clientes</strong><p>Tratar como menos importantes a determinados clientes.</p></article></div></div></section>
+    <section class="section menu-section" id="carta"><p class="kicker">Sushi IsiMiya</p><h2 class="title">Carta y promociones.</h2><p class="menu-intro">Elige una promoción y despliega cada opción para revisar qué incluye. Todos los precios están expresados en pesos chilenos.</p><div class="menu-groups"><article class="menu-group"><h3>Rolls y promociones</h3><details class="menu-item"><summary>10 piezas · Bocados apanados <span class="price">$4.000</span></summary><ul><li>Pollo, queso, palta o cebollín.</li></ul></details><details class="menu-item"><summary>Roll vegetariano · 10 piezas <span class="price">$4.500</span></summary><ul><li>Palmito, champiñón o choclito con queso crema y palta, cebollín o ciboulette. Sésamo, ciboulette o apanado.</li></ul></details><details class="menu-item"><summary>Roll especial · 10 piezas <span class="price">$5.000</span></summary><ul><li>Palta, queso o salmón, más queso y pollo, camarón, salmón, kanikama o champiñón.</li></ul></details><details class="menu-item"><summary>Promoción · 15 piezas <span class="price">$5.500</span></summary><ul><li>Pollo en sésamo, kanikama en ciboulette y camarón apanado.</li></ul></details><details class="menu-item"><summary>Promoción · 18 piezas <span class="price">$6.500</span></summary><ul><li>Kanikama en ciboulette, pollo en sésamo, camarón apanado y 3 gyosas.</li></ul></details><details class="menu-item"><summary>Promoción · 20 piezas <span class="price">$7.000</span></summary><ul><li>Pollo en sésamo, kanikama en ciboulette, camarón apanado y hosomaki en nori tempura.</li></ul></details><details class="menu-item"><summary>Promoción · 20 piezas <span class="price">$8.500</span></summary><ul><li>10 camarón apanados y 10 pollo en palta o queso.</li></ul></details><details class="menu-item"><summary>Promoción · 25 piezas <span class="price">$9.000</span></summary><ul><li>Camarón y pollo apanados, más hosomaki en nori tempura.</li></ul></details><details class="menu-item"><summary>Promoción · 25 piezas <span class="price">$9.000</span></summary><ul><li>Camarón apanado, pollo en palta o queso y hosomaki en nori.</li></ul></details><details class="menu-item"><summary>Promoción · 30 piezas <span class="price">$11.500</span></summary><ul><li>Camarón, pollo y kanikama apanados.</li></ul></details></article><article class="menu-group"><h3>Promociones familiares</h3><details class="menu-item"><summary>Promoción · 50 piezas <span class="price">$12.500</span></summary><ul><li>Camarón apanado, pollo en sésamo, kanikama en ciboulette y hosomaki en nori y nori tempura.</li></ul></details><details class="menu-item"><summary>Promoción · 60 piezas <span class="price">$15.500</span></summary><ul><li>Camarón y pollo apanados, pollo en sésamo, kanikama en ciboulette y hosomaki.</li></ul></details><details class="menu-item"><summary>Promoción · 60 piezas especial <span class="price">$18.500</span></summary><ul><li>Pollo en queso y palta, camarón apanado, pollo en sésamo, kanikama en ciboulette y hosomaki.</li></ul></details><details class="menu-item"><summary>Promoción · 70 piezas <span class="price">$23.500</span></summary><ul><li>Pollo en queso y palta, camarón en salmón y apanado, pollo en sésamo, kanikama y hosomaki.</li></ul></details><details class="menu-item"><summary>Promoción · 30 piezas premium <span class="price">$14.000</span></summary><ul><li>Pollo en palta, pollo en queso y camarón en salmón.</li></ul></details><details class="menu-item"><summary>Promoción · 40 piezas premium <span class="price">$17.500</span></summary><ul><li>Pollo y camarón envueltos en palta y queso.</li></ul></details><details class="menu-item"><summary>Promoción · 40 piezas <span class="price">$16.000</span></summary><ul><li>Pollo y camarón con cebollín apanados, más pollo en palta y queso.</li></ul></details><details class="menu-item"><summary>Promoción · 40 piezas <span class="price">$15.500</span></summary><ul><li>20 pollo apanados y 20 pollo envueltos en palta.</li></ul></details><details class="menu-item"><summary>Promoción · 40 piezas <span class="price">$15.000</span></summary><ul><li>Pollo y camarón, con palta o cebollín, todos apanados.</li></ul></details></article><article class="menu-group"><h3>Promociones especiales</h3><details class="menu-item"><summary>Promoción · 50 piezas <span class="price">$17.000</span></summary><ul><li>50 bocados apanados de pollo, queso, palta o cebollín.</li></ul></details><details class="menu-item"><summary>Promoción · 70 piezas <span class="price">$23.500</span></summary><ul><li>Pollo con palta, cebollín y ciboulette, todos apanados.</li></ul></details><details class="menu-item"><summary>Promoción · 70 piezas <span class="price">$23.500</span></summary><ul><li>Pollo, kanikama y camarón con queso y palta apanados.</li></ul></details><details class="menu-item"><summary>Promoción · 30 piezas <span class="price">$12.500</span></summary><ul><li>Camarón en palta, pollo apanado y kanikama en queso.</li></ul></details><details class="menu-item"><summary>Promoción · 40 piezas <span class="price">$13.000</span></summary><ul><li>Camarón y pollo apanados, kanikama en ciboulette y pollo en sésamo.</li></ul></details><details class="menu-item"><summary>Promoción · 50 piezas <span class="price">$17.500</span></summary><ul><li>Camarón y pollo apanados, pollo en palta, kanikama en queso y pollo en sésamo o ciboulette.</li></ul></details><details class="menu-item"><summary>Promoción · 60 piezas <span class="price">$18.500</span></summary><ul><li>Pollo en queso y palta, pollo en sésamo o ciboulette, camarón, pollo y kanikama apanados y hosomaki.</li></ul></details><details class="menu-item"><summary>Promoción · 70 piezas <span class="price">$23.500</span></summary><ul><li>Camarón en queso y apanado, pollo en palta, apanado y sésamo, kanikama y hosomaki en nori tempura.</li></ul></details></article><article class="menu-group"><h3>Complementos</h3><details class="menu-item"><summary>Ceviche mixto tipo peruano <span class="price">$3.500 · $5.000 · $6.500</span></summary><ul><li>Disponible en tres tamaños.</li></ul></details><details class="menu-item"><summary>Promoción · 5 gyosas <span class="price">$3.000</span></summary><ul><li>Pollo, cerdo o camarón.</li></ul></details><details class="menu-item"><summary>Hand roll <span class="price">$3.000</span></summary><ul><li>Apanado, ciboulette o sésamo.</li></ul></details><details class="menu-item"><summary>Hand roll · ingredientes <span class="price">$3.000</span></summary><ul><li>Pollo, camarón, kanikama, palmito, champiñón o choclito.</li><li>Queso con palta, cebollín o ciboulette; apanado, sésamo o ciboulette.</li></ul></details><details class="menu-item"><summary>Salsas adicionales <span class="price">$500 · 3 por $1.200</span></summary><ul><li>Una salsa por $500 o tres por $1.200.</li></ul></details></article></div><p class="menu-note"><b>Nota:</b> Las preparaciones pueden requerir confirmación de disponibilidad al momento de pedir.</p></section>
+    <section class="section about" id="quienes-somos"><div class="about-grid"><div><p class="kicker">Quiénes somos</p><h2 class="title">PRAM</h2></div><div><p class="about-copy">Somos el equipo que desarrolla esta propuesta para fortalecer la atención al cliente y la mejora continua en las PYMES.</p><div class="team-list"><p><span>01</span>Matías Bustamante</p><p><span>02</span>Víctor Sanabria</p><p><span>03</span>Ian Arenas</p><p><span>04</span>Sabina Huechucoy</p></div></div></div></section>
+    <section class="section experience" id="experiencias"><div class="experience-grid"><div class="experience-copy"><p class="kicker">Comunidad IsiMiya</p><h2 class="title">Comparte tu experiencia.</h2><p>Cuéntanos cómo fue tu atención o tu pedido. También puedes añadir una foto para acompañar tu comentario.</p><p class="experience-note">Demostración local: las publicaciones se muestran solo en esta sesión del navegador. Para que todos puedan verlas, se debe conectar la página a un servicio de almacenamiento y moderación.</p></div><form class="experience-form" id="experienceForm"><h3>Publicar experiencia</h3><label for="experienceName">Nombre o apodo</label><input id="experienceName" maxlength="50" placeholder="Ejemplo: Camila" required><label for="experienceText">Tu experiencia</label><textarea id="experienceText" maxlength="500" placeholder="Escribe tu comentario..." required></textarea><label for="experiencePhoto">Agregar foto (opcional)</label><input id="experiencePhoto" type="file" accept="image/*"><button class="button" type="submit">Publicar experiencia</button><p class="experience-form-message" id="experienceMessage" aria-live="polite"></p></form></div><div class="experience-feed"><p class="kicker">Muro de experiencias</p><h3>Lo que comparte la comunidad.</h3><div class="experience-empty" id="experienceEmpty">Aún no hay publicaciones en esta demostración. Sé la primera persona en compartir una experiencia.</div><div class="experience-cards" id="experienceCards" aria-live="polite"></div></div></section>
+  </main>
+  <footer><a class="brand" href="#inicio">PRAM <small>PROYECTO</small></a><p>Atención al cliente para una mejora continua.</p><p>Creado por Matías Bustamante, Víctor Sanabria, Ian Arenas y Sabina Huechucoy.</p><p>© <span id="year"></span> PRAM · Sitio demostrativo.</p></footer><div class="view-switcher"><button type="button" id="phonePreviewButton" aria-expanded="false" aria-controls="phonePreview">Ver como celular</button></div><div class="phone-preview" id="phonePreview" aria-hidden="true"><div class="phone-frame"><button class="phone-close" id="phonePreviewClose" type="button" aria-label="Cerrar vista celular">×</button><iframe id="phonePreviewFrame" title="Vista previa de la página en celular"></iframe></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    /* ======================================================================
+       PRAM · Libro de casos, evaluaciones y panel
+       Tres capas: DATOS (lo que se guarda) → CÁLCULO (funciones puras, sin
+       pantalla) → INTERFAZ (lo que se ve). Todo queda en este navegador: la
+       página no envía nada a ningún servidor.
+       ====================================================================== */
+
+    /* ================================ DATOS ================================ */
+    const NEGOCIO = 'Sushi IsiMiya';
+    const CLAVE_DATOS = 'pram-libro-de-casos-v1';
+    const HORA = 3600000;
+
+    /* Cada tipo de caso dice cómo nombrarlo al escribirle al cliente y qué parte
+       del Triángulo del Servicio conviene revisar primero (se puede cambiar). */
+    const TIPOS = {
+      'Atención':            { tema: 'la atención que recibiste', vertice: 'colaboradores' },
+      'Tiempo de espera':    { tema: 'el tiempo de espera',       vertice: 'sistemas' },
+      'Producto o servicio': { tema: 'el producto que recibiste', vertice: 'estrategia' },
+      'Pedido o entrega':    { tema: 'tu pedido',                 vertice: 'sistemas' },
+      'Otro':                { tema: 'tu experiencia',            vertice: '' }
+    };
+    const CANALES = ['Página web', 'WhatsApp', 'Instagram', 'En el local', 'Teléfono'];
+    const VERTICES = { estrategia: 'Estrategia del servicio', colaboradores: 'Colaboradores', sistemas: 'Sistemas' };
+    const PLAZOS_HORAS = [2, 24, 48, 72];
+    const ETIQUETA_ESTADO = { recibido: 'Recibido', respondido: 'En curso', resuelto: 'Resuelto' };
+    const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto',
+                   'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+    function datosVacios() {
+      return { version: 1, evaluaciones: [], casos: [], siguiente: 1, plazoHoras: 24 };
+    }
+
+    /* =============================== CÁLCULO ===============================
+       Funciones puras: reciben datos y devuelven resultados. No leen la
+       pantalla ni el reloj por su cuenta (la hora llega como parámetro), así
+       que las comprobaciones del final las revisan con casos fijos.        */
+
+    function limpiarTexto(valor, largo) {
+      return String(valor == null ? '' : valor).replace(/\s+/g, ' ').trim().slice(0, largo);
+    }
+
+    function dosDigitos(n) { return String(n).padStart(2, '0'); }
+
+    function idCaso(numero) { return 'PRAM-' + String(numero).padStart(4, '0'); }
+
+    /** «jue 25 sep, 18:40»: para las tarjetas. */
+    function fechaCorta(ms) {
+      const d = new Date(ms);
+      return DIAS[d.getDay()].slice(0, 3) + ' ' + d.getDate() + ' ' + MESES[d.getMonth()].slice(0, 3) + ', ' +
+        dosDigitos(d.getHours()) + ':' + dosDigitos(d.getMinutes());
+    }
+
+    /** «jueves 25 de septiembre a las 18:40»: para los mensajes al cliente. */
+    function fechaLarga(ms) {
+      const d = new Date(ms);
+      return DIAS[d.getDay()] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()] + ' a las ' +
+        dosDigitos(d.getHours()) + ':' + dosDigitos(d.getMinutes());
+    }
+
+    /** «25-09-2026 18:40»: Excel la reconoce como fecha en configuración chilena. */
+    function fechaCSV(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      return dosDigitos(d.getDate()) + '-' + dosDigitos(d.getMonth() + 1) + '-' + d.getFullYear() + ' ' +
+        dosDigitos(d.getHours()) + ':' + dosDigitos(d.getMinutes());
+    }
+
+    /** Tiempo legible: «45 min», «23 h», «3 días». */
+    function duracion(ms) {
+      const minutos = Math.max(1, Math.round(Math.abs(ms) / 60000));
+      if (minutos < 60) return minutos + ' min';
+      const horas = Math.round(minutos / 60);
+      return horas < 48 ? horas + ' h' : Math.round(horas / 24) + ' días';
+    }
+
+    function plural(n, singular, varios) { return n + ' ' + (n === 1 ? singular : varios); }
+
+    function fechaValida(v) { return typeof v === 'string' && !isNaN(Date.parse(v)) ? v : null; }
+
+    /** Revisa lo guardado: si se dañó o alguien lo editó a mano, descarta lo que no sirve. */
+    function normalizarDatos(bruto) {
+      const d = datosVacios();
+      if (!bruto || typeof bruto !== 'object') return d;
+      if (Array.isArray(bruto.evaluaciones)) {
+        d.evaluaciones = bruto.evaluaciones
+          .filter(e => e && Number.isInteger(e.estrellas) && e.estrellas >= 1 && e.estrellas <= 5 && fechaValida(e.fecha))
+          .map(e => ({ id: String(e.id || ''), fecha: e.fecha, estrellas: e.estrellas,
+                       comentario: limpiarTexto(e.comentario, 500), origen: e.origen === 'resenas' ? 'resenas' : 'formulario' }));
+      }
+      if (Array.isArray(bruto.casos)) {
+        d.casos = bruto.casos
+          .filter(c => c && /^PRAM-\d{4,}$/.test(c.id) && fechaValida(c.creado) && fechaValida(c.vence) && limpiarTexto(c.descripcion, 600))
+          .map(c => {
+            const resuelto = fechaValida(c.resuelto);
+            return {
+              id: c.id, creado: c.creado, vence: c.vence,
+              canal: CANALES.includes(c.canal) ? c.canal : 'Página web',
+              tipo: TIPOS[c.tipo] ? c.tipo : 'Otro',
+              descripcion: limpiarTexto(c.descripcion, 600),
+              nombre: limpiarTexto(c.nombre, 60), contacto: limpiarTexto(c.contacto, 80),
+              responsable: limpiarTexto(c.responsable, 60),
+              respondido: fechaValida(c.respondido) || resuelto, resuelto,
+              accion: limpiarTexto(c.accion, 500), vertice: VERTICES[c.vertice] ? c.vertice : '',
+              prevencion: limpiarTexto(c.prevencion, 300), evaluacion: c.evaluacion ? String(c.evaluacion) : null
+            };
+          });
+      }
+      const mayor = d.casos.reduce((m, c) => Math.max(m, parseInt(c.id.slice(5), 10)), 0);
+      d.siguiente = Math.max(mayor + 1, Number.isInteger(bruto.siguiente) ? bruto.siguiente : 1);
+      d.plazoHoras = PLAZOS_HORAS.includes(bruto.plazoHoras) ? bruto.plazoHoras : 24;
+      return d;
+    }
+
+    /** Un caso nuevo, con su plazo para responder. Sin descripción no hay caso. */
+    function crearCaso(entrada, numero, plazoHoras, ahora) {
+      const descripcion = limpiarTexto(entrada.descripcion, 600);
+      if (!descripcion) return null;
+      const horas = PLAZOS_HORAS.includes(+plazoHoras) ? +plazoHoras : 24;
+      const creado = +ahora;
+      return {
+        id: idCaso(numero),
+        creado: new Date(creado).toISOString(),
+        vence: new Date(creado + horas * HORA).toISOString(),
+        canal: CANALES.includes(entrada.canal) ? entrada.canal : 'Página web',
+        tipo: TIPOS[entrada.tipo] ? entrada.tipo : 'Otro',
+        descripcion,
+        nombre: limpiarTexto(entrada.nombre, 60),
+        contacto: limpiarTexto(entrada.contacto, 80),
+        responsable: '', respondido: null, resuelto: null,
+        accion: '', vertice: '', prevencion: '',
+        evaluacion: entrada.evaluacion || null
+      };
+    }
+
+    function estadoCaso(c) { return c.resuelto ? 'resuelto' : (c.respondido ? 'respondido' : 'recibido'); }
+
+    /**
+     * Dónde está el caso respecto de su plazo para responder. aTiempo es true o
+     * false cuando ya se puede juzgar, y null si el caso sigue dentro del plazo
+     * sin respuesta: todavía no ha cumplido ni fallado.
+     */
+    function situacionPlazo(c, ahora) {
+      const vence = Date.parse(c.vence);
+      if (c.respondido) {
+        const aTiempo = Date.parse(c.respondido) <= vence;
+        return { clase: aTiempo ? 'a-tiempo' : 'fuera', aTiempo,
+                 texto: aTiempo ? 'Respondido dentro del plazo' : 'Respondido fuera de plazo' };
+      }
+      const t = +ahora;
+      if (t > vence) return { clase: 'atrasado', aTiempo: false, texto: 'Atrasado ' + duracion(t - vence) + ': hay que responder ya' };
+      const quedan = vence - t;
+      const pronto = quedan <= Math.min(2 * HORA, (vence - Date.parse(c.creado)) * 0.25);
+      return { clase: pronto ? 'pronto' : 'en-plazo', aTiempo: null,
+               texto: 'Responder antes del ' + fechaCorta(vence) + ' · quedan ' + duracion(quedan) };
+    }
+
+    function porcentaje(parte, total) { return total ? Math.round(parte / total * 100) : null; }
+
+    /** Lo que más se repite en una lista. Si hay empate, se nombran todos. */
+    function masFrecuente(lista) {
+      const cuenta = new Map();
+      lista.forEach(v => cuenta.set(v, (cuenta.get(v) || 0) + 1));
+      if (!cuenta.size) return null;
+      const maximo = Math.max(...cuenta.values());
+      const valores = [...cuenta.keys()].filter(v => cuenta.get(v) === maximo).sort((a, b) => a.localeCompare(b, 'es'));
+      return { valores, veces: maximo, total: lista.length };
+    }
+
+    /** Lo que muestra el panel. Sin datos, cada indicador queda en null: no se inventa un número. */
+    function metricas(d, ahora) {
+      const evaluaciones = d.evaluaciones.length;
+      const suma = d.evaluaciones.reduce((a, e) => a + e.estrellas, 0);
+      const situaciones = d.casos.map(c => situacionPlazo(c, ahora));
+      const juzgables = situaciones.filter(s => s.aTiempo !== null);
+      const resueltos = d.casos.filter(c => c.resuelto).length;
+      return {
+        evaluaciones,
+        promedio: evaluaciones ? suma / evaluaciones : null,
+        satisfaccion: porcentaje(d.evaluaciones.filter(e => e.estrellas >= 4).length, evaluaciones),
+        casos: d.casos.length,
+        abiertos: d.casos.length - resueltos,
+        atrasados: situaciones.filter(s => s.clase === 'atrasado').length,
+        resueltos,
+        respuestaATiempo: porcentaje(juzgables.filter(s => s.aTiempo).length, juzgables.length),
+        resolucion: porcentaje(resueltos, d.casos.length),
+        tipoFrecuente: masFrecuente(d.casos.map(c => c.tipo)),
+        verticeFrecuente: masFrecuente(d.casos.filter(c => c.resuelto && c.vertice).map(c => c.vertice))
+      };
+    }
+
+    function textoPromedio(p, vacio) { return p == null ? vacio : p.toFixed(1).replace('.', ','); }
+    function textoPorcentaje(p) { return p == null ? '—' : p + '%'; }
+    function estrellasTexto(p) { const n = p == null ? 0 : Math.round(p); return '★'.repeat(n) + '☆'.repeat(5 - n); }
+
+    /** Orden del libro: primero lo que falta responder (vence antes, arriba), luego lo que está en curso y al final lo resuelto. */
+    function ordenarCasos(casos) {
+      const rango = { recibido: 0, respondido: 1, resuelto: 2 };
+      return casos.slice().sort((a, b) => {
+        const ea = estadoCaso(a), eb = estadoCaso(b);
+        if (ea !== eb) return rango[ea] - rango[eb];
+        if (ea === 'recibido') return Date.parse(a.vence) - Date.parse(b.vence);
+        if (ea === 'respondido') return Date.parse(a.respondido) - Date.parse(b.respondido);
+        return Date.parse(b.resuelto) - Date.parse(a.resuelto);
+      });
+    }
+
+    function filtrarCasos(casos, filtro, ahora) {
+      if (filtro === 'abiertos') return casos.filter(c => !c.resuelto);
+      if (filtro === 'atrasados') return casos.filter(c => situacionPlazo(c, ahora).clase === 'atrasado');
+      if (filtro === 'resueltos') return casos.filter(c => c.resuelto);
+      return casos;
+    }
+
+    /* ---- Mensajes al cliente, a partir de las frases guía del protocolo ---- */
+    function nombrePropio(nombre) {
+      const primero = limpiarTexto(nombre, 60).split(' ')[0] || '';
+      return primero ? primero.charAt(0).toLocaleUpperCase('es') + primero.slice(1) : '';
+    }
+
+    function saludo(nombre) { const n = nombrePropio(nombre); return n ? 'Hola, ' + n + ':' : 'Hola:'; }
+
+    function comoOracion(texto) {
+      const t = limpiarTexto(texto, 500);
+      if (!t) return '';
+      const o = t.charAt(0).toLocaleUpperCase('es') + t.slice(1);
+      return /[.!?…]$/.test(o) ? o : o + '.';
+    }
+
+    /**
+     * Primera respuesta: agradecer, lamentar sin discutir, dar el número de caso
+     * y un plazo. Si el plazo ya venció, no se promete una fecha pasada: se pide
+     * disculpas y se da un plazo nuevo del mismo largo que el original.
+     */
+    function mensajeRespuesta(c, ahora) {
+      const tema = (TIPOS[c.tipo] || TIPOS.Otro).tema;
+      const vence = Date.parse(c.vence);
+      const atrasado = +ahora > vence;
+      const limite = atrasado ? +ahora + (vence - Date.parse(c.creado)) : vence;
+      return saludo(c.nombre) + '\n' +
+        (atrasado ? 'Te pedimos disculpas por la demora en contestarte. ' : 'Gracias por avisarnos. ') +
+        'Lamentamos que ' + tema + ' no fuera lo que esperabas. ' +
+        'Registramos tu caso con el número ' + c.id + ' y ya lo estamos revisando. ' +
+        'Te daremos una respuesta por este mismo medio antes del ' + fechaLarga(limite) + '.\n' +
+        'Equipo de ' + NEGOCIO;
+    }
+
+    /** Cierre: cuenta qué se hizo y agradece. Nunca pide cambiar ni borrar una opinión. */
+    function mensajeCierre(c) {
+      const accion = comoOracion(c.accion);
+      return saludo(c.nombre) + '\n' +
+        'Revisamos tu caso ' + c.id + '. ' + (accion ? accion + ' ' : '') +
+        'Gracias por contárnoslo: nos ayuda a mejorar la atención de ' + NEGOCIO + '.\n' +
+        'Equipo de ' + NEGOCIO;
+    }
+
+    /* ---- Por dónde responder: celular chileno (WhatsApp) o correo ---- */
+    function correoDe(contacto) {
+      const t = limpiarTexto(contacto, 80);
+      return /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(t) ? t : null;
+    }
+
+    function whatsappDe(contacto) {
+      const d = String(contacto || '').replace(/\D/g, '');
+      if (/^569\d{8}$/.test(d)) return d;
+      if (/^9\d{8}$/.test(d)) return '56' + d;
+      return null;
+    }
+
+    function medioDeRespuesta(contacto) {
+      const correo = correoDe(contacto);
+      if (correo) return { tipo: 'correo', valor: correo };
+      const numero = whatsappDe(contacto);
+      return numero ? { tipo: 'whatsapp', valor: numero } : null;
+    }
+
+    function enlaceRespuesta(medio, texto, asunto) {
+      if (!medio) return '';
+      return medio.tipo === 'whatsapp'
+        ? 'https://wa.me/' + medio.valor + '?text=' + encodeURIComponent(texto)
+        : 'mailto:' + medio.valor + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(texto);
+    }
+
+    /* ---- Exportar a Excel (CSV con punto y coma, como lo abre Excel en Chile) ---- */
+    function csvSeguro(valor) {
+      let t = String(valor == null ? '' : valor);
+      if (/^[=+\-@\t\r]/.test(t)) t = "'" + t;          // que Excel no lo tome como fórmula
+      return /[";\r\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+    }
+
+    function aCSV(filas) { return '﻿' + filas.map(f => f.map(csvSeguro).join(';')).join('\r\n'); }
+
+    function casosCSV(casos, ahora) {
+      const filas = [['Caso', 'Ingreso', 'Canal', 'Tipo', 'Qué ocurrió', 'Cliente', 'Contacto', 'Responsable',
+        'Responder antes de', 'Respondido', 'Resuelto', 'Estado', 'Respondido a tiempo', 'Qué se hizo',
+        'Parte del triángulo', 'Para que no se repita']];
+      casos.forEach(c => {
+        const s = situacionPlazo(c, ahora);
+        filas.push([c.id, fechaCSV(c.creado), c.canal, c.tipo, c.descripcion, c.nombre, c.contacto, c.responsable,
+          fechaCSV(c.vence), fechaCSV(c.respondido), fechaCSV(c.resuelto), ETIQUETA_ESTADO[estadoCaso(c)],
+          s.aTiempo === null ? 'En plazo' : (s.aTiempo ? 'Sí' : 'No'), c.accion, VERTICES[c.vertice] || '', c.prevencion]);
+      });
+      return aCSV(filas);
+    }
+
+    function evaluacionesCSV(evaluaciones) {
+      return aCSV([['Fecha', 'Estrellas', 'Comentario', 'Dónde se registró']].concat(
+        evaluaciones.map(e => [fechaCSV(e.fecha), e.estrellas, e.comentario, e.origen === 'resenas' ? 'Reseñas' : 'Formulario'])));
+    }
+
+    /* ============================== INTERFAZ ============================== */
+    const $ = (selector) => document.querySelector(selector);
+
+    function crear(etiqueta, clase, texto) {
+      const el = document.createElement(etiqueta);
+      if (clase) el.className = clase;
+      if (texto != null) el.textContent = texto;
+      return el;
+    }
+
+    const almacen = {
+      leer() {
+        try {
+          const t = localStorage.getItem(CLAVE_DATOS);
+          return t ? normalizarDatos(JSON.parse(t)) : datosVacios();
+        } catch (e) { return datosVacios(); }
+      },
+      guardar(d) {
+        try { localStorage.setItem(CLAVE_DATOS, JSON.stringify(d)); return true; } catch (e) { return false; }
+      }
+    };
+
+    let datos = almacen.leer();
+    let avisoSinGuardar = false;
+    let temporizadorAviso;
+
+    function avisar(texto) {
+      const toast = $('#toast');
+      toast.textContent = texto;
+      toast.classList.add('show');
+      clearTimeout(temporizadorAviso);
+      temporizadorAviso = setTimeout(() => toast.classList.remove('show'), 3400);
+    }
+
+    function guardar() {
+      if (!almacen.guardar(datos) && !avisoSinGuardar) {
+        avisoSinGuardar = true;
+        avisar('Este navegador no permite guardar: los datos se perderán al recargar la página.');
+      }
+    }
+
+    function nuevoId(prefijo) { return prefijo + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+    function registrarEvaluacion(estrellas, comentario, origen) {
+      const e = { id: nuevoId('E'), fecha: new Date().toISOString(), estrellas, comentario: limpiarTexto(comentario, 500), origen };
+      datos.evaluaciones.push(e);
+      guardar(); pintarPanel(); pintarResenas();
+      return e;
+    }
+
+    function registrarCaso(entrada) {
+      const caso = crearCaso(entrada, datos.siguiente, datos.plazoHoras, Date.now());
+      if (!caso) return null;
+      datos.siguiente++;
+      datos.casos.push(caso);
+      guardar(); pintarCasos(); pintarPanel();
+      return caso;
+    }
+
+    let ultimoCerrado = null;
+
+    function actualizarCaso(id, cambios) {
+      const c = datos.casos.find(x => x.id === id);
+      if (!c) return null;
+      Object.assign(c, cambios);
+      guardar(); pintarCasos(); pintarPanel();
+      return c;
+    }
+
+    /* ---- Evaluación de atención («Medir para mejorar») ---- */
+    const estrellasFormulario = [...document.querySelectorAll('.rating button')];
+    const mensajeFormulario = $('#formMessage');
+    const cajaReclamo = $('#complaintBox');
+    let calificacion = 0;
+    let evaluacionReclamo = null;
+
+    function marcarEstrellas(botones, valor, atributo) {
+      botones.forEach(b => {
+        const n = +b.dataset[atributo];
+        b.classList.toggle('active', n <= valor);
+        b.setAttribute('aria-pressed', String(n === valor));
+      });
+    }
+
+    function reiniciarEvaluacion() {
+      calificacion = 0;
+      marcarEstrellas(estrellasFormulario, 0, 'value');
+      $('#feedbackComment').value = '';
+    }
+
+    estrellasFormulario.forEach(boton => boton.addEventListener('click', () => {
+      calificacion = +boton.dataset.value;
+      marcarEstrellas(estrellasFormulario, calificacion, 'value');
+      mensajeFormulario.textContent = '';
+    }));
+    marcarEstrellas(estrellasFormulario, 0, 'value');
+
+    $('#feedbackForm').addEventListener('submit', evento => {
+      evento.preventDefault();
+      if (!calificacion) { mensajeFormulario.textContent = 'Selecciona una calificación para continuar.'; return; }
+      const e = registrarEvaluacion(calificacion, $('#feedbackComment').value, 'formulario');
+      if (calificacion <= 3) {
+        evaluacionReclamo = e.id;
+        mensajeFormulario.textContent = 'Gracias por compartir tu experiencia. Queremos revisar lo ocurrido.';
+        const descripcion = $('#complaintDescription');
+        if (!descripcion.value.trim() && e.comentario) descripcion.value = e.comentario;   // no se pide dos veces
+        cajaReclamo.hidden = false;
+        cajaReclamo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        mensajeFormulario.textContent = 'Gracias. Tu experiencia fue registrada como demostración. Una reseña pública siempre debe ser voluntaria y transparente.';
+        cajaReclamo.hidden = true;
+        reiniciarEvaluacion();
+      }
+    });
+
+    $('#complaintSend').addEventListener('click', () => {
+      const caso = registrarCaso({
+        canal: 'Página web',
+        tipo: $('#complaintType').value,
+        descripcion: $('#complaintDescription').value,
+        nombre: $('#complaintName').value,
+        contacto: $('#complaintContact').value,
+        evaluacion: evaluacionReclamo
+      });
+      if (!caso) {
+        mensajeFormulario.textContent = 'Describe brevemente lo ocurrido para poder revisarlo.';
+        $('#complaintDescription').focus();
+        return;
+      }
+      cajaReclamo.hidden = true;
+      ['#complaintName', '#complaintContact', '#complaintDescription'].forEach(s => { $(s).value = ''; });
+      $('#complaintType').selectedIndex = 0;
+      evaluacionReclamo = null;
+      reiniciarEvaluacion();
+      mensajeFormulario.textContent = 'Registramos tu caso ' + caso.id + '. Te responderemos antes del ' + fechaLarga(Date.parse(caso.vence)) + '. ';
+      const enlace = crear('a', 'enlace-casos', 'Ver cómo lo gestiona el equipo →');
+      enlace.href = '#casos';
+      mensajeFormulario.append(enlace);
+    });
+
+    /* ---- Reseñas: el número grande es el promedio real, no un 5.0 fijo ---- */
+    const estrellasResena = [...document.querySelectorAll('[data-review-rating]')];
+    const mensajeResena = $('#reviewMessage');
+    let evaluacionResena = null;
+
+    estrellasResena.forEach(boton => boton.addEventListener('click', () => {
+      const n = +boton.dataset.reviewRating;
+      marcarEstrellas(estrellasResena, n, 'reviewRating');
+      // Una evaluación por visita: si vuelve a elegir, se corrige la misma.
+      const existente = evaluacionResena && datos.evaluaciones.find(e => e.id === evaluacionResena);
+      if (existente) { existente.estrellas = n; guardar(); pintarPanel(); pintarResenas(); }
+      else evaluacionResena = registrarEvaluacion(n, '', 'resenas').id;
+      mensajeResena.textContent = 'Registramos tu evaluación de ' + plural(n, 'estrella', 'estrellas') +
+        '. Puedes cambiarla mientras sigas en la página.' +
+        (n <= 3 ? ' Si quieres contarnos qué pasó, usa «Medir para mejorar».' : '');
+    }));
+
+    function pintarResenas() {
+      const m = metricas(datos, Date.now());
+      $('#reviewAverage').textContent = textoPromedio(m.promedio, 'Nuevo');
+      const estrellas = $('#reviewStars');
+      estrellas.textContent = estrellasTexto(m.promedio);
+      estrellas.setAttribute('aria-label', m.promedio == null ? 'Aún sin evaluaciones'
+        : 'Promedio de ' + textoPromedio(m.promedio) + ' sobre 5 estrellas');
+      $('#reviewCount').textContent = m.evaluaciones
+        ? 'Promedio de ' + plural(m.evaluaciones, 'evaluación', 'evaluaciones') + ' · demostración'
+        : 'Aún sin evaluaciones · escala de 1 a 5';
+    }
+
+    /* ---- Libro de casos ---- */
+    let filtroCasos = 'todos';
+
+    async function copiarTexto(texto, area) {
+      const listo = 'Mensaje copiado. Pégalo en el chat o correo del cliente.';
+      try {
+        await navigator.clipboard.writeText(texto);
+        avisar(listo);
+      } catch (e) {
+        area.focus(); area.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
+        avisar(ok ? listo : 'El texto quedó seleccionado: cópialo con Ctrl+C.');
+      }
+    }
+
+    function bloqueMensaje(texto, medio, asunto, rotulo) {
+      const cont = crear('div', 'caso-mensaje');
+      const area = crear('textarea');
+      area.value = texto;
+      area.rows = 6;
+      area.setAttribute('aria-label', rotulo);
+      const botones = crear('div', 'caso-botones');
+      const copiar = crear('button', 'mini', 'Copiar');
+      copiar.type = 'button';
+      copiar.addEventListener('click', () => copiarTexto(area.value, area));
+      botones.append(copiar);
+      if (medio) {
+        const enlace = crear('a', 'mini', medio.tipo === 'whatsapp' ? 'Abrir en WhatsApp ↗' : 'Abrir correo ↗');
+        enlace.href = enlaceRespuesta(medio, area.value, asunto);
+        enlace.target = '_blank';
+        enlace.rel = 'noopener';
+        area.addEventListener('input', () => { enlace.href = enlaceRespuesta(medio, area.value, asunto); });  // lleva lo editado
+        botones.append(enlace);
+      }
+      cont.append(area, botones);
+      return { cont, botones };
+    }
+
+    function pasoResponder(c, ahora) {
+      const paso = crear('details', 'caso-paso');
+      paso.open = !c.respondido;
+      paso.append(crear('summary', null, c.respondido
+        ? '1 · Respuesta enviada el ' + fechaCorta(Date.parse(c.respondido))
+        : '1 · Responder al cliente'));
+      const medio = medioDeRespuesta(c.contacto);
+      const m = bloqueMensaje(mensajeRespuesta(c, c.respondido ? Date.parse(c.respondido) : ahora), medio,
+        'Tu caso ' + c.id + ' en ' + NEGOCIO, 'Mensaje para el cliente del caso ' + c.id);
+      paso.append(m.cont);
+      if (!c.respondido) {
+        const marcar = crear('button', 'button', 'Marcar como respondido');
+        marcar.type = 'button';
+        marcar.addEventListener('click', () => {
+          actualizarCaso(c.id, { respondido: new Date().toISOString() });
+          avisar('Caso ' + c.id + ': respuesta registrada. Falta cerrarlo con la solución.');
+        });
+        m.botones.append(marcar);
+        paso.append(crear('p', 'caso-revisa',
+          'Antes de enviar: salúdalo por su nombre, no discutas ni culpes, y promete solo un plazo que se pueda cumplir.' +
+          (medio ? '' : ' No dejó celular ni correo: copia el texto y respóndele por el canal donde escribió.')));
+      }
+      return paso;
+    }
+
+    function pasoCerrar(c) {
+      const paso = crear('details', 'caso-paso');
+      paso.open = !!c.respondido;
+      paso.append(crear('summary', null, '2 · Cerrar el caso'));
+
+      const campoAccion = crear('label', 'caso-campo', 'Qué hicimos por el cliente (va en el mensaje de cierre)');
+      const accion = crear('textarea');
+      accion.rows = 3;
+      accion.maxLength = 500;
+      accion.placeholder = 'Ej.: te enviamos un pedido nuevo sin costo.';
+      campoAccion.append(accion);
+
+      const grupo = crear('fieldset', 'caso-vertices');
+      grupo.append(crear('legend', null, '¿Qué parte del triángulo hay que ajustar?'));
+      const sugerido = (TIPOS[c.tipo] || TIPOS.Otro).vertice;
+      Object.entries(VERTICES).concat([['', 'Ninguna']]).forEach(([clave, texto]) => {
+        const opcion = crear('label');
+        const radio = crear('input');
+        radio.type = 'radio';
+        radio.name = 'vertice-' + c.id;
+        radio.value = clave;
+        radio.checked = clave === sugerido;
+        opcion.append(radio, document.createTextNode(' ' + texto));
+        if (clave && clave === sugerido) opcion.append(crear('small', null, ' · sugerido'));
+        grupo.append(opcion);
+      });
+
+      const campoPrevencion = crear('label', 'caso-campo', 'Para que no se repita (uso interno)');
+      const prevencion = crear('input');
+      prevencion.maxLength = 300;
+      prevencion.placeholder = 'Ej.: revisar las salsas antes de despachar.';
+      campoPrevencion.append(prevencion);
+
+      const aviso = crear('p', 'caso-aviso');
+      aviso.setAttribute('aria-live', 'polite');
+      const cerrar = crear('button', 'button', 'Cerrar caso');
+      cerrar.type = 'button';
+      cerrar.addEventListener('click', () => {
+        const texto = limpiarTexto(accion.value, 500);
+        if (!texto) {
+          aviso.textContent = 'Anota qué se hizo por el cliente: es lo que le vas a contar.';
+          accion.focus();
+          return;
+        }
+        const elegido = grupo.querySelector('input:checked');
+        const ahora = new Date().toISOString();
+        ultimoCerrado = c.id;
+        actualizarCaso(c.id, {
+          accion: texto, vertice: elegido ? elegido.value : '',
+          prevencion: limpiarTexto(prevencion.value, 300),
+          resuelto: ahora, respondido: c.respondido || ahora
+        });
+        avisar('Caso ' + c.id + ' cerrado. Envía el mensaje de cierre al cliente.');
+      });
+      paso.append(campoAccion, grupo, campoPrevencion, cerrar, aviso);
+      return paso;
+    }
+
+    function resumenCierre(c) {
+      const resumen = crear('dl', 'caso-cierre');
+      [['Qué se hizo', c.accion], ['Triángulo', VERTICES[c.vertice] || 'Ninguna'], ['Para que no se repita', c.prevencion || '—']]
+        .forEach(([clave, valor]) => {
+          const fila = crear('div');
+          fila.append(crear('dt', null, clave), crear('dd', null, valor));
+          resumen.append(fila);
+        });
+      const paso = crear('details', 'caso-paso');
+      paso.open = c.id === ultimoCerrado;
+      paso.append(crear('summary', null, 'Mensaje de cierre para el cliente'));
+      paso.append(bloqueMensaje(mensajeCierre(c), medioDeRespuesta(c.contacto),
+        'Tu caso ' + c.id + ' en ' + NEGOCIO, 'Mensaje de cierre del caso ' + c.id).cont);
+      return [resumen, paso];
+    }
+
+    function tarjetaCaso(c, ahora) {
+      const estado = estadoCaso(c);
+      const art = crear('article', 'caso ' + estado);
+      art.dataset.id = c.id;
+
+      const cab = crear('header', 'caso-cab');
+      const titulo = crear('div');
+      titulo.append(crear('span', 'caso-id', c.id + ' · ' + c.canal), crear('h3', null, c.tipo));
+      cab.append(titulo, crear('span', 'chip ' + estado, ETIQUETA_ESTADO[estado]));
+
+      const s = situacionPlazo(c, ahora);
+      const plazo = crear('p', 'caso-plazo ' + s.clase,
+        c.resuelto ? s.texto + ' · cerrado el ' + fechaCorta(Date.parse(c.resuelto)) : s.texto);
+      const cliente = [c.nombre, c.contacto].filter(Boolean).join(' · ') || 'sin datos de contacto';
+
+      const campoResponsable = crear('label', 'caso-campo', 'Responsable');
+      const responsable = crear('input');
+      responsable.setAttribute('list', 'responsablesSugeridos');
+      responsable.maxLength = 60;
+      responsable.placeholder = 'Nombre o cargo';
+      responsable.value = c.responsable;
+      responsable.addEventListener('change', () => {
+        const caso = datos.casos.find(x => x.id === c.id);
+        if (caso) { caso.responsable = limpiarTexto(responsable.value, 60); guardar(); }
+      });
+      campoResponsable.append(responsable);
+
+      art.append(cab, plazo, crear('p', 'caso-desc', '«' + c.descripcion + '»'),
+        crear('p', 'caso-meta', 'Ingresó el ' + fechaCorta(Date.parse(c.creado)) + ' · ' + cliente), campoResponsable);
+      if (c.resuelto) art.append(...resumenCierre(c));
+      else art.append(pasoResponder(c, ahora), pasoCerrar(c));
+
+      const eliminar = crear('button', 'caso-eliminar', 'Eliminar caso');
+      eliminar.type = 'button';
+      eliminar.addEventListener('click', () => {
+        if (!confirm('¿Eliminar el caso ' + c.id + '? No se puede deshacer.')) return;
+        datos.casos = datos.casos.filter(x => x.id !== c.id);
+        guardar(); pintarCasos(); pintarPanel();
+      });
+      art.append(eliminar);
+      return art;
+    }
+
+    function pintarFiltros(ahora) {
+      const cuentas = { todos: datos.casos.length };
+      ['abiertos', 'atrasados', 'resueltos'].forEach(f => { cuentas[f] = filtrarCasos(datos.casos, f, ahora).length; });
+      document.querySelectorAll('[data-filtro]').forEach(b => {
+        b.setAttribute('aria-pressed', String(b.dataset.filtro === filtroCasos));
+        b.querySelector('b').textContent = cuentas[b.dataset.filtro];
+      });
+    }
+
+    function pintarCasos() {
+      const ahora = Date.now();
+      const visibles = ordenarCasos(filtrarCasos(datos.casos, filtroCasos, ahora));
+      $('#casosLista').replaceChildren(...visibles.map(c => tarjetaCaso(c, ahora)));
+      const vacio = $('#casosVacio');
+      vacio.hidden = visibles.length > 0;
+      vacio.textContent = datos.casos.length
+        ? 'No hay casos en este filtro.'
+        : 'Todavía no hay casos. Prueba «Medir para mejorar» con 3 estrellas o menos, o registra uno que haya llegado por otro canal.';
+      pintarFiltros(ahora);
+    }
+
+    /* Cada minuto se actualizan los plazos sin volver a dibujar las tarjetas,
+       para no borrar lo que alguien esté escribiendo. */
+    function refrescarPlazos() {
+      const ahora = Date.now();
+      document.querySelectorAll('#casosLista .caso').forEach(tarjeta => {
+        const c = datos.casos.find(x => x.id === tarjeta.dataset.id);
+        if (!c || c.resuelto) return;
+        const s = situacionPlazo(c, ahora);
+        const p = tarjeta.querySelector('.caso-plazo');
+        p.className = 'caso-plazo ' + s.clase;
+        p.textContent = s.texto;
+      });
+      pintarFiltros(ahora);
+      pintarPanel();
+    }
+
+    document.querySelectorAll('[data-filtro]').forEach(b => b.addEventListener('click', () => {
+      filtroCasos = b.dataset.filtro;
+      pintarCasos();
+    }));
+
+    const selectorPlazo = $('#plazoHoras');
+    selectorPlazo.value = String(datos.plazoHoras);
+    selectorPlazo.addEventListener('change', () => {
+      datos.plazoHoras = +selectorPlazo.value;
+      guardar();
+      avisar('Los casos nuevos tendrán ' + selectorPlazo.value + ' horas para recibir respuesta.');
+    });
+
+    const formularioNuevo = $('#nuevoCaso');
+    const botonNuevo = $('#nuevoCasoBtn');
+    function mostrarFormularioNuevo(abrir) {
+      formularioNuevo.hidden = !abrir;
+      botonNuevo.setAttribute('aria-expanded', String(abrir));
+      if (abrir) $('#nuevoCanal').focus();
+    }
+    botonNuevo.addEventListener('click', () => mostrarFormularioNuevo(formularioNuevo.hidden));
+    $('#nuevoCancelar').addEventListener('click', () => mostrarFormularioNuevo(false));
+    formularioNuevo.addEventListener('submit', evento => {
+      evento.preventDefault();
+      const mensaje = $('#nuevoCasoMsg');
+      const caso = registrarCaso({
+        canal: $('#nuevoCanal').value, tipo: $('#nuevoTipo').value, descripcion: $('#nuevoDescripcion').value,
+        nombre: $('#nuevoNombre').value, contacto: $('#nuevoContacto').value
+      });
+      if (!caso) {
+        mensaje.textContent = 'Escribe qué ocurrió: sin eso no se puede registrar el caso.';
+        $('#nuevoDescripcion').focus();
+        return;
+      }
+      formularioNuevo.reset();
+      mensaje.textContent = '';
+      mostrarFormularioNuevo(false);
+      filtroCasos = 'todos';
+      pintarCasos();
+      avisar('Caso ' + caso.id + ' registrado. Responder antes del ' + fechaCorta(Date.parse(caso.vence)) + '.');
+      const tarjeta = document.querySelector('.caso[data-id="' + caso.id + '"]');
+      if (tarjeta) tarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    function descargar(nombre, contenido) {
+      const url = URL.createObjectURL(new Blob([contenido], { type: 'text/csv;charset=utf-8' }));
+      const a = crear('a');
+      a.href = url;
+      a.download = nombre;
+      document.body.append(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function fechaArchivo() {
+      const d = new Date();
+      return d.getFullYear() + '-' + dosDigitos(d.getMonth() + 1) + '-' + dosDigitos(d.getDate());
+    }
+
+    $('#exportarCasos').addEventListener('click', () => {
+      if (!datos.casos.length) { avisar('Aún no hay casos para exportar.'); return; }
+      descargar('pram-casos-' + fechaArchivo() + '.csv', casosCSV(ordenarCasos(datos.casos), Date.now()));
+    });
+
+    $('#borrarDatos').addEventListener('click', () => {
+      if (!confirm('¿Borrar todos los casos y evaluaciones guardados en este navegador? No se puede deshacer.')) return;
+      const plazo = datos.plazoHoras;
+      datos = datosVacios();
+      datos.plazoHoras = plazo;
+      evaluacionResena = null;
+      evaluacionReclamo = null;
+      marcarEstrellas(estrellasResena, 0, 'reviewRating');
+      mensajeResena.textContent = 'Selecciona de 1 a 5 estrellas.';
+      guardar();
+      pintarTodo();
+      avisar('Datos de prueba borrados.');
+    });
+
+    /* ---- Panel PRAM: indicadores calculados desde lo registrado ---- */
+    function pintarBarra(clave, valor) {
+      $('#bar' + clave).style.width = (valor || 0) + '%';
+      $('#pct' + clave).textContent = textoPorcentaje(valor);
+    }
+
+    function pintarPanel() {
+      const m = metricas(datos, Date.now());
+      $('#evalCount').textContent = m.evaluaciones;
+      $('#average').textContent = textoPromedio(m.promedio, '—');
+      $('#caseCount').textContent = m.casos;
+      $('#caseDetail').textContent = m.casos
+        ? plural(m.abiertos, 'abierto', 'abiertos') + ' · ' + plural(m.atrasados, 'atrasado', 'atrasados')
+        : 'Formulario y registro del equipo';
+      $('#solvedCount').textContent = m.resueltos;
+      $('#solvedDetail').textContent = m.casos ? 'de ' + plural(m.casos, 'caso', 'casos') : 'Aún sin casos';
+      pintarBarra('Attention', m.satisfaccion);
+      pintarBarra('Response', m.respuestaATiempo);
+      pintarBarra('Resolution', m.resolucion);
+      const tipo = m.tipoFrecuente;
+      const vertice = m.verticeFrecuente;
+      $('#patronTipo').textContent = tipo ? tipo.valores.join(' y ') : 'Sin casos aún';
+      $('#patronTipoDetalle').textContent = tipo
+        ? (tipo.valores.length > 1 ? 'Empatados: ' : '') + tipo.veces + ' de ' + plural(tipo.total, 'caso', 'casos') + (tipo.valores.length > 1 ? ' cada uno' : '')
+        : 'Aparece al registrar casos';
+      $('#patronVertice').textContent = vertice ? vertice.valores.map(v => VERTICES[v]).join(' y ') : 'Sin casos cerrados';
+      $('#patronVerticeDetalle').textContent = vertice
+        ? vertice.veces + ' de ' + plural(vertice.total, 'caso cerrado', 'casos cerrados') + ' con ajuste'
+        : 'Aparece al cerrar casos';
+    }
+
+    $('#refresh').addEventListener('click', () => {
+      pintarTodo();
+      avisar('Panel actualizado con los datos guardados en este navegador.');
+    });
+
+    $('#exportarEvaluaciones').addEventListener('click', () => {
+      if (!datos.evaluaciones.length) { avisar('Aún no hay evaluaciones para exportar.'); return; }
+      descargar('pram-evaluaciones-' + fechaArchivo() + '.csv', evaluacionesCSV(datos.evaluaciones));
+    });
+
+    function pintarTodo() { pintarCasos(); pintarPanel(); pintarResenas(); }
+
+    /* ---- Partes originales del sitio (muro de experiencias, pestañas, menú,
+       vista celular, carrusel y triángulo) ---- */
+    const experienceForm=document.querySelector('#experienceForm'),experienceCards=document.querySelector('#experienceCards'),experienceEmpty=document.querySelector('#experienceEmpty'),experienceMessage=document.querySelector('#experienceMessage');experienceForm.addEventListener('submit',event=>{event.preventDefault();const name=document.querySelector('#experienceName').value.trim(),text=document.querySelector('#experienceText').value.trim(),photo=document.querySelector('#experiencePhoto').files[0];if(!name||!text){experienceMessage.textContent='Escribe tu nombre o apodo y tu experiencia para continuar.';return;}const addCard=imageSource=>{const card=document.createElement('article');card.className='experience-card';const heading=document.createElement('h4');heading.textContent=name;const body=document.createElement('p');body.textContent=text;card.append(heading,body);if(imageSource){const image=document.createElement('img');image.src=imageSource;image.alt='Foto compartida por '+name;card.append(image);}experienceCards.prepend(card);experienceEmpty.hidden=true;experienceMessage.textContent='Tu experiencia se agregó a esta demostración.';experienceForm.reset();};if(photo){if(!photo.type.startsWith('image/')){experienceMessage.textContent='Selecciona un archivo de imagen válido.';return;}const reader=new FileReader();reader.addEventListener('load',()=>addCard(reader.result));reader.readAsDataURL(photo);}else{addCard('');}});
+    const tabs=[['admissionTab','admission'],['complaintTab','complaint']];tabs.forEach(([tab,panel])=>document.querySelector('#'+tab).addEventListener('click',()=>tabs.forEach(([otherTab,otherPanel])=>{const selected=tab===otherTab;document.querySelector('#'+otherTab).setAttribute('aria-selected',selected);document.querySelector('#'+otherPanel).hidden=!selected;})));
+    document.querySelector('#menu').addEventListener('click',e=>{const nav=document.querySelector('#links'),open=nav.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',open);});document.querySelectorAll('#links a').forEach(link=>link.addEventListener('click',()=>document.querySelector('#links').classList.remove('open')));document.querySelector('#year').textContent=new Date().getFullYear();const phonePreview=document.querySelector('#phonePreview'),phonePreviewButton=document.querySelector('#phonePreviewButton'),phonePreviewFrame=document.querySelector('#phonePreviewFrame');if(new URLSearchParams(location.search).has('preview')){document.body.classList.add('embedded-preview');}else{const closePhonePreview=()=>{phonePreview.classList.remove('open');phonePreview.setAttribute('aria-hidden','true');phonePreviewButton.setAttribute('aria-expanded','false');};phonePreviewButton.addEventListener('click',()=>{if(!phonePreviewFrame.getAttribute('src'))phonePreviewFrame.src=`${location.pathname}?preview=phone`;phonePreview.classList.add('open');phonePreview.setAttribute('aria-hidden','false');phonePreviewButton.setAttribute('aria-expanded','true');});document.querySelector('#phonePreviewClose').addEventListener('click',closePhonePreview);phonePreview.addEventListener('click',event=>{if(event.target===phonePreview)closePhonePreview();});}
+    const carousel=document.querySelector('.carousel'),track=document.querySelector('.carousel-track'),slides=[...document.querySelectorAll('.carousel-slide')],dots=[...document.querySelectorAll('.carousel-dots button')];let currentSlide=0,carouselTimer;function showSlide(index){currentSlide=(index+slides.length)%slides.length;track.style.transform=`translateX(-${currentSlide*100}%)`;slides.forEach((slide,i)=>slide.classList.toggle('is-active',i===currentSlide));dots.forEach((dot,i)=>dot.setAttribute('aria-current',i===currentSlide));}function startCarousel(){if(!matchMedia('(prefers-reduced-motion: reduce)').matches)carouselTimer=setInterval(()=>showSlide(currentSlide+1),4500);}function resetCarousel(){clearInterval(carouselTimer);startCarousel();}document.querySelector('.carousel-next').addEventListener('click',()=>{showSlide(currentSlide+1);resetCarousel();});document.querySelector('.carousel-prev').addEventListener('click',()=>{showSlide(currentSlide-1);resetCarousel();});dots.forEach((dot,i)=>dot.addEventListener('click',()=>{showSlide(i);resetCarousel();}));carousel.addEventListener('mouseenter',()=>clearInterval(carouselTimer));carousel.addEventListener('mouseleave',startCarousel);carousel.addEventListener('focusin',()=>clearInterval(carouselTimer));carousel.addEventListener('focusout',startCarousel);startCarousel();const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target);}}),{threshold:.12});document.querySelectorAll('.section,.photo-gallery,.contact').forEach(element=>{element.classList.add('reveal');observer.observe(element);});
+    const serviceDetails={strategy:{eyebrow:'VÉRTICE 01',title:'Estrategia del servicio',text:'Define qué experiencia promete la PYME: atención clara, respetuosa, ágil y coherente en todos sus canales. Es el estándar que guía cada decisión.'},people:{eyebrow:'VÉRTICE 02',title:'Colaboradores',text:'Son las personas que hacen real la promesa. Necesitan conocer el servicio, tener protocolos simples, comunicarse con empatía y contar con apoyo para resolver.'},systems:{eyebrow:'VÉRTICE 03',title:'Sistemas',text:'Son los recursos que respaldan la atención: horarios, canales de contacto, registro de casos, información actualizada y procesos para responder a tiempo.'},client:{eyebrow:'CENTRO DEL MODELO',title:'Cliente',text:'Sus necesidades, expectativas y opiniones orientan las decisiones de atención y mejora de la PYME.'}};const serviceNodes=[...document.querySelectorAll('[data-service-node]')],triangleDetail=document.querySelector('#triangleDetail');serviceNodes.forEach(node=>node.addEventListener('click',()=>{const detail=serviceDetails[node.dataset.serviceNode];serviceNodes.forEach(item=>item.classList.toggle('selected',item===node));triangleDetail.replaceChildren(Object.assign(document.createElement('span'),{textContent:detail.eyebrow}),Object.assign(document.createElement('h3'),{textContent:detail.title}),Object.assign(document.createElement('p'),{textContent:detail.text}));}));
+
+    /* Un contacto que sigue con el texto de ejemplo ([@usuario]) no se muestra:
+       aparece solo cuando el equipo pone su enlace real. */
+    document.querySelectorAll('.contact-list a').forEach(a => { if (/^\[/.test(a.getAttribute('href') || '')) a.hidden = true; });
+
+    /* Si falta una foto de la galería (la carpeta no viajó con el archivo), la
+       diapositiva queda con su degradado y su texto, sin ícono de imagen rota. */
+    document.querySelectorAll('.carousel-slide').forEach(slide => {
+      const img = slide.querySelector('img');
+      const sinFoto = () => slide.classList.add('sin-foto');
+      if (img.complete && img.naturalWidth === 0) sinFoto();
+      else img.addEventListener('error', sinFoto);
+    });
+
+    /* ================================ ARRANQUE ================================ */
+    pintarTodo();
+    setInterval(refrescarPlazos, 60000);
+    /* Si otra pestaña (o la vista celular) cambia los datos, esta se pone al día. */
+    window.addEventListener('storage', e => { if (e.key === CLAVE_DATOS) { datos = almacen.leer(); pintarTodo(); } });
+
+    /* ============================= COMPROBACIONES =============================
+       Se ejecutan agregando ?pruebas=1 a la dirección. Revisan el cálculo con
+       casos fijos y no tocan los datos guardados.                            */
+    const T0 = Date.parse('2026-10-08T10:00:00');   // día de la Feria, hora local
+    const casoPrueba = (cambios) => Object.assign(crearCaso({ descripcion: 'Llegó frío', tipo: 'Pedido o entrega',
+      canal: 'WhatsApp', nombre: 'camila rojas', contacto: '+56 9 1234 5678' }, 7, 24, T0), cambios || {});
+    const iso = (ms) => new Date(ms).toISOString();
+
+    const PRUEBAS = [
+      ['El número de caso tiene cuatro cifras', () => idCaso(1) === 'PRAM-0001' && idCaso(123) === 'PRAM-0123'],
+      ['Sin descripción no se crea un caso', () => crearCaso({ descripcion: '   ' }, 1, 24, T0) === null],
+      ['El plazo se cuenta desde el ingreso', () => {
+        const c = casoPrueba();
+        return c.id === 'PRAM-0007' && Date.parse(c.vence) - Date.parse(c.creado) === 24 * HORA;
+      }],
+      ['Un tipo, canal o plazo desconocido no rompe el caso', () => {
+        const c = crearCaso({ descripcion: 'x', tipo: 'Raro', canal: 'Fax' }, 1, 999, T0);
+        return c.tipo === 'Otro' && c.canal === 'Página web' && Date.parse(c.vence) - T0 === 24 * HORA;
+      }],
+      ['El estado avanza: recibido, en curso y resuelto', () => {
+        const c = casoPrueba();
+        const a = estadoCaso(c);
+        c.respondido = iso(T0 + HORA);
+        const b = estadoCaso(c);
+        c.resuelto = iso(T0 + 2 * HORA);
+        return a === 'recibido' && b === 'respondido' && estadoCaso(c) === 'resuelto';
+      }],
+      ['Dentro del plazo avisa cuánto queda', () => {
+        const s = situacionPlazo(casoPrueba(), T0 + HORA);
+        return s.clase === 'en-plazo' && s.aTiempo === null && s.texto.indexOf('quedan 23 h') > 0;
+      }],
+      ['Cuando falta poco se marca como pronto', () => situacionPlazo(casoPrueba(), T0 + 23 * HORA).clase === 'pronto'],
+      ['Vencido sin respuesta queda atrasado', () => {
+        const s = situacionPlazo(casoPrueba(), T0 + 26 * HORA);
+        return s.clase === 'atrasado' && s.aTiempo === false && s.texto.indexOf('2 h') > 0;
+      }],
+      ['Se distingue responder a tiempo de responder tarde', () =>
+        situacionPlazo(casoPrueba({ respondido: iso(T0 + 5 * HORA) }), T0 + 99 * HORA).aTiempo === true &&
+        situacionPlazo(casoPrueba({ respondido: iso(T0 + 30 * HORA) }), T0 + 99 * HORA).aTiempo === false],
+      ['Sin datos, el panel no inventa números', () => {
+        const m = metricas(datosVacios(), T0);
+        return m.promedio === null && m.satisfaccion === null && m.respuestaATiempo === null && m.resolucion === null &&
+          m.tipoFrecuente === null && textoPorcentaje(m.resolucion) === '—' && textoPromedio(m.promedio, 'Nuevo') === 'Nuevo';
+      }],
+      ['El panel calcula con lo registrado', () => {
+        const d = datosVacios();
+        d.evaluaciones = [5, 4, 2].map((n, i) => ({ id: 'e' + i, fecha: iso(T0), estrellas: n, comentario: '', origen: 'formulario' }));
+        d.casos = [
+          casoPrueba({ id: 'PRAM-0001', respondido: iso(T0 + HORA), resuelto: iso(T0 + 2 * HORA), vertice: 'sistemas' }),
+          casoPrueba({ id: 'PRAM-0002' }),                                               // vence a las 24 h: atrasado
+          casoPrueba({ id: 'PRAM-0003', tipo: 'Atención', vence: iso(T0 + 48 * HORA) })  // todavía en plazo
+        ];
+        const m = metricas(d, T0 + 34 * HORA);
+        return textoPromedio(m.promedio) === '3,7' && m.satisfaccion === 67 && m.respuestaATiempo === 50 &&
+          m.resolucion === 33 && m.atrasados === 1 && m.tipoFrecuente.valores.join() === 'Pedido o entrega' &&
+          m.tipoFrecuente.veces === 2 && m.verticeFrecuente.valores.join() === 'sistemas';
+      }],
+      ['Un empate en lo más repetido nombra a ambos', () => {
+        const f = masFrecuente(['Pedido o entrega', 'Atención']);
+        return f.valores.join() === 'Atención,Pedido o entrega' && f.veces === 1;
+      }],
+      ['La respuesta saluda por el nombre y da número y plazo', () => {
+        const c = casoPrueba();
+        const t = mensajeRespuesta(c, T0 + HORA);
+        return t.indexOf('Hola, Camila:') === 0 && t.indexOf(c.id) > 0 && t.indexOf('tu pedido') > 0 &&
+          t.indexOf('antes del ' + fechaLarga(Date.parse(c.vence))) > 0;
+      }],
+      ['Sin nombre, el saludo queda completo', () => mensajeRespuesta(casoPrueba({ nombre: '' }), T0).indexOf('Hola:\n') === 0],
+      ['Con el plazo vencido pide disculpas y no promete una fecha pasada', () => {
+        const ahora = T0 + 30 * HORA;
+        const t = mensajeRespuesta(casoPrueba(), ahora);
+        return t.indexOf('disculpas por la demora') > 0 && t.indexOf(fechaLarga(ahora + 24 * HORA)) > 0;
+      }],
+      ['El cierre cuenta lo que se hizo, como oración', () =>
+        mensajeCierre(casoPrueba({ accion: 'te enviamos un pedido nuevo' })).indexOf('Te enviamos un pedido nuevo. ') > 0],
+      ['Ningún mensaje pide borrar o cambiar una reseña', () => {
+        const c = casoPrueba({ accion: 'listo' });
+        return !/(reseña|borra|elimina|cambia tu opini)/i.test(mensajeRespuesta(c, T0) + mensajeRespuesta(c, T0 + 40 * HORA) + mensajeCierre(c));
+      }],
+      ['Reconoce un celular chileno para WhatsApp', () =>
+        whatsappDe('+56 9 1234 5678') === '56912345678' && whatsappDe('9 1234 5678') === '56912345678' && whatsappDe('22 123 4567') === null],
+      ['Un correo se responde por correo, aunque tenga números', () => medioDeRespuesta('juan912345678@example.com').tipo === 'correo'],
+      ['Un correo con parámetros escondidos se rechaza', () => correoDe('a@example.com?cc=otro@example.com') === null],
+      ['El enlace de WhatsApp lleva el mensaje', () =>
+        enlaceRespuesta({ tipo: 'whatsapp', valor: '56912345678' }, 'Hola: ok', '') === 'https://wa.me/56912345678?text=Hola%3A%20ok'],
+      ['El Excel no ejecuta fórmulas escritas por un cliente', () =>
+        csvSeguro('=HIPERVINCULO("x")') === '"\'=HIPERVINCULO(""x"")"' && csvSeguro('-2') === "'-2" && csvSeguro('a;b') === '"a;b"'],
+      ['El Excel de casos trae encabezado y una fila por caso', () => {
+        const filas = casosCSV([casoPrueba(), casoPrueba({ id: 'PRAM-0008' })], T0).split('\r\n');
+        return filas[0].charAt(0) === '﻿' && filas.length === 3 && filas[0].split(';').length === 16 && filas[1].indexOf('PRAM-0007;') === 0;
+      }],
+      ['Lo guardado y dañado se limpia sin romper la página', () => {
+        const d = normalizarDatos({ evaluaciones: [{ estrellas: 9, fecha: 'x' }, { estrellas: 4, fecha: '2026-10-08T10:00:00Z' }],
+                                    casos: [{ id: 'hola' }, null], siguiente: 'x' });
+        return d.evaluaciones.length === 1 && d.casos.length === 0 && d.siguiente === 1 && normalizarDatos(null).casos.length === 0;
+      }],
+      ['El número siguiente nunca repite uno que ya existe', () =>
+        normalizarDatos({ casos: [casoPrueba({ id: 'PRAM-0041' })], siguiente: 3 }).siguiente === 42],
+      ['La pestaña del navegador lleva el logo PRAM', () => {
+        const svg = document.querySelector('link[rel~="icon"][type="image/svg+xml"]');
+        const tactil = document.querySelector('link[rel="apple-touch-icon"]');
+        return !!svg && svg.href.indexOf('data:image/svg+xml') === 0 && !!tactil && tactil.href.indexOf('data:image/png;base64,') === 0;
+      }],
+      ['La página no carga nada desde internet', () =>
+        document.querySelectorAll('script[src], link[rel="stylesheet"]').length === 0 &&
+        [...document.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]')].every(l => l.href.indexOf('data:') === 0)],
+      ['El Instagram de ejemplo no se muestra hasta completarlo', () =>
+        [...document.querySelectorAll('.contact-list a')].filter(a => /^\[/.test(a.getAttribute('href')))
+          .every(a => a.hidden && getComputedStyle(a).display === 'none')],
+      ['El aviso de «Actualizar» se puede ver', () => {
+        const t = $('#toast');
+        t.style.transition = 'none';
+        t.classList.add('show');
+        const visible = getComputedStyle(t).opacity === '1';
+        t.classList.remove('show');
+        t.style.transition = '';
+        return visible;
+      }],
+      ['Los textos se insertan como texto, nunca como código HTML', () => [...document.scripts].every(s => s.textContent.indexOf('inner' + 'HTML') === -1)],
+      ['Los plazos, tipos y canales de los formularios son los del libro', () =>
+        [...document.querySelectorAll('#plazoHoras option')].every(o => PLAZOS_HORAS.includes(+o.value)) &&
+        [...document.querySelectorAll('#complaintType option, #nuevoTipo option')].every(o => !!TIPOS[o.value]) &&
+        [...document.querySelectorAll('#nuevoCanal option')].every(o => CANALES.includes(o.value))]
+    ];
+
+    function correrPruebas() {
+      const fallidas = PRUEBAS.filter(([, prueba]) => { try { return prueba() !== true; } catch (e) { return true; } })
+        .map(([nombre]) => nombre);
+      const caja = crear('div', null, fallidas.length
+        ? fallidas.length + ' de ' + PRUEBAS.length + ' comprobaciones fallaron: ' + fallidas.join(' · ')
+        : 'Las ' + PRUEBAS.length + ' comprobaciones pasaron correctamente.');
+      caja.id = 'resultadoPruebas';
+      caja.setAttribute('role', 'status');
+      caja.style.cssText = 'position:fixed;left:14px;bottom:14px;z-index:40;max-width:32rem;padding:12px 15px;' +
+        'font:700 13px/1.4 var(--sans);box-shadow:0 12px 30px rgba(0,0,0,.25);' +
+        (fallidas.length ? 'background:#fde8e6;color:#8e1d37;border:1px solid #f0a9a2'
+                         : 'background:#fff1df;color:#3b1826;border:1px solid #e8ae48');
+      document.body.append(caja);
+      window.resultadoPruebasPRAM = fallidas;
+      return fallidas;
+    }
+
+    if (new URLSearchParams(location.search).has('pruebas')) correrPruebas();
+  </script>
+</body>
+</html>
