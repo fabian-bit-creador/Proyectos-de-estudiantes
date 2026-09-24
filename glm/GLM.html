@@ -165,7 +165,9 @@ img,svg{max-width:100%;display:block;}
 /* Cada foto es un hueco: si el archivo no existe, se ve un marco con las
    iniciales en vez de un icono roto. Basta poner el .jpg en la carpeta. */
 .foto{position:relative;width:100%;aspect-ratio:1/1;border-radius:var(--r);overflow:hidden;background:var(--azul-tenue);border:1px solid var(--linea);}
-.foto img{width:100%;height:100%;object-fit:cover;}
+.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s ease;}
+.foto--cargada img{opacity:1;}
+.foto--cargada .foto__hueco{display:none;}
 .foto__hueco{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;
              background:linear-gradient(140deg,var(--azul-tenue),#fff);color:var(--azul);text-align:center;padding:1rem;}
 .foto__ini{font-family:var(--serif);font-size:2.1rem;font-weight:800;width:3.6rem;height:3.6rem;border-radius:50%;
@@ -1002,11 +1004,14 @@ function crearFoto(nombreArchivo, textoIniciales, ancha) {
   hueco.appendChild(ruta);
   cont.appendChild(hueco);
 
+  /* La foto se pide al abrir la página y queda transparente sobre el recuadro
+     hasta que llega. No usar loading="lazy" junto con display:none: una imagen
+     diferida que no ocupa lugar nunca «entra en pantalla», el navegador no la
+     descarga y solo se ven las iniciales. */
   const img = document.createElement('img');
   img.alt = '';
-  img.loading = 'lazy';
-  img.style.display = 'none';
-  img.addEventListener('load', () => { img.style.display = 'block'; hueco.style.display = 'none'; });
+  img.decoding = 'async';
+  img.addEventListener('load', () => { cont.classList.add('foto--cargada'); });
   img.addEventListener('error', () => { img.remove(); });
   /* Primero la foto incrustada; si no hay, el archivo suelto de la carpeta. */
   img.src = FOTOS_INCRUSTADAS[nombreArchivo] || ('fotos/' + nombreArchivo + '.jpg');
@@ -1350,8 +1355,8 @@ function pintarSatelital() {
   pie.textContent = 'La imagen satelital fija se agrega a este archivo para verla sin conexión.';
 }
 
-/* La foto grupal del equipo solo aparece si está incrustada: un recuadro vacío
-   tan grande arriba de la sección se vería como un error. */
+/* La foto grupal del equipo aparece solo cuando carga: un recuadro vacío tan
+   grande arriba de la sección se vería como un error. */
 function pintarFotoEquipo() {
   const fig = $('fotoEquipo');
   if (!fig) return;
@@ -1360,7 +1365,6 @@ function pintarFotoEquipo() {
   const foto = crearFoto('equipo-grupal', 'GLM', true);
   const img = foto.querySelector('img');
   img.alt = 'Integrantes del equipo GLM en el patio del colegio.';
-  img.loading = 'eager';
   img.addEventListener('load', () => { fig.hidden = false; });
   fig.appendChild(foto);
   const pie = document.createElement('figcaption');
@@ -1442,6 +1446,32 @@ const PRUEBAS = [
   ['Sin foto incrustada, el hueco busca el archivo en fotos/', () => {
     const f = crearFoto('no-existe-esta-foto', 'NE');
     return f.querySelector('img').getAttribute('src') === 'fotos/no-existe-esta-foto.jpg';
+  }],
+  ['Cada foto se pide al abrir la página: nunca diferida y oculta a la vez (así solo se veían las iniciales)', () => {
+    const clave = 'prueba-carga';
+    FOTOS_INCRUSTADAS[clave] = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+    const f = crearFoto(clave, 'PC');
+    delete FOTOS_INCRUSTADAS[clave];
+    document.body.appendChild(f);
+    const img = f.querySelector('img');
+    const ok = img.loading !== 'lazy' && getComputedStyle(img).display !== 'none';
+    f.remove();
+    return ok;
+  }],
+  ['Ninguna foto de la página está diferida ni oculta mientras carga', () =>
+    [...document.querySelectorAll('.foto img')].every(i =>
+      i.loading !== 'lazy' && getComputedStyle(i).display !== 'none')],
+  ['Cuando la foto llega, se ve la foto y no las iniciales', () => {
+    const clave = 'prueba-lista';
+    FOTOS_INCRUSTADAS[clave] = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+    const f = crearFoto(clave, 'PL');
+    delete FOTOS_INCRUSTADAS[clave];
+    f.classList.add('foto--cargada');
+    document.body.appendChild(f);
+    const ok = getComputedStyle(f.querySelector('.foto__hueco')).display === 'none' &&
+               getComputedStyle(f.querySelector('img')).opacity === '1';
+    f.remove();
+    return ok;
   }],
   ['El logo de la portada es la imagen real incrustada, no un dibujo', () => {
     const img = document.querySelector('img.logo-grande');

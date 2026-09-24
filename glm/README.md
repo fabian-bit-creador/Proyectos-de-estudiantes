@@ -73,6 +73,11 @@ correo, porque la carpeta no viaja con él. En el sitio publicado va vacío.
 Faltan las fotos de **Vaithiare González** y **Diego Quintana**: mientras no estén, su
 tarjeta muestra las iniciales.
 
+Todas las fotos se piden al abrir la página (~1,1 MB en total) y cada una queda
+transparente sobre su recuadro hasta que llega. **No agregar `loading="lazy"`** a estos
+huecos: una imagen diferida que todavía no ocupa lugar en pantalla nunca se descarga.
+Ese error hizo que la primera versión publicada mostrara solo las iniciales.
+
 ## Publicación en Vercel
 
 **Dirección: https://glm-feria-tp-2026.vercel.app**
@@ -121,13 +126,14 @@ invitando a completarlas.
 
 ## Verificación
 
-`?pruebas=1` en la dirección ejecuta 26 comprobaciones: que el equipo tenga los 12
+`?pruebas=1` en la dirección ejecuta 29 comprobaciones: que el equipo tenga los 12
 integrantes de la guía, que estén repartidos 6 y 6, que cada área tenga 4, que los
 nombres de archivo no se repitan, que los acentos se limpien bien, que los filtros
 funcionen, que la página no cargue nada desde internet, que una foto incrustada gane
-sobre el archivo suelto, que el logo sea la imagen real, que el botón de fecha de la
-barra se lea, que no se dibuje un mapa inventado y que la barra y la portada
-conserven su margen lateral en celular.
+sobre el archivo suelto, que ninguna foto quede diferida y oculta a la vez, que al
+llegar la foto tape las iniciales, que el logo sea la imagen real, que el botón de
+fecha de la barra se lea, que no se dibuje un mapa inventado y que la barra y la
+portada conserven su margen lateral en celular.
 
 ## Decisiones que conviene explicar
 
