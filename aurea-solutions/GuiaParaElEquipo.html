@@ -138,9 +138,12 @@ td:first-child{white-space:nowrap;font-weight:600}
 
 <h2>3. La pregunta del Street View: ¿Blender?</h2>
 
-<div class="caja caja--stop">
-  <p><b>Blender no es la herramienta para esto, y con 29 días no alcanza.</b> Blender es un programa de modelado 3D: habría que construir a mano cada edificio, pasillo y sala del colegio, y después resolver cómo exportarlo a la web. Es trabajo de meses y de alguien con oficio en 3D.</p>
+<div class="caja caja--ok">
+  <p><b>Actualización (25 de septiembre): la maqueta 3D ya está hecha, y sin modelarla a mano.</b> El Mapa Caro tiene dos pestañas nuevas junto a «Fotos 360°». <b>«Desde arriba»</b> muestra la imagen satelital real del colegio, donde ustedes marcan dónde queda cada parada. <b>«Maqueta 3D»</b> la arma la propia página con esa imagen y los contornos de los edificios: se gira con el dedo, se acerca, y el botón «Recorrer las paradas» vuela de parada en parada mostrando su ficha.</p>
+  <p>Si igual quieren trabajarla en Blender, el botón <b>«Descargar la maqueta para Blender (.gltf)»</b> entrega el archivo. Se abre con <i>Archivo → Importar → glTF 2.0</i> y trae la imagen adentro.</p>
 </div>
+
+<p>Lo que sigue siendo cierto: <strong>modelar el colegio completo a mano</strong> —pasillos, salas, fachadas— es trabajo de semanas, y no hace falta. La maqueta es un volumen por edificio con su techo real; <strong>las alturas son estimadas</strong> y los techos se ven planos. Para mostrar el interior sirven las fotos 360°.</p>
 
 <p><strong>La buena noticia es que Street View tampoco usa 3D.</strong> Google Street View no es un modelo tridimensional: son <em>fotografías 360°</em> unidas con puntos para saltar de una a otra. Eso sí se puede hacer, y es exactamente lo que ya está construido en la página.</p>
 
@@ -150,17 +153,17 @@ td:first-child{white-space:nowrap;font-weight:600}
   <tr><td>1</td><td>Fotos normales de celular</td><td>Una tarde</td><td>Recorrido con foto fija por parada. Ya funciona hoy.</td></tr>
   <tr><td>2</td><td>Fotos 360° con el celular</td><td>2 a 3 tardes</td><td>Se mira alrededor arrastrando. <strong>Es la meta realista.</strong></td></tr>
   <tr><td>3</td><td>Cámara 360 prestada</td><td>Una tarde</td><td>Lo mismo que el nivel 2, con mejor calidad.</td></tr>
-  <tr><td>—</td><td>Blender, Matterport, escaneo 3D</td><td>Meses o dinero</td><td>Fuera de alcance para esta feria.</td></tr>
+  <tr><td>—</td><td>Modelar a mano en Blender, Matterport, escaneo 3D</td><td>Meses o dinero</td><td>Fuera de alcance. La maqueta 3D de la página ya muestra el colegio por fuera.</td></tr>
 </table>
 
 <div class="caja caja--oro">
-  <p><b>Recomendación concreta.</b> Empiecen por el nivel 1 esta semana, con las 12 paradas fotografiadas normal. Eso ya deja la página presentable. Después suban a 360° las paradas que más impresionan —patio, capilla, sala de profesores, taller— y déjenlas conviviendo con las normales. La página acepta las dos mezcladas, así que no hay que terminar todo para mostrar algo.</p>
+  <p><b>Recomendación concreta.</b> Empiecen por el nivel 1 esta semana, con las 16 paradas fotografiadas normal. Eso ya deja la página presentable. Después suban a 360° las paradas que más impresionan —patio, capilla, sala de profesores, taller— y déjenlas conviviendo con las normales. La página acepta las dos mezcladas, así que no hay que terminar todo para mostrar algo.</p>
 </div>
 
 <h4>Cómo tiene que salir una foto 360</h4>
 <p>La única condición técnica es que sea <strong>equirectangular</strong>: el doble de ancha que de alta. Por ejemplo 4096 × 2048. Cualquier aplicación de «foto esférica», «panorama 360» o «photo sphere» que entregue esa proporción sirve; no importa cuál usen.</p>
 <ol>
-  <li><strong>Prueben una sola foto primero.</strong> Tómenla, pónganla en la página con el botón «Cargar foto» y vean si aparece la etiqueta «Vista 360°». Si aparece, la app sirve y pueden tomar las otras once. Si no aparece, la proporción no es 2:1 y hay que probar otra app. <em>No tomen las doce antes de hacer esta prueba.</em></li>
+  <li><strong>Prueben una sola foto primero.</strong> Tómenla, pónganla en la página con el botón «Cargar foto» y vean si aparece la etiqueta «Vista 360°». Si aparece, la app sirve y pueden tomar las otras quince. Si no aparece, la proporción no es 2:1 y hay que probar otra app. <em>No tomen las dieciséis antes de hacer esta prueba.</em></li>
   <li>Párense <strong>en el centro del espacio</strong> y giren sobre su propio eje, sin desplazarse.</li>
   <li>De día y con las luces encendidas: los pasillos salen muy oscuros.</li>
   <li>Guarden en <code>.jpg</code> bajo 3 MB. Si el teléfono entrega <code>.HEIC</code>, conviértanla.</li>
@@ -188,36 +191,41 @@ td:first-child{white-space:nowrap;font-weight:600}
   <span class="quien">Es el pendiente crítico</span></div></div>
 
 <div class="tarea"><span class="tarea__n">3</span><div>
+  <b>Ubicar las 16 paradas en el mapa satelital</b>
+  <small>En «Mapa Caro» → «Desde arriba» → «Editar ubicaciones». La página va pidiendo cada parada y basta tocar el mapa donde está; se corrige arrastrando el número. También pueden agregar <b>puntos del proyecto</b>, por ejemplo dónde se hace la inducción o la zona de seguridad. Al terminar, <b>«Descargar la página con las ubicaciones»</b> entrega el archivo final: ese es el que se publica. Háganlo con alguien que conozca bien el colegio, y confirmen en terreno qué es el techo más grande (parece el gimnasio) y la altura aproximada de cada edificio.</small>
+  <span class="quien">Media hora, con alguien del colegio</span></div></div>
+
+<div class="tarea"><span class="tarea__n">4</span><div>
   <b>Probar la ruta con un docente que haya llegado este año</b>
   <small>El propio Informe Nº2 lo anuncia para el Informe Nº3: «pediremos a algunas personas que prueben el prototipo». Háganlo antes de la feria y anoten dónde se pierde. Es la mejor diapositiva de la presentación.</small>
   <span class="quien">Antes del 8 de octubre</span></div></div>
 
-<div class="tarea"><span class="tarea__n">4</span><div>
+<div class="tarea"><span class="tarea__n">5</span><div>
   <b>Completar los 16 recuadros «Por completar con el colegio»</b>
   <small>Cada parada del Mapa Caro tiene uno. Son los datos que ninguna persona externa puede saber y que la encuesta pidió explícitamente: horarios de entrada, salida y recreos; días de pago; numeración de las salas; pauta de evaluación de desempeño; protocolos. Se editan en el bloque <code>PARADAS</code> del código, campo <code>completar</code>.</small>
   <span class="quien">Reparto entre las tres</span></div></div>
 
-<div class="tarea"><span class="tarea__n">5</span><div>
+<div class="tarea"><span class="tarea__n">6</span><div>
   <b>Pedir el contenido real de la capacitación Syscol</b>
   <small>La página trae la estructura en seis módulos, pero los pasos concretos dependen de cómo está configurado Syscol en este colegio. Pídanselos a quien lo administra. <b>No inventen capturas de pantalla.</b></small>
   <span class="quien">Un correo</span></div></div>
 
-<div class="tarea"><span class="tarea__n">6</span><div>
+<div class="tarea"><span class="tarea__n">7</span><div>
   <b>Escribir la sección de cultura desde el PEI</b>
   <small>Está marcada en amarillo en la página. «Cultura escolar» y «las rutinas de Belén Educa» aparecieron literalmente en las respuestas de la encuesta, así que es contenido pedido por los usuarios, no relleno. Sale del PEI y del Reglamento Interno.</small>
   <span class="quien">Reparto entre las tres</span></div></div>
 
-<div class="tarea"><span class="tarea__n">7</span><div>
+<div class="tarea"><span class="tarea__n">8</span><div>
   <b>Publicar y probar el formulario de verdad</b>
   <small>Publiquen en Netlify, completen el formulario desde el sitio publicado y confirmen que llega el correo. El Informe Nº2 dice que en la sección de dudas los docentes «se registrarán con sus datos personales»: ojo con eso. Pidan solo lo mínimo, digan para qué se usa y no publiquen las dudas con nombre. Es la Ley 21.719.</small>
   <span class="quien">Una tarde</span></div></div>
 
-<div class="tarea"><span class="tarea__n">8</span><div>
+<div class="tarea"><span class="tarea__n">9</span><div>
   <b>Decidir qué hacen con base44</b>
   <small>Hoy el proyecto tiene la página en base44 y este archivo HTML por separado. Mantener dos versiones les va a costar caro a tres semanas de la feria. Elijan una. La recomendación está en la sección 6.</small>
   <span class="quien">Decisión del equipo</span></div></div>
 
-<div class="tarea"><span class="tarea__n">9</span><div>
+<div class="tarea"><span class="tarea__n">10</span><div>
   <b>Confirmar los datos históricos con dirección</b>
   <small>Las fechas del Cardenal Caro, de Belén Educa y de la inauguración del colegio están verificadas con fuentes públicas, pero no con el colegio.</small>
   <span class="quien">Un correo</span></div></div>
@@ -256,22 +264,27 @@ td:first-child{white-space:nowrap;font-weight:600}
   <p><b>Recomendación: quédense con el archivo HTML y dejen base44 como respaldo.</b> La razón de peso no es técnica sino práctica: <b>el 8 de octubre puede no haber wifi en el gimnasio</b>, y una página alojada en base44 simplemente no abre sin internet. El archivo HTML abre desde un pendrive, sin conexión, con el Mapa Caro y todo lo demás funcionando. Publíquenlo además en Netlify para tener el enlace público que sí pueden mostrar y compartir.</p>
 </div>
 
-<p>Si aun así quieren conservar base44 como la página principal, entonces enlacen el Mapa Caro desde ahí como una página aparte, porque el visor 360° no se puede reproducir dentro de base44 sin rehacerlo entero.</p>
+<p>Si aun así quieren conservar base44 como la página principal, entonces enlacen el Mapa Caro desde ahí como una página aparte, porque el visor 360°, el mapa satelital y la maqueta 3D no se pueden reproducir dentro de base44 sin rehacerlos enteros.</p>
+
+<div class="caja caja--stop">
+  <p><b>Un error concreto en la versión de base44: la página dice que está en inglés.</b> Su código declara <code>&lt;html lang="en"&gt;</code> aunque todo el texto está en español. Chrome le cree, ofrece «traducirla al español» y, si alguien acepta, cambia las siglas por palabras en inglés traducidas: en la copia que guardaron, <b>PEI</b> quedó como «Isla del Príncipe Eduardo», <b>CRA</b> como «Agencia Tributaria Canadiense», <b>NEE</b> como «de soltera», <b>PIE</b> como «pastel» y <b>SIMCE</b> como «desde». Le puede pasar a cualquier visitante que abra la página en Chrome o Edge.</p>
+  <p><b>Arreglo:</b> pídanle a base44 que la página declare el idioma español, <code>&lt;html lang="es"&gt;</code>. El archivo HTML de este proyecto ya lo hace.</p>
+</div>
 
 <h2>7. Lo que no pude hacer yo</h2>
 <table>
   <tr><th>Qué</th><th>Por qué</th></tr>
-  <tr><td>Tomar las fotos</td><td>Hay que estar en el colegio. Es de ustedes.</td></tr>
-  <tr><td>Ver su página en base44</td><td>Sigo sin poder: <code>aurea-teach-flow.base44.app</code> está bloqueada por el filtro de red desde donde trabajo, y el editor <code>app.base44.com</code> además pide iniciar sesión con la cuenta de ustedes. Trabajé con el HTML que entregaron y con la descripción de la página que trae el Informe Nº2, que coinciden. <b>Si quieren que revise el código exacto de base44, expórtenlo y compártanlo:</b> con eso puedo comparar las dos versiones línea por línea.</td></tr>
+  <tr><td>Tomar las fotos y ubicar las paradas</td><td>Hay que estar en el colegio. Desde afuera no se puede saber dónde queda cada oficina: es de ustedes.</td></tr>
+  <tr><td>Ver su página en base44 por dentro</td><td>La dirección <code>aurea-teach-flow.base44.app</code> ya abre, pero el contenido pide iniciar sesión con la cuenta de ustedes, y no corresponde que yo entre con una cuenta ajena. Trabajé con la copia guardada que enviaron. <b>Si quieren que revise el código exacto de base44, expórtenlo y compártanlo.</b></td></tr>
   <tr><td>Leer el PEI y el Reglamento Interno</td><td>No están públicos y no los tengo. Por eso esa sección quedó como espacio a completar en vez de inventada.</td></tr>
-  <tr><td>Saber los horarios y procedimientos reales</td><td>Mismo motivo. Los 12 recuadros amarillos marcan exactamente qué falta.</td></tr>
+  <tr><td>Saber los horarios y procedimientos reales</td><td>Mismo motivo. Los 16 recuadros «Por completar con el colegio» marcan exactamente qué falta.</td></tr>
   <tr><td>Conseguir la autorización de uso de imagen</td><td>La tramita el colegio.</td></tr>
   <tr><td>Tomar contacto con Syscol</td><td>Los pasos concretos de la capacitación dependen de la configuración del colegio. Hay que pedírselos a quien lo administra.</td></tr>
 </table>
 
 <h2>8. Verificación</h2>
-<p>La página trae <strong>24 verificaciones automáticas</strong> de su propio motor. Se corren con el botón «Verificar el motor», al final del recorrido, o agregando <code>?pruebas=1</code> al final de la dirección.</p>
-<p>Comprueban la detección de fotos 360, el cálculo del tamaño de textura, la búsqueda del glosario, el avance de los hitos y el cálculo del pulso 30/60/90. Además se probó el comportamiento completo en el navegador: 41 comprobaciones, incluida una que lee los píxeles del visor para confirmar que efectivamente está dibujando.</p>
+<p>La página trae <strong>53 verificaciones automáticas</strong> de su propio motor. Se corren con el botón «Verificar el motor», al final del recorrido, o agregando <code>?pruebas=1</code> al final de la dirección.</p>
+<p>Comprueban la detección de fotos 360, el cálculo del tamaño de textura, la búsqueda del glosario, el avance de los hitos, el cálculo del pulso 30/60/90, las coordenadas del mapa satelital, la maqueta 3D, el archivo para Blender y la limpieza de las ubicaciones que se importan. Además se probó el comportamiento completo en el navegador, en computador y en celular, incluida la lectura de los píxeles del visor 360 y de la maqueta para confirmar que efectivamente dibujan.</p>
 <div class="caja caja--ok">
   <p><b>Úsenlo en la feria.</b> Si alguien del jurado pregunta si funciona de verdad, aprieten el botón delante de ellos. Un proyecto que se verifica solo dice más que cualquier explicación.</p>
 </div>
