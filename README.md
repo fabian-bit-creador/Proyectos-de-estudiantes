@@ -19,7 +19,7 @@ siempre muestra la versión vigente.
 
 | Proyecto | Curso | Equipo | Qué contiene |
 | --- | --- | --- | --- |
-| [LiquidApp](liquidapp/) | IV°A · Administración, mención RR.HH. | Andrés Berríos, Angelo Díaz, Bastián Luna, Bastián Pérez | Simulador de liquidaciones de sueldo y finiquitos. Auditoría de 23 hallazgos y versión corregida en un solo archivo HTML. |
+| [LiquidApp](liquidapp/) | IV°A · Administración, mención RR.HH. | Andrés Berríos, Angelo Díaz, Bastián Luna, Bastián Pérez | Simulador de liquidaciones de sueldo y finiquitos. Auditoría de 23 hallazgos y versión corregida en un solo archivo HTML. Incluye LiquidBot, un asistente de preguntas frecuentes que funciona sin conexión: responde con los mismos montos de la calculadora, cita la norma, explica la simulación de quien la usa y, ante un despido, informa lo general y deriva a la Inspección del Trabajo. |
 | [Recluta Smart](recluta-smart/) | IV°A · Administración, mención RR.HH. | — | Reclutamiento y selección docente. Evaluador por competencias basado en el MBE 2021, comparador, pauta de entrevista y revisor de avisos discriminatorios. |
 | [Kipu](kipu/) | III°A · Administración | — | Contabilidad para PYME. Se quitó el login que guardaba claves en texto plano, se eliminaron las dependencias de CDN y se agregó el libro de caja con arqueo. |
 | [Expro](expro/) | III°A · Administración | — | Gestión para microempresas, caso «La Esquina». Se corrigió la inyección de HTML en las tablas, se agregó guardado real y el punto de equilibrio que la página prometía. |
