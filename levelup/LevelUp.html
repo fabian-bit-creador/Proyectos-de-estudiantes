@@ -194,6 +194,274 @@ fieldset.test-q legend{font-weight:800;padding:0;margin-bottom:4px;float:left;wi
   body.solo-constancia>*:not(#constancia){display:none!important}
   body.solo-constancia #constancia{display:block;padding:0}
 }
+
+/* ============ LevelUp 2 · cursos, práctica, encuesta, actividad y animaciones ============
+   Los mismos colores (morado y turquesa), radios y sombras del equipo.            */
+
+/* ---- Tarjetas nuevas ---- */
+.insignia-nuevo{display:inline-block;margin:6px 0 0;padding:4px 10px;border-radius:99px;font-size:.72rem;font-weight:800;
+  background:linear-gradient(90deg,#efeaf7,#e6f8f9);color:var(--purple-dark);border:1px solid #e2e9eb}
+.card--nuevo .level{margin-right:6px}
+.card--propuesta{border-style:dashed;background:linear-gradient(150deg,#fbfdfd,#f3edf9)}
+.card--propuesta .btn{width:100%}
+.manual-evidencia{padding:12px 14px;border-radius:14px;background:#f3edf9;color:var(--purple-dark)}
+
+/* ---- Curso en pasos ---- */
+.curso-cabeza h2{margin:0 42px 4px 0}
+.curso-intro{color:var(--muted);margin:8px 0 14px}
+.curso-pasos{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;padding:0}
+.curso-paso-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #dbe7ea;background:white;border-radius:99px;
+  padding:5px 12px 5px 5px;font-weight:700;font-size:.85rem;color:#48616a;cursor:pointer;transition:border-color .2s,background .2s}
+.curso-paso-num{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#edf3f4;color:var(--ink);
+  font-size:.8rem;font-weight:800;transition:background .3s,color .3s}
+.curso-paso-btn:hover{border-color:var(--teal)}
+.curso-paso-btn.hecho .curso-paso-num{background:var(--teal-dark);color:white}
+.curso-paso-btn[aria-current="step"]{border-color:var(--purple);background:#f3edf9;color:var(--purple-dark)}
+.curso-paso-btn[aria-current="step"] .curso-paso-num{background:var(--purple);color:white}
+.curso-barra{height:8px;border-radius:99px;background:#edf3f4;overflow:hidden}
+.curso-barra span{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .5s ease}
+.curso-cuenta{margin:6px 0 14px;font-size:.85rem;font-weight:700;color:var(--muted)}
+.curso-paso{outline:none}
+.curso-paso .manual-content>h3:first-child,.curso-paso .manual-content>p:first-child{margin-top:0}
+.curso-nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:22px;padding-top:16px;border-top:1px solid #e8eef0}
+.curso-nav .btn-primary{margin-left:auto}
+.curso-completo{margin:16px 0 0}
+.volver-curso{margin-bottom:12px}
+@keyframes entraDer{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes entraIzq{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+.curso-paso.entra-der{animation:entraDer .35s ease both}
+.curso-paso.entra-izq{animation:entraIzq .35s ease both}
+
+/* ---- Prácticas ---- */
+.practica>h3{margin-top:0}
+.practica-ayuda{color:var(--muted)}
+.practica-hecha{display:inline-block;padding:6px 12px;border-radius:99px;background:#e5f6f7;color:var(--teal-dark);font-weight:800;font-size:.85rem}
+.practica-fin{margin-top:16px;padding:16px;border-radius:16px;background:#eaf8f9;border-left:5px solid var(--teal);
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;animation:aparecer .4s ease}
+.practica-nota{font-size:.85rem;color:var(--muted);margin:14px 0 0}
+
+/* Hoja de cálculo */
+.hoja{border-collapse:collapse;font-size:.9rem;min-width:420px;background:white}
+.hoja th,.hoja td{border:1px solid #dbe4e7;padding:7px 10px}
+.hoja thead th,.hoja tbody th{background:#f1f5f6;color:var(--muted);font-weight:700;font-size:.78rem;text-align:center}
+.hoja td.num{text-align:right;font-variant-numeric:tabular-nums}
+.hoja td.hoja-titulo{font-weight:800}
+.hoja-tareas{padding-left:22px;display:grid;gap:14px;margin:18px 0 0}
+.hoja-tarea p{margin:0 0 6px;font-weight:700}
+.hoja-fila{display:flex;gap:8px;align-items:center}
+.hoja-fx{font-style:italic;font-weight:800;color:var(--muted);font-family:Georgia,serif}
+.hoja-fila input{font-family:Consolas,'SFMono-Regular',Menlo,monospace;min-width:0}
+.hoja-fila .btn{padding:11px 14px;flex:none}
+.hoja-salida{margin:6px 0 0;font-size:.9rem;min-height:1.2em}
+.hoja-salida.ok{color:var(--teal-dark);font-weight:700}
+.hoja-salida.mal{color:var(--purple-dark)}
+.hoja-tarea.lista .hoja-fila input{border-color:var(--teal);background:#eaf8f9}
+
+/* Ordenar pasos */
+.ordenar-consigna{font-weight:700}
+.ordenar-lista{list-style:none;counter-reset:paso;padding:0;display:grid;gap:8px;margin:12px 0 14px}
+.ordenar-item{counter-increment:paso;display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;padding:10px 12px;
+  border:1px solid #dbe7ea;border-radius:14px;background:white;transition:border-color .2s,background .2s}
+.ordenar-item::before{content:counter(paso);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#edf3f4;font-weight:800;color:var(--ink)}
+.ordenar-btn{width:38px;height:38px;border-radius:10px;border:1px solid #dbe7ea;background:#fbfdfd;font-size:1rem;cursor:pointer;color:var(--ink)}
+.ordenar-btn:disabled{opacity:.35;cursor:default}
+.ordenar-item.bien{border-color:var(--teal);background:#eaf8f9}
+.ordenar-item.bien::before{background:var(--teal-dark);color:white}
+.ordenar-item.mal{border-color:var(--purple-light);background:#f7f3fb}
+/* Además del color, una marca de texto: se entiende también sin distinguir colores */
+.ordenar-item.bien .ordenar-texto::after{content:" ✓";color:var(--teal-dark);font-weight:900}
+.ordenar-item.mal .ordenar-texto::after{content:" · fuera de lugar";color:var(--purple-dark);font-weight:700;font-size:.85em}
+.ordenar-item.movido{animation:aparecer .3s ease}
+.ordenar-salida{margin:10px 0 0;font-weight:700;min-height:1.2em}
+
+/* Escenarios */
+.escenario-cuenta{font-size:.78rem;font-weight:900;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.8px;margin:0 0 6px}
+.escenario-situacion{font-size:1.05rem;font-weight:800;margin:0 0 12px;outline:none}
+.escenario-opciones{display:grid;gap:9px}
+.escenario-opcion{text-align:left;padding:12px 14px;border:1px solid #dbe7ea;border-radius:14px;background:white;cursor:pointer;
+  color:#48616a;font-weight:600;line-height:1.4;transition:border-color .2s,background .2s,transform .2s}
+.escenario-opcion:hover:not(:disabled){border-color:var(--teal);transform:translateY(-1px)}
+.escenario-opcion:disabled{cursor:default}
+.escenario-opcion.bien{border-color:var(--teal);background:#eaf8f9;color:var(--ink)}
+.escenario-opcion.mal{border-color:var(--purple-light);background:#f7f3fb;text-decoration:line-through}
+.escenario-opcion.bien::before{content:"✓ ";color:var(--teal-dark);font-weight:900}
+.escenario-opcion.mal::before{content:"✗ ";display:inline-block;text-decoration:none;color:var(--purple-dark);font-weight:900}
+.escenario-salida{margin:12px 0 10px;color:#526a72;min-height:1.2em}
+.escenario-salida strong{color:var(--ink)}
+.escenario-final{font-weight:800;color:var(--teal-dark)}
+
+/* Prompt */
+.prompt-campos{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.prompt-campos input{margin-top:6px}
+.prompt-rotulo{font-weight:800;margin:16px 0 6px}
+.prompt-vista{margin:0;padding:14px 16px;border-radius:14px;background:#f3edf9;color:var(--purple-dark);font-weight:700;border-left:5px solid var(--purple)}
+.prompt-avisos{list-style:none;padding:0;margin:10px 0 12px;display:grid;gap:6px}
+.prompt-aviso{padding:8px 12px;border-radius:10px;font-size:.88rem;font-weight:700}
+.prompt-aviso.falta{background:#f1f5f6;color:#48616a}
+.prompt-aviso.privado{background:#f7f3fb;color:var(--purple-dark);border:1px solid var(--purple-light)}
+.prompt-aviso.ok{background:#eaf8f9;color:var(--teal-dark)}
+
+/* Respiración cuadrada */
+.respira{display:grid;justify-items:center;text-align:center;gap:8px}
+.respira-circulo{width:210px;height:210px;border-radius:50%;display:grid;place-items:center;margin:6px 0;
+  background:radial-gradient(circle,#e6f8f9 0,#f3edf9 72%)}
+.respira-nucleo{width:190px;height:190px;border-radius:50%;display:grid;place-items:center;color:white;font-size:2.6rem;font-weight:900;
+  background:linear-gradient(135deg,var(--purple),var(--teal));transform:scale(.45);transition:transform 4s ease-in-out;
+  box-shadow:0 12px 30px rgba(18,163,174,.25)}
+.respira-circulo[data-fase="0"] .respira-nucleo,.respira-circulo[data-fase="1"] .respira-nucleo{transform:scale(1)}
+.respira-fase{font-size:1.25rem;font-weight:800;margin:4px 0 0;min-height:1.5em}
+.respira-ronda{color:var(--muted);margin:0;min-height:1.2em}
+
+/* ---- Lo que respondieron 23 trabajadores ---- */
+.voces-datos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.voces-dato{background:white;border:1px solid #e4edef;border-radius:18px;padding:18px 20px}
+.voces-dato strong{display:block;font-size:2rem;font-weight:800;line-height:1.1}
+.voces-dato span{display:block;margin-top:6px;color:var(--muted);font-size:.9rem}
+.voces-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+.voces-grid .panel-card:hover,.impacto-grid .card:hover,.juego.card:hover{transform:none}
+.panel-card .voces-sub{margin:26px 0 10px;font-size:1rem}
+.voces-temas{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.voces-temas li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding-bottom:10px;border-bottom:1px solid #edf1f2}
+.voces-temas strong{font-size:.92rem}
+.voces-temas span{grid-column:1;color:var(--muted);font-size:.84rem}
+.voces-temas .enlace-manual,.voces-temas em{grid-column:2;grid-row:1 / span 2;margin:0;font-size:.85rem;text-align:right}
+.voces-temas em{color:var(--muted)}
+.voces-tabla{margin-top:16px}
+.voces-tabla summary{cursor:pointer;font-weight:800;color:var(--teal-dark);padding:6px 0}
+
+/* Barra apilada al 100 %: escala del equipo, del turquesa oscuro (más) al claro (menos) */
+.apilada{margin:0 0 18px}
+.apilada-titulo{font-weight:700;font-size:.92rem;margin-bottom:8px}
+.apilada-barra{display:flex;gap:2px;height:20px;background:white}
+.apilada-barra .seg{min-width:4px;height:100%}
+.apilada-barra .seg:last-child{border-radius:0 4px 4px 0}
+.seg-0{background:#087f8b}
+.seg-1{background:#12A3AE}
+.seg-2{background:#5BBCC5}
+.apilada-leyenda{display:flex;flex-wrap:wrap;gap:4px 16px;margin:8px 0 0;font-size:.84rem;color:#526a72}
+.apilada-item{display:inline-flex;align-items:center;gap:6px}
+.apilada-item b{color:var(--ink)}
+.muestra{display:inline-block;width:12px;height:12px;border-radius:3px;flex:none}
+
+/* ---- Medición de impacto ---- */
+.impacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.impacto-q{border:0;padding:0;margin:0 0 16px;min-width:0}
+.impacto-q legend{font-weight:800;margin-bottom:10px;padding:0}
+.impacto-q .option{display:block;margin-top:8px}
+.impacto-escala{margin:-4px 0 8px;font-size:.85rem;color:var(--muted)}
+.notas{display:flex;gap:8px;flex-wrap:wrap}
+.nota{position:relative;margin:0}
+.nota input{position:absolute;opacity:0;width:1px;height:1px}
+.nota span{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid #dbe7ea;background:white;
+  font-weight:800;cursor:pointer;transition:background .2s,transform .2s}
+.nota input:checked+span{background:linear-gradient(135deg,var(--purple),var(--teal));color:white;border-color:transparent;transform:scale(1.08)}
+.nota input:focus-visible+span{outline:3px solid var(--teal);outline-offset:2px}
+.impacto-cargo select{width:100%;border:1px solid #d7e4e7;border-radius:12px;padding:12px;background:#fbfdfd;color:var(--ink);margin-top:6px}
+.impacto-form>.btn{margin-top:16px}
+.impacto-gracias{margin:12px 0 0;font-weight:700;min-height:1.2em}
+.impacto-gracias.ok{color:var(--teal-dark)}
+.impacto-gracias.aviso{color:var(--purple-dark)}
+.impacto-nota{color:var(--muted);font-size:.9rem;margin:6px 0 0}
+.participacion{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.participacion li{display:flex;align-items:baseline;gap:10px;padding-bottom:10px;border-bottom:1px solid #edf1f2}
+.participacion strong{font-size:1.6rem;font-weight:800;min-width:2.2ch}
+.participacion span{color:#526a72}
+
+/* ---- Une los conceptos ---- */
+.juego{padding:24px}
+.juego-cabeza{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;margin-bottom:6px}
+.juego-dato{font-size:.9rem;color:var(--muted)}
+.juego-dato b{color:var(--ink);font-size:1.05rem}
+.juego-cabeza .btn{margin-left:auto}
+.juego-ayuda{color:var(--muted);font-size:.9rem;margin:4px 0 16px}
+.juego-tablero{display:grid;grid-template-columns:.8fr 1.2fr;gap:14px}
+.juego-col{display:grid;gap:10px;align-content:start}
+.juego-ficha{text-align:left;padding:12px 14px;border:1px solid #dbe7ea;border-radius:14px;background:white;cursor:pointer;
+  color:var(--ink);font-weight:800;line-height:1.35;transition:border-color .2s,background .2s,transform .2s,box-shadow .2s}
+.juego-ficha--der{font-weight:600;color:#48616a}
+.juego-ficha:hover:not(:disabled){border-color:var(--teal);transform:translateY(-1px)}
+.juego-ficha[aria-pressed="true"]{border-color:var(--purple);background:#f3edf9;box-shadow:0 0 0 3px rgba(120,109,161,.18)}
+.juego-ficha.unido{cursor:default;color:var(--ink);animation:unir .45s ease}
+.juego-ficha.unido[data-par="1"]{background:#e2f4f6;border-color:#087f8b}
+.juego-ficha.unido[data-par="2"]{background:#efeaf7;border-color:#786DA1}
+.juego-ficha.unido[data-par="3"]{background:#e6f8f9;border-color:#12A3AE}
+.juego-ficha.unido[data-par="4"]{background:#f3edf9;border-color:#5f557f}
+.juego-ficha.unido[data-par="5"]{background:#eaf8f9;border-color:#5BBCC5}
+.juego-ficha.unido::after{content:" ✓";color:var(--teal-dark)}
+.juego-salida{margin:14px 0 0;font-weight:700;min-height:1.3em}
+
+/* ---- Mi avance: los siete cursos ---- */
+@property --p{syntax:'<percentage>';inherits:false;initial-value:0%}
+.cursos-mini{grid-column:1/-1;display:grid;grid-template-columns:repeat(7,1fr);gap:10px;border-top:1px solid #e8eef0;padding-top:14px}
+.curso-mini{display:grid;justify-items:center;align-content:start;gap:6px;padding:10px 6px;border:1px solid #e4edef;border-radius:16px;
+  background:#fbfdfd;cursor:pointer;color:var(--ink);transition:border-color .2s,transform .2s}
+.curso-mini:hover{border-color:var(--teal);transform:translateY(-2px)}
+.curso-mini.aprobado{border-color:var(--teal);background:#eaf8f9}
+.anillo{--p:0%;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--teal) var(--p),#e6eef0 0)}
+.anillo span{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:white;font-size:.72rem;font-weight:800}
+.anillo.anima{animation:llenar 1s ease-out}
+@keyframes llenar{from{--p:0%}}
+.curso-mini-nombre{font-size:.74rem;font-weight:700;text-align:center;line-height:1.2}
+
+/* ---- Animaciones (todas se apagan si la persona pide menos movimiento) ---- */
+@keyframes aparecer{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes subir{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes sacudir{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes unir{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
+@keyframes pulso{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes caer{to{transform:translate(var(--dx),108vh) rotate(var(--giro))}}
+@keyframes brillo{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes flotar{to{transform:translate(-30px,24px) scale(1.08)}}
+@keyframes levitar{0%,100%{transform:rotate(1deg) translateY(0)}50%{transform:rotate(1deg) translateY(-8px)}}
+
+.revelar{opacity:0}
+.revelar.visible{opacity:1;animation:subir .6s ease var(--retraso,0ms) backwards}
+.sacude{animation:sacudir .4s ease}
+#motivationText.cambio{animation:aparecer .45s ease}
+.score:not([hidden]){animation:aparecer .35s ease}
+.sube-nivel{animation:pulso 1.2s ease 2}
+.confeti{position:fixed;inset:0;pointer-events:none;z-index:200;overflow:hidden}
+.confeti i{position:absolute;top:-16px;width:9px;height:14px;border-radius:2px;opacity:.95;
+  animation-name:caer;animation-timing-function:cubic-bezier(.25,.6,.45,1);animation-fill-mode:forwards}
+.gradient-text{background:linear-gradient(90deg,var(--purple),var(--teal),var(--purple));background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;animation:brillo 8s ease-in-out infinite alternate}
+.hero:before,.hero:after{animation:flotar 12s ease-in-out infinite alternate}
+.hero-card{animation:levitar 7s ease-in-out infinite}
+.btn:active{transform:translateY(0) scale(.98)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;animation-delay:0s!important;
+    transition-duration:.001ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
+  .revelar{opacity:1}
+}
+
+@media(max-width:900px){
+  .voces-datos{grid-template-columns:1fr}
+  .voces-grid,.impacto-grid{grid-template-columns:1fr}
+  .cursos-mini{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:580px){
+  .prompt-campos{grid-template-columns:1fr}
+  .cursos-mini{grid-template-columns:repeat(3,1fr)}
+  .juego{padding:18px}
+  .juego-tablero{grid-template-columns:1fr}
+  .juego-cabeza .btn{margin-left:0}
+  .curso-paso-btn:not([aria-current]) .curso-paso-txt{display:none}
+  .curso-paso-btn:not([aria-current]){padding-right:5px}
+  /* En celular la hoja completa (A, B y C) cabe sin deslizar desde los 360 px */
+  .modal{padding:10px}
+  .modal-box{padding:24px 16px}
+  .curso-cabeza h2{font-size:1.3rem;line-height:1.25}
+  .curso-intro{font-size:.95rem}
+  .hoja{min-width:0;width:100%;font-size:.8rem}
+  .hoja th,.hoja td{padding:6px 7px}
+  .hoja-fila .btn{padding:11px 12px}
+  .nota span{width:42px;height:42px}
+}
+@media print{
+  .revelar{opacity:1!important;animation:none!important}
+  .confeti{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -207,7 +475,7 @@ fieldset.test-q legend{font-weight:800;padding:0;margin-bottom:4px;float:left;wi
 
 <main>
 <section class="hero" id="inicio"><div class="container hero-grid">
- <div><span class="eyebrow">🌐 LevelUp.com</span><span class="eyebrow" style="margin-left:8px">🎓 Proyecto Feria TP · 4° Medio A</span><h1>Aprender para <span class="gradient-text">mejorar.</span></h1><p>LevelUp es una propuesta educativa enfocada en fortalecer las competencias de los colaboradores de un establecimiento mediante capacitaciones, manuales, actividades prácticas y tests de aprendizaje.</p><div class="actions"><a class="btn btn-primary" href="#capacitaciones">Explorar capacitaciones →</a><a class="btn btn-secondary" href="#diagnostico">Realizar diagnóstico</a></div></div>
+ <div><span class="eyebrow">🌐 LevelUp.com</span><span class="eyebrow" style="margin-left:8px">🎓 Proyecto Feria TP · 4° Medio A</span><h1>Aprender para <span class="gradient-text">mejorar.</span></h1><p>LevelUp es una propuesta educativa enfocada en fortalecer las competencias de los colaboradores de un establecimiento mediante capacitaciones, manuales, actividades prácticas y tests de aprendizaje.</p><div class="actions"><a class="btn btn-primary" href="#capacitaciones">Explorar capacitaciones →</a><a class="btn btn-secondary" href="#diagnostico">Realizar diagnóstico</a><a class="btn btn-secondary" href="#actividad">🎯 Une los conceptos</a></div></div>
  <div class="hero-card"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAMAAADDpiTIAAADAFBMVEX+/f0So65oxMu2mc3HpdqNe7GUgrd3bKBOvcULiJVwZ5wjZnzs6PIGnKjQ6u2zpctYwMiQ1NkRWnMpq7TXyOUoaYK24+bb8fLk2e06t8HIt9nX1+V7caM0srvDndcZYnq3tc6vx9DMxdxPhpnTueKo3eKs1dqFy9JrmKg0dYpmXZWXuMPF1tyGqreZlLlNZYutjMdHfJB5o7JVWYmPsr1Ftb0pWnehlr7gzesKkp0BS2ZWjaAbZ4FZk6MBfImc2uCCbqtpvcV70NZwi6M4XoFtdZsbsLwrlqJki57NrOBZkJ+fk8Ghg74+hJkwkp9drLVnkZ5vtr6djsCer8GY4eWmpb8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkK2XsAAABAHRSTlP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4ETk0AAALipJREFUeNrtfYli4jq2LRgwbiJkGww4NoQpTAnJqaSSGk5VdZ2hu2/3nd78/7/yLHmSbHnEZIC9bt86CRhD2EtrD9qSajUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgIsw3HNbwjZwXfvz1LyH+6uB3+E7OCWvW/i7gSzlzAmD4Vs6JAH8BAgABgABAACAAEAAIAAQAAgABgABAAPhWgAAAIAAACAAAAgCAAAAgAOBNA5nXzaaReslQ54GBACdjfcNqXjWbzSszzf6aFMEokQBfgQDvyPpfnLHvIU0C9Kj9pWEyAUbwvb4TOMp/Fdg/VQEKEQAU4J1If/MqMP9VRgxQhABhDDD8Qwc1eKvmZwd/s3ltpl9eigD65eXkUgI9eJvaH0p/pvXLEkC5vAQKvEnzB4P/Kpf1RQTQchJAUZx/A7YA3pT5nR++oHwvKkUAvU7s7zBg0teAAm9v9DevUe6XlSJA7adCJOByQgCO4K2Z30AFXliOAE4eILnmJ9EAUOD1I//Q/F+KvbQsAWo1LE36Ey8c1MEGrwkjdP1m0deWJwClAHEEhAIKhAKvqP5lR/+hBCAUuPQAocBrq/9VxqzfUQjgqoDLgAn4gVfAl1wzPkckgBMOKhMaB0wmCojASw9/yx/+GYkfMq45GBUSwLlSIeafgAi8mvfPjP3+deWWB32+XF1XSYBaTaLmd3RAAxF4OQS5X6b6I3Z6yEW1BKhh4gcICy5XYJgXkn+v9HOVo+yHmvkJoJQigHMjtyjkpANgmxfJ/a8KxP4vQQBXBC7BDbyo/F81Ua1iAmhlCUBE4JLMEVyCGzi+/HvBXM7cr0gMoJQnQCgCkA28RPSfv/BbFQGy28C8slAfAoHju/8Ck77HzwJYN0CzASgKHd3+BUp/LxQDBG6AJgQwPXTM8K/YvN9LEqBW07xAABhwDFhXBaL/1yGAGwgoyuQnmOtI4X9YyX2TBKCBAGEAJANHsr9Re9sEqA1JRQAYcCz7f6m9dQI4oSCtCUFd+BjlH7P2WgQosBxsBAw4lv1Rrfb2FSBkAHiB17f/qxCApIMQB7wN+7+GC/AYoAAD3oD9X4sANe0SGFARvO4PVDsKATTnf8oRCFCTXAbA9PChuD7I/qkE0Bzrr0Y1vNocY4sYTwOgKvyq9hcQwArGqBTsC4Z1SdGq3iNIoxWhS5gbPATu/N+VWTsCAXjLEA5U6QJqZC8BwgAFrFge5qH2TyNADENcLQHwM91LAgpCB1rv6kutSgI0s19UEQFq2E0G/wBLlk0ASs3/ZBAgx+0E5waW2xlsNYFU4ADQBoCi879pBMi7e9DqL3/9ayUEqOmUARAIHhAANmuVEeBfog1ERqI8Dd/+91+r2Sn0DxoGQCBYOgAsnwBGCSDcPmal1Ot94YZfq9//rQIFID1CCswMlg8AGmbtcAIkbRw3lPrdbp1AvMfD+n+ErqD87qA0GZzAAfSlKkANo1YBAa5Fgx8H1ifo1vsbAQfQ5odLgQM2i8YQBpTBFxoAWhVkksJtA3WlzpifUqBbV0TDFFNX0D1gf2AaCF5qYNMSrvs4N19pdd74AQf6kihjW/2vfzvowAhpAhODhQOAqwMrgIlwHH89GYQDwnDgoPekFWGYFiqaAV4Zld8X65f1bChVD9bhJd1iGOz6yg6AOP56LvS1aot3Os0FwQnkzgBo2Q5VOwq1aNiXim6/0u3AaXMAZAJFSkCVOgCc6vgTooHuZFOZxTBkAkVLQNU5AKxP6mVRWThAc0GYFSoQAVaVAfxUukWk/2iuQKNrBcC6OSPAA+cAw5yvfoj1PVfQr2IzYJIJKJfQGpAzAqzCAWDp8mDzUwJ0iSs4+KgwCeLAAhHg4Q7Ayfm8Cu/BBKgmMxwp0B+WOwI8fA7g+Wu9/g86y3MwAeh//uH8cGBAqFMJgHpgDgFoHl4CwJvnSgQgvMXhCQEpBkAqmEMAKooAsf5c71YUBCh6NXEgSEAGvlQkAB4FvBDuQPs/V3VYLI0DQQIyBaCyGqBDgGfPF5QOACsZ+/7noRIA1aCXEoDasN5VAl9QxvxKxQdFgwS8qADUho58BzFhYQpUOfY5CYAoID0FqFVJAIWJCXPPBhPl/3mUQ+JBArJrAMaRCJDXF1C/PzrSXwgSkCoAzUojABIE1qPTL6N0DnS7VfeCCCQAyoEJuK5YACIE2HiWxWulL+QAY32sH2mUDmFGIBGoagGIEOCSietWUoQDdNJvyEQLxxqlEiEANIeJYFRXBBQSQOFj+9Xv/aBKxDSE4w2NFbubI/2VK7pzDFg7KQSstBNcr9f7owgBHJs/+xzw14YFvV/0AUqKoxGgpkExKCUEtKq8o0TNjXkCuAvBnkOTK1E61I9LADopCGFgHFbVAjCk4/3rMxMDsLke3/JJHQIz/3c8AoxgqWBKCFjlHTdeNX8kIEDdWxQ8FIeExySAmwlCGBgLAUkVsNIQcOO18vi/T8QrwXRN1DJ+RAIMIQx8mRBw6BIg+Kon3ZSOrxckgBsGQjUwEgJeVb8YTCK27Qfetl9oZdARCQBhoABkP4iqV4NSCQhiwCIE6B6VAJi4AGUERo95AHQEBQhiQLELSOwCOyIBaDUQVgnFPYBV8U3dqG8VKkCBPtCvx5RoHWaEXsIDjFxjBl/0qtCKsGMm6q4PAKtHPEDF68FpIYiYkpHe3Apw5OFJGsRhx5CjVoF8czvenPmiV3kCwW5XObZtdKgFxatAle8Io3jhHPdFr7Mo4Jj/+OHZEDrDeFQ+D0CDPq+sH3G2WOonLhbo1itZCZyvFgTHzB/XA2DHzF+/ko0+4gNQ6se3CSTzQ9JL+WWaCMIJ01wSeF31Xd1TwTbifV7waqNM+sHKoX5f2bxkYr6GYmAsBPjyCm+MMR4OnX9evCpHE0EIArgQAJ3Vn+wEARoEAccMAd44No79FUgEjxkCvG0MCQEgCDhiFeCNA4IABtdVbwwtHSeoG1Yp2VAJCFH1VPDoSM5VqlKyJWgLOl4MqB3FueJKfbauaBpMB7gxYLPqGFDScmorHq70Fc49ZqskwPBS0xTYN5LgS+VnA0hSnqFFNpKkTaF9Ldfl1aZtmBQCIA2gSUDlh4NspOwpHaywswE59vLXK87bIQ1gk4Bq64C6JGW19G2ik0ETnBVZStXOE2tOEACdoQTlC8HINE3RC9dSlgRo3XgfQLp5dU2qNmuToBjMJAEl+kHRdbNBIDgUckimAVPltytqBE5LyrAmSdV6bJ1EgdAa7BGgcBKALGr9hqqqDgfMaHgnpeq11BX1gjAd5EIBiBPAnqn38r26KCVfNA2APNDLAosmAQYxfSPEdTQNSMvZhklNYUqqAERzhYXc7rTb7U6n0/5cggJDBQjgEqBEM4DRiIJnwMaxV/KXm7xCRE+uLDgE4DQFyZ3O2IVDgvasRB6oQR5IjXlVOAs0Y/a/4k8ZXitEAxIirFVyV+gk4Q1/Kg4DuOqSTUd/m1ifotMo+nePNGgKCsoABZOAZkMAkxtdKU5ASWkLXiU4AArO/jzGreIM0KAQkK8MYMQdgIgBzUgQIEm/C805SmsKlxIcgMbLNWpHCTAed4p6AQmWiOYiAPpgRx5RG40sCaBBuyScFl6nrQvoCzMAhTCATSvuO+MIAcj/zMIEgEKAXwdKS/gazWgEIGYAW0sYugTY5MwBw1xwJMwAqAcYMQ5gPG7HRKBzH/3kYztTAYAAtWYmARr80LLEAtBQYz5AEp0GL6UuCxcYxL0TO8WsdkQEaHciEqB+TCWAThQAOgJqmYXAZsPKDgEJWD+ie2aLG1RLXRcWN8jGFRM2CWy1hYhGAa0bIEAVBLAaKipMAM8HCMq36UuEY4RZKR6VRokpQEAA3gfYnXZqcvOTFAKAANlTAYbKJ/m5COD7gHhzkNQtQoChb3+mRrToJBBA5l56326l/uUrIEA+AphO1oeyCaDyOuH5gHhBUC+SBWBfSDTGUlYuAtjjsZz6lw+JC4DZoOy5IKQ2uUSgmWB/PpLEkm+6yHc8TMsClFgFQCAkVmecgwD37fbnbAUAAuSYDGzySb6R4AEiMrLxGRBtDeinEEAX25+fW1w4BBhnEWDRaWWUhkAB8hLA4h28mUCASMVwKCUwIC0IiHgLLbgF95Fb47GQACpbA+i0O0YGAUABPAJknBJgRMZ3U1wJQsL8Pc4AnLcSHNo/MhMsCwWg3VkwNYCbdkYSAAqQmwAoUuk1RXMBH3yGoFgmGK0JJ0rAJJKnJ7yeFILagkrgGLEpYDQpEBFAAQLkIQANAlRmhFsiCUA+O0QSwFswacfAYYL9o60gSDD8x2PWA7Q68bpQPAgEAviFoAwCGJQATJqnxhngP9kM545YCeAYgEUHCHa/bpLGf/BihAKBjxOAGfCfqUSgHASAOkAtR08oik74IpXPAEMHYbJzAqwEcHEAFmgAvzcoE/8xAjCTmREeFYCw7jsjvUJZHoCkgUCAfATw538YBjQ584fTyU02HRgqiQx47qa2g20kof+QfSs7QT6XCHDtAAvyXHZ/gA6VwIAAWUtDzXjThxGKANNSavHTgpwZeX+74fcJ4+ZlR/zrAmpY7bY/rJHcYXPBDpMBLLxnUCYBoB+Afqt51gb7A57tHDEN8lLLQLVodGgIo4BIVXi06dM9wtgTA2MVBL4IKLPjejYm/cCkM6DTuZFNxv7i7gAgQAKu8xAgKP6oZranYEoCvJQrkXQO0wmD6CGhXPjHCses3XLMHQx1NJM7FGOZKQDMOl5SaGf9TdARxBAA5ZQAx+Fbidc2P8SqwliKjObMtAtLvP3DIiAtADpgLGsvLGthI65E0M4pAJQAGtjfPS0qkwB2IAGxmq8vEqqoKqhHrKls0sfcStMinMFc+Yd49+QKL4kM8goAXR0KbeEeAbL7Kdnin2rECIMs8cTQSIphlTb8I+ZnUkDU7vgBn5rw8tnYcRK5lwlosEGAO3LzbRQdmQKy2Fcgo5nYIqxLAgqIm7HxJn5pKAD3YfHnRhaNb6vVaY/91CB7ocMIdojwU/p8awNjvaBOAmCbpm1YauoqAQEBNEmPOYLRSvo9fmWYONg05vezvvZnO+qAWjcdd4EAYYia/fdgWBvIECDH6mDUKAQzLLgJKeAE/yEJ8EqSRJcx08AySwBiZblhueEfMheq3CbP+hew00KJgMWhRUqBAieQATVNAigHiMU3uk50Pxr5BQKwZrJ7hgB0oHecId+SZbnV7kSeYueFk8NNaAcoUgkSOoFUJBSEozTQkozPC0Cs+E9bAjqc6YOqcK5lgrQSDGWAWpE9goo5AZQhAdkIO0FnNL3rCKeBY8Ro5fpjJDIXBASoFVkeXMwJhNUgpaT9wxqQl9y1k1YEsM/kKAEEBADr588DKVc+lJKATUkC8DUgx/6JDGBwM8v3Z0MZoGgeSMOAD6Uk4EABsNvpAsDZX873l8AGIYXzwFhBMH8qqB8mAPed3AzotHL+ISvIArk8MPdm0c0yqeCojP11JgVs52PAuD3Ou9cJtIOUSQOoPy6TCpaRABzWgEICpFGgkzsAdGNA2CjUw5dCx0Yi9WUkQCAAWfLfyVUBcqHAFlGlosCCDAglQCtKgBFbA8oY+PG+sOwYUIFDowoXg4szQC2bCDCdwDkFYNwuYP/a6hJ6wssGAYUiwVAClHIpAGrlI0DOGYAwBIANgiK1wEJ7bOVnQCABhXxAqM5qJ28AUMT+sEkgXwu8KrxdsFVYAjblBGDc6eSzv13k42M4NrB0KchXjaIF4SJRgLYpJgDjTqvYJoG0DASnh/OloII7bttHlABGAPLZXy744SWYC+aH81XRIKBAMlAmEQgFIJMBHX5niLwhAHQEc0GA4OAwdG2YqIpAILhv8T6AXClAp5OVwo6Go1gVACYCoj4gsh8onSR2IoNUFhiFJGBYWABy1AAc958W/uGVLmnxmo/zyATawVhz/4vPAtB108OV4x2uE0mAmkeQgHBfsVaO7D95CRAmticFH1r25URgCAKQ4RKumjwcJSgtAoGHXivFBMDKnP3rtBPkH/+kA58F1P3yVwaj5vdIIOSAqebuC8AFp4HkTpb3l82EoU9NrvEcgDGftyogtj+dMjLLxIJBs8FGKzIPHO8D6ETsrwqtT6t8WlQAyIOQ+OXMCNIQXxeYLQJBMUgp4gHkTrvTSWkEFSwQG9GxLzI+iMBh8p/hCqyc3YF5pgF8X23za0Fi9o8P/2G69aEF4DD5D3EVl4EMEUAFwkD/lp/9/p+OIPiLD/+RK/1KKjRwA+nyn8f8LgWuUZF0wM8ER/kbAehycOICRPaPnROI/8i2vgfI/w+R/xRPkFYTCORazz0N4BaBRE6gEyv9D6Us6YdAIAesQvYXUMDIzgSHuRcDJOaAnbElMn9uAmiKBM2gpd1/OgWSRSBvGBgItN1JKP107lHE/Jehg/f+m2p/hykaFIUKZ3+JFED5RADl9AH+jRodQfg3HnfGi3jgH1hW40d6dOQzl4EbiIZwVyUJ0LziKYCs9DAQ56sCChsBxu0Of044lsRGVlLSQY8nG7A5Z/9meUQzAjs9DMwbAsYWBDvDv7WImj935Mcz4lKZaBAIRGIAB6ZpXF+XIYGRHQn40cIqZxUwvu4/4v31/JF/eBmpReu6vloNh0CAZCoQIhRUATMrErDy+AA9MQSMTvwNtXT7R58juxKtMBi9CA/ML9dWyWgQJZ8okdob6HuAeCsYn/tjybOwloMB/IZUgKI0uHa7Qgr6gWgsqDbsHD7Af3WLPxVoHKn8h+qvJYR53tOStALTV0ECwyqcDxhJPiC5HKz5m4ItOAHotPm2r6GWIf6uNjjjHhS/ShZ8uc4xSZTiBtRMHxDkAJEqIC//seAvTgYNBv6RSJAVG/IiYIlLASstwwOgNrsnJC//guGvRYz/E4x/XHfQTC0af0lwA2rQGDTKagad3XCnwS0iwz9tul8H479E2TiVA6wImEXygLgHGEcW/WBJbH5XEyTw+WVqgD5s0zQRyrvECqWFhSZXFFLjPiB9IhCxu76yB0D/5Eo6Bwz9EaYYDvHZzwrF931TyTlADh0yqZAcFXKLjKx4cyhOXxIeLAfhzgJzPEdodc3/kY79PNYf4aGuO2/yPJn0meOru5MzH/+p/fwOE8xUTaBFgqxY0GgEIpDqA5SIByC9QIz7HyZ4/yzrk7VByoTYnJ5RFTuv8qy7BLO2gP/wwREI1TJsVFgHTFEgkO4Doh6gwx4PpMcif9oCmGL90ZBYnti9nnJeeeTAwjNDge2eqBokxQMZbgDlmQ8ImgH99UAddtNnSRD2aZth4qiXtEk9L843cSi2/3uDioF4hZhpxdIC9kRqFK0Fpc0D3HfIUYDcnq9YIP4JZw+NVrrSrxfC2YYBdqMUxGtF0XU8M0SRqqAazAmLtozyL215Z0Fy7j8K4eFjjuZP6iVwpmEAapSHiAQCT2Dy6aCa4gMCD0BPfuUW/eqxtF+PJ/yYDPxut14K59kprjYOg2ChoGlF5g2ZKxwGqGqwSjDZA3ymR38z1d9NVPuHQuMfhHOsIF1/OJAADecGVjQ/MK95ChhsxMHsQqEne4BOm7N/pPgX0/6hI/tlR36A5zMs5zaqgJMmRpeJoeukUNBhQGOR5APCXqAOu+fPSEtz/aODh/75VgPURkWIc4CjAM+ARqIP8HVdvWFP/ePD/0jSv1IOH/qe/bvdc6sJW43KGOBm+HYSBa6aHOuS1gf4l8jtmzD+w2zaz5t/pfWrMb5HgD6UgJNHeE4OmGIKXIXpIGp8SFgjFi4JZfK/IVP348w/lPq5xn43GZELzywX5DJAlUz/WNdkRtA03SlBt0XcJAfDOri2rKaaRzC4Q6XNZuMqVhBACY1hwVot46YlSv8l1vz6ZT2H9fv9ybNCD6fc6AE2ZBbidyWcEmLYcE5OoNkgNjeMAvO/NdoubhuEDInC8KFh8RTwCBA+aooXiGhhOzAK7e+3/rCJH5YSrE8N2Z+QHuDVEOcq72I8XLszhJQNZ1QSRoe+nnSJJpUHGE9gBNXBkAFhCCdcEmjH7b9ia0KiCT1i+Wdps8blTUhmi2HFaBkaqHEtUA1BKBDjHLt/vBbft3lFu7sldhnnaBPx/FS8+wq0/b8uDezY+fEfGmEwYFrRSFDgA+L7tqy8/u7Q+WOpHwRsfuSubMD0b0YLOClggwEjgQHsMULRGw69nRyGYUIYuP5g3IPt31ht0WgyHGBUANFg8Cp6NGG4Z5ymi+zPLOHGoevvfv1af5bAXR9/UMdQ3B0YYdnBCQYbVpIPiG7Ygd3y/yoQ/9D83f7va1z0TwBr5vq2bHsxm6mNe1mWW2RG1juKj27TNKZoyfJ9Q1WthZ3WI2ZYoRAYQUYoOJVGT/AAI0mTmI18pLBYI24D8N4X79fz26e77fbHcrl82HkYDMi/D85D/77dPt49zebrvQ2UYMbswlI/3zsmdyx9Q9FJg39FuyXfq7OFIRxeiDgD1xGoftp3HWfAMMEDkIeCRSJ63xv6dUXs9PF6/uTY3DH1tOfA/UeAXoDpxWC3XG4fn+ZrjM7Y8DPVsTvpvUk3eRxt9uexQ4SFLeoO8WIBP/iLn1I/iu4NGtrfD/5XEyfeo/O1cesj27H80rW7Y+ALggGF++NFCjxCTKe73bft3eyciOBa3jF8YPZ2u1MC4XGtBOOWQwMU5YBXMvSmgJEVZYAwCXSSA3+VsBP7Oebvxq2P17eB6S9CmxfHwBOHi91y+zTfnz4NkDzuVA2XB46OtFufZ3Z0x6gPDnw/YEQKQu7GsfzhPT+1oDlo49jeyfl+5wXCnj0uB57lLw6HR58pkQPHM/x4tE+aAPINUe3qScDQQVbZrxAt6OICLwEwrxosA9xEkNuybRjs5+xk/iTo58K+/e12N/Dkvgrrx6jgqMHulGVgdtPuHBs3H2/G9zPmW7RVJyL0RADxyaCkRTwADkq/G+L52egAz7Y7MvAHg8pNz3Dg4qK3PWEH0HkhOP6gxQgB3Ttw4U0OfDD4YiDnAfzkH186wR8zB7y/o7J/kSj7g3gkMGWfzkkA8k9vfbIEuL/JaT4/GSQFgBaDcQHvcXMzDjlAPIG3KuSaOZ5sqPAewF8f6Az/y/Dh9ePDlLj85JA+zPCofxj4cOP9afzZ1Azh4VTtv7jJsDoN52Unr3My/IVh24IqGnnIthcLa8ZVD5J0gOHA4sN/uiJgXyE2EWTKgLorBrjfvQymgPePOxLwCYaqZ9eLi93Dcru9e7qdz0mRB2MclACdn+392nn89u5xu10udzv/VR4ThDLQuztRAoxpCi+KApxsXm6oM8MuWjZ12GBY6j3JLcQ8uLmR/XgAWf/pioBpcYlgqAd/uLl/t++LML5dkhyNMRQxmpvCk8zt8Xa+L9QEgLC9dtiwXT7sLvxSQEQTyC+nOc2k3kSyfud3UsaxDPPwwJeUF+5lEQ2c3+/33kXeXnEoCANWzBlho//rcqLvPzJfDqbf+VFKbObm7IeWcxHeUya4mjANY0uSCyxP0f52YH5io5b8WVTAO/hNFup9qxMlwcePY08GkMVXgzFzSqTnFLwpQHy3o2N/wGTqvcGDY/qKh6dDhJAHnhr0bk+xBOAX7eT72eKouS5yxGDMV5g/fux4MaDJF1ok/gxv/NOdAtpvB8S7+/EcKdPstk/rI0oznj9tH5w3mk6/O2+7O0En0HaG/f0xRn2CFliUBCELPnbuBUU2XdSNPXc8/4Vf0aeF2u3sRQp0yFGDHzuiBScoAfbixUtc9uzeGfsfQxmIU2Aoicw/9cMyIvvfbl+4OmvPH7cwYVxZ7qmOOx9v3Jjzo4ACo7j5/STeGfoPd3MwxfvXHlUmQQCxP6FAmkXnD86Qp3HftDdY3trw5Z0KB/7f313z//LLx1/u0sx/4Sr/xfIWej5PzBfc/0Ls7+Djn+IrZiTy+3Txqdfb3cHYP0Gg2d9dBvxyLxz/buTX+7Scw3d1sjLw90QNmLuhX+9PGPwnzQBXAj497CPqsO25BHiA7+i0cUe8wMdfPv1ty1AAPw08+w/28BWdOP785AaDfxs8bGfz/X4+v/s26HnzMFNw/6cfCv79k+sGfhn87RNBr/cpKPzdwvdzHhpA7c9Mw9OfP32awZdzFlB/+ZtLAK6nr/cA8f+5AN87UeAgGPsXF44j2IH8nxPs+wcaAHyixu9dLEH9zw77/7P954OD5Z93c6j7AwAAAABQWZRF9vhcUBgn8QcZ5LwBF4tIThFsA6pnbxw1DLcNPe3TohotstWLi5Poqpq1/QVqbZV/Ru+GGwNnGlXphluNnfQxEQ05xEkQwGpRPhNaiwlA7ZpJAI3ZTXh08gpwSgSYeeO/OgLUgQDvkQAtIMCZEuA3IAAogAsgABAACAAEKEcABQhw5gToAgGAAEAAIAAQAAgABAACAAGAAEAAIAAQIAnItG3bPvqZK2Tvycy3qWguoAgBMB4O3+2xZIcSANmzhtdQQDaR5A4G9q6wHLgtJ1bqO5jOVe6FVrzz31yon+VW8D4Geg0FCBtKgm1Lh5J/Mn1/8i4PKDuMALYqu3PvHpxf/nfUyui335JaNHjI4XVGlENyMK79/hXVfnkChA0l3p5Vmz57QC05r2Z9TgQwPrc483u2kSPHfqmt4Lm0t7BbPpla/MYQSG0J0bBfmgD94CH6er0uOKB2op8LAVAjHJOh9d2HuBGMgq4zubVI/SQt0VVk9Mtx85Nbqui1CPAHvUR4PHX3GZ8FAQy5JXtDlpNmzzQRCfCp0kjmE2Nbjma/tVhusRRw/t9+JQJIZK/yhMPpu3X9DAgw80weGF4OQjT6A2tpMyRAK3FhJ6PzjAtBYWAgxuJYBKinKwCmx9AnoCudPAE8vx4ngC8IHAMaYfyWKAHMIEeM/VtZWLwKAaRJt55o/3fFgHIEUFvRyI8JB+ItmQvmSVN8R0uUvifZn33LqKa8DAFip9NHH9NPmgBW1P4yOfkvGhHM2OEdXKumCYDMe4mo/d23kVthVBj/2C8TA3DmdxF5eHXCBLDD8Uz+F1Rl0KLBEIC1pNUKtUH4LkYYQDQinsPHZ7/AgOyZzChOxKu8NAGUzQpjPNwo/UgkODpdAnBh/4x7lf2ZeU5mtDx0FQvxx2jFcsAFN/iNWGkgUCDrtQjQ7euMmfU+qwJd7WQJQNfe+Da2BdG8b+zfLC5oaMWjQ6ZUEM8BWUcfcxw241W4D56PAOsqCBAL9X7vMkXB+vBECYBa6ZU9Nczbw6fNMEsQZYKzkAAzjmdJ9vdFxVOh11GAuJvXGRdQV06UALNw6ImXk6phlL7g38fVBlXkVALSIEEGIAwcGbciv0oWIArzdPYCfJoEYIL/hMLufTB2G0wm6BNA8D7Okz5p1LgAcPblAseAaMYrEEB8iw1zhXSSBFiEApBU1DFENR3XxNH80MXn0NhmyKIARuJnF5j6pVxAksBPmGXFJ0mA8AWJhqnJ8ZCeunnPB8iCtDIqGczUwH0tg2jcHV+KAEkh3rCbfc17JgAK6z9yLbWuTy/iqnquAsTnBNVwHtAQ5ICLWgbRnJuaL02A5AjvufuufEBRAtihAMxqaUPTvajBm1kwUxQMdp5TaljpQSkf3n/h4qUJkFzoY95GOUECLMLrjexMUZbj1CED3YzVFVw7WjU+BEidPvInEHgyvlAdILnOh99XEFCUALPwerobU6Ph/8f9r/tjSAAUe6tYXi+Hs8WoFk0CiRtx7xm8TyPYBipkifqyCtCdpLy0/676iYsSIGEeMD5f58GOiQdvaZrNCeYBRTN/ye/FyMTst6rTwH7ctF+VfC/Fp04AlgvCX7hMQQ7rwRb/CaI5IJsYiIgWnYRufS5IgMzwbJJOgLTXS+HbDE+PAA2h5dkuLU4BOALMRLUdM3x9Q5gZZiMnAVbdAjWaUMcZue/nUpBzIUAr5gqYJqHgiUU83KewI5ISKfgUIkCL7SNOjgFwt547Pmciua5SlADdUyaAGtpczkQ0iVfjxkHM/ZgrzWybM//hFCCZAPX88blYLfq5FIQhwGnHAHnGJr/Ew2baBlGQA4qm9RHnULLf5j6HC+AKeRmmkZiWP11wAy1fAnGCBLDYNHA2m6kiMI+iWOmOLyMxngRxBUemwVjNhpVDAdjwPCsNmAiLviEBcqaBJ10ISlvkkUIfvkRkJO3ryRCg2HqVFAIw0Vn3OT0E6ArFop9HQZjJgMlJl4Jltfi7IX86yM8PmFYwM1bl9byMURUBhmwnJ67lcuOcFft5FIR5rXaCBEAJmp0T4SIhah4URhINQZVXTm4HKUOAGkOA1FIOTuj76tdzDO6wM/Bd9IYfMh1sFX87k0nekRtRiCf9mTSgGNHSCKCwEjDMVwdmpYKNIpNmE5hy07toCSrfEFJOAhpco2cj7BaPXiiHmd6sKgKsu0zLXnImyNqQG+r9erYE5FKJN0mAnCON8QFpE3VJMJjkjp1btkTxYuaCwoIE4Hu6lBw1AF7GuZdrWRMB72N1UPGeQLYSkOSeF8l+Ww4rf5aaEk8gZoVJ4idr2MUIsOHW7yjCybo13/mfyB/hfIJUf29bzJZpCw/rgAkMsFIiN3aRUFBOFF2usktOhRqAPrdksxABIn29fT09AYiO4n7WClAueHgfC0RZAhSJ5IPG0DhryLKdZMeNYlVEmWvpYouBsnDJeBiNtATikE4AnV/C153wsdxo0+cv6KfQp16/5APJFfvi97I2jCXAwj8/LArvccRX6TxE9gRCMy/XX6S4EG4rgaRggm0Ml2MbwtgNcY6QTgC2Y89NBvrSGhNTjfBQV2JLvoepBHC8yNo380iP3HpTe3cEyKi9/2YEgVyLmxBUF/7WbcgId41KKuCYLW7ukO8FjX42dnK5Ydnh8tDPrYRVAxkEwMJV/f2Ehd+bWgYBHMY8SwQx7ryPdUERAmTM7cWncPn14Q1uXjgxeG/wHQPJ/cWIu53s7RCnegvEE0pIGQTgYzx2gy/Bg0otkwD1hH1C3s1RY6UI4DGgJeoHkEMJSKjiG5GtpZIrSmbktuKJ4d9UIQGSIlS9ngbGnvHGv5AA/W49He9mo6hyBPAceUJrgN+zZaVnguLVvZGZhxZv/RgXYklilgLwq7cK2Z9pCJGkVAa8m+0hihHAiCdpzICPMiB5tjC6wUhKsd+U+f3HPJ+RbH+27yzpvno9B7pKShLpPKnU/5H40neyMvwgAtAkLE6A8EHZTikmsle3krYN8nNK3v5yq5W8IV0+ApAt3rLML1z7yRKAr/nwueV72iiwNAFqZoPbEigiASrKLiZmbRzmMU2O9JkmbxwSSR5TlEXqdlMdgXizxz5X5NGF+4R16+9oj7jyMYAbzX1utUTdgS1ZTa/em9wrsir93H4wAeNEm9JyBJBT55GxkrjNW7errLImeqiR8bOARtI72zC6UaD5Np6tG5HNol2zzMw8tEtoBBBSwLoXbEp7L9x8PDw9PKORAEsT4Y5vfSnRg8eaQofe1lD+LmGX72+/8BnbcdegK7u85V6RVjznYZFdkaF+ZhdpNGZ5pu7sRrDeq5Gv4ce0Glzwry5Qksdo3P8HvfXnzH4FrBMDetajxlektPhN1BW8kpRJ38FEeZe7xVcChGyDHApgHPnMCO9tFoZd4dvgob6htbyNnnnoQ762cMDJAggABAACAAHe2XbgACAAAAgAAAIAgAAAIAAACAAAAgCAAIADCACVQCAA4BwJ0AUCvB4QKMA5w2rIWY1mL6IAXusPEOCF8R9uC/DilQngAwjwwmhkrDYDnDbMYINoFb6Mo8RXCNVIOx+i/1co5KqsCxCFHyWGRStYiCh4JR4RuP+OMMVIBDzCzEWjzOuDJ0+61/P6qvnGIGgTttK2ppvUj42TrvtdN98cDKECRI8jDqD0+5N+DoQXTdw+7slkEn/OfdyD92tdByfxyi4qWA4CMcCZVgFaRXayA5we3FX/sgnfxNlmgpaqLuBrAAAAAAAAAAAAAAAAAAAAAACAt4b5v7+VVor5cg/mOBLwMsBuzj9113srX/vtr3Ow1DEJsJsOHh6WD5Fv+SkHAZbbFyFADwhwVKx7d4JH8yjAdAkEOAVvP731f9zf3s6RTwDvSCY0Dx7Dc+z8Ovd+xfOLh/1+H1wl2GZ0P585z8/37hVeUDH3r9vPZjGS4fDd3LfGPgHme/+ewaWz4FKbXgkopwA+AZ4GPQeDOUeA24vedPr9zvfGt85vPTdeWP564Vx+QW1wN+hNe71/8j0/9rLnPPqAv++oAX913wb3XMex35FbLXmzbXvTQe/iyRv69PPM5pQAyJebh6n7Lo9T8mHppfMHcuH0DmxZ0gV4BBgs5xjPd1PMEOCut9xjfDfdumK8vHiy7bvBdO8pgL23Xbtt93j/2NuxDMCD6Z2N5w+DHTXdvOfaFU8f3Xfd0XfjXrLsPdpo/6d75RO5wn4aLL9TAlx4BFgO6Cu+Tbdre7+ln307uLXx/lvvFoxZygX4XxyqMYZyYwC7t/RCQkKH2+nF3v3NHcS+Tebe77PeIzea555VXQL8escSYDegPNtPH1lv716yJRzEU5cb+0GEAFRzbj3ZCv1FDe2WYMyDCOB9j641XQLc9TyJHjwyBvbkOLTJ1LvqYcfcx9fsPU8Am5o8eNMfzEseBp7vmM4Jy+YskdDAdwFUAXY7QVKyA2MeRoDb5fJht2MJsOx92/745uSK1Ihz3yYXD6wCoItdMOhtxrP4Y9u9OiAAvf9Tb7nd/nCw6wVRABoMSFr67ceSvDS4l1cHGAQugMrIlq8VOYnscgAEOIgAeDfdPj5u/8kTwC8U3dF8wSUA+uQS4LtnkwQC3EUI8MQT4Bu977dtGPQ70YL72LeZ5wdEBNjFCLDtLR8dAAEOI8CjG/ZhoQvwEkYxAfzA3A/QPF//w/uhxwWBbsAw783in4T1IM5bcy4gIIAr/qwLmHtUAxdwGAG2371IjCHAvrflrvQI4Gm/b5OnXx+5YNBjw3fbH59uuPfDj/RdCyIm8vRtfhs+Zk+/uYpx4b7rw5TebubGho/eR9kj8onXnoCAMQ8hwC21zHzgxuVeJdBJ8BwNsL8tWQL4lt9N17W1Z1RcQ7fTAVsL2n/fOTE63l54Vy+/32GEvw1oPOnci1QT8N13VmIepk+YfIRHV5G+2eSXnVuZeOw9rBF6unCZg3bkUkQ/s/39m/OQ/TD9LzBmKQJ40ZljRufL7j26w/jRm4J57PUGg973W9cbe+GiF+A//dqbupfRAs6vO76wN9/1Li56F3MvPdvver0Lx+xecDgfkNdwmlFDS+exaW+39t/6Yvrr9jZIJ0mx6XbZowKByaUXvR+Y5oTfndh16ScRgGLAj2vfYtvtHa7d0e97/egNTftpu711hdreehZ+mgcv8H7a3223Ma+OZs5LHaHwPAV6otc8rcNn76LlY+c+j0Hp374j98d3fg15+z+dH2/92HL+uL3bsxfOn8CYbxK7B/gOzpsAUKE7b0whOj9v3IFvBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACF8P8BSUf44rXlFe0AAAAASUVORK5CYII=" alt="LevelUp - Talento que educa"><div class="quote" id="heroQuote">“Cada nueva habilidad es una oportunidad para crecer.”</div></div>
 </div></section>
 
@@ -219,6 +487,10 @@ fieldset.test-q legend{font-weight:800;padding:0;margin-bottom:4px;float:left;wi
  <article class="card"><div class="icon">📄</div><span class="level">NIVEL INICIAL</span><h3>Creación de documentos</h3><p>Organiza información y crea documentos claros, ordenados y profesionales para el contexto escolar.</p><button class="btn btn-primary" onclick="openManual('documentos')">Ver manual</button></article>
  <article class="card"><div class="icon">🩹</div><span class="level">PREVENCIÓN</span><h3>Primeros auxilios</h3><p>Orientaciones generales para actuar ante convulsiones, golpes físicos y situaciones de contención emocional.</p><button class="btn btn-primary" onclick="openManual('auxilios')">Ver manual</button></article>
  <article class="card"><div class="icon">🤖</div><span class="level">EDUCACIÓN DIGITAL</span><h3>Inteligencia Artificial</h3><p>Uso responsable de herramientas de IA para apoyar la planificación, creación de recursos y aprendizaje.</p><button class="btn btn-primary" onclick="openManual('ia')">Ver manual</button></article>
+ <article class="card card--nuevo"><div class="icon">🤝</div><span class="level">CONVIVENCIA ESCOLAR</span><span class="insignia-nuevo">Nuevo · pedido en la encuesta</span><h3>Convivencia y resolución de conflictos</h3><p>Distinguir un conflicto de la violencia, escuchar, hablar sin agredir y mediar en cinco pasos.</p><button class="btn btn-primary" onclick="openManual('convivencia')">Ver manual</button></article>
+ <article class="card card--nuevo"><div class="icon">🌱</div><span class="level">BIENESTAR</span><span class="insignia-nuevo">Nuevo · pedido en la encuesta</span><h3>Gestión emocional y bienestar</h3><p>Reconocer las emociones, técnicas breves de regulación y cómo acompañar una desregulación.</p><button class="btn btn-primary" onclick="openManual('emociones')">Ver manual</button></article>
+ <article class="card card--nuevo"><div class="icon">🧭</div><span class="level">HABILIDADES BLANDAS</span><span class="insignia-nuevo">Nuevo · pedido en la encuesta</span><h3>Liderazgo y comunicación efectiva</h3><p>Mensajes claros, retroalimentación con el modelo Situación – Comportamiento – Impacto y trabajo en equipo.</p><button class="btn btn-primary" onclick="openManual('liderazgo')">Ver manual</button></article>
+ <article class="card card--propuesta"><div class="icon">💡</div><span class="level">TU PROPUESTA</span><h3>¿Falta un tema?</h3><p>LevelUp nació para escuchar a los trabajadores. Propón la próxima capacitación en el diagnóstico o en los comentarios.</p><a class="btn btn-secondary" href="#diagnostico">Proponer un tema →</a></article>
 </div></div></section>
 
 <section id="diagnostico"><div class="container"><div class="section-head"><span class="tag">Diagnóstico rápido</span><h2>¿Qué capacitación necesita mejorar?</h2><p>Responde 6 preguntas. El resultado ayudará a detectar prioridades y posibles nuevas capacitaciones.</p></div>
@@ -238,6 +510,20 @@ fieldset.test-q legend{font-weight:800;padding:0;margin-bottom:4px;float:left;wi
 <div class="survey-info"><h3>📋 ¿Qué levanta esta encuesta?</h3><ul><li>Tu cargo y si has recibido capacitaciones antes</li><li>Si sientes que tu opinión se considera al planificarlas</li><li>Qué tan necesario es actualizar tus conocimientos</li><li>La modalidad que más te acomoda: online, híbrida o presencial</li><li>El tema que consideras prioritario para la próxima capacitación</li></ul><p>Tus respuestas son <strong>anónimas y confidenciales</strong>, y se usan solo con fines educativos para la Feria TP.</p><a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSft6clbko7p5HH5QJXioJttBEONREzX1PVS66srHzNKtO0NUA/viewform" target="_blank" rel="noopener">Abrir encuesta en una pestaña nueva ↗</a></div>
 <div class="survey-embed"><p class="aviso-conexion">Sin internet no se puede mostrar el formulario de Google. Úsalo cuando haya conexión, o abre la encuesta en una pestaña nueva.</p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSft6clbko7p5HH5QJXioJttBEONREzX1PVS66srHzNKtO0NUA/viewform?embedded=true" title="Encuesta de necesidades de capacitación LevelUp" loading="lazy">Cargando encuesta…</iframe></div>
 </div></div></section>
+
+<section id="voces"><div class="container">
+<div class="section-head"><span class="tag">Validación con usuarios reales</span><h2>Lo que respondieron 23 trabajadores</h2><p>Resultados de la encuesta oficial de LevelUp, aplicada el 2 y 3 de septiembre de 2026 a trabajadores de trece cargos del colegio. Son los datos de los Informes 2 y 3 del equipo, y de ellos salen los cursos nuevos.</p></div>
+<div class="voces-datos">
+<div class="voces-dato"><strong>23</strong><span>trabajadores de 13 cargos: docentes, inspectores, auxiliares, administrativos, técnicos, manipuladoras de alimentos y equipos de apoyo</span></div>
+<div class="voces-dato"><strong>1 de cada 4</strong><span>respuestas pidió convivencia escolar y resolución de conflictos para la próxima capacitación</span></div>
+<div class="voces-dato"><strong>60,9 %</strong><span>(14 de 23) cree que necesita actualizar sus conocimientos para desempeñar mejor su cargo</span></div>
+</div>
+<div class="voces-grid">
+<article class="card panel-card"><h3>Cómo ven las capacitaciones hoy</h3><p class="panel-sub">Cada barra suma las 23 respuestas. El tono más oscuro es la respuesta más afirmativa.</p><div id="vocesApiladas"></div></article>
+<article class="card panel-card"><h3>Modalidad que prefieren</h3><p class="panel-sub">Por eso LevelUp apoya las capacitaciones presenciales: no las reemplaza.</p><div class="barras" id="vocesModalidad"></div><h3 class="voces-sub">Temas que pidieron</h3><ul class="voces-temas" id="vocesTemas"></ul></article>
+</div>
+<div id="vocesTabla"></div>
+</div></section>
 
 <section id="porcargo"><div class="container"><div class="section-head"><span class="tag">Capacitación a la medida</span><h2>Capacitación según tu cargo</h2><p>La encuesta pregunta explícitamente por tu cargo y si las capacitaciones deberían ser distintas según las funciones de cada trabajador. Esta es la ruta que proponemos para cada perfil dentro del establecimiento.</p></div>
 <div class="grid">
@@ -260,11 +546,26 @@ fieldset.test-q legend{font-weight:800;padding:0;margin-bottom:4px;float:left;wi
  <article class="card manual-card"><div class="icon">📄</div><div><h3>Manual de documentos</h3><p>Formato, estructura, tablas, encabezados, organización y presentación profesional.</p><button class="btn btn-secondary" onclick="openManual('documentos')">Abrir manual y test</button></div></article>
  <article class="card manual-card"><div class="icon">🩹</div><div><h3>Manual de primeros auxilios</h3><p>Orientaciones generales y actuación inicial responsable ante emergencias escolares.</p><button class="btn btn-secondary" onclick="openManual('auxilios')">Abrir manual y test</button></div></article>
  <article class="card manual-card"><div class="icon">🤖</div><div><h3>Manual de IA educativa</h3><p>Prompts, verificación, privacidad, uso ético y apoyo a la planificación educativa.</p><button class="btn btn-secondary" onclick="openManual('ia')">Abrir manual y test</button></div></article>
+ <article class="card manual-card card--nuevo"><div class="icon">🤝</div><div><h3>Manual de convivencia y conflictos</h3><span class="insignia-nuevo">Nuevo · pedido en la encuesta</span><p>Conflicto y violencia, escucha activa, mensajes en primera persona y mediación en cinco pasos.</p><button class="btn btn-secondary" onclick="openManual('convivencia')">Abrir manual y test</button></div></article>
+ <article class="card manual-card card--nuevo"><div class="icon">🌱</div><div><h3>Manual de gestión emocional</h3><span class="insignia-nuevo">Nuevo · pedido en la encuesta</span><p>Autocuidado, respiración cuadrada, anclaje 5-4-3-2-1 y cómo acompañar una desregulación.</p><button class="btn btn-secondary" onclick="openManual('emociones')">Abrir manual y test</button></div></article>
+ <article class="card manual-card card--nuevo"><div class="icon">🧭</div><div><h3>Manual de liderazgo y comunicación</h3><span class="insignia-nuevo">Nuevo · pedido en la encuesta</span><p>Mensajes claros, retroalimentación útil y cómo liderar un equipo escuchando a todos.</p><button class="btn btn-secondary" onclick="openManual('liderazgo')">Abrir manual y test</button></div></article>
 </div></div></section>
+
+<section id="actividad"><div class="container">
+<div class="section-head"><span class="tag">Actividad de la Feria</span><h2>Une los conceptos</h2><p>La mini actividad que el equipo preparó para su stand, en versión digital: une cada concepto de la capacitación con su definición. Cada ronda trae cinco conceptos al azar.</p></div>
+<div class="card juego" id="juego"><p class="juego-sin-js">La actividad necesita JavaScript activado.</p></div>
+</div></section>
 
 <section id="comentarios"><div class="container"><div class="section-head"><span class="tag">Participación</span><h2>Queremos conocer tu opinión</h2><p>La encuesta pregunta si sientes que el establecimiento considera tus opiniones al planificar capacitaciones. Este espacio es un canal permanente para que eso ocurra.</p></div>
 <div class="comments"><form class="comment-form" id="commentForm"><h3>💬 Deja un comentario</h3><label for="name">Nombre</label><input id="name" required maxlength="60" placeholder="Ej: Camila"><label for="comment">Comentario</label><textarea id="comment" required maxlength="500" placeholder="¿Qué mejorarías o qué capacitación agregarías?"></textarea><button class="btn btn-primary" type="submit">Publicar comentario</button></form><div><h3>Comentarios recientes</h3><div class="comments-list" id="commentsList"><div class="empty">Aún no hay comentarios. ¡Sé la primera persona en participar!</div></div></div></div></div></section>
 
+<section id="impacto"><div class="container">
+<div class="section-head"><span class="tag">Medición de impacto</span><h2>¿LevelUp responde a tu cargo?</h2><p>Es la pregunta con la que el equipo planificó medir el impacto del proyecto (Informe 3). Es anónima y se guarda solo en este computador.</p></div>
+<div class="impacto-grid">
+<form class="card impacto-form" id="impactoForm"></form>
+<article class="card panel-card impacto-resultado"><h3>Antes y ahora</h3><p class="panel-sub">La encuesta inicial preguntó si las capacitaciones que recibían respondían a su cargo. LevelUp hace la misma pregunta sobre sus propias capacitaciones.</p><div id="impactoBarras"></div><p class="impacto-nota" id="impactoNota"></p></article>
+</div>
+</div></section>
 <section id="resultados">
 <div class="container">
 <div class="section-head">
@@ -290,6 +591,18 @@ fieldset.test-q legend{font-weight:800;padding:0;margin-bottom:4px;float:left;wi
 <ol class="plan" id="planSugerido"></ol>
 </article>
 </div>
+<div class="panel-grid">
+<article class="card panel-card">
+<h3>Medición de impacto</h3>
+<p class="panel-sub">La pregunta foco del Informe 3, comparada con la encuesta inicial</p>
+<div id="panelImpacto"></div>
+</article>
+<article class="card panel-card">
+<h3>Práctica y participación</h3>
+<p class="panel-sub">Lo que se hizo en los cursos y en la actividad de la Feria</p>
+<ul class="participacion" id="panelParticipacion"></ul>
+</article>
+</div>
 <div class="grid panel-mini" id="panelMini"></div>
 <article class="card panel-card">
 <h3>Resultados de los tests</h3>
@@ -304,6 +617,7 @@ fieldset.test-q legend{font-weight:800;padding:0;margin-bottom:4px;float:left;wi
 <div class="panel-acciones">
 <button class="btn btn-secondary" type="button" id="exportarDiag">Exportar diagnósticos a Excel ↓</button>
 <button class="btn btn-secondary" type="button" id="exportarTests">Exportar resultados de tests ↓</button>
+<button class="btn btn-secondary" type="button" id="exportarImpacto">Exportar medición de impacto ↓</button>
 <button class="enlace-borrar" type="button" id="borrarDatos">Borrar datos de prueba</button>
 </div>
 <p class="panel-nota">Los datos se guardan solo en este navegador: no se envían a ningún servidor. En la Feria, cada visitante que responde o rinde un test en este computador suma al panel.</p>
@@ -319,6 +633,9 @@ fieldset.test-q legend{font-weight:800;padding:0;margin-bottom:4px;float:left;wi
 <template id="plantilla-documentos"><div class="manual-content"><h3>1. Estructura</h3><p>Define objetivo, destinatario y orden de la información antes de comenzar.</p><h3>2. Formato</h3><ul><li>Utiliza títulos y subtítulos coherentes.</li><li>Mantén tipografías y tamaños consistentes.</li><li>Revisa ortografía y redacción.</li></ul><h3>3. Presentación</h3><p>Usa tablas, listas y espacios en blanco cuando faciliten la lectura. Evita sobrecargar el documento.</p></div></template>
 <template id="plantilla-auxilios"><div class="manual-content"><p><strong>Importante:</strong> este material es educativo y no reemplaza una capacitación certificada ni la atención de profesionales.</p><h3>Convulsiones</h3><ul><li>Mantén la calma y despeja objetos cercanos que puedan causar daño.</li><li>Protege a la persona de golpes y controla el tiempo.</li><li>No la sujetes a la fuerza y no introduzcas objetos en su boca.</li><li>Solicita ayuda de emergencia si la situación lo requiere según los protocolos del establecimiento.</li><li>Cuando termine, ponla de lado (posición lateral de seguridad) y acompáñala hasta que se recupere.</li><li>Llama al SAMU (131) si dura más de 5 minutos, se repite, no recupera la conciencia, le cuesta respirar o se lesionó.</li></ul><h3>Golpes físicos</h3><p>Detén la actividad, informa al responsable correspondiente y observa el estado de la persona. Ante dolor importante, pérdida de conciencia, dificultad para respirar u otros signos de alarma, busca atención médica urgente.</p><h3>Contención emocional</h3><p>Habla con calma, escucha sin juzgar, entrega espacio seguro y avisa a los responsables del establecimiento cuando corresponda. No prometas confidencialidad absoluta frente a situaciones de riesgo.</p><p><strong>Números de emergencia en Chile:</strong> SAMU 131 · Bomberos 132 · Carabineros 133.</p></div></template>
 <template id="plantilla-ia"><div class="manual-content"><h3>¿Para qué puede servir?</h3><ul><li>Generar ideas para actividades y recursos.</li><li>Apoyar la planificación y organización.</li><li>Explicar conceptos de distintas maneras.</li><li>Crear borradores que luego deben ser revisados.</li></ul><h3>Buenas prácticas</h3><ul><li>Verifica la información antes de utilizarla.</li><li>No ingreses datos personales o confidenciales.</li><li>Declara o reconoce el uso de IA cuando corresponda.</li><li>Adapta el resultado al contexto educativo.</li></ul><h3>Prompt básico</h3><p><em>“Actúa como asistente educativo. Propón una actividad sobre [tema], para [curso], con [duración] y un objetivo de aprendizaje claro.”</em></p></div></template>
+<template id="plantilla-convivencia"><div class="manual-content"><p class="manual-evidencia"><strong>Por qué este manual:</strong> fue el tema más pedido en la encuesta del equipo a 23 trabajadores del colegio: la convivencia escolar y la resolución de conflictos aparecen en 1 de cada 4 respuestas sobre la próxima capacitación.</p><h3>1. Conflicto no es violencia</h3><ul><li>Un conflicto es un desacuerdo de intereses o de puntos de vista. Es parte normal de la convivencia y se puede aprender de él.</li><li>La violencia (física, psicológica, verbal o digital) no se «resuelve» conversando: se detiene y se informa de inmediato, según el protocolo del colegio.</li><li>Actuar a tiempo evita que un desacuerdo pequeño crezca.</li></ul><h3>2. Escuchar y hablar sin agredir</h3><ul><li><strong>Escucha activa:</strong> mirar a la persona, dejarla terminar y resumir lo que dijo («Entiendo que te molestó que…»).</li><li><strong>Mensajes en primera persona:</strong> «Me siento… cuando… porque… y necesito…», en vez de «Tú siempre…».</li><li>Hablar de la conducta, no de la persona. Bajar el tono y buscar un lugar tranquilo.</li></ul><h3>3. Mediar en cinco pasos</h3><ol><li>Calmar la situación y separar a las partes si hay riesgo.</li><li>Escuchar a cada parte por turnos, sin interrumpir.</li><li>Identificar el problema y lo que cada uno necesita.</li><li>Buscar soluciones entre todos.</li><li>Acordar compromisos concretos y hacer seguimiento.</li></ol><p><strong>Importante:</strong> si hay violencia, acoso o riesgo para alguien, no se media, porque hay un desequilibrio de poder: se protege a la persona y se informa al Encargado de Convivencia Escolar. En Chile, la Ley 20.536 sobre Violencia Escolar exige que cada colegio tenga ese encargado y protocolos en su Reglamento Interno.</p></div></template>
+<template id="plantilla-emociones"><div class="manual-content"><p class="manual-evidencia"><strong>Por qué este manual:</strong> en la encuesta del equipo, los trabajadores pidieron gestión emocional y salud mental, para contener desregulaciones y cuidar el clima laboral.</p><h3>1. Reconocer las emociones</h3><ul><li>Ponerle nombre a lo que se siente («estoy frustrado», «estoy preocupada») ayuda a regularlo.</li><li>Señales de estrés que se mantiene: cansancio que no se pasa, irritabilidad, problemas para dormir o para concentrarse.</li><li>Pedir ayuda a tiempo es parte del autocuidado, no una debilidad.</li></ul><h3>2. Técnicas breves de regulación</h3><ul><li><strong>Respiración cuadrada:</strong> inhala en 4 tiempos, sostén 4, exhala 4 y sostén 4. Repite cuatro veces: es un minuto.</li><li><strong>Pausa activa:</strong> uno o dos minutos para estirarse, tomar agua o cambiar de lugar.</li><li><strong>Anclaje 5-4-3-2-1:</strong> nombra 5 cosas que ves, 4 que puedes tocar, 3 que oyes, 2 que hueles y 1 que saboreas.</li></ul><h3>3. Acompañar una desregulación</h3><ul><li>Mantén la calma y un tono de voz bajo. Reduce los estímulos: ruido, luces, público.</li><li>Asegura que nadie corra peligro y da espacio.</li><li>Ofrece opciones simples («¿quieres sentarte o tomar agua?») y valida la emoción («veo que estás muy enojado»).</li><li>Informa al equipo de convivencia o psicosocial y sigue el protocolo del colegio.</li></ul><p><strong>Importante:</strong> este manual no reemplaza la atención de profesionales de salud mental. Si alguien habla de hacerse daño, no lo dejes solo y avisa de inmediato al equipo del colegio. En Chile, la línea de prevención del suicidio *4141 atiende gratis las 24 horas.</p></div></template>
+<template id="plantilla-liderazgo"><div class="manual-content"><p class="manual-evidencia"><strong>Por qué este manual:</strong> liderazgo y comunicación efectiva aparecen en la encuesta del equipo y en el diagnóstico de esta página. En LevelUp cualquier persona puede tomarlo, tenga o no un cargo de jefatura.</p><h3>1. Comunicar con claridad</h3><ul><li>Un mensaje, un propósito: qué se necesita, para cuándo y por qué.</li><li>Confirma que se entendió: pide que te lo resuman con sus palabras.</li><li>Elige el canal: lo urgente, en persona o por teléfono; lo que debe quedar registrado, por escrito.</li></ul><h3>2. Retroalimentación que ayuda</h3><ul><li>Usa el modelo <strong>Situación – Comportamiento – Impacto</strong>: «En la reunión de ayer (situación), cuando presentaste los datos ordenados (comportamiento), el equipo decidió más rápido (impacto)».</li><li>Que sea específica, oportuna y sobre conductas, no sobre la persona.</li><li>Reconoce lo que funciona, no solo lo que falla.</li></ul><h3>3. Liderar un equipo</h3><ul><li>Acordar objetivos claros y quién hace qué.</li><li>Escuchar las ideas de todos antes de decidir. En la encuesta del equipo, 10 de 23 trabajadores sintió que no se consideran sus opiniones al planificar capacitaciones.</li><li>Delegar con confianza y hacer seguimiento, sin controlar cada paso.</li></ul></div></template>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalContent"><div class="modal-box"><button class="close" type="button" onclick="closeModal()" aria-label="Cerrar">×</button><div id="modalContent"></div></div></div>
 <script>
 /* ======================================================================
@@ -406,21 +723,87 @@ const MANUALES = {
       { id: 'ia-5', p: 'Un borrador creado con IA…', correcta: 'Se revisa y se adapta al contexto antes de usarlo', otras: ['Se usa tal cual', 'Siempre es correcto', 'Reemplaza la planificación'],
         porque: 'El manual indica adaptar el resultado al contexto educativo y revisarlo.' }
     ]
+  },
+
+  /* ---- Capacitaciones nuevas: los temas que más pidió la encuesta del equipo ----
+     23 trabajadores respondieron el 2 y 3 de septiembre (Informes 2 y 3).
+     «Convivencia y resolución de conflictos» apareció en 1 de cada 4 respuestas;
+     también gestión emocional, salud mental, liderazgo y comunicación.
+     El contenido es general: el equipo debe revisarlo con el colegio.        */
+  convivencia: {
+    nombre: 'Convivencia y conflictos', titulo: '🤝 Manual de convivencia y resolución de conflictos',
+    intro: 'Herramientas para prevenir y abordar conflictos entre estudiantes, entre colegas y con apoderados.',
+    nuevo: true, icono: '🤝', etiqueta: 'CONVIVENCIA ESCOLAR',
+    resumen: 'Distinguir un conflicto de la violencia, escuchar, hablar sin agredir y mediar en cinco pasos.',
+    evidencia: 'Fue el tema más pedido en la encuesta: aparece en 1 de cada 4 respuestas.',
+    preguntas: [
+      { id: 'convivencia-1', p: '¿Qué es un conflicto?', correcta: 'Un desacuerdo de intereses o puntos de vista que se puede abordar', otras: ['Siempre un acto de violencia', 'Algo que conviene ignorar', 'Un problema que solo resuelve Dirección'],
+        porque: 'El conflicto es parte de la convivencia y se puede aprender de él; la violencia, en cambio, se detiene y se informa.' },
+      { id: 'convivencia-2', p: '¿Cuál es un mensaje en primera persona?', correcta: '«Me molesta cuando me interrumpen, porque pierdo la idea»', otras: ['«Tú siempre interrumpes»', '«Eres un irrespetuoso»', '«Nadie te soporta»'],
+        porque: 'Habla de lo que uno siente y de una conducta concreta, sin atacar a la persona.' },
+      { id: 'convivencia-3', p: 'En una mediación, ¿qué va primero?', correcta: 'Calmar la situación y separar a las partes si hay riesgo', otras: ['Decidir quién tiene la culpa', 'Poner una sanción', 'Pedir que se den la mano'],
+        porque: 'Sin calma no hay diálogo: primero se baja la tensión y se protege.' },
+      { id: 'convivencia-4', p: 'Si un estudiante sufre acoso escolar, ¿qué corresponde?', correcta: 'Protegerlo e informar al Encargado de Convivencia según el protocolo', otras: ['Hacer una mediación entre ambos', 'Esperar a que se resuelva solo', 'Comentarlo con el curso'],
+        porque: 'Con acoso o violencia no se media, porque hay un desequilibrio de poder: se protege y se activa el protocolo.' },
+      { id: 'convivencia-5', p: '¿Cómo termina una buena mediación?', correcta: 'Con compromisos concretos y seguimiento', otras: ['Con un castigo para ambos', 'Sin acuerdos: basta con conversar', 'Con un ganador y un perdedor'],
+        porque: 'Acuerdos concretos y seguimiento evitan que el conflicto vuelva.' }
+    ]
+  },
+  emociones: {
+    nombre: 'Gestión emocional', titulo: '🌱 Manual de gestión emocional y bienestar',
+    intro: 'Cuidar el propio bienestar y acompañar a otros en momentos difíciles.',
+    nuevo: true, icono: '🌱', etiqueta: 'BIENESTAR',
+    resumen: 'Reconocer las emociones, técnicas breves de regulación y cómo acompañar una desregulación.',
+    evidencia: 'La encuesta pidió gestión emocional y salud mental para contener desregulaciones.',
+    preguntas: [
+      { id: 'emociones-1', p: '¿Qué ayuda a regular una emoción intensa?', correcta: 'Nombrarla y darse una pausa', otras: ['Aguantarla hasta que explote', 'Responder de inmediato', 'Culpar a otros'],
+        porque: 'Reconocer y nombrar lo que se siente es el primer paso para regularlo.' },
+      { id: 'emociones-2', p: '¿Cómo es la respiración cuadrada?', correcta: 'Inhalar 4 tiempos, sostener 4, exhalar 4 y sostener 4', otras: ['Respirar lo más rápido posible', 'Aguantar la respiración un minuto', 'Inhalar sin exhalar'],
+        porque: 'Cuatro tiempos iguales, repetidos cuatro veces: en un minuto ayuda a calmar el cuerpo.' },
+      { id: 'emociones-3', p: 'Ante un estudiante desregulado, ¿qué es adecuado?', correcta: 'Hablar con calma, reducir estímulos y dar un espacio seguro', otras: ['Gritarle para que se detenga', 'Exponerlo frente al curso', 'Discutir con él'],
+        porque: 'Un tono bajo, menos ruido y menos público ayudan a que baje la intensidad.' },
+      { id: 'emociones-4', p: '¿Qué frase valida una emoción?', correcta: '«Veo que estás muy enojado»', otras: ['«No es para tanto»', '«Deja de llorar»', '«Otros tienen problemas peores»'],
+        porque: 'Validar no es dar la razón: es reconocer lo que la persona siente.' },
+      { id: 'emociones-5', p: 'Si alguien dice que quiere hacerse daño, ¿qué haces?', correcta: 'No lo dejo solo y aviso de inmediato al equipo del colegio', otras: ['Guardo el secreto', 'Le digo que lo piense mejor', 'Espero a ver si se le pasa'],
+        porque: 'Es una situación de riesgo: se acompaña y se pide ayuda de inmediato. En Chile, la línea *4141 atiende gratis las 24 horas.' }
+    ]
+  },
+  liderazgo: {
+    nombre: 'Liderazgo y comunicación', titulo: '🧭 Manual de liderazgo y comunicación efectiva',
+    intro: 'Comunicar con claridad, dar retroalimentación y coordinar equipos, con o sin cargo de jefatura.',
+    nuevo: true, icono: '🧭', etiqueta: 'HABILIDADES BLANDAS',
+    resumen: 'Mensajes claros, retroalimentación con el modelo Situación – Comportamiento – Impacto y trabajo en equipo.',
+    evidencia: 'Liderazgo y comunicación efectiva aparecen en la encuesta y en el diagnóstico de esta página.',
+    preguntas: [
+      { id: 'liderazgo-1', p: '¿Qué debe tener un mensaje claro?', correcta: 'Qué se necesita, para cuándo y por qué', otras: ['Muchos temas a la vez', 'Solo la palabra «urgente»', 'Palabras técnicas para impresionar'],
+        porque: 'Un propósito claro y un plazo evitan malentendidos.' },
+      { id: 'liderazgo-2', p: '¿Cómo confirmas que te entendieron?', correcta: 'Pidiendo que lo resuman con sus palabras', otras: ['Preguntando «¿quedó claro?» y siguiendo', 'Repitiendo lo mismo más fuerte', 'Suponiendo que sí'],
+        porque: 'Que la otra persona lo resuma muestra si el mensaje llegó.' },
+      { id: 'liderazgo-3', p: '¿Qué es el modelo Situación – Comportamiento – Impacto?', correcta: 'Una forma de dar retroalimentación concreta', otras: ['Un tipo de sanción', 'La evaluación de desempeño anual', 'Un formulario de reclamos'],
+        porque: 'Describe cuándo pasó, qué se hizo y qué efecto tuvo: así la retroalimentación sirve.' },
+      { id: 'liderazgo-4', p: '¿Cuál es una retroalimentación útil?', correcta: '«En la reunión, al ordenar los datos, ayudaste a decidir más rápido»', otras: ['«Eres muy bueno»', '«Siempre llegas tarde»', '«Hazlo mejor»'],
+        porque: 'Es específica y habla de una conducta y de su impacto.' },
+      { id: 'liderazgo-5', p: 'Antes de decidir en equipo, quien lidera…', correcta: 'Escucha las ideas de todos', otras: ['Decide solo para ganar tiempo', 'Escucha solo a quien está de acuerdo', 'Deja que decida el azar'],
+        porque: 'Escuchar mejora las decisiones y el compromiso. En la encuesta, 10 de 23 trabajadores sintió que no se consideran sus opiniones.' }
+    ]
   }
 };
-const ORDEN_MANUALES = ['excel', 'documentos', 'auxilios', 'ia'];
+const ORDEN_MANUALES = ['excel', 'documentos', 'auxilios', 'ia', 'convivencia', 'emociones', 'liderazgo'];
 const APROBACION = 70;   // el mismo corte que ya usaba el equipo («¡Excelente!» desde 70 %)
 
-/* Rutas por cargo, tal como las describe la sección «Capacitación según tu cargo». */
+/* Rutas por cargo: el foco que describe la sección «Capacitación según tu cargo»,
+   más el curso nuevo que la encuesta sugiere para cada cargo. En LevelUp cualquier
+   persona puede tomar cualquier curso (Informe 3): la ruta es una sugerencia.    */
 const RUTAS_CARGO = {
-  'Docente': ['ia', 'documentos'],
-  'Asistente / Ed. diferencial': ['auxilios'],
-  'Administrativo': ['excel', 'documentos'],
-  'Auxiliar / Servicios': ['auxilios']
+  'Docente': ['ia', 'documentos', 'convivencia'],
+  'Asistente / Ed. diferencial': ['auxilios', 'emociones', 'convivencia'],
+  'Administrativo': ['excel', 'documentos', 'liderazgo'],
+  'Auxiliar / Servicios': ['auxilios', 'convivencia']
 };
 const CARGOS = Object.keys(RUTAS_CARGO);
 const NIVELES = ['Nivel 0 · Punto de partida', 'Nivel 1 · Aprendiz', 'Nivel 2 · En ascenso',
                  'Nivel 3 · Avanzado', 'Nivel 4 · Talento que educa'];
+const UMBRALES_NIVEL = [0, 1, 3, 5, 7];   // cursos aprobados para llegar a cada nivel: el 4 pide los siete
 
 /* Las opciones del diagnóstico, en el mismo orden del formulario. */
 const DIAGNOSTICO = {
@@ -433,6 +816,8 @@ const DIAGNOSTICO = {
 };
 const ETIQUETA_OPCION = { 'Quiz': 'Quiz / test', 'Excel básico': 'Básico', 'Excel medio': 'Medio', 'Excel avanzado': 'Avanzado', 'No necesito Excel': 'No lo necesita' };
 const TEMA_A_MANUAL = { 'Excel': 'excel', 'Documentos': 'documentos', 'Primeros auxilios': 'auxilios', 'IA educativa': 'ia' };
+/* La pregunta 6 («¿Qué nueva capacitación agregarías?»): tres de sus opciones ya son cursos. */
+const NUEVA_A_MANUAL = { 'Convivencia escolar': 'convivencia', 'Comunicación efectiva': 'liderazgo', 'Liderazgo': 'liderazgo' };
 const MODALIDAD_POR_FORMATO = {
   'Manual': 'online, a su propio ritmo',
   'Video': 'online (todavía no hay videos: queda como tarea del plan)',
@@ -444,7 +829,10 @@ const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', '
 const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
 function datosVacios() {
-  return { version: 1, diagnosticos: [], intentos: [], participante: null };
+  return { version: 2, diagnosticos: [], intentos: [], participante: null,
+           avanceCursos: {},                       // por participante y curso: pasos vistos y práctica hecha
+           impacto: [],                            // respuestas a la pregunta foco del Informe 3
+           juego: { partidas: 0, mejor: null } };  // «Une los conceptos»: rondas completas y mejor tiempo (s)
 }
 
 /* =============================== CÁLCULO ===============================
@@ -508,7 +896,17 @@ function mejorPorManual(intentos, participanteId) {
 
 function aprobados(mejor) { return ORDEN_MANUALES.filter(k => mejor[k] && mejor[k].aprobado); }
 
-function nivelDe(cantidadAprobados) { return NIVELES[Math.max(0, Math.min(NIVELES.length - 1, cantidadAprobados))]; }
+function nivelDe(cantidadAprobados) {
+  let n = 0;
+  UMBRALES_NIVEL.forEach((minimo, i) => { if (cantidadAprobados >= minimo) n = i; });
+  return NIVELES[n];
+}
+
+/** Cuántos cursos faltan para el siguiente nivel (null si ya está en el último). */
+function faltanParaSubir(cantidadAprobados) {
+  const siguiente = UMBRALES_NIVEL.find(m => m > cantidadAprobados);
+  return siguiente === undefined ? null : siguiente - cantidadAprobados;
+}
 
 /** Ruta personal a partir del diagnóstico: qué manuales, en qué orden, y consejos concretos. */
 function rutaDiagnostico(r) {
@@ -529,7 +927,12 @@ function rutaDiagnostico(r) {
   }
   if (r.q4 && r.q4 !== 'Otro') consejos.push('En primeros auxilios, revisa primero: ' + r.q4.toLowerCase() + '.');
   if (MODALIDAD_POR_FORMATO[r.q5]) consejos.push('Por el formato que prefieres, te conviene la modalidad ' + MODALIDAD_POR_FORMATO[r.q5] + '.');
-  if (r.q6) consejos.push('Tu propuesta de nueva capacitación («' + r.q6 + '») queda sumada al panel de resultados.');
+  if (NUEVA_A_MANUAL[r.q6]) {
+    agregar(NUEVA_A_MANUAL[r.q6]);
+    consejos.push('La capacitación que propusiste («' + r.q6 + '») ya es un curso de LevelUp: quedó en tu ruta.');
+  } else if (r.q6) {
+    consejos.push('Tu propuesta de nueva capacitación («' + r.q6 + '») queda sumada al panel de resultados.');
+  }
   return { manuales, consejos };
 }
 
@@ -635,7 +1038,489 @@ function normalizarDatos(bruto) {
   if (p && typeof p === 'object' && p.id) {
     d.participante = { id: String(p.id), nombre: limpiarTexto(p.nombre, 60), cargo: CARGOS.includes(p.cargo) ? p.cargo : '' };
   }
+  /* Lo nuevo de la versión 2. Lo guardado con la versión 1 no lo trae y sigue sirviendo. */
+  const av = bruto.avanceCursos;
+  if (av && typeof av === 'object' && !Array.isArray(av)) {
+    Object.keys(av).slice(0, 500).forEach(pid => {
+      const porCurso = av[pid];
+      if (!porCurso || typeof porCurso !== 'object') return;
+      const limpio = {};
+      ORDEN_MANUALES.forEach(k => {
+        const c = porCurso[k];
+        if (!c || typeof c !== 'object') return;
+        const pasos = Number.isInteger(c.pasos) ? Math.max(0, Math.min(20, c.pasos)) : 0;
+        if (pasos || c.practica === true) limpio[k] = { pasos, practica: c.practica === true };
+      });
+      if (Object.keys(limpio).length) d.avanceCursos[String(pid).slice(0, 40)] = limpio;
+    });
+  }
+  if (Array.isArray(bruto.impacto)) {
+    d.impacto = bruto.impacto
+      .filter(r => r && fechaValida(r.fecha) && RESPUESTAS_IMPACTO.includes(r.responde))
+      .slice(-5000)
+      .map(r => ({ fecha: r.fecha, cargo: CARGOS.includes(r.cargo) ? r.cargo : '', responde: r.responde,
+                   nota: Number.isInteger(r.nota) && r.nota >= 1 && r.nota <= 5 ? r.nota : null }));
+  }
+  const j = bruto.juego;
+  if (j && typeof j === 'object') {
+    d.juego.partidas = Number.isInteger(j.partidas) && j.partidas > 0 ? Math.min(j.partidas, 100000) : 0;
+    d.juego.mejor = Number.isInteger(j.mejor) && j.mejor > 0 && j.mejor < 36000 ? j.mejor : null;
+  }
   return d;
+}
+
+/* ================ PRÁCTICAS, ACTIVIDAD E IMPACTO (cálculo) ================
+   Funciones puras de las partes nuevas: la hoja de cálculo de la práctica de
+   Excel, el revisor de prompts de IA, ordenar pasos, la respiración guiada,
+   el juego «Une los conceptos» de la Feria y la medición de impacto que el
+   equipo planificó en su Informe 3. Nada de esto toca la pantalla.        */
+
+/* ---------------------------- Qué práctica tiene cada curso ---------------------------- */
+const PRACTICAS = {
+  excel: { tipo: 'hoja', titulo: 'Práctica: usa las funciones en una hoja',
+           ayuda: 'Escribe la fórmula como en Excel y presiona «Probar». Se corrige al instante.' },
+  documentos: { tipo: 'ordenar', titulo: 'Práctica: ordena los pasos',
+                ayuda: 'Usa las flechas para dejar los pasos en orden y luego presiona «Revisar orden».' },
+  auxilios: { tipo: 'escenarios', titulo: 'Práctica: ¿qué harías?',
+              ayuda: 'Elige qué harías en cada situación. Cada respuesta explica por qué.' },
+  ia: { tipo: 'prompt', titulo: 'Práctica: arma tu prompt',
+        ayuda: 'Completa los cuatro datos del prompt básico del manual. La página revisa que no lleve datos personales.' },
+  convivencia: { tipo: 'ordenar', titulo: 'Práctica: ordena una mediación',
+                 ayuda: 'Usa las flechas para dejar los cinco pasos en orden y luego presiona «Revisar orden».' },
+  emociones: { tipo: 'respiracion', titulo: 'Práctica: respiración cuadrada guiada',
+               ayuda: 'Un minuto: sigue el círculo. Inhala cuando crece, sostén, exhala cuando se achica y sostén.' },
+  liderazgo: { tipo: 'escenarios', titulo: 'Práctica: mejora la retroalimentación',
+               ayuda: 'En cada caso, elige la retroalimentación más útil. Cada respuesta explica por qué.' }
+};
+
+/** Cuánto lleva de un curso: cada lección vista, la práctica y el test valen lo mismo.
+    Aprobar el test completa el curso (también si se aprobó en la versión anterior, que no tenía pasos). */
+function progresoCurso(pasosVistos, lecciones, practica, aprobado) {
+  if (aprobado) return 100;
+  const total = lecciones + 2;
+  const hechos = Math.min(Math.max(0, pasosVistos), lecciones) + (practica ? 1 : 0) + (aprobado ? 1 : 0);
+  return Math.round(hechos / total * 100);
+}
+
+/* ---------------- Excel: una hoja chica y un evaluador de fórmulas ---------------- */
+const HOJA_EXCEL = {
+  titulo: 'Inventario de materiales',
+  columnas: ['A', 'B', 'C'],
+  filas: 6,
+  celdas: {
+    A1: 'Material', B1: 'Stock', C1: 'Precio ($)',
+    A2: 'Plumones', B2: 24, C2: 850,
+    A3: 'Cuadernos', B3: 40, C3: 1200,
+    A4: 'Resmas de papel', B4: 12, C4: 4500,
+    A5: 'Tijeras', B5: 18, C5: 990,
+    A6: 'Pegamento', B6: 30, C6: 700
+  }
+};
+const TAREAS_EXCEL = [
+  { id: 'total', pide: 'Suma el stock total de la columna B (de B2 a B6).', funcion: 'SUMA', valor: 124, ejemplo: '=SUMA(B2:B6)' },
+  { id: 'promedio', pide: 'Calcula el precio promedio de la columna C (de C2 a C6).', funcion: 'PROMEDIO', valor: 1648, ejemplo: '=PROMEDIO(C2:C6)' },
+  { id: 'maximo', pide: 'Encuentra el stock más alto de la columna B.', funcion: 'MAX', valor: 40, ejemplo: '=MAX(B2:B6)' }
+];
+const FUNCIONES_EXCEL = {
+  SUMA: v => v.reduce((a, b) => a + b, 0),
+  PROMEDIO: v => (v.length ? v.reduce((a, b) => a + b, 0) / v.length : NaN),
+  MAX: v => (v.length ? Math.max(...v) : 0),
+  MIN: v => (v.length ? Math.min(...v) : 0),
+  CONTAR: v => v.length
+};
+const EN_INGLES = { SUM: 'SUMA', AVERAGE: 'PROMEDIO', COUNT: 'CONTAR' };
+
+/** Evalúa una fórmula como Excel en español: =SUMA(B2:B6), =B2+B3, =PROMEDIO(C2:C6)/2…
+    Devuelve { ok, valor, funciones } o { ok: false, error } con un mensaje que enseña. */
+function evaluarFormula(texto, hoja) {
+  const t = String(texto == null ? '' : texto).trim();
+  if (!t) return { ok: false, error: 'Escribe una fórmula.' };
+  if (t[0] !== '=') return { ok: false, error: 'Toda fórmula empieza con el signo =. Por ejemplo: =SUMA(B2:B6).' };
+  const s = t.toUpperCase();
+  let i = 1;
+  const usadas = [];
+  let celdas = 0;                                      // cuántas referencias a celdas usó
+  const falla = (m) => { throw new Error(m); };
+  const espacios = () => { while (s[i] === ' ') i++; };
+
+  function celda() {
+    espacios();
+    const m = /^([A-Z])([0-9]{1,3})(?![0-9A-Z(])/.exec(s.slice(i));
+    if (!m) return null;
+    i += m[0].length;
+    return m[1] + m[2];
+  }
+  function valorCelda(ref) {
+    const fila = Number(ref.slice(1));
+    if (!hoja.columnas.includes(ref[0]) || fila < 1 || fila > hoja.filas) falla('La celda ' + ref + ' no está en esta hoja.');
+    celdas++;
+    return hoja.celdas[ref];
+  }
+  function rango(a, b) {
+    valorCelda(a); valorCelda(b);
+    const c1 = hoja.columnas.indexOf(a[0]), c2 = hoja.columnas.indexOf(b[0]);
+    const f1 = Number(a.slice(1)), f2 = Number(b.slice(1));
+    const valores = [];
+    for (let c = Math.min(c1, c2); c <= Math.max(c1, c2); c++) {
+      for (let f = Math.min(f1, f2); f <= Math.max(f1, f2); f++) {
+        const v = hoja.celdas[hoja.columnas[c] + f];
+        if (typeof v === 'number') valores.push(v);      // como Excel: el texto del rango no cuenta
+      }
+    }
+    return valores;
+  }
+  function argumento() {
+    const inicio = i;
+    const a = celda();
+    if (a) {
+      espacios();
+      if (s[i] === ':') {
+        i++;
+        const b = celda();
+        if (!b) falla('Después de «:» va otra celda, por ejemplo B6.');
+        return rango(a, b);
+      }
+      if (s[i] === ';' || s[i] === ',' || s[i] === ')') {
+        const v = valorCelda(a);
+        return typeof v === 'number' ? [v] : [];
+      }
+      i = inicio;
+    }
+    return [expresion()];
+  }
+  function funcion(nombre) {
+    const valores = [];
+    espacios();
+    if (s[i] !== ')') {
+      for (;;) {
+        valores.push(...argumento());
+        espacios();
+        if (s[i] === ';' || s[i] === ',') { i++; continue; }
+        break;
+      }
+    }
+    espacios();
+    if (s[i] !== ')') falla('Falta cerrar el paréntesis de ' + nombre + '.');
+    i++;
+    const r = FUNCIONES_EXCEL[nombre](valores);
+    if (Number.isNaN(r)) falla(nombre + ' no encontró números con los que calcular.');
+    return r;
+  }
+  function factor() {
+    espacios();
+    if (s[i] === '(') {
+      i++;
+      const v = expresion();
+      espacios();
+      if (s[i] !== ')') falla('Falta cerrar un paréntesis.');
+      i++;
+      return v;
+    }
+    if (s[i] === '-') { i++; return -factor(); }
+    const numero = /^[0-9]+(\.[0-9]+)?/.exec(s.slice(i));
+    if (numero) { i += numero[0].length; return Number(numero[0]); }
+    const nombre = /^[A-ZÁÉÍÓÚÑ]{2,}(?=\s*\()/.exec(s.slice(i));
+    if (nombre) {
+      const n = nombre[0];
+      if (EN_INGLES[n]) falla('En Excel en español se escribe ' + EN_INGLES[n] + ', no ' + n + '.');
+      if (!FUNCIONES_EXCEL[n]) falla('No reconozco la función ' + n + '. Prueba con SUMA, PROMEDIO, MAX, MIN o CONTAR.');
+      i += n.length;
+      espacios();
+      i++;                                             // el paréntesis de apertura
+      usadas.push(n);
+      return funcion(n);
+    }
+    const ref = celda();
+    if (ref) {
+      const v = valorCelda(ref);
+      if (typeof v !== 'number') falla('La celda ' + ref + ' tiene texto: no se puede usar en una operación.');
+      return v;
+    }
+    return falla(i >= s.length ? 'La fórmula quedó incompleta.' : 'No entiendo la fórmula desde «' + s.slice(i) + '».');
+  }
+  function termino() {
+    let v = factor();
+    for (;;) {
+      espacios();
+      if (s[i] === '*') { i++; v *= factor(); }
+      else if (s[i] === '/') {
+        i++;
+        const d = factor();
+        if (d === 0) falla('No se puede dividir por cero.');
+        v /= d;
+      } else return v;
+    }
+  }
+  function expresion() {
+    let v = termino();
+    for (;;) {
+      espacios();
+      if (s[i] === '+') { i++; v += termino(); }
+      else if (s[i] === '-') { i++; v -= termino(); }
+      else return v;
+    }
+  }
+
+  try {
+    const valor = expresion();
+    espacios();
+    if (i < s.length) falla('Sobra «' + s.slice(i) + '» al final de la fórmula.');
+    return { ok: true, valor: Math.round(valor * 1e6) / 1e6, funciones: usadas, celdas };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+
+function formatoNumero(n) { return Number(n).toLocaleString('es-CL', { maximumFractionDigits: 2 }); }
+
+/** Corrige una tarea de la hoja: tiene que usar celdas y dar el resultado pedido; si no usó la función, se acepta y se sugiere. */
+function revisarTareaExcel(tarea, texto) {
+  const r = evaluarFormula(texto, HOJA_EXCEL);
+  if (!r.ok) return { ok: false, mensaje: r.error };
+  if (!r.celdas) {
+    const rango = (/\(([^)]+)\)/.exec(tarea.ejemplo) || [])[1];
+    return { ok: false, valor: r.valor,
+             mensaje: 'Esa fórmula no usa celdas de la hoja. Usa las celdas' + (rango ? ' (' + rango + ')' : '') +
+                      ' para que el resultado se actualice solo si cambian los datos.' };
+  }
+  if (Math.abs(r.valor - tarea.valor) > 1e-6) {
+    return { ok: false, valor: r.valor,
+             mensaje: 'La fórmula funciona y da ' + formatoNumero(r.valor) + ', pero no es lo que pide la tarea. Revisa la función y el rango.' };
+  }
+  if (!r.funciones.includes(tarea.funcion)) {
+    return { ok: true, valor: r.valor,
+             mensaje: 'Correcto: da ' + formatoNumero(r.valor) + '. Con ' + tarea.funcion + ' queda más simple y sirve aunque cambien los datos: ' + tarea.ejemplo + '.' };
+  }
+  return { ok: true, valor: r.valor, mensaje: '¡Correcto! ' + tarea.funcion + ' da ' + formatoNumero(r.valor) + '.' };
+}
+
+/* ------------------------ IA: el prompt básico del manual ------------------------ */
+const CAMPOS_PROMPT = [
+  { id: 'tema', etiqueta: 'Tema', ejemplo: 'las fracciones' },
+  { id: 'curso', etiqueta: 'Curso', ejemplo: '5° básico' },
+  { id: 'duracion', etiqueta: 'Duración', ejemplo: '45 minutos' },
+  { id: 'objetivo', etiqueta: 'Objetivo de aprendizaje', ejemplo: 'comparar fracciones con distinto denominador' }
+];
+const PATRONES_PRIVADOS = [
+  { que: 'un RUT', re: /\b\d{1,2}\.\d{3}\.\d{3}-?[\dkK]\b|\b\d{7,8}-[\dkK]\b/ },
+  { que: 'un correo electrónico', re: /[^\s@]+@[^\s@]+\.[a-z]{2,}/i },
+  { que: 'un número de teléfono', re: /(?:\+?56\s?)?\b9\s?\d{4}\s?\d{4}\b/ }
+];
+
+function armarPrompt(c) {
+  const v = (id, vacio) => limpiarTexto(c[id], 200) || vacio;
+  return 'Actúa como asistente educativo. Propón una actividad sobre ' + v('tema', '[tema]') + ', para ' + v('curso', '[curso]') +
+    ', con ' + v('duracion', '[duración]') + ' y este objetivo de aprendizaje: ' + v('objetivo', '[objetivo]') + '.';
+}
+
+/** Qué le falta al prompt y si trae datos que no se deben entregar a una IA. */
+function revisarPrompt(c) {
+  const faltan = CAMPOS_PROMPT.filter(f => !limpiarTexto(c[f.id], 200)).map(f => f.etiqueta);
+  const texto = CAMPOS_PROMPT.map(f => String(c[f.id] || '')).join(' \n ');
+  const privados = PATRONES_PRIVADOS.filter(p => p.re.test(texto)).map(p => p.que);
+  return { faltan, privados, listo: !faltan.length && !privados.length };
+}
+
+/* ------------------------------ Ordenar pasos ------------------------------ */
+const ORDENAR = {
+  documentos: {
+    consigna: 'Ordena los pasos para crear un documento, del primero al último.',
+    pasos: ['Definir el objetivo del documento', 'Identificar a quién va dirigido', 'Ordenar la información antes de redactar',
+            'Redactar con títulos y un formato consistente', 'Revisar ortografía y formato antes de entregar']
+  },
+  convivencia: {
+    consigna: 'Ordena los cinco pasos de una mediación.',
+    pasos: ['Calmar la situación y separar a las partes si hay riesgo', 'Escuchar a cada parte por turnos, sin interrumpir',
+            'Identificar el problema y lo que cada uno necesita', 'Buscar soluciones entre todos',
+            'Acordar compromisos concretos y hacer seguimiento']
+  }
+};
+
+/** Baraja sin dejar nunca la lista ya ordenada: al menos dos pasos quedan fuera de lugar. */
+function desordenar(lista, azar) {
+  if (lista.length < 2) return lista.slice();
+  for (let k = 0; k < 50; k++) {
+    const b = barajar(lista, azar);
+    if (b.filter((x, j) => x !== lista[j]).length >= 2) return b;
+  }
+  return lista.slice(1).concat(lista[0]);
+}
+
+function revisarOrden(actual, correcto) {
+  const bien = correcto.map((x, j) => actual[j] === x);
+  return { bien, aciertos: bien.filter(Boolean).length, completo: actual.length === correcto.length && bien.every(Boolean) };
+}
+
+/* ------------------------------ Escenarios ------------------------------ */
+const ESCENARIOS = {
+  auxilios: [
+    { situacion: 'En el patio, un estudiante cae al suelo y empieza a convulsionar.',
+      opciones: [
+        { texto: 'Despejo los objetos cercanos, protejo su cabeza y controlo cuánto dura', ok: true,
+          porque: 'Es lo que indica el manual: proteger de golpes, mantener la calma y medir el tiempo.' },
+        { texto: 'Lo sujeto con fuerza para que deje de moverse', ok: false,
+          porque: 'Sujetarlo puede lesionarlo; la convulsión no se detiene a la fuerza.' },
+        { texto: 'Le pongo algo en la boca para que no se muerda', ok: false,
+          porque: 'Nunca se introducen objetos en la boca: puede ahogarse o lesionarse.' }] },
+    { situacion: 'La convulsión terminó. El estudiante respira, pero está confundido y somnoliento.',
+      opciones: [
+        { texto: 'Lo pongo de lado (posición lateral de seguridad) y lo acompaño hasta que se recupere', ok: true,
+          porque: 'De lado, la vía aérea queda despejada. No se deja solo.' },
+        { texto: 'Le doy agua de inmediato para que se reponga', ok: false,
+          porque: 'Mientras no esté bien despierto puede atorarse: no se le da nada por boca.' },
+        { texto: 'Lo dejo descansando solo en la sala', ok: false,
+          porque: 'Hay que acompañarlo y avisar al responsable; puede repetirse.' }] },
+    { situacion: 'Una funcionaria se golpea la cabeza, vomita y está confundida.',
+      opciones: [
+        { texto: 'Llamo al SAMU (131) y aviso al responsable del colegio', ok: true,
+          porque: 'Vómitos y confusión después de un golpe en la cabeza son signos de alarma: atención médica urgente.' },
+        { texto: 'Le doy un analgésico y que siga trabajando', ok: false,
+          porque: 'No se automedica: con signos de alarma se busca atención médica urgente.' },
+        { texto: 'Esperamos una hora a ver cómo sigue', ok: false,
+          porque: 'Con signos de alarma no se espera: se llama al SAMU (131).' }] },
+    { situacion: 'Un estudiante llora angustiado y te dice que no quiere volver a su casa.',
+      opciones: [
+        { texto: 'Lo escucho con calma, sin juzgar, y aviso al equipo de convivencia sin prometerle secreto', ok: true,
+          porque: 'Ante una posible situación de riesgo se escucha y se avisa a los responsables, según el protocolo del colegio.' },
+        { texto: 'Le prometo que no le contaré a nadie', ok: false,
+          porque: 'Frente a situaciones de riesgo no se promete confidencialidad absoluta: hay que protegerlo.' },
+        { texto: 'Le digo que todos tienen problemas en la casa', ok: false,
+          porque: 'Minimizar cierra la conversación. Primero se escucha sin juzgar.' }] }
+  ],
+  liderazgo: [
+    { situacion: 'Un colega entregó el informe de matrícula a tiempo y con los datos ordenados.',
+      opciones: [
+        { texto: '«Ayer entregaste el informe a tiempo y con los datos ordenados; con eso cerramos la matrícula antes»', ok: true,
+          porque: 'Dice cuándo (situación), qué hizo (comportamiento) y qué logró (impacto).' },
+        { texto: '«Buen trabajo»', ok: false,
+          porque: 'Es amable, pero no dice qué hizo bien: la próxima vez no sabrá qué repetir.' },
+        { texto: '«Por fin hiciste algo bien»', ok: false,
+          porque: 'Ataca a la persona y borra el reconocimiento.' }] },
+    { situacion: 'La sala de computación quedó abierta al terminar la jornada.',
+      opciones: [
+        { texto: '«Hoy a las 18:00 la sala quedó abierta; eso arriesga los equipos. ¿Cómo lo aseguramos mañana?»', ok: true,
+          porque: 'Habla del hecho y su impacto, sin culpar, y busca una solución juntos.' },
+        { texto: '«Siempre eres descuidado»', ok: false,
+          porque: '«Siempre» y los adjetivos atacan a la persona y ponen a la defensiva.' },
+        { texto: 'No decir nada para evitar un conflicto', ok: false,
+          porque: 'Sin retroalimentación el problema se repite.' }] },
+    { situacion: 'En una reunión, una docente propuso una idea que el equipo adoptó.',
+      opciones: [
+        { texto: '«El martes, tu propuesta de horarios ordenó el trabajo de todo el ciclo»', ok: true,
+          porque: 'Reconoce una conducta concreta y su efecto: así se motiva a seguir aportando.' },
+        { texto: '«Eres la mejor»', ok: false,
+          porque: 'Es un elogio general: no dice qué aporte se valora.' },
+        { texto: 'Reconocerlo solo si ella lo pide', ok: false,
+          porque: 'Reconocer lo que funciona también es parte de liderar.' }] }
+  ]
+};
+
+/* ------------------------- Respiración cuadrada guiada ------------------------- */
+const RESPIRACION = { fases: ['Inhala', 'Sostén', 'Exhala', 'Sostén'], segundos: 4, ciclos: 4 };
+const MS_RESPIRACION = RESPIRACION.fases.length * RESPIRACION.segundos * RESPIRACION.ciclos * 1000;
+
+/** En qué parte del ejercicio se va, a partir de los milisegundos transcurridos. */
+function faseRespiracion(ms) {
+  if (ms >= MS_RESPIRACION) return { terminado: true, ciclo: RESPIRACION.ciclos, indice: -1, fase: null, restante: 0 };
+  const s = Math.max(0, ms) / 1000;
+  const porCiclo = RESPIRACION.fases.length * RESPIRACION.segundos;
+  const enCiclo = s % porCiclo;
+  const indice = Math.floor(enCiclo / RESPIRACION.segundos);
+  return { terminado: false, ciclo: Math.floor(s / porCiclo) + 1, indice, fase: RESPIRACION.fases[indice],
+           restante: RESPIRACION.segundos - Math.floor(enCiclo % RESPIRACION.segundos) };
+}
+
+/* ----------------------- Actividad de la Feria: une los conceptos -----------------------
+   El equipo planificó para su stand una «mini actividad de unir conceptos relacionados
+   al proyecto» (Informe 3). Los conceptos salen de sus propios informes.               */
+const CONCEPTOS = [
+  { id: 'capacitacion', concepto: 'Capacitación', definicion: 'Proceso para desarrollar las habilidades y los conocimientos de los trabajadores.' },
+  { id: 'diagnostico', concepto: 'Diagnóstico de necesidades', definicion: 'Averiguar qué capacitación necesita cada persona o área, por ejemplo con una encuesta.' },
+  { id: 'retro', concepto: 'Retroalimentación', definicion: 'Información sobre lo que se hizo bien y lo que se puede mejorar.' },
+  { id: 'hibrida', concepto: 'Modalidad híbrida', definicion: 'Combina encuentros presenciales con actividades en línea.' },
+  { id: 'ley', concepto: 'Ley 19.518', definicion: 'Estatuto de Capacitación y Empleo de Chile.' },
+  { id: 'comite', concepto: 'Comité bipartito de capacitación', definicion: 'Empresa y trabajadores acuerdan juntos los programas de capacitación.' },
+  { id: 'impacto', concepto: 'Medición de impacto', definicion: 'Comprobar si la capacitación cambió algo, por ejemplo con una segunda encuesta.' },
+  { id: 'personal', concepto: 'Desarrollo de personal', definicion: 'Área de Recursos Humanos que acompaña el crecimiento de cada trabajador.' }
+];
+const PARES_POR_RONDA = 5;
+
+/** Una ronda: cinco conceptos al azar y sus definiciones en otro orden. */
+function nuevaRonda(azar) {
+  const ids = barajar(CONCEPTOS, azar).slice(0, PARES_POR_RONDA).map(c => c.id);
+  return { izquierda: ids, derecha: desordenar(ids, azar) };
+}
+
+function tiempoTexto(segundos) {
+  const s = Math.max(0, Math.round(segundos));
+  return Math.floor(s / 60) + ':' + dosDigitos(s % 60);
+}
+
+/* ------------------------- Medición de impacto (Informe 3) -------------------------
+   La pregunta foco del equipo y su punto de partida: la encuesta inicial a 23
+   trabajadores, que preguntó si las capacitaciones respondían a su cargo.        */
+const PREGUNTA_IMPACTO = '¿Consideras que las capacitaciones propuestas por LevelUp responden a los intereses y necesidades de tu cargo?';
+const RESPUESTAS_IMPACTO = ['Sí, totalmente', 'En parte', 'No'];
+const LINEA_BASE = {
+  pregunta: '¿Las capacitaciones que ha recibido han respondido a las necesidades reales de su cargo?',
+  total: 23,
+  filas: [{ opcion: 'Por supuesto', n: 10 }, { opcion: 'A veces', n: 11 }, { opcion: 'Nunca', n: 2 }]
+};
+
+/* Los resultados de esa encuesta inicial, tal como los reportan los Informes 2 y 3. */
+const ENCUESTA_INICIAL = {
+  total: 23,
+  fechas: '2 y 3 de septiembre de 2026',
+  preguntas: [
+    { p: '¿Ha recibido capacitaciones relacionadas con su cargo?', filas: [['Sí', 19], ['No', 4]] },
+    { p: '¿Las capacitaciones han respondido a las necesidades reales de su cargo?', filas: [['Por supuesto', 10], ['A veces', 11], ['Nunca', 2]] },
+    { p: '¿El colegio toma en cuenta sus opiniones para planificar capacitaciones?', filas: [['Sí', 13], ['No', 10]] },
+    { p: '¿Deberían ser distintas según el cargo y las funciones?', filas: [['Siempre', 14], ['Tal vez', 7], ['Nunca', 2]] },
+    { p: '¿Qué modalidad le acomoda más?', filas: [['Presencial', 15], ['Híbrida', 4], ['Online', 4]] }
+  ]
+};
+
+/* Los temas que pidieron en las preguntas abiertas, según los Informes 2 y 3, y el curso que los cubre. */
+const TEMAS_PEDIDOS = [
+  { tema: 'Convivencia escolar y resolución de conflictos', detalle: 'el más pedido: 1 de cada 4 respuestas', curso: 'convivencia' },
+  { tema: 'Gestión emocional y salud mental', detalle: 'para contener desregulaciones', curso: 'emociones' },
+  { tema: 'Inteligencia artificial y herramientas digitales', detalle: 'para actualizarse en tecnología educativa', curso: 'ia' },
+  { tema: 'Liderazgo y comunicación', detalle: 'también con apoderados y estudiantes', curso: 'liderazgo' },
+  { tema: 'Primeros auxilios y seguridad', detalle: 'ante emergencias de salud en el colegio', curso: 'auxilios' },
+  { tema: 'Excel y documentos', detalle: 'para las tareas administrativas', curso: 'excel' },
+  { tema: 'Reglamento interno, seguridad y prevención', detalle: 'cerca del 18 % de las respuestas', curso: null }
+];
+
+/** Uso de la página: cuántas personas avanzaron cursos, prácticas hechas y rondas del juego. */
+function estadisticaParticipacion(d) {
+  const personas = Object.keys(d.avanceCursos);
+  let practicas = 0;
+  personas.forEach(pid => Object.keys(d.avanceCursos[pid]).forEach(k => { if (d.avanceCursos[pid][k].practica) practicas++; }));
+  const participantes = new Set(d.intentos.map(i => i.participanteId).concat(personas)).size;
+  return { participantes, practicas, partidas: d.juego.partidas, mejor: d.juego.mejor };
+}
+
+function porcentajeUnDecimal(n, total) { return total ? Math.round(n / total * 1000) / 10 : 0; }
+function pctTexto(p) { return String(p).replace('.', ',') + ' %'; }
+
+function estadisticaImpacto(respuestas) {
+  const n = respuestas.length;
+  const filas = RESPUESTAS_IMPACTO.map(opcion => {
+    const k = respuestas.filter(r => r.responde === opcion).length;
+    return { opcion, n: k, pct: porcentajeUnDecimal(k, n) };
+  });
+  const notas = respuestas.map(r => r.nota).filter(x => Number.isInteger(x) && x >= 1 && x <= 5);
+  return {
+    n, filas,
+    favorable: n ? filas[0].pct : null,
+    promedio: notas.length ? Math.round(notas.reduce((a, b) => a + b, 0) / notas.length * 10) / 10 : null,
+    notas: notas.length
+  };
+}
+
+function impactoCSV(respuestas) {
+  return aCSV([['Fecha', 'Cargo', PREGUNTA_IMPACTO, 'Satisfacción con la página (1 a 5)']]
+    .concat(respuestas.map(r => [fechaCorta(Date.parse(r.fecha)), r.cargo || 'Sin indicar', r.responde, r.nota == null ? '' : r.nota])));
 }
 
 /* ============================== INTERFAZ ============================== */
@@ -719,8 +1604,12 @@ function newMotivation() {
   do { idx = Math.floor(Math.random() * motivations.length); } while (idx === lastMotivationIdx && motivations.length > 1);
   lastMotivationIdx = idx;
   const t = motivations[idx];
-  document.getElementById('motivationText').textContent = t;
+  const texto = document.getElementById('motivationText');
+  texto.textContent = t;
   document.getElementById('heroQuote').textContent = '“' + t + '”';
+  texto.classList.remove('cambio');
+  void texto.offsetWidth;                               // vuelve a disparar la animación
+  texto.classList.add('cambio');
 }
 
 /* ---- Ventana (modal) ---- */
@@ -747,12 +1636,12 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && $('#modal').classList.contains('active')) closeModal();
 });
 
-/* ---- Manuales y tests ---- */
-function openManual(clave) {
-  const m = MANUALES[clave];
-  if (!m) return;
-  const contenido = document.getElementById('plantilla-' + clave).content.cloneNode(true);
-  abrirModal(crear('h2', null, m.titulo), crear('p', null, m.intro), contenido, crear('hr'), formularioTest(clave));
+/* ---- Manuales y tests ----
+   Cada manual se abre como curso (pasos, práctica y test): ver «CURSOS» más abajo.
+   «paso» puede ser 'practica', 'test' o un número; sin él, sigue donde quedó. */
+function openManual(clave, paso) {
+  if (!MANUALES[clave]) return;
+  abrirCurso(clave, paso);
 }
 
 function formularioTest(clave) {
@@ -853,18 +1742,30 @@ function corregirFormulario(clave, form, campoNombre, caja) {
     crear('strong', null, r.correctas + '/' + r.total + ' (' + r.pct + ' %)'),
     document.createTextNode(r.aprobado ? ' — ¡Aprobado! Sigue fortaleciendo tus aprendizajes.'
       : ' — Aún no alcanza el ' + APROBACION + ' %. Revisa las explicaciones y vuelve a intentarlo.'));
-  if (despues > antes) caja.append(crear('span', 'sube-nivel', '⬆ Subiste a ' + nivelDe(despues) + '.'));
+  // Con siete cursos no todo curso aprobado sube de nivel: se avisa lo que corresponde.
+  const subio = nivelDe(despues) !== nivelDe(antes);
+  if (subio) caja.append(crear('span', 'sube-nivel', '⬆ Subiste a ' + nivelDe(despues) + '.'));
+  else if (despues > antes) {
+    const faltan = faltanParaSubir(despues);
+    caja.append(crear('span', 'sube-nivel', '✓ Llevas ' + despues + ' de ' + ORDEN_MANUALES.length + ' cursos aprobados' +
+      (faltan ? ': ' + (faltan === 1 ? 'te falta 1' : 'te faltan ' + faltan) + ' para subir de nivel.' : '.')));
+  }
   const acciones = crear('div', 'test-acciones');
   acciones.append(
-    boton('btn btn-secondary', 'Intentar de nuevo', () => openManual(clave)),
+    boton('btn btn-secondary', 'Intentar de nuevo', () => openManual(clave, 'test')),
     boton('btn btn-secondary', 'Ver mi avance', () => { closeModal(); $('#miAvance').scrollIntoView({ behavior: 'smooth', block: 'center' }); }));
   caja.append(acciones);
+  if (r.aprobado) celebrar(subio);
+  if (cursoAbierto) cursoAbierto.refrescar();
   pintarAvance();
   pintarPanel();
   caja.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-/* ---- Mi avance: nombre, cargo, nivel y constancia ---- */
+/* ---- Mi avance: nombre, cargo, nivel, cursos y constancia ---- */
+let anchoAvanceAnterior = '0%';
+const pctCursoAnterior = {};
+
 function pintarAvance() {
   const p = participanteActivo();
   const mejor = mejorPorManual(datos.intentos, p.id);
@@ -905,9 +1806,14 @@ function pintarAvance() {
   barra.setAttribute('aria-valuenow', String(ok.length));
   barra.setAttribute('aria-label', 'Manuales aprobados');
   const relleno = crear('span');
-  relleno.style.width = (ok.length / ORDEN_MANUALES.length * 100) + '%';
+  const ancho = (ok.length / ORDEN_MANUALES.length * 100) + '%';
+  relleno.style.width = anchoAvanceAnterior;             // crece desde donde estaba
+  requestAnimationFrame(() => { relleno.style.width = ancho; });
+  anchoAvanceAnterior = ancho;
   barra.append(relleno);
-  derecha.append(barra, crear('p', 'avance-detalle', plural(ok.length, 'manual aprobado', 'manuales aprobados') + ' de ' + ORDEN_MANUALES.length + '.'));
+  const faltan = faltanParaSubir(ok.length);
+  derecha.append(barra, crear('p', 'avance-detalle', plural(ok.length, 'curso aprobado', 'cursos aprobados') + ' de ' + ORDEN_MANUALES.length + '.' +
+    (faltan ? ' ' + (faltan === 1 ? 'Te falta 1' : 'Te faltan ' + faltan) + ' para el siguiente nivel.' : ' ¡Llegaste al nivel más alto!')));
   if (p.cargo) {
     const ruta = RUTAS_CARGO[p.cargo];
     const hechos = ruta.filter(k => ok.includes(k)).length;
@@ -925,7 +1831,22 @@ function pintarAvance() {
       avisar('Listo: el avance ahora es de una persona nueva.');
     }));
   derecha.append(acciones);
-  cont.replaceChildren(izquierda, derecha);
+
+  // Los siete cursos, con cuánto lleva de cada uno (pasos, práctica y test).
+  const cursos = crear('div', 'cursos-mini');
+  cursos.setAttribute('aria-label', 'Avance por curso');
+  ORDEN_MANUALES.forEach(k => {
+    const pct = porcentajeCurso(p.id, k, mejor);
+    const b = boton('curso-mini' + (mejor[k] && mejor[k].aprobado ? ' aprobado' : ''), null, () => openManual(k));
+    const anillo = crear('span', 'anillo' + (pctCursoAnterior[k] !== undefined && pctCursoAnterior[k] !== pct ? ' anima' : ''));
+    anillo.style.setProperty('--p', pct + '%');
+    anillo.append(crear('span', null, pct + '%'));
+    b.append(anillo, crear('span', 'curso-mini-nombre', MANUALES[k].nombre));
+    b.setAttribute('aria-label', MANUALES[k].nombre + ': ' + pct + ' % del curso' + (mejor[k] && mejor[k].aprobado ? ', aprobado' : ''));
+    pctCursoAnterior[k] = pct;
+    cursos.append(b);
+  });
+  cont.replaceChildren(izquierda, derecha, cursos);
 
   // Estado en cada tarjeta de manual
   document.querySelectorAll('#manuales .manual-card').forEach(tarjeta => {
@@ -993,11 +1914,12 @@ function abrirRuta(cargo) {
     const cabeza = crear('div', 'ruta-cabeza');
     cabeza.append(crear('strong', null, MANUALES[k].titulo),
       crear('span', 'estado-manual' + (e && e.aprobado ? ' ok' : ''), e ? (e.aprobado ? '✓ Aprobado · ' + e.pct + ' %' : 'Mejor intento: ' + e.pct + ' %') : 'Pendiente'));
-    li.append(cabeza, boton('btn btn-primary', e && e.aprobado ? 'Repasar' : 'Abrir manual y test', () => openManual(k)));
+    if (MANUALES[k].nuevo) cabeza.append(crear('span', 'insignia-nuevo', 'Nuevo · sugerido por la encuesta'));
+    li.append(cabeza, boton('btn btn-primary', e && e.aprobado ? 'Repasar' : 'Abrir curso', () => openManual(k)));
     lista.append(li);
   });
   abrirModal(crear('h2', null, 'Ruta para ' + cargo),
-    crear('p', null, 'Estos son los manuales que proponemos para tu cargo. Tu avance queda registrado en «Mi avance».'), lista);
+    crear('p', null, 'Estos son los cursos que proponemos para tu cargo. Es una sugerencia: en LevelUp puedes tomar cualquier curso. Tu avance queda registrado en «Mi avance».'), lista);
 }
 
 document.querySelectorAll('[data-cargo]').forEach(b => b.addEventListener('click', () => abrirRuta(b.dataset.cargo)));
@@ -1047,12 +1969,13 @@ function pintarBarras(contenedor, filas, total, vacio) {
     const fila = crear('div', 'barra-fila');
     fila.tabIndex = 0;
     const etiqueta = ETIQUETA_OPCION[x.opcion] || x.opcion;
-    fila.title = etiqueta + ': ' + plural(x.n, 'respuesta', 'respuestas') + ' de ' + total + ' (' + x.pct + ' %)';
+    const pct = String(x.pct).replace('.', ',') + ' %';
+    fila.title = etiqueta + ': ' + plural(x.n, 'respuesta', 'respuestas') + ' de ' + total + ' (' + pct + ')';
     fila.setAttribute('aria-label', fila.title);
     const area = crear('span', 'barra-area');
     const relleno = crear('span', 'barra-relleno');
     relleno.style.width = 'calc((100% - 78px) * ' + (x.pct / 100) + ')';
-    area.append(relleno, crear('span', 'barra-valor', x.n + ' · ' + x.pct + ' %'));
+    area.append(relleno, crear('span', 'barra-valor', x.n + ' · ' + pct));
     fila.append(crear('span', 'barra-nombre', etiqueta), area);
     return fila;
   }));
@@ -1108,6 +2031,7 @@ function pintarPanel() {
       crear('td', null, s.masFallada ? '«' + s.masFallada.texto + '» (' + s.masFallada.pct + ' % la falla)' : (s.intentos ? 'Ninguna: todas bien' : '—')));
     return fila;
   }));
+  pintarImpacto();
 }
 
 function descargar(nombre, contenido) {
@@ -1141,6 +2065,7 @@ $('#borrarDatos').addEventListener('click', () => {
   cajaDiagnostico.style.display = 'none';
   pintarAvance();
   pintarPanel();
+  iniciarJuego();
   avisar('Datos de prueba borrados.');
 });
 
@@ -1191,11 +2116,814 @@ commentForm.addEventListener('submit', e => {
   renderComments();
 });
 
+/* El arranque está al final del programa, después de los cursos. */
+
+/* ==================== CURSOS, PRÁCTICAS Y ACTIVIDADES (pantalla) ====================
+   Cada capacitación se abre como un curso: los pasos del manual del equipo, una
+   práctica y el test. Aquí también están los resultados de la encuesta inicial,
+   la medición de impacto, la actividad «Une los conceptos» y las animaciones.   */
+
+const MENOS_MOVIMIENTO = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+/* ------------------------------- Animaciones ------------------------------- */
+/** Lluvia de papel picado con los colores de LevelUp. Fuerte al subir de nivel. */
+function celebrar(fuerte) {
+  if (MENOS_MOVIMIENTO) return;
+  const capa = crear('div', 'confeti');
+  capa.setAttribute('aria-hidden', 'true');
+  const colores = ['#786DA1', '#12A3AE', '#c8a8df', '#5BBCC5', '#5f557f', '#087f8b'];
+  const cantidad = fuerte ? 90 : 40;
+  for (let k = 0; k < cantidad; k++) {
+    const pieza = crear('i');
+    pieza.style.left = (Math.random() * 100) + 'vw';
+    pieza.style.background = colores[k % colores.length];
+    pieza.style.setProperty('--dx', ((Math.random() - 0.5) * 30).toFixed(1) + 'vw');
+    pieza.style.setProperty('--giro', Math.round(Math.random() * 720 - 360) + 'deg');
+    pieza.style.animationDuration = (1.3 + Math.random() * 1.2).toFixed(2) + 's';
+    pieza.style.animationDelay = (Math.random() * 0.25).toFixed(2) + 's';
+    capa.append(pieza);
+  }
+  document.body.append(capa);
+  setTimeout(() => capa.remove(), 3000);
+}
+
+function sacudir(el) {
+  if (MENOS_MOVIMIENTO || !el) return;
+  el.classList.remove('sacude');
+  void el.offsetWidth;                                  // reinicia la animación
+  el.classList.add('sacude');
+}
+
+/** Cuenta desde 0 hasta el número que ya muestra el elemento («12», «80 %»). */
+function animarNumero(el) {
+  const m = /^(\d+)(.*)$/.exec(el.textContent.trim());
+  if (MENOS_MOVIMIENTO || !m || m[1] === '0') return;
+  const final = el.textContent, destino = Number(m[1]), resto = m[2], t0 = performance.now(), dura = 900;
+  let escrito = null;
+  const paso = () => {
+    if (escrito !== null && el.textContent !== escrito) return;   // otro cambio ganó: no se pisa
+    const k = Math.min(1, Math.max(0, (performance.now() - t0) / dura));   // mismo reloj al empezar y en cada cuadro
+    escrito = k < 1 ? Math.round(destino * (1 - Math.pow(1 - k, 3))) + resto : final;
+    el.textContent = escrito;
+    if (k < 1) requestAnimationFrame(paso);
+  };
+  requestAnimationFrame(paso);
+}
+
+/** Las secciones aparecen suavemente al llegar a ellas. */
+function activarRevelado() {
+  if (MENOS_MOVIMIENTO || !('IntersectionObserver' in window)) return;
+  const obs = new IntersectionObserver(entradas => entradas.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('main .section-head, main .card, .motivation, .about-box, .survey-info, .survey, .comment-form, .voces-dato')
+    .forEach((el, k) => {
+      el.classList.add('revelar');
+      el.style.setProperty('--retraso', (k % 4) * 70 + 'ms');
+      obs.observe(el);
+    });
+}
+
+/** Las cifras del panel cuentan hacia arriba la primera vez que se ven. */
+function activarContadores() {
+  const kpis = $('#resultados .kpis');
+  if (!kpis || MENOS_MOVIMIENTO || !('IntersectionObserver' in window)) return;
+  const obs = new IntersectionObserver(entradas => {
+    if (entradas.some(e => e.isIntersecting)) {
+      kpis.querySelectorAll('.kpi strong').forEach(animarNumero);
+      obs.disconnect();
+    }
+  });
+  obs.observe(kpis);
+}
+
+/* ------------------------ Avance de cada curso ------------------------ */
+/** Los pasos de un curso salen de su manual: cada título es una lección; al final, práctica y test. */
+function pasosDelCurso(clave) {
+  const plantilla = document.getElementById('plantilla-' + clave);
+  const raiz = plantilla.content.querySelector('.manual-content') || plantilla.content;
+  const prefacio = [], lecciones = [];
+  [...raiz.childNodes].forEach(n => {
+    if (n.nodeType === 1 && n.tagName === 'H3') {
+      lecciones.push({ tipo: 'leccion', titulo: n.textContent.replace(/^\d+\.\s*/, ''), nodos: [n] });
+    } else if (lecciones.length) {
+      lecciones[lecciones.length - 1].nodos.push(n);
+    } else if (n.nodeType === 1 || n.textContent.trim()) {
+      prefacio.push(n);
+    }
+  });
+  if (!lecciones.length) lecciones.push({ tipo: 'leccion', titulo: 'Contenido', nodos: [] });
+  lecciones[0].nodos = prefacio.concat(lecciones[0].nodos);   // el aviso inicial va en la primera lección
+  return lecciones.concat([{ tipo: 'practica', titulo: 'Práctica' }, { tipo: 'test', titulo: 'Test' }]);
+}
+
+const LECCIONES = {};
+function leccionesDe(clave) {
+  if (!(clave in LECCIONES)) LECCIONES[clave] = pasosDelCurso(clave).filter(p => p.tipo === 'leccion').length;
+  return LECCIONES[clave];
+}
+
+function avanceCurso(pid, clave) {
+  const porPersona = datos.avanceCursos[pid] || {};
+  return porPersona[clave] || { pasos: 0, practica: false };
+}
+
+function registrarAvance(clave, cambios) {
+  const p = participanteActivo();
+  const porPersona = datos.avanceCursos[p.id] || (datos.avanceCursos[p.id] = {});
+  const actual = porPersona[clave] || { pasos: 0, practica: false };
+  porPersona[clave] = { pasos: Math.max(actual.pasos, cambios.pasos || 0), practica: actual.practica || cambios.practica === true };
+  guardar();
+}
+
+function porcentajeCurso(pid, clave, mejor) {
+  const av = avanceCurso(pid, clave);
+  return progresoCurso(av.pasos, leccionesDe(clave), av.practica, !!(mejor[clave] && mejor[clave].aprobado));
+}
+
+/* -------------------------------- El curso -------------------------------- */
+let cursoAbierto = null;
+
+function abrirCurso(clave, paso) {
+  const m = MANUALES[clave];
+  const pasos = pasosDelCurso(clave);
+  const ultimo = pasos.length - 1;
+  // Sin un paso pedido, vuelve al último paso visto; si el curso ya está aprobado, parte desde el inicio para repasar.
+  const pid = participanteActivo().id;
+  const aprobado = !!(mejorPorManual(datos.intentos, pid)[clave] || {}).aprobado;
+  let inicial = aprobado ? 0 : Math.max(0, Math.min(avanceCurso(pid, clave).pasos - 1, ultimo));
+  if (paso === 'test') inicial = ultimo;
+  else if (paso === 'practica') inicial = ultimo - 1;
+  else if (Number.isInteger(paso)) inicial = Math.max(0, Math.min(ultimo, paso));
+
+  const cabeza = crear('div', 'curso-cabeza');
+  cabeza.append(crear('h2', null, m.titulo));
+  if (m.nuevo) cabeza.append(crear('span', 'insignia-nuevo', 'Nuevo · pedido en la encuesta'));
+  cabeza.append(crear('p', 'curso-intro', m.intro));
+
+  const lista = crear('ol', 'curso-pasos');
+  lista.setAttribute('aria-label', 'Pasos del curso');
+  const botones = pasos.map((ps, k) => {
+    const li = crear('li');
+    const b = boton('curso-paso-btn', null, () => ir(k));
+    b.append(crear('span', 'curso-paso-num', ps.tipo === 'practica' ? '★' : ps.tipo === 'test' ? '✓' : String(k + 1)),
+             crear('span', 'curso-paso-txt', ps.titulo));
+    li.append(b);
+    lista.append(li);
+    return b;
+  });
+  const barra = crear('div', 'curso-barra');
+  barra.setAttribute('aria-hidden', 'true');
+  const relleno = crear('span');
+  barra.append(relleno);
+  const cuenta = crear('p', 'curso-cuenta');
+  const cuerpo = crear('div', 'curso-cuerpo');
+  const nav = crear('div', 'curso-nav');
+  const anterior = boton('btn btn-secondary', '← Anterior', () => ir(cursoAbierto.i - 1));
+  const siguiente = boton('btn btn-primary', 'Siguiente →', () => ir(cursoAbierto.i + 1));
+  nav.append(anterior, siguiente);
+  const completo = boton('enlace-manual curso-completo', 'Ver el manual completo en una sola página', () => verManualCompleto(clave));
+
+  function hecho(k) {
+    const ps = pasos[k], pid = participanteActivo().id, av = avanceCurso(pid, clave);
+    if (ps.tipo === 'leccion') return av.pasos > k;
+    if (ps.tipo === 'practica') return av.practica;
+    const mejor = mejorPorManual(datos.intentos, pid)[clave];
+    return !!(mejor && mejor.aprobado);
+  }
+  function refrescar() {
+    botones.forEach((b, k) => {
+      b.classList.toggle('hecho', hecho(k));
+      if (k === cursoAbierto.i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    });
+  }
+  function ir(k, primera) {
+    k = Math.max(0, Math.min(ultimo, k));
+    const direccion = k >= cursoAbierto.i ? 'der' : 'izq';
+    cursoAbierto.i = k;
+    const ps = pasos[k];
+    const panel = crear('div', 'curso-paso' + (primera || MENOS_MOVIMIENTO ? '' : ' entra-' + direccion));
+    panel.tabIndex = -1;
+    if (ps.tipo === 'leccion') {
+      const caja = crear('div', 'manual-content');
+      ps.nodos.forEach(n => caja.append(n.cloneNode(true)));
+      panel.append(caja);
+    } else if (ps.tipo === 'practica') {
+      panel.append(crearPractica(clave));
+    } else {
+      panel.append(formularioTest(clave));
+    }
+    registrarAvance(clave, { pasos: k + 1 });
+    cuerpo.replaceChildren(panel);
+    relleno.style.width = ((k + 1) / pasos.length * 100) + '%';
+    cuenta.textContent = 'Paso ' + (k + 1) + ' de ' + pasos.length + ' · ' + ps.titulo;
+    anterior.disabled = k === 0;
+    siguiente.hidden = k === ultimo;
+    if (k < ultimo) {
+      const prox = pasos[k + 1].tipo;
+      siguiente.textContent = prox === 'practica' ? 'Ir a la práctica →' : prox === 'test' ? 'Ir al test →' : 'Siguiente →';
+    }
+    refrescar();
+    pintarAvance();
+    if (!primera) {
+      $('.modal-box').scrollTop = 0;
+      panel.focus({ preventScroll: true });
+    }
+  }
+
+  cursoAbierto = { clave, i: inicial, ir, refrescar, ultimo };
+  abrirModal(cabeza, lista, barra, cuenta, cuerpo, nav, completo);
+  ir(inicial, true);
+}
+
+/** La vista de siempre: todo el manual en una página y el test al final (sirve para proyectar o imprimir). */
+function verManualCompleto(clave) {
+  const m = MANUALES[clave];
+  const contenido = document.getElementById('plantilla-' + clave).content.cloneNode(true);
+  cursoAbierto = null;
+  abrirModal(boton('btn btn-secondary volver-curso', '← Volver al curso', () => openManual(clave)),
+    crear('h2', null, m.titulo), crear('p', null, m.intro), contenido, crear('hr'), formularioTest(clave));
+}
+
+/* ------------------------------- Prácticas ------------------------------- */
+function crearPractica(clave) {
+  const def = PRACTICAS[clave];
+  const caja = crear('div', 'practica practica--' + def.tipo);
+  caja.append(crear('h3', null, def.titulo), crear('p', 'practica-ayuda', def.ayuda));
+  if (avanceCurso(participanteActivo().id, clave).practica) {
+    caja.append(crear('p', 'practica-hecha', '✓ Ya completaste esta práctica. Puedes repetirla cuando quieras.'));
+  }
+  const fin = crear('div', 'practica-fin');
+  fin.setAttribute('role', 'status');
+  fin.hidden = true;
+  function completar() {
+    const primera = !avanceCurso(participanteActivo().id, clave).practica;
+    registrarAvance(clave, { practica: true });
+    fin.replaceChildren(crear('strong', null, '✓ ¡Práctica completada!'), document.createTextNode(' Ahora comprueba lo aprendido en el test. '),
+      boton('btn btn-primary', 'Ir al test →', () => (cursoAbierto && cursoAbierto.clave === clave ? cursoAbierto.ir(cursoAbierto.ultimo) : openManual(clave, 'test'))));
+    fin.hidden = false;
+    if (primera) celebrar(false);
+    if (cursoAbierto) cursoAbierto.refrescar();
+    pintarAvance();
+  }
+  const armar = { hoja: practicaHoja, ordenar: practicaOrdenar, escenarios: practicaEscenarios,
+                  prompt: practicaPrompt, respiracion: practicaRespiracion }[def.tipo];
+  caja.append(armar(clave, completar), fin);
+  return caja;
+}
+
+function zonaAviso(clase) {
+  const p = crear('p', clase);
+  p.setAttribute('role', 'status');
+  p.setAttribute('aria-live', 'polite');
+  return p;
+}
+
+/* Excel: una hoja de verdad con fórmulas que se calculan. */
+function practicaHoja(clave, completar) {
+  const cont = crear('div', 'hoja-practica');
+  const tabla = crear('table', 'hoja');
+  tabla.setAttribute('aria-label', 'Hoja de cálculo: ' + HOJA_EXCEL.titulo);
+  const cab = crear('tr');
+  cab.append(crear('th', 'hoja-esquina'));
+  HOJA_EXCEL.columnas.forEach(c => cab.append(crear('th', null, c)));
+  const thead = crear('thead');
+  thead.append(cab);
+  const tbody = crear('tbody');
+  for (let f = 1; f <= HOJA_EXCEL.filas; f++) {
+    const tr = crear('tr');
+    tr.append(crear('th', null, String(f)));
+    HOJA_EXCEL.columnas.forEach(c => {
+      const v = HOJA_EXCEL.celdas[c + f];
+      tr.append(crear('td', typeof v === 'number' ? 'num' : (f === 1 ? 'hoja-titulo' : null),
+                      v == null ? '' : (typeof v === 'number' ? formatoNumero(v) : v)));
+    });
+    tbody.append(tr);
+  }
+  tabla.append(thead, tbody);
+  const scroll = crear('div', 'tabla-scroll');
+  scroll.append(tabla);
+
+  const tareas = crear('ol', 'hoja-tareas');
+  const hechas = new Set();
+  TAREAS_EXCEL.forEach(t => {
+    const li = crear('li', 'hoja-tarea');
+    const fila = crear('form', 'hoja-fila');
+    fila.noValidate = true;
+    const fx = crear('span', 'hoja-fx', 'fx');
+    fx.setAttribute('aria-hidden', 'true');
+    const entrada = crear('input');
+    entrada.type = 'text';
+    entrada.placeholder = '=';
+    entrada.spellcheck = false;
+    entrada.autocomplete = 'off';
+    entrada.maxLength = 80;
+    entrada.setAttribute('aria-label', 'Fórmula para: ' + t.pide);
+    const probar = crear('button', 'btn btn-secondary', 'Probar');
+    probar.type = 'submit';
+    const salida = zonaAviso('hoja-salida');
+    fila.append(fx, entrada, probar);
+    fila.addEventListener('submit', e => {
+      e.preventDefault();
+      const r = revisarTareaExcel(t, entrada.value);
+      salida.textContent = r.mensaje;
+      salida.className = 'hoja-salida ' + (r.ok ? 'ok' : 'mal');
+      li.classList.toggle('lista', r.ok);
+      if (!r.ok) { sacudir(fila); return; }
+      hechas.add(t.id);
+      if (hechas.size === TAREAS_EXCEL.length) completar();
+    });
+    li.append(crear('p', null, t.pide), fila, salida);
+    tareas.append(li);
+  });
+  cont.append(scroll, tareas,
+    crear('p', 'practica-nota', 'Reconoce SUMA, PROMEDIO, MAX, MIN y CONTAR, como en Excel en español. Los argumentos se separan con punto y coma (;) o coma.'));
+  return cont;
+}
+
+/* Documentos y convivencia: ordenar pasos con flechas (se puede usar con teclado). */
+function practicaOrdenar(clave, completar) {
+  const def = ORDENAR[clave];
+  let orden = desordenar(def.pasos);
+  let completo = false;
+  const cont = crear('div', 'ordenar');
+  const lista = crear('ol', 'ordenar-lista');
+  const salida = zonaAviso('ordenar-salida');
+  function pintar() {
+    lista.replaceChildren(...orden.map((texto, j) => {
+      const li = crear('li', 'ordenar-item');
+      li.append(crear('span', 'ordenar-texto', texto));
+      const sube = boton('ordenar-btn', '↑', () => mover(j, -1));
+      sube.setAttribute('aria-label', 'Subir: ' + texto);
+      sube.disabled = j === 0;
+      const baja = boton('ordenar-btn', '↓', () => mover(j, 1));
+      baja.setAttribute('aria-label', 'Bajar: ' + texto);
+      baja.disabled = j === orden.length - 1;
+      li.append(sube, baja);
+      return li;
+    }));
+  }
+  function mover(j, d) {
+    const k = j + d;
+    if (k < 0 || k >= orden.length) return;
+    [orden[j], orden[k]] = [orden[k], orden[j]];
+    pintar();
+    salida.textContent = '';
+    const item = lista.children[k];
+    item.classList.add('movido');
+    const btn = item.querySelectorAll('.ordenar-btn')[d < 0 ? 0 : 1];
+    (btn && !btn.disabled ? btn : item.querySelector('.ordenar-btn:not([disabled])')).focus();
+  }
+  const revisar = boton('btn btn-primary', 'Revisar orden', () => {
+    const r = revisarOrden(orden, def.pasos);
+    [...lista.children].forEach((li, j) => {
+      li.classList.toggle('bien', r.bien[j]);
+      li.classList.toggle('mal', !r.bien[j]);
+    });
+    if (r.completo) {
+      salida.textContent = '¡Orden correcto! ' + def.pasos.length + ' de ' + def.pasos.length + ' pasos en su lugar.';
+      if (!completo) { completo = true; completar(); }
+    } else {
+      salida.textContent = r.aciertos + ' de ' + def.pasos.length + ' pasos están en su lugar. Mueve los marcados y vuelve a revisar.';
+      sacudir(lista);
+    }
+  });
+  pintar();
+  cont.append(crear('p', 'ordenar-consigna', def.consigna), lista, revisar, salida);
+  return cont;
+}
+
+/* Primeros auxilios y liderazgo: ¿qué harías? Cada respuesta explica por qué. */
+function practicaEscenarios(clave, completar) {
+  const casos = ESCENARIOS[clave];
+  let k = 0, aLaPrimera = 0;
+  const cont = crear('div', 'escenarios');
+  const marcador = crear('p', 'escenario-cuenta');
+  const caja = crear('div', 'escenario');
+  function pintar() {
+    const e = casos[k];
+    let fallo = false;
+    marcador.textContent = 'Situación ' + (k + 1) + ' de ' + casos.length;
+    const situacion = crear('p', 'escenario-situacion', e.situacion);
+    situacion.tabIndex = -1;
+    const opciones = crear('div', 'escenario-opciones');
+    const salida = zonaAviso('escenario-salida');
+    barajar(e.opciones).forEach(o => {
+      const b = boton('escenario-opcion', o.texto, () => {
+        salida.replaceChildren(crear('strong', null, o.ok ? '✓ Bien. ' : '✗ No es lo indicado. '), document.createTextNode(o.porque));
+        salida.className = 'escenario-salida ' + (o.ok ? 'ok' : 'mal');
+        if (!o.ok) {
+          fallo = true;
+          b.classList.add('mal');
+          b.disabled = true;
+          sacudir(b);
+          return;
+        }
+        b.classList.add('bien');
+        if (!fallo) aLaPrimera++;
+        opciones.querySelectorAll('button').forEach(x => { x.disabled = true; });
+        if (k < casos.length - 1) {
+          salida.after(boton('btn btn-primary', 'Siguiente situación →', () => {
+            k++;
+            pintar();
+            caja.querySelector('.escenario-situacion').focus();
+          }));
+        } else {
+          salida.after(crear('p', 'escenario-final', 'Acertaste a la primera en ' + aLaPrimera + ' de ' + casos.length + ' situaciones.'));
+          completar();
+        }
+      });
+      opciones.append(b);
+    });
+    caja.replaceChildren(situacion, opciones, salida);
+  }
+  pintar();
+  cont.append(marcador, caja);
+  return cont;
+}
+
+/* IA: armar el prompt básico del manual, sin datos personales. */
+function practicaPrompt(clave, completar) {
+  const valores = {};
+  let completo = false;
+  const cont = crear('div', 'prompt-armador');
+  const campos = crear('div', 'prompt-campos');
+  const vista = crear('p', 'prompt-vista');
+  const avisos = crear('ul', 'prompt-avisos');
+  avisos.setAttribute('aria-live', 'polite');
+  const copiar = boton('btn btn-primary', 'Copiar prompt', () => {
+    const texto = vista.textContent;
+    const exito = () => avisar('Prompt copiado. Pégalo en la herramienta de IA que uses y revisa lo que entregue.');
+    const manual = () => {
+      const rango = document.createRange();
+      rango.selectNodeContents(vista);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(rango);
+      avisar('Quedó seleccionado: cópialo con Ctrl+C.');
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(exito, manual);
+    else manual();
+  });
+  CAMPOS_PROMPT.forEach(f => {
+    const et = crear('label', null, f.etiqueta);
+    const entrada = crear('input');
+    entrada.maxLength = 120;
+    entrada.autocomplete = 'off';
+    entrada.placeholder = 'Ej: ' + f.ejemplo;
+    entrada.dataset.campo = f.id;
+    entrada.addEventListener('input', () => { valores[f.id] = entrada.value; actualizar(); });
+    et.append(entrada);
+    campos.append(et);
+  });
+  function actualizar() {
+    vista.textContent = armarPrompt(valores);
+    const r = revisarPrompt(valores);
+    const items = [];
+    if (r.faltan.length) items.push(['falta', 'Falta completar: ' + r.faltan.join(', ') + '.']);
+    r.privados.forEach(q => items.push(['privado', 'Parece que escribiste ' + q + '. No ingreses datos personales a una IA.']));
+    if (r.listo) items.push(['ok', '✓ Listo: tiene los cuatro datos del manual y no lleva datos personales.']);
+    avisos.replaceChildren(...items.map(([tipo, texto]) => crear('li', 'prompt-aviso ' + tipo, texto)));
+    copiar.disabled = !r.listo;
+    if (r.listo && !completo) { completo = true; completar(); }
+  }
+  actualizar();
+  cont.append(campos, crear('p', 'prompt-rotulo', 'Tu prompt:'), vista, avisos, copiar,
+    crear('p', 'practica-nota', 'Recuerda: revisa y adapta lo que entregue la IA antes de usarlo, y nunca escribas nombres de estudiantes ni datos de salud.'));
+  return cont;
+}
+
+/* Gestión emocional: un minuto de respiración cuadrada guiada. */
+function practicaRespiracion(clave, completar) {
+  const cont = crear('div', 'respira');
+  const circulo = crear('div', 'respira-circulo');
+  circulo.setAttribute('aria-hidden', 'true');
+  const nucleo = crear('div', 'respira-nucleo');
+  const cuenta = crear('span', 'respira-cuenta');
+  nucleo.append(cuenta);
+  circulo.append(nucleo);
+  const fase = zonaAviso('respira-fase');
+  fase.textContent = 'Cuando quieras, presiona «Comenzar».';
+  const ronda = crear('p', 'respira-ronda');
+  const comenzar = boton('btn btn-primary', 'Comenzar (1 minuto)', iniciar);
+  const detener = boton('btn btn-secondary', 'Detener', () => parar('Detenido. Puedes comenzar de nuevo cuando quieras.'));
+  detener.hidden = true;
+  let inicio = 0, cuadro = 0, faseActual = '';
+  function paso() {
+    if (!cont.isConnected) { cancelAnimationFrame(cuadro); return; }   // se cerró la ventana
+    const r = faseRespiracion(performance.now() - inicio);
+    if (r.terminado) { terminar(); return; }
+    const marca = r.ciclo + '-' + r.indice;
+    if (marca !== faseActual) {
+      faseActual = marca;
+      fase.textContent = r.fase + '…';
+      circulo.dataset.fase = String(r.indice);
+      ronda.textContent = 'Ronda ' + r.ciclo + ' de ' + RESPIRACION.ciclos;
+    }
+    cuenta.textContent = String(r.restante);
+    cuadro = requestAnimationFrame(paso);
+  }
+  function iniciar() {
+    inicio = performance.now();
+    faseActual = '';
+    comenzar.hidden = true;
+    detener.hidden = false;
+    cont.classList.add('activa');
+    cuadro = requestAnimationFrame(paso);
+  }
+  function parar(mensaje) {
+    cancelAnimationFrame(cuadro);
+    comenzar.hidden = false;
+    comenzar.textContent = 'Comenzar de nuevo';
+    detener.hidden = true;
+    cont.classList.remove('activa');
+    circulo.dataset.fase = '';
+    cuenta.textContent = '';
+    ronda.textContent = '';
+    fase.textContent = mensaje;
+  }
+  function terminar() {
+    parar('¡Muy bien! Terminaste un minuto de respiración cuadrada.');
+    completar();
+  }
+  cont.append(circulo, fase, ronda, comenzar, detener);
+  return cont;
+}
+
+/* ------------------------ Lo que respondieron 23 trabajadores ------------------------ */
+/** Barra apilada al 100 % con la escala del equipo (oscuro = más, claro = menos) y su leyenda con cifras. */
+function barraApilada(titulo, filas, total) {
+  const fig = crear('figure', 'apilada');
+  const partes = filas.map((f, k) => ({ opcion: f.opcion, n: f.n, pct: porcentajeUnDecimal(f.n, total),
+                                         tono: filas.length === 2 ? (k === 0 ? 0 : 2) : k }));
+  const texto = partes.map(p => p.opcion + ' ' + p.n + ' (' + pctTexto(p.pct) + ')').join(', ');
+  const barra = crear('div', 'apilada-barra');
+  barra.setAttribute('role', 'img');
+  barra.setAttribute('aria-label', titulo + ': ' + texto);
+  partes.forEach(p => {
+    if (!p.n) return;
+    const seg = crear('span', 'seg seg-' + p.tono);
+    seg.style.flexGrow = String(p.n);
+    seg.title = p.opcion + ': ' + p.n + ' de ' + total + ' (' + pctTexto(p.pct) + ')';
+    barra.append(seg);
+  });
+  const leyenda = crear('p', 'apilada-leyenda');
+  partes.forEach(p => {
+    const item = crear('span', 'apilada-item');
+    const muestra = crear('i', 'muestra seg-' + p.tono);
+    muestra.setAttribute('aria-hidden', 'true');
+    item.append(muestra, crear('b', null, p.opcion), document.createTextNode(' ' + p.n + ' · ' + pctTexto(p.pct)));
+    leyenda.append(item);
+  });
+  fig.append(crear('figcaption', 'apilada-titulo', titulo), barra, leyenda);
+  return fig;
+}
+
+function pintarVoces() {
+  const apiladas = $('#vocesApiladas');
+  if (!apiladas) return;
+  const preguntas = ENCUESTA_INICIAL.preguntas;
+  const total = ENCUESTA_INICIAL.total;
+  apiladas.replaceChildren(...preguntas.slice(0, 4).map(q => barraApilada(q.p, q.filas.map(([opcion, n]) => ({ opcion, n })), total)));
+  const modalidad = preguntas[4];
+  pintarBarras($('#vocesModalidad'), modalidad.filas.map(([opcion, n]) => ({ opcion, n, pct: porcentajeUnDecimal(n, total) })), total, '');
+  $('#vocesTemas').replaceChildren(...TEMAS_PEDIDOS.map(t => {
+    const li = crear('li');
+    li.append(crear('strong', null, t.tema), crear('span', null, t.detalle));
+    if (t.curso) li.append(boton('enlace-manual', 'Abrir curso', () => openManual(t.curso)));
+    else li.append(crear('em', null, 'por preparar con el colegio'));
+    return li;
+  }));
+  const detalles = crear('details', 'voces-tabla');
+  detalles.append(crear('summary', null, 'Ver los datos como tabla'));
+  const tabla = crear('table', 'tabla-tests');
+  const cab = crear('tr');
+  ['Pregunta', 'Respuesta', 'Personas', '%'].forEach(t => { const th = crear('th', null, t); th.scope = 'col'; cab.append(th); });
+  const thead = crear('thead');
+  thead.append(cab);
+  const tbody = crear('tbody');
+  preguntas.forEach(q => q.filas.forEach(([opcion, n], k) => {
+    const tr = crear('tr');
+    tr.append(crear('td', null, k === 0 ? q.p : ''), crear('td', null, opcion), crear('td', 'num', String(n)),
+              crear('td', 'num', pctTexto(porcentajeUnDecimal(n, total))));
+    tbody.append(tr);
+  }));
+  tabla.append(thead, tbody);
+  const scroll = crear('div', 'tabla-scroll');
+  scroll.append(tabla);
+  detalles.append(scroll, crear('p', 'panel-nota', 'Fuente: Informe 2 corregido e Informe 3 del equipo LevelUp. Encuesta aplicada el ' +
+    ENCUESTA_INICIAL.fechas + ' a ' + total + ' trabajadores.'));
+  $('#vocesTabla').replaceChildren(detalles);
+}
+
+/* ------------------------------ Medición de impacto ------------------------------ */
+function textoImpacto(e) {
+  const base = porcentajeUnDecimal(LINEA_BASE.filas[0].n, LINEA_BASE.total);
+  if (!e.n) return 'En la encuesta inicial, ' + pctTexto(base) + ' dijo «por supuesto». La comparación aparece con la primera respuesta.';
+  return pctTexto(e.favorable) + ' dice que las capacitaciones de LevelUp responden totalmente a su cargo; en la encuesta inicial, ' +
+    pctTexto(base) + ' dijo «por supuesto» sobre las que recibía.' +
+    (e.promedio != null ? ' Satisfacción con la página: ' + String(e.promedio).replace('.', ',') + ' de 5 (' + plural(e.notas, 'nota', 'notas') + ').' : '');
+}
+
+function figuraImpacto(e) {
+  const cont = crear('div', 'impacto-figura');
+  cont.append(barraApilada('Encuesta inicial · capacitaciones que recibían (' + LINEA_BASE.total + ' trabajadores)', LINEA_BASE.filas, LINEA_BASE.total));
+  if (e.n) cont.append(barraApilada('LevelUp · respuestas en este computador (' + e.n + ')', e.filas, e.n));
+  else cont.append(crear('p', 'barras-vacio', 'La barra de LevelUp aparece con la primera respuesta a la pregunta foco.'));
+  return cont;
+}
+
+function pintarImpacto() {
+  const e = estadisticaImpacto(datos.impacto);
+  const barras = $('#impactoBarras');
+  if (barras) {
+    barras.replaceChildren(figuraImpacto(e));
+    $('#impactoNota').textContent = textoImpacto(e);
+  }
+  const panel = $('#panelImpacto');
+  if (panel) panel.replaceChildren(figuraImpacto(e), crear('p', 'panel-nota', textoImpacto(e)));
+  const part = $('#panelParticipacion');
+  if (part) {
+    const s = estadisticaParticipacion(datos);
+    const item = (valor, texto) => { const li = crear('li'); li.append(crear('strong', null, valor), crear('span', null, texto)); return li; };
+    part.replaceChildren(
+      item(String(s.participantes), s.participantes === 1 ? 'persona usó los cursos' : 'personas usaron los cursos'),
+      item(String(s.practicas), s.practicas === 1 ? 'práctica completada' : 'prácticas completadas'),
+      item(String(s.partidas), (s.partidas === 1 ? 'ronda completa' : 'rondas completas') + ' de «Une los conceptos»' +
+           (s.mejor ? ' · mejor tiempo ' + tiempoTexto(s.mejor) : '')),
+      item(String(datos.impacto.length), datos.impacto.length === 1 ? 'respuesta a la medición de impacto' : 'respuestas a la medición de impacto'));
+  }
+}
+
+function iniciarImpacto() {
+  const form = $('#impactoForm');
+  if (!form) return;
+  form.noValidate = true;
+  const q1 = crear('fieldset', 'impacto-q');
+  q1.append(crear('legend', null, PREGUNTA_IMPACTO));
+  RESPUESTAS_IMPACTO.forEach(r => {
+    const l = crear('label', 'option');
+    const i = crear('input');
+    i.type = 'radio';
+    i.name = 'responde';
+    i.value = r;
+    l.append(i, document.createTextNode(' ' + r));
+    q1.append(l);
+  });
+  const q2 = crear('fieldset', 'impacto-q');
+  q2.append(crear('legend', null, '¿Qué tan satisfecho/a quedaste con la página LevelUp?'), crear('p', 'impacto-escala', '1 = nada · 5 = mucho'));
+  const notas = crear('div', 'notas');
+  [1, 2, 3, 4, 5].forEach(n => {
+    const l = crear('label', 'nota');
+    const i = crear('input');
+    i.type = 'radio';
+    i.name = 'nota';
+    i.value = String(n);
+    i.setAttribute('aria-label', n + ' de 5');
+    l.append(i, crear('span', null, String(n)));
+    notas.append(l);
+  });
+  q2.append(notas);
+  const etCargo = crear('label', 'impacto-cargo', 'Tu cargo (opcional)');
+  const cargo = crear('select');
+  cargo.id = 'impactoCargo';
+  [['', 'Prefiero no decirlo']].concat(CARGOS.map(c => [c, c])).forEach(([v, t]) => {
+    const o = crear('option', null, t);
+    o.value = v;
+    cargo.append(o);
+  });
+  etCargo.append(cargo);
+  const enviar = crear('button', 'btn btn-primary', 'Enviar respuesta');
+  enviar.type = 'submit';
+  const gracias = zonaAviso('impacto-gracias');
+  form.append(q1, q2, etCargo, enviar, gracias);
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const elegida = form.querySelector('input[name="responde"]:checked');
+    if (!elegida || !RESPUESTAS_IMPACTO.includes(elegida.value)) {
+      gracias.className = 'impacto-gracias aviso';
+      gracias.textContent = 'Elige una respuesta a la primera pregunta.';
+      sacudir(q1);
+      return;
+    }
+    const n = form.querySelector('input[name="nota"]:checked');
+    const nota = n ? Number(n.value) : null;
+    datos.impacto.push({ fecha: new Date().toISOString(), cargo: CARGOS.includes(cargo.value) ? cargo.value : '',
+                         responde: elegida.value, nota: Number.isInteger(nota) && nota >= 1 && nota <= 5 ? nota : null });
+    guardar();
+    form.reset();
+    gracias.className = 'impacto-gracias ok';
+    gracias.textContent = '¡Gracias! Tu respuesta quedó sumada a la comparación.';
+    pintarImpacto();
+    pintarPanel();
+    celebrar(false);
+  });
+  const exportar = $('#exportarImpacto');
+  if (exportar) exportar.addEventListener('click', () => {
+    if (!datos.impacto.length) { avisar('Aún no hay respuestas a la medición de impacto.'); return; }
+    descargar('levelup-impacto-' + fechaArchivo() + '.csv', impactoCSV(datos.impacto));
+  });
+}
+
+/* ------------------------- Actividad de la Feria: une los conceptos ------------------------- */
+let relojJuego = 0;
+
+function iniciarJuego() {
+  const zona = $('#juego');
+  if (!zona) return;
+  clearInterval(relojJuego);
+  let ronda = null, sel = { izq: null, der: null }, unidos = 0, errores = 0, inicio = 0, terminado = false;
+  const tiempo = crear('b', null, '0:00');
+  const fallos = crear('b', null, '0');
+  const mejor = crear('b', null, '—');
+  const dato = (etiqueta, valor) => { const s = crear('span', 'juego-dato'); s.append(document.createTextNode(etiqueta + ' '), valor); return s; };
+  const cabeza = crear('div', 'juego-cabeza');
+  cabeza.append(dato('⏱ Tiempo', tiempo), dato('Errores', fallos), dato('Mejor tiempo', mejor), boton('btn btn-secondary', 'Nueva ronda ↻', nueva));
+  const colIzq = crear('div', 'juego-col');
+  colIzq.setAttribute('role', 'group');
+  colIzq.setAttribute('aria-label', 'Conceptos');
+  const colDer = crear('div', 'juego-col');
+  colDer.setAttribute('role', 'group');
+  colDer.setAttribute('aria-label', 'Definiciones');
+  const tablero = crear('div', 'juego-tablero');
+  tablero.append(colIzq, colDer);
+  const salida = zonaAviso('juego-salida');
+  zona.replaceChildren(cabeza, crear('p', 'juego-ayuda', 'Toca un concepto y luego su definición, o al revés. Cada ronda trae cinco conceptos al azar.'), tablero, salida);
+  const porId = id => CONCEPTOS.find(c => c.id === id);
+
+  function pintarMejor() { mejor.textContent = datos.juego.mejor ? tiempoTexto(datos.juego.mejor) : '—'; }
+  function ficha(lado, id, texto) {
+    const b = boton('juego-ficha juego-ficha--' + lado, texto, () => elegir(lado, id, b));
+    b.dataset.id = id;
+    b.setAttribute('aria-pressed', 'false');
+    return b;
+  }
+  function nueva() {
+    clearInterval(relojJuego);
+    ronda = nuevaRonda();
+    sel = { izq: null, der: null };
+    unidos = 0; errores = 0; inicio = 0; terminado = false;
+    tiempo.textContent = '0:00';
+    fallos.textContent = '0';
+    salida.textContent = '';
+    colIzq.replaceChildren(...ronda.izquierda.map(id => ficha('izq', id, porId(id).concepto)));
+    colDer.replaceChildren(...ronda.derecha.map(id => ficha('der', id, porId(id).definicion)));
+    pintarMejor();
+  }
+  function elegir(lado, id, b) {
+    if (terminado || b.disabled) return;
+    if (!inicio) {
+      inicio = Date.now();
+      relojJuego = setInterval(() => { tiempo.textContent = tiempoTexto((Date.now() - inicio) / 1000); }, 500);
+    }
+    (lado === 'izq' ? colIzq : colDer).querySelectorAll('.juego-ficha').forEach(x => x.setAttribute('aria-pressed', 'false'));
+    if (sel[lado] === id) { sel[lado] = null; return; }
+    sel[lado] = id;
+    b.setAttribute('aria-pressed', 'true');
+    if (!sel.izq || !sel.der) return;
+    const bi = colIzq.querySelector('[data-id="' + sel.izq + '"]');
+    const bd = colDer.querySelector('[data-id="' + sel.der + '"]');
+    if (sel.izq === sel.der) {
+      unidos++;
+      [bi, bd].forEach(x => { x.classList.add('unido'); x.dataset.par = String(unidos); x.disabled = true; x.setAttribute('aria-pressed', 'false'); });
+      salida.textContent = '✓ ' + porId(sel.izq).concepto + ': correcto.';
+      if (unidos === ronda.izquierda.length) terminar();
+    } else {
+      errores++;
+      fallos.textContent = String(errores);
+      [bi, bd].forEach(x => { x.setAttribute('aria-pressed', 'false'); sacudir(x); });
+      salida.textContent = '✗ Esa definición no corresponde. Prueba otra combinación.';
+    }
+    sel = { izq: null, der: null };
+  }
+  function terminar() {
+    terminado = true;
+    clearInterval(relojJuego);
+    const seg = Math.max(1, Math.round((Date.now() - inicio) / 1000));
+    tiempo.textContent = tiempoTexto(seg);
+    const record = !datos.juego.mejor || seg < datos.juego.mejor;
+    datos.juego.partidas++;
+    if (record) datos.juego.mejor = seg;
+    guardar();
+    pintarMejor();
+    salida.textContent = '¡Lo lograste! Uniste los ' + ronda.izquierda.length + ' conceptos en ' + tiempoTexto(seg) + ' con ' +
+      plural(errores, 'error', 'errores') + '.' + (record ? ' ¡Nuevo mejor tiempo!' : '');
+    celebrar(true);
+    pintarImpacto();
+  }
+  nueva();
+}
+
 /* ================================ ARRANQUE ================================ */
 renderComments();
 revisarConexion();
+pintarVoces();
+iniciarImpacto();
+iniciarJuego();
 pintarAvance();
 pintarPanel();
+activarRevelado();
+activarContadores();
 /* Si otra pestaña cambia los datos, esta se pone al día. */
 window.addEventListener('storage', e => {
   if (e.key === CLAVE_DATOS) { datos = almacen.leer(); pintarAvance(); pintarPanel(); }
@@ -1254,8 +2982,11 @@ const PRUEBAS = [
     const m = mejorPorManual(intentos, 'A');
     return m.excel.pct === 100 && m.excel.aprobado && !m.ia && aprobados(m).join() === 'excel';
   }],
-  ['Los niveles suben con cada manual aprobado', () =>
-    nivelDe(0) === 'Nivel 0 · Punto de partida' && nivelDe(4) === 'Nivel 4 · Talento que educa' && nivelDe(9) === nivelDe(4)],
+  ['Los niveles cuentan los siete cursos: el último pide aprobarlos todos', () =>
+    nivelDe(0) === 'Nivel 0 · Punto de partida' && nivelDe(1) === 'Nivel 1 · Aprendiz' && nivelDe(2) === 'Nivel 1 · Aprendiz' &&
+    nivelDe(3) === 'Nivel 2 · En ascenso' && nivelDe(5) === 'Nivel 3 · Avanzado' && nivelDe(6) === 'Nivel 3 · Avanzado' &&
+    nivelDe(7) === 'Nivel 4 · Talento que educa' && nivelDe(9) === nivelDe(7) &&
+    faltanParaSubir(0) === 1 && faltanParaSubir(3) === 2 && faltanParaSubir(7) === null && ORDEN_MANUALES.length === 7],
   ['El diagnóstico arma una ruta con la prioridad primero', () => {
     const r = rutaDiagnostico(diagPrueba({ q1: 'Primeros auxilios', cargo: 'Administrativo', q3: 'Bajo' }));
     return r.manuales[0] === 'auxilios' && r.manuales.includes('excel') && r.manuales.includes('documentos') &&
@@ -1324,7 +3055,127 @@ const PRUEBAS = [
   ['Los textos se insertan como texto, nunca como código HTML', () =>
     [...document.scripts].every(s => s.textContent.indexOf('inner' + 'HTML') === -1)],
   ['La página no carga código de otros sitios', () =>
-    document.querySelectorAll('script[src], link[rel="stylesheet"]').length === 0]
+    document.querySelectorAll('script[src], link[rel="stylesheet"]').length === 0],
+
+  /* ---- LevelUp 2: cursos, prácticas, encuesta, impacto y actividad ---- */
+  ['Cada curso se arma con las lecciones de su manual, una práctica y el test', () =>
+    ORDEN_MANUALES.every(k => {
+      const pasos = pasosDelCurso(k);
+      const lecciones = pasos.filter(p => p.tipo === 'leccion');
+      return lecciones.length >= 3 && lecciones.every(l => l.titulo && l.nodos.length >= 2) && PRACTICAS[k] &&
+        pasos[pasos.length - 2].tipo === 'practica' && pasos[pasos.length - 1].tipo === 'test';
+    }) && pasosDelCurso('auxilios')[0].nodos[0].textContent.indexOf('no reemplaza una capacitación certificada') > 0],
+  ['Los tres cursos nuevos tienen tarjeta en Capacitaciones y en Manuales', () =>
+    ['convivencia', 'emociones', 'liderazgo'].every(k => MANUALES[k].nuevo &&
+      document.querySelector('#capacitaciones [onclick="openManual(\'' + k + '\')"]') &&
+      document.querySelector('#manuales .manual-card [onclick="openManual(\'' + k + '\')"]'))],
+  ['La hoja de la práctica calcula como Excel en español', () => {
+    const v = (f) => evaluarFormula(f, HOJA_EXCEL);
+    return v('=SUMA(B2:B6)').valor === 124 && v('=PROMEDIO(C2:C6)').valor === 1648 && v('=MAX(B2:B6)').valor === 40 &&
+      v('=MIN(B2:B6)').valor === 12 && v('=CONTAR(A1:C6)').valor === 10 && v('=B2+B3*2').valor === 104 &&
+      v('=suma(b2:b6)/5').valor === 24.8 && v('=SUMA(B2;B3;10)').valor === 74 && v(' = ( B2 + B3 ) * 2 ').valor === 128 &&
+      v('=SUMA(B2:B6)').funciones.join() === 'SUMA';
+  }],
+  ['La hoja explica el error en vez de fallar callada', () => {
+    const e = (f) => evaluarFormula(f, HOJA_EXCEL);
+    return !e('SUMA(B2:B6)').ok && e('SUMA(B2:B6)').error.indexOf('signo =') > 0 &&
+      e('=SUM(B2:B6)').error.indexOf('SUMA') > 0 && e('=SUMA(B2:B6').error.indexOf('paréntesis') > 0 &&
+      e('=A2+1').error.indexOf('texto') > 0 && e('=Z9').error.indexOf('no está') > 0 && e('=B2/0').error.indexOf('cero') > 0 &&
+      e('=HOLA(B2)').error.indexOf('No reconozco') === 0 && e('').ok === false && e('=B2 B3').ok === false;
+  }],
+  ['Cada tarea de Excel tiene solución; sin la función se acepta y se sugiere; sin celdas, no', () =>
+    TAREAS_EXCEL.every(t => revisarTareaExcel(t, t.ejemplo).ok) &&
+    revisarTareaExcel(TAREAS_EXCEL[0], '=B2+B3+B4+B5+B6').ok && revisarTareaExcel(TAREAS_EXCEL[0], '=B2+B3+B4+B5+B6').mensaje.indexOf('SUMA(B2:B6)') > 0 &&
+    !revisarTareaExcel(TAREAS_EXCEL[0], '=SUMA(B2:B5)').ok && !revisarTareaExcel(TAREAS_EXCEL[2], '=MIN(B2:B6)').ok &&
+    !revisarTareaExcel(TAREAS_EXCEL[2], '=40').ok && !revisarTareaExcel(TAREAS_EXCEL[0], '=SUMA(124)').ok &&
+    revisarTareaExcel(TAREAS_EXCEL[1], '=1648').mensaje.indexOf('C2:C6') > 0 && evaluarFormula('=SUMA(B2:B6)+C2', HOJA_EXCEL).celdas === 3],
+  ['El prompt se arma con los cuatro datos del manual y detecta datos personales', () => {
+    const c = { tema: 'las fracciones', curso: '5° básico', duracion: '45 minutos', objetivo: 'comparar fracciones' };
+    const p = armarPrompt(c);
+    return p.indexOf('Actúa como asistente educativo') === 0 && p.indexOf('las fracciones') > 0 && p.indexOf('45 minutos') > 0 &&
+      revisarPrompt(c).listo && revisarPrompt({ tema: 'x' }).faltan.length === 3 &&
+      revisarPrompt(Object.assign({}, c, { objetivo: 'evaluar a Juan, RUT 12.345.678-9' })).privados.join() === 'un RUT' &&
+      revisarPrompt(Object.assign({}, c, { tema: 'escribir a ana@colegio.cl' })).privados.join() === 'un correo electrónico' &&
+      revisarPrompt(Object.assign({}, c, { curso: 'llamar al +56 9 1234 5678' })).privados.join() === 'un número de teléfono' &&
+      !revisarPrompt(Object.assign({}, c, { curso: '2° medio', duracion: '90 minutos' })).privados.length;
+  }],
+  ['Ordenar nunca parte resuelto y revisa cada posición', () => {
+    let azar = 0.3;
+    const fijo = () => { azar = (azar * 9301 + 0.4927) % 1; return azar; };
+    const pasos = ORDENAR.convivencia.pasos;
+    const muchas = Array.from({ length: 30 }, () => desordenar(pasos, fijo));
+    const r = revisarOrden(pasos.slice(0, 3).concat([pasos[4], pasos[3]]), pasos);
+    return muchas.every(o => o.length === 5 && pasos.every(x => o.includes(x)) && o.filter((x, j) => x !== pasos[j]).length >= 2) &&
+      desordenar(['a', 'b'], () => 0.99).join() === 'b,a' &&
+      r.aciertos === 3 && !r.completo && revisarOrden(pasos.slice(), pasos).completo;
+  }],
+  ['Cada escenario tiene una sola respuesta correcta y todas explican por qué', () =>
+    Object.keys(ESCENARIOS).every(k => ESCENARIOS[k].every(e => e.opciones.length === 3 &&
+      e.opciones.filter(o => o.ok).length === 1 && e.opciones.every(o => o.porque.length > 20)))],
+  ['La respiración cuadrada marca cada fase y termina al minuto', () => {
+    const f = faseRespiracion;
+    return f(0).fase === 'Inhala' && f(0).restante === 4 && f(0).ciclo === 1 && f(4000).fase === 'Sostén' && f(4000).indice === 1 &&
+      f(9500).fase === 'Exhala' && f(9500).restante === 3 && f(15999).indice === 3 && f(15999).restante === 1 &&
+      f(16000).ciclo === 2 && f(16000).fase === 'Inhala' && f(63999).ciclo === 4 && f(64000).terminado && MS_RESPIRACION === 64000;
+  }],
+  ['Cada ronda de «Une los conceptos» trae 5 pares distintos, con las definiciones desordenadas', () => {
+    const r = nuevaRonda();
+    const ids = new Set(CONCEPTOS.map(c => c.id));
+    return r.izquierda.length === 5 && new Set(r.izquierda).size === 5 && r.derecha.length === 5 &&
+      r.derecha.every(id => r.izquierda.includes(id)) && r.derecha.join() !== r.izquierda.join() &&
+      ids.size === CONCEPTOS.length && CONCEPTOS.every(c => c.concepto && c.definicion.length > 20) &&
+      tiempoTexto(42) === '0:42' && tiempoTexto(125) === '2:05';
+  }],
+  ['La encuesta inicial suma 23 en cada pregunta y calza con los informes', () =>
+    ENCUESTA_INICIAL.preguntas.every(q => q.filas.reduce((a, f) => a + f[1], 0) === 23) &&
+    porcentajeUnDecimal(19, 23) === 82.6 && porcentajeUnDecimal(10, 23) === 43.5 && porcentajeUnDecimal(11, 23) === 47.8 &&
+    porcentajeUnDecimal(2, 23) === 8.7 && porcentajeUnDecimal(13, 23) === 56.5 && porcentajeUnDecimal(14, 23) === 60.9 &&
+    porcentajeUnDecimal(15, 23) === 65.2 && porcentajeUnDecimal(4, 23) === 17.4 && pctTexto(60.9) === '60,9 %' &&
+    LINEA_BASE.filas.reduce((a, f) => a + f.n, 0) === LINEA_BASE.total],
+  ['La medición de impacto calcula el % favorable y el promedio sin inventar', () => {
+    const r = (responde, nota) => ({ fecha: iso(T0), cargo: '', responde, nota });
+    const e = estadisticaImpacto([r('Sí, totalmente', 5), r('Sí, totalmente', 4), r('En parte', null), r('No', 2)]);
+    const vacio = estadisticaImpacto([]);
+    return e.n === 4 && e.favorable === 50 && e.filas[1].n === 1 && e.filas[2].pct === 25 && e.promedio === 3.7 && e.notas === 3 &&
+      vacio.favorable === null && vacio.promedio === null && vacio.filas.every(f => f.n === 0);
+  }],
+  ['El diagnóstico lleva la capacitación propuesta a su curso cuando ya existe', () => {
+    const conv = rutaDiagnostico(diagPrueba({ q6: 'Convivencia escolar' }));
+    const ciber = rutaDiagnostico(diagPrueba({ q6: 'Ciberseguridad' }));
+    return conv.manuales.includes('convivencia') && conv.consejos.join(' ').indexOf('ya es un curso') > 0 &&
+      !ciber.manuales.includes('convivencia') && ciber.consejos.join(' ').indexOf('queda sumada al panel') > 0 &&
+      rutaDiagnostico(diagPrueba({ q6: 'Comunicación efectiva' })).manuales.includes('liderazgo');
+  }],
+  ['El progreso de un curso suma lecciones, práctica y test; aprobar lo completa', () =>
+    progresoCurso(0, 3, false, false) === 0 && progresoCurso(3, 3, false, false) === 60 && progresoCurso(5, 3, true, false) === 80 &&
+    progresoCurso(5, 3, true, true) === 100 && progresoCurso(9, 3, false, true) === 100 && progresoCurso(0, 3, false, true) === 100 && progresoCurso(-2, 3, false, false) === 0],
+  ['Lo guardado con la versión anterior sigue sirviendo', () => {
+    const d = normalizarDatos({ version: 1, diagnosticos: [diagPrueba()], intentos: [], participante: { id: 'P1', nombre: 'Ana', cargo: 'Docente' } });
+    return d.version === 2 && d.diagnosticos.length === 1 && d.participante.id === 'P1' &&
+      Object.keys(d.avanceCursos).length === 0 && d.impacto.length === 0 && d.juego.partidas === 0 && d.juego.mejor === null;
+  }],
+  ['Lo nuevo guardado y dañado se limpia sin romper la página', () => {
+    const d = normalizarDatos({
+      avanceCursos: { P1: { excel: { pasos: 3, practica: true }, hackeo: { pasos: 2 }, ia: { pasos: 'x', practica: 'sí' }, documentos: { pasos: 99 } }, P2: 'nada' },
+      impacto: [{ fecha: iso(T0), responde: 'Sí, totalmente', nota: 5, cargo: 'Docente' }, { fecha: iso(T0), responde: 'Quizás', nota: 3 },
+                { fecha: 'ayer', responde: 'No' }, { fecha: iso(T0), responde: 'No', nota: 9 }],
+      juego: { partidas: -3, mejor: 'rápido' }
+    });
+    return JSON.stringify(d.avanceCursos) === '{"P1":{"excel":{"pasos":3,"practica":true},"documentos":{"pasos":20,"practica":false}}}' &&
+      d.impacto.length === 2 && d.impacto[0].cargo === 'Docente' && d.impacto[1].nota === null &&
+      d.juego.partidas === 0 && d.juego.mejor === null;
+  }],
+  ['El Excel de la medición de impacto trae la pregunta foco y una fila por respuesta', () => {
+    const t = impactoCSV([{ fecha: iso(T0), cargo: '', responde: 'En parte', nota: 4 }]).split('\r\n');
+    return t.length === 2 && t[0].indexOf('responden a los intereses y necesidades de tu cargo') > 0 && t[1].indexOf(';Sin indicar;En parte;4') > 0;
+  }],
+  ['Los formularios nuevos usan las mismas opciones que el cálculo', () =>
+    [...document.querySelectorAll('#impactoForm input[name="responde"]')].map(i => i.value).join() === RESPUESTAS_IMPACTO.join() &&
+    document.querySelectorAll('#impactoForm input[name="nota"]').length === 5 &&
+    [...document.querySelectorAll('#impactoCargo option')].slice(1).map(o => o.value).join() === CARGOS.join()],
+  ['Las animaciones se apagan si la persona pide menos movimiento', () =>
+    [...document.styleSheets].some(h => [...h.cssRules].some(r => r.conditionText && r.conditionText.indexOf('prefers-reduced-motion') >= 0 &&
+      r.cssText.indexOf('animation-duration') > 0))]
 ];
 
 function correrPruebas() {
@@ -1337,7 +3188,7 @@ function correrPruebas() {
   caja.setAttribute('role', 'status');
   caja.style.cssText = 'position:fixed;left:14px;bottom:14px;z-index:140;max-width:32rem;padding:12px 15px;border-radius:14px;' +
     'font-weight:800;font-size:14px;box-shadow:var(--shadow);' +
-    (fallidas.length ? 'background:#f3edf9;color:#5f557f;border:1px solid #c8a8df' : 'background:#eaf8f9;color:#087f8b;border:1px solid #66C3CB');
+    (fallidas.length ? 'background:#f3edf9;color:#5f557f;border:1px solid #c8a8df' : 'background:#eaf8f9;color:#087f8b;border:1px solid #5BBCC5');
   document.body.append(caja);
   window.resultadoPruebasLevelUp = fallidas;
   return fallidas;

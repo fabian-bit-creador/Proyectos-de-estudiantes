@@ -4,65 +4,107 @@ Proyecto de **IV°A · Administración de Empresas** — Colegio Cardenal José 
 Grupo de Nayaret Jiménez (en el directorio de GLM figura con Stefany Tobar como líder).
 Publicado por el equipo en https://levelup-adm.netlify.app
 
-Archivo: **`LevelUp.html`**, un solo archivo. Verificación: `?pruebas=1` en la dirección, **25 comprobaciones**.
+Archivo: **`LevelUp.html`**, un solo archivo de 276 KB. Verificación: `?pruebas=1` en la dirección, **44 comprobaciones**.
 La única parte que necesita internet es la encuesta oficial de Google Forms; sin conexión, la página lo avisa.
 
 Se mantuvieron la esencia, los colores (morado, turquesa y tinta), el logo y todos los textos del equipo.
 
-## Lo que se construyó: el ciclo completo de la capacitación
+## Versión 2: de manuales a cursos que se practican
 
-El propio equipo define su propósito como «detectar necesidades, entregar material, practicar, evaluar y
-utilizar los resultados para seguir mejorando». La página tenía las piezas, pero el ciclo no se cerraba:
-el diagnóstico solo repetía lo elegido y los tests no dejaban registro. Ahora cada paso alimenta al siguiente.
+**De dónde salen los cambios.** No había una página nueva: el repositorio, la página publicada en Netlify
+(idéntica a la versión guardada) y la carpeta de Drive no tenían otra versión. Lo nuevo estaba en los
+**Informes 2 (corregido) y 3** del equipo: la encuesta a 23 trabajadores, los temas que pidieron, la
+pregunta con que planean medir el impacto y la actividad de su stand. La versión 2 se construyó con eso.
 
-1. **Detectar.** El diagnóstico (con el cargo, opcional) entrega una **ruta personal**: qué manuales
-   abrir y en qué orden, por dónde partir en Excel, qué tema de primeros auxilios revisar primero y qué
-   modalidad conviene según el formato preferido. Cada respuesta queda sumada al panel.
-2. **Entregar y practicar.** Las tarjetas de «Capacitación según tu cargo» abren la ruta de ese cargo con
-   el avance de cada manual.
-3. **Evaluar.** Los tests pasaron de 3 a 5 preguntas: las 3 del equipo y 2 nuevas sacadas del mismo
-   manual. Al corregir, cada pregunta muestra la respuesta correcta y **por qué**. Se aprueba con 70 %,
-   el mismo corte que ya usaba el equipo.
-4. **Subir de nivel.** «Mi avance» muestra el nivel (del 0 «Punto de partida» al 4 «Talento que educa»),
-   la ruta del cargo y una **constancia de participación** imprimible con los manuales aprobados.
-5. **Usar los resultados.** El **panel de la capacitación** consolida qué capacitación pide la comunidad,
-   un **plan sugerido** ordenado por demanda con el formato que prefieren quienes lo pidieron, quién
-   respondió, y por manual: intentos, promedio, aprobación y **la pregunta más fallada** (qué explicar
-   mejor). Todo se exporta a Excel.
+### Siete cursos, cada uno con lecciones, práctica y test
 
-## Lo que estaba mal y se corrigió
+Cada manual se abre como un curso: sus secciones son las lecciones, luego viene una **práctica** y al
+final el test de 5 preguntas. El curso recuerda el último paso visto, y «Ver el manual completo» muestra
+todo en una página para proyectar o imprimir.
 
-- **En los 12 tests la respuesta correcta era siempre la primera alternativa.** Ahora se barajan en
-  cada intento.
-- **La página pesaba 1,5 MB** porque el mismo logo de 296 KB estaba cinco veces. Ahora pesa 164 KB: el
-  logo va comprimido (13 KB, sin diferencia visible) y se quitó el `og:image` en base64, que las redes
-  sociales no pueden leer.
-- **El ícono de la pestaña era el logo entero**, ilegible a 16 px. Ahora es el emblema (libro, figuras y
-  birrete), más un ícono de 180 px para la pantalla de inicio del celular.
-- **En celular la página se salía hacia el lado** en todos los anchos de teléfono (hasta 113 px en uno de
-  320 px): «Elige tu modalidad» forzaba tres columnas con un estilo en línea.
-- **Los botones de opción se estiraban a todo el ancho** y el círculo quedaba flotando sobre el texto.
-- La barra de navegación se partía en dos líneas cerca de los 900 px; el menú del celular abría 10 px
-  bajo la barra.
-- Resultados y comentarios se armaban juntando texto con código HTML; ahora se insertan como texto.
-- Se quitó la etiqueta que Netlify agrega a las páginas publicadas: no es parte del proyecto.
+| Curso | Práctica |
+|---|---|
+| Excel | Una hoja de inventario donde las fórmulas se calculan de verdad (SUMA, PROMEDIO, MAX, MIN, CONTAR). Si falta el `=`, se escribe en inglés o se pone el número a mano, lo explica. |
+| Documentos | Ordenar los cinco pasos para crear un documento. |
+| Primeros auxilios | «¿Qué harías?»: cuatro situaciones; cada respuesta explica por qué. |
+| IA educativa | Armar el prompt básico del manual. Si lleva un RUT, un correo o un teléfono, no deja copiarlo. |
+| **Convivencia y conflictos** (nuevo) | Ordenar los cinco pasos de una mediación. |
+| **Gestión emocional** (nuevo) | Un minuto de respiración cuadrada guiada. |
+| **Liderazgo y comunicación** (nuevo) | Elegir la retroalimentación más útil en tres casos. |
 
-## Primeros auxilios: tres líneas agregadas
+Los tres cursos nuevos responden a temas que pidió la encuesta; entre ellos está el más pedido,
+convivencia escolar. Las rutas por cargo los incluyen, y el diagnóstico suma el curso a la ruta cuando la
+capacitación que propone la persona ya existe. Los niveles ahora piden 1, 3, 5 y 7 cursos aprobados, y
+cada curso muestra su avance en «Mi avance».
 
-Al manual se sumaron indicaciones estándar que faltaban: poner a la persona de lado al terminar la
-convulsión, llamar al **SAMU (131)** si dura más de 5 minutos, se repite, no recupera la conciencia, le
-cuesta respirar o se lesionó, y los números de emergencia de Chile (SAMU 131, Bomberos 132,
-Carabineros 133). **Conviene que el equipo las revise con el protocolo del colegio.**
+### Secciones nuevas
+
+- **Lo que respondieron 23 trabajadores:** las respuestas de la encuesta en barras (también como tabla),
+  la modalidad que prefieren y los temas pedidos, cada uno con su curso.
+- **Medición de impacto:** la pregunta del Informe 3 («¿las capacitaciones de LevelUp responden a tu
+  cargo?») comparada con la encuesta inicial, donde 43,5 % respondió «por supuesto». Suma una nota de
+  satisfacción de 1 a 5 y se exporta a Excel.
+- **Une los conceptos:** la actividad del stand en versión digital. Cada ronda trae cinco conceptos al
+  azar y registra el tiempo, los errores y el mejor tiempo.
+- **Panel:** suma la medición de impacto, las prácticas completadas y las rondas jugadas.
+
+### Animaciones
+
+Las secciones aparecen al llegar a ellas y los anillos y barras de avance crecen. Los pasos del curso se
+deslizan, al aprobar cae papel picado (más al subir de nivel) y el círculo de respiración marca el ritmo.
+Si el computador o el celular tiene activado «reducir movimiento», todo queda quieto.
+
+### Para revisar con el colegio
+
+- Los tres cursos nuevos son **contenido general**, preparado a partir de lo que pidió la encuesta:
+  convivencia cita la Ley 20.536 y el protocolo del colegio; gestión emocional incluye la línea *4141;
+  liderazgo usa el modelo Situación–Comportamiento–Impacto. **Conviene que el equipo los revise** con el
+  Encargado de Convivencia y el equipo de apoyo del colegio.
+- **Reglamento interno** (cerca del 18 % de las respuestas) quedó «por preparar con el colegio»: debe
+  salir del reglamento real del establecimiento.
+
+## Versión 1: el ciclo completo de la capacitación
+
+El equipo define su propósito como «detectar necesidades, entregar material, practicar, evaluar y
+utilizar los resultados para seguir mejorando». La versión 1 cerró ese ciclo:
+
+1. **Detectar.** El diagnóstico entrega una **ruta personal**: qué cursos abrir y en qué orden, y
+   consejos según las respuestas.
+2. **Capacitar.** «Capacitación según tu cargo» abre la ruta de cada cargo con su avance.
+3. **Evaluar.** Tests de 5 preguntas que se barajan en cada intento; al corregir, cada pregunta muestra
+   la respuesta correcta y por qué. Se aprueba con 70 %, el corte que ya usaba el equipo.
+4. **Subir de nivel.** Nivel del 0 «Punto de partida» al 4 «Talento que educa», y una **constancia de
+   participación** imprimible.
+5. **Usar los resultados.** Un panel con qué capacitación pide la comunidad, un plan sugerido y la
+   pregunta más fallada de cada test. Todo se exporta a Excel.
+
+También se corrigió lo que estaba mal en la página original:
+
+- La respuesta correcta era siempre la primera alternativa.
+- La página pesaba 1,5 MB por el mismo logo repetido cinco veces.
+- El ícono de la pestaña era ilegible.
+- En celular la página se salía hacia el lado.
+- Los botones de opción se estiraban a todo el ancho.
+- Resultados y comentarios se armaban juntando texto con código HTML.
+
+**Primeros auxilios:** se agregaron indicaciones estándar que faltaban:
+
+- Poner a la persona de lado al terminar la convulsión.
+- Cuándo llamar al SAMU (131).
+- Los números de emergencia de Chile.
+
+Conviene revisarlas con el protocolo del colegio.
 
 ## Datos
 
-Todo se guarda **solo en el navegador** donde se usa: no hay servidor. En la Feria, cada visitante que
-responde el diagnóstico o rinde un test en el mismo computador suma al panel. «Cambiar de participante»
-deja el avance de la persona anterior en el panel y empieza uno nuevo; «Borrar datos de prueba» limpia
+Todo se guarda **solo en el navegador** donde se usa: no hay servidor. Lo guardado con la versión 1 se
+conserva. En la Feria, cada visitante que responde, practica o juega en el mismo computador suma al panel.
+«Cambiar de participante» empieza con otra persona sin borrar el panel; «Borrar datos de prueba» limpia
 todo. La constancia es de una actividad formativa escolar y no corresponde a una certificación oficial.
 
 ## Para presentarlo en la feria
 
-1. Responder el diagnóstico con el cargo y mostrar la ruta personal.
-2. Abrir un manual, rendir el test y mostrar la explicación de una respuesta equivocada.
-3. Mostrar el panel: qué capacitación pide la comunidad y cuál conviene hacer primero.
+1. Mostrar lo que respondieron los 23 trabajadores y abrir el curso más pedido.
+2. Hacer una práctica con el visitante: la hoja de Excel o el prompt de IA.
+3. Jugar una ronda de «Une los conceptos».
+4. Pedirle que responda la medición de impacto y mostrar cómo cambia el panel.
