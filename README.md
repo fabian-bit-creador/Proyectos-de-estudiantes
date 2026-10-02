@@ -8,11 +8,11 @@ que lo acompaña.
 
 ## Portada
 
-`index.html` es el portal de la colección: lista los trece proyectos con buscador y filtro por
+`index.html` es el portal de la colección: lista los catorce proyectos con buscador y filtro por
 curso. Cada tarjeta tiene **Abrir**, que lleva al archivo de su carpeta, y **Descargar HTML**, que
 entrega una copia suelta para llevar en un pendrive. Esa copia va embebida en el propio portal, así
 que la portada funciona sin conexión y sin el resto de los archivos al lado; el precio es que pesa
-2 MB y que las copias embebidas hay que regenerarlas cuando un proyecto cambia. El botón «Abrir»
+2,5 MB y que las copias embebidas hay que regenerarlas cuando un proyecto cambia. El botón «Abrir»
 siempre muestra la versión vigente.
 
 ## Proyectos
@@ -32,6 +32,7 @@ siempre muestra la versión vigente.
 | [Help Wanted](help-wanted/) | III° medio | — | Staffbots para PyMEs. El proyecto prometía que «la PyME define la información» pero no había forma de definirla: ahora el negocio carga sus datos y el bot responde solo con eso, citando de qué dato salió cada respuesta. Incluye las cinco dimensiones del modelo SERVQUAL, autoevaluación de atención y los límites legales de la Ley 19.496. |
 | [PRAM](pram/) | III°A · Administración | Matías Bustamante, Víctor Sanabria, Ian Arenas, Sabina Huechucoy | Atención al cliente para pymes, con el caso de Sushi IsiMiya. Se conservaron la esencia y los colores y se agregó el logo en la pestaña del navegador. El reclamo del formulario ya no desaparece: queda en un libro de casos con responsable y plazo, la respuesta se arma con la frase guía del protocolo (para copiar o abrir en WhatsApp o correo) y el caso se cierra anotando qué parte del Triángulo del Servicio hay que ajustar. El panel dejó de inventar barras (respuesta = atención × 0,82) y las reseñas dejaron de mostrar un 5.0 fijo. |
 | [LevelUp](levelup/) | IV°A · Administración | Jairo Meza, Stefany Tobar, Nayareth Jiménez, Alisson Jara | Capacitación del personal del colegio, con la versión Feria: quien visita el stand estudia una capacitación, rinde la evaluación y se lleva su certificado en el celular escaneando un código QR. Parte de la página nueva del equipo, con sus siete cursos, colores y logo, y suma una capacitación para estudiantes («Habilidades laborales para tu práctica profesional»), material de estudio imprimible y normativa en cada curso. El certificado tiene folio y código de control, se descarga en PDF o imagen, y el QR se verificó con un lector real desde la pantalla, la imagen y el PDF. Se quitaron los planes y precios, y el formulario de perfil se reemplazó por «Así se definieron las capacitaciones», con la encuesta del equipo a 23 trabajadores y la decisión que tomaron con cada respuesta. Incluye un certificado de ejemplo para probar el QR, una ilustración del stand y un modo stand que borra los datos de cada visitante y cuenta los certificados entregados. Para que el QR funcione, la página debe estar publicada. |
+| [MOS-K Green Tech](invernadero-mosk/) | IV°C · Electrónica | MOS-K Green Tech (5 integrantes) | Invernadero automatizado con Arduino UNO. Trae el programa del Arduino (riego por ciclos con alarma si el agua no llega, tope de bomba por hora, extractor y luz térmica con histéresis, pH solo como aviso, pantalla LCD y ajustes guardados en la EEPROM) y un panel que se conecta por USB desde Chrome o Edge: lecturas en vivo, bomba, extractor y luz a mano, gráficos con exportación a CSV, ajustes, calibración del suelo y del pH, consola y guía de armado con las conexiones. Sin el Arduino, simula el mismo programa con una planta de mentira. Se verificó con 74 comprobaciones del programa compilado y comparando byte a byte el Arduino virtual del panel con el real; falta probarlo con el invernadero armado. |
 
 ## Capa común de feria
 
