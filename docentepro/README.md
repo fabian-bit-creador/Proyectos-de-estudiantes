@@ -92,3 +92,10 @@ demostración de la feria. Para mostrarla, usar un nombre ficticio.
   colegio» y «Logo Belén Educa». Van como archivo local, nunca enlazados desde internet.
 - **Rúbricas de los demás cargos.** Cuando lleguen, cada una se agrega como un cargo más del
   arreglo `CARGOS`, con sus estándares, sus niveles y su medio de verificación.
+
+## De la evaluación a la mejora · 4 de octubre de 2026
+
+- Evidencia observada por estándar y dos prioridades según la distancia hasta Meta y el peso del criterio.
+- Acuerdos con acción, responsable, fecha y evidencia de cumplimiento; se conservan al recargar y se incluyen en CSV e impresión.
+- Corregido: borrar asistencia o puntualidad deja el criterio pendiente; ya no asigna un nivel por interpretar el vacío como cero. También se rechazan niveles fraccionarios.
+- Se conserva la ponderación existente. La herramienta continúa siendo un ejercicio formativo. 31 verificaciones del motor.

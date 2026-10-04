@@ -626,7 +626,7 @@ section[id],main[id]{scroll-margin-top:6rem}
   <div class="wrap">
     <div class="cab centrado no-imprimir">
       <span class="eyebrow eyebrow--oro">Entregable Nº3 &middot; Mapa Caro</span>
-      <h2>Conocer el colegio antes del primer día</h2>
+      <h2>Conocer el colegio antes del primer día</h2><p><a class="btn btn--suave btn--sm" href="#practica">Comprobar mi orientación</a></p>
       <p><strong>«Entregar ubicación de las salas»</strong> fue lo más repetido en la encuesta. Este es el Mapa Caro del Informe Nº2, funcionando: acepta <strong>fotos 360°</strong> &mdash;se arrastra para mirar alrededor, como en Street View&mdash; y también fotos normales de celular. Cada parada explica qué es el lugar, qué hay que saber ahí y a quién preguntarle. También se puede mirar el colegio <strong>desde arriba</strong>, sobre la imagen satelital, y en una <strong>maqueta 3D</strong> que se gira con el dedo.</p>
     </div>
 
@@ -780,6 +780,24 @@ section[id],main[id]{scroll-margin-top:6rem}
 </section>
 
 <!-- ========================== RUTA POR CARGO ========================== -->
+<section id="practica" aria-labelledby="tituloPractica" style="background:var(--crema)">
+  <div class="wrap">
+    <span class="eyebrow">Mapa Caro · práctica de orientación</span>
+    <h2 id="tituloPractica">¿Ya sabes a quién acudir?</h2>
+    <p class="fina">Resuelve cinco situaciones antes del recorrido y otras cinco después. Así puedes comprobar qué aprendiste. Son situaciones de práctica basadas en las fichas del mapa; los procedimientos del colegio deben validarse con el equipo.</p>
+    <div class="tarjeta" style="padding:1.3rem;border:1px solid var(--linea);border-radius:14px;background:#fff">
+      <p id="practicaEstado" role="status"></p>
+      <div id="practicaContenido"></div>
+      <div class="acciones no-imprimir" style="margin-top:1rem">
+        <button type="button" class="btn btn--v" id="practicaContinuar">Comenzar diagnóstico</button>
+        <button type="button" class="btn btn--suave" id="practicaExportar" hidden>Descargar resultado (CSV)</button>
+        <button type="button" class="btn btn--suave" id="practicaReiniciar" hidden>Otra persona</button>
+      </div>
+      <p class="fina" style="margin-top:1rem">Sin nombres ni envío de datos. El resultado permanece en esta sesión y se pierde al cerrar o recargar; descarga el CSV si necesitas conservarlo. Compara aprendizaje en este ejercicio, no desempeño laboral.</p>
+    </div>
+  </div>
+</section>
+
 <section id="ruta" style="background:linear-gradient(180deg,var(--crema),var(--arena) 70%)">
   <div class="wrap">
     <div class="cab centrado">
@@ -2250,6 +2268,86 @@ var PRUEBAS = [
 ];
 
 window.FERIA_MOTOR = correrPruebas;
+/* Práctica antes/después: situaciones paralelas; datos anónimos de una sesión. */
+var MISIONES = [
+ {parada:'porteria',antes:'Llegas por primera vez y necesitas preguntar por el registro de ingreso. ¿Dónde comienzas?',despues:'Una visita pregunta qué debe hacer para ingresar al colegio. ¿Dónde consulta el control de acceso?'},
+ {parada:'utp',antes:'Necesitas confirmar el formato de las planificaciones. ¿A qué equipo consultas?',despues:'Tienes una duda sobre la pauta de evaluación pedagógica. ¿Qué equipo acompaña este tema?'},
+ {parada:'cra',antes:'Quieres pedir material de lectura para una clase. ¿Qué espacio buscas?',despues:'Necesitas consultar la reserva de la biblioteca y sus recursos. ¿A qué espacio acudes?'},
+ {parada:'secretaria',antes:'Debes consultar los formularios administrativos para solicitar un permiso. ¿Dónde preguntas?',despues:'Necesitas saber cómo tramitar un certificado administrativo. ¿Dónde comienzas la consulta?'},
+ {parada:'convivencia',antes:'Quieres conocer la vía formal para consultar una situación de convivencia. ¿Qué equipo buscas?',despues:'Necesitas consultar el Reglamento Interno y los procedimientos de convivencia. ¿Qué equipo orienta esa consulta?'}
+];
+function evaluarOrientacion(respuestas){
+  if(!Array.isArray(respuestas) || respuestas.length!==MISIONES.length || respuestas.some(function(id){return !PARADAS.some(function(p){return p.id===id;});})) return null;
+  var aciertos=respuestas.reduce(function(n,id,i){return n+(id===MISIONES[i].parada?1:0);},0);
+  return {aciertos:aciertos,total:MISIONES.length,porcentaje:aciertos/MISIONES.length*100};
+}
+var practica={fase:'inicio',indice:0,antes:[],despues:[]};
+function pintarPractica(){
+  var zona=$('practicaContenido'), btn=$('practicaContinuar');zona.textContent='';btn.hidden=false;
+  $('practicaExportar').hidden=practica.fase!=='resultado';
+  $('practicaReiniciar').hidden=practica.fase==='inicio';
+  var est=$('practicaEstado');
+  if(practica.fase==='inicio'){
+    est.textContent='1. Responde sin ayuda · 2. Explora el Mapa Caro · 3. Vuelve a intentarlo';btn.textContent='Comenzar diagnóstico';return;
+  }
+  if(practica.fase==='recorrido'){
+    est.textContent='Diagnóstico inicial completo. Explora las fichas y el mapa antes de la segunda ronda.';
+    var a=ce('a','btn btn--suave');a.href='#recorrido';a.textContent='Explorar Mapa Caro';zona.appendChild(a);
+    btn.textContent='Ya recorrí el mapa: comprobar aprendizaje';return;
+  }
+  if(practica.fase==='resultado'){
+    btn.hidden=true;var a=evaluarOrientacion(practica.antes),d=evaluarOrientacion(practica.despues),c=d.porcentaje-a.porcentaje;
+    est.textContent='Inicial: '+a.aciertos+'/'+a.total+' · Después: '+d.aciertos+'/'+d.total+' · Cambio: '+(c>0?'+':'')+c+' puntos porcentuales.';
+    var nota=ce('p','fina');nota.textContent='Una mejora aquí es una señal de aprendizaje durante la práctica. Para evaluar el proyecto, repitan el piloto con usuarios y condiciones comparables; no equivale a una prueba de impacto permanente.';zona.appendChild(nota);
+    MISIONES.forEach(function(m,i){
+      var p=PARADAS.filter(function(x){return x.id===m.parada;})[0],art=ce('div','recurso');
+      var t=ce('b');t.textContent=(i+1)+'. '+p.nombre+' · '+(practica.despues[i]===m.parada?'Correcto':'Por reforzar');art.appendChild(t);
+      var detalle=ce('p');detalle.textContent=p.que;art.appendChild(detalle);
+      var b=ce('button','btn btn--suave btn--sm');b.type='button';b.textContent='Ver esta parada';
+      b.addEventListener('click',function(){irAParada(PARADAS.indexOf(p));$('recorrido').scrollIntoView({behavior:'auto'});});art.appendChild(b);zona.appendChild(art);
+    });return;
+  }
+  var m=MISIONES[practica.indice];
+  est.textContent=(practica.fase==='antes'?'Diagnóstico inicial':'Después del recorrido')+' · Situación '+(practica.indice+1)+' de '+MISIONES.length;
+  var lab=ce('label','campo');var sp=ce('span');sp.textContent=m[practica.fase];lab.appendChild(sp);
+  var sel=ce('select');sel.id='practicaRespuesta';var op=ce('option');op.value='';op.textContent='Selecciona un espacio o equipo';sel.appendChild(op);
+  PARADAS.forEach(function(p){var o=ce('option');o.value=p.id;o.textContent=p.nombre;sel.appendChild(o);});lab.appendChild(sel);zona.appendChild(lab);
+  btn.textContent=practica.indice===MISIONES.length-1?'Terminar esta ronda':'Guardar y continuar';
+}
+function iniciarPractica(){
+  pintarPractica();
+  $('practicaContinuar').addEventListener('click',function(){
+    if(practica.fase==='inicio') practica.fase='antes';
+    else if(practica.fase==='recorrido'){practica.fase='despues';practica.indice=0;}
+    else{
+      var sel=$('practicaRespuesta');if(!sel || !sel.value){$('practicaEstado').textContent='Selecciona una respuesta antes de continuar.';if(sel)sel.focus();return;}
+      practica[practica.fase].push(sel.value);practica.indice++;
+      if(practica.indice===MISIONES.length) practica.fase=practica.fase==='antes'?'recorrido':'resultado';
+    }
+    pintarPractica();var siguiente=$('practicaRespuesta')||$('practicaContinuar');if(!siguiente.hidden)siguiente.focus();
+  });
+  $('practicaReiniciar').addEventListener('click',function(){
+    if(!window.confirm('Se borrará solo esta práctica anónima. ¿Comenzar otra?'))return;
+    practica={fase:'inicio',indice:0,antes:[],despues:[]};pintarPractica();$('practicaContinuar').focus();
+  });
+  $('practicaExportar').addEventListener('click',function(){
+    if(practica.fase!=='resultado')return;
+    var a=evaluarOrientacion(practica.antes),d=evaluarOrientacion(practica.despues);
+    var filas=[['Áurea Solutions','Práctica anónima de orientación'],['Fecha',new Date().toISOString()],['Etapa','Aciertos','Total','Porcentaje'],['Inicial',a.aciertos,a.total,a.porcentaje],['Después',d.aciertos,d.total,d.porcentaje],['Cambio en puntos porcentuales',d.porcentaje-a.porcentaje],['Situación','Respuesta inicial','Respuesta posterior','Espacio de referencia']];
+    MISIONES.forEach(function(m,i){filas.push([i+1,practica.antes[i],practica.despues[i],m.parada]);});
+    filas.push(['Alcance','Ejercicio formativo de una sesión; no demuestra impacto permanente.']);
+    var csv=filas.map(function(f){return f.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(';');}).join('\r\n');
+    descargarArchivo('Aurea-practica-orientacion.csv','\uFEFF'+csv,'text/csv;charset=utf-8');
+  });
+}
+
+PRUEBAS.push(
+ ['La práctica no puntúa una ronda incompleta',function(){return evaluarOrientacion([])===null && evaluarOrientacion(['x','x','x','x','x'])===null;}],
+ ['La práctica calcula cinco aciertos sobre cinco',function(){return evaluarOrientacion(MISIONES.map(function(m){return m.parada;})).porcentaje===100;}],
+ ['Una ronda sin aciertos da cero, no un resultado vacío',function(){return evaluarOrientacion(MISIONES.map(function(){return 'musica';})).aciertos===0;}],
+ ['Cada misión apunta a una parada real del catálogo',function(){return MISIONES.every(function(m){return PARADAS.some(function(p){return p.id===m.parada;});});}]
+);
+
 function correrPruebas(){
   var ok=0, fallos=[];
   for(var i=0;i<PRUEBAS.length;i++){
@@ -3674,6 +3772,7 @@ function iniciarMapaCaro(){
 /* ------------------------------- Arranque ------------------------------- */
 function iniciar(){
   leerGuardado();
+  iniciarPractica();
 
   /* menú */
   var btnMenu = $('btnMenu'), nav = $('navPrincipal');

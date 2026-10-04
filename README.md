@@ -65,3 +65,13 @@ Está escrito para que cualquier asistente de IA pueda retomar sin haber visto l
 - Los proyectos se entregan como archivos autocontenidos siempre que se pueda:
   sin dependencias externas, para que funcionen sin conexión el día de la feria.
 - Nunca se suben datos personales reales de estudiantes ni de funcionarios.
+
+## Mantener las descargas actualizadas
+
+Después de modificar cualquier proyecto, ejecutar `python3 scripts/sync-portal.py`.
+`python3 scripts/sync-portal.py --check` confirma que las 14 copias descargables coincidan
+con los HTML de sus carpetas. Así «Abrir» y «Descargar HTML» entregan la misma versión.
+
+Revisión del 4 de octubre de 2026: práctica de orientación en Áurea, evidencia y acuerdos
+de mejora en DocentePro, comparación de decisiones en EXPRO, correcciones móviles en
+PRAM y PymeDigital, y precisión del alcance del código QR de LevelUp.

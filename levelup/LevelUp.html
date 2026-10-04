@@ -755,7 +755,7 @@ body.modo-stand .aviso-flotante{bottom:92px}
           <div class="preguntas-frec">
             <details><summary>¿El certificado tiene validez oficial?</summary><p>No. Reconoce que aprobaste una capacitación de LevelUp, un proyecto estudiantil de la especialidad de Administración presentado en la Feria TP 2026. No reemplaza una certificación oficial.</p></details>
             <details><summary>¿Dónde quedan mis datos?</summary><p>Tu nombre va dentro del enlace del certificado y de su código QR: la página no lo envía a ningún servidor. En el computador del stand no queda guardado.</p></details>
-            <details><summary>¿Cómo se verifica un certificado?</summary><p>El código QR abre el certificado en LevelUp, que revisa el código de control del folio. Si alguien cambia el nombre, la fecha o el puntaje en el enlace, lo muestra como modificado.</p></details>
+            <details><summary>¿Cómo se verifica un certificado?</summary><p>El código QR abre el certificado y comprueba que sus datos coincidan con el código de control. Detecta cambios accidentales en el enlace. Como el cálculo es público y no existe un registro firmado en un servidor, no autentica al emisor ni demuestra por sí solo que la persona rindió la evaluación.</p></details>
             <details><summary>¿Puedo hacerla desde mi celular?</summary><p>Sí. Escanea el código del stand o abre la página en tu celular: el certificado queda en tu teléfono.</p></details>
           </div>
         </div>
@@ -3310,8 +3310,8 @@ function pintarVistaEnlace(r) {
   if (r.integro && cert.d) estadoCaja = notaEjemplo();
   else if (r.integro) {
     estadoCaja = el('div', { class: 'estado-cert ok' }, ico('check-circulo'), el('div', null,
-      el('strong', { text: 'Certificado verificado' }),
-      el('span', { text: 'Los datos coinciden con el código de control del folio ' + folio(cert.k) + '.' })));
+      el('strong', { text: 'Código de control coincidente' }),
+      el('span', { text: 'Los datos coinciden con el código del folio ' + folio(cert.k) + '. Es una comprobación de coherencia, no una autenticación del emisor.' })));
   } else if (!r.errores.length) {
     estadoCaja = el('div', { class: 'estado-cert mal' }, ico('alerta'), el('div', null,
       el('strong', { text: 'Este enlace fue modificado' }),

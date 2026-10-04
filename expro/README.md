@@ -97,3 +97,9 @@ Se abre con doble clic. No necesita servidor, instalación ni internet.
 3. Verificar el precio de venta promedio y el costo variable con datos del negocio: son
    los dos números que más mueven el punto de equilibrio.
 4. Probar en un celular real, sin conexión, antes del 8 de octubre.
+
+## Comparación de decisiones · 4 de octubre de 2026
+
+- Escenario de precio, costo por unidad y volumen, comparado con la situación base. Calcula ventas, margen y resultado operativo simplificado.
+- Permite demostrar por qué un descuento puede aumentar ventas y reducir el resultado. El volumen es una hipótesis ingresada, no una predicción.
+- La simulación no modifica los datos base guardados; distingue este resultado de la utilidad contable final. Cinco pruebas nuevas (22 en total).

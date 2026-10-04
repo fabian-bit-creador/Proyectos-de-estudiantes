@@ -147,6 +147,12 @@ table.datos input:hover,table.datos select:hover{border-color:var(--linea-2);}
 table.datos input:focus,table.datos select:focus{background:#fff;border-color:var(--accent);outline:none;}
 table.datos input[type=number],table.datos .monto{text-align:right;font-variant-numeric:tabular-nums;}
 .celda-vacia{padding:1.6rem !important;text-align:center;color:var(--tinta-3);font-size:.87rem;}
+table.tabla-decision{min-width:0;table-layout:fixed;overflow-wrap:anywhere;}
+table.tabla-decision caption{text-align:left;padding:.65rem .85rem;color:var(--tinta-2);font-size:.8rem;}
+table.tabla-decision th,table.tabla-decision td{padding:.65rem .55rem;}
+table.tabla-decision th:first-child{width:40%;}
+table.tabla-decision tbody th{background:#fff;text-transform:none;letter-spacing:0;font-size:.84rem;border-bottom:1px solid var(--linea);}
+table.tabla-decision td{text-align:right;font-variant-numeric:tabular-nums;font-size:.84rem;}
 
 .etiqueta{padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;display:inline-block;}
 .et-ok{background:#dcfce7;color:#166534;}
@@ -421,6 +427,20 @@ section[id],main[id]{scroll-margin-top:6rem}
       </div>
 
       <div class="nota" id="diagnosticoEquilibrio"><svg class="ico" aria-hidden="true"><use href="#i-idea"/></svg><span></span></div>
+
+      <div class="tarjeta" style="margin-top:1.2rem" aria-labelledby="tituloDecision">
+        <h3 id="tituloDecision">Antes de cambiar el precio, prueba la decisión</h3>
+        <p>Compara un escenario con los datos del punto de equilibrio. Los cambios de volumen son supuestos que debes probar con clientes.</p>
+        <div class="rejilla rejilla--3">
+          <label class="campo"><span>Cambio en precio (%)</span><input id="escPrecio" type="number" min="-100" max="1000" step="0.1" value="0"><span class="ayuda">Ejemplo: −10 representa un descuento de 10 %.</span></label>
+          <label class="campo"><span>Cambio en costo por unidad (%)</span><input id="escCosto" type="number" min="-100" max="1000" step="0.1" value="0"></label>
+          <label class="campo"><span>Cambio esperado en unidades (%)</span><input id="escVolumen" type="number" min="-100" max="1000" step="0.1" value="0"><span class="ayuda">Se ingresa como hipótesis, no como resultado obtenido.</span></label>
+        </div>
+        <div class="tabla-caja"><table class="datos tabla-decision"><caption>Modelo mensual simplificado, con costos fijos constantes</caption><thead><tr><th scope="col">Medida</th><th scope="col">Situación base</th><th scope="col">Escenario</th></tr></thead><tbody id="escTabla"></tbody></table></div>
+        <p class="nota nota--info" id="escLectura" role="status"></p>
+        <p class="ayuda">Unidades base estimadas = ventas ÷ precio promedio. Resultado operativo = unidades × (precio − costo variable) − costos fijos. No es utilidad contable final: no modela impuestos, financiamiento ni cambios en la mezcla de productos.</p>
+        <button type="button" class="btn btn--pri btn--sm" id="escRestablecer">Volver al escenario base</button>
+      </div>
 
       <details style="margin-top:1.2rem">
         <summary style="cursor:pointer;font-weight:700;color:var(--primary);font-size:.9rem">¿Cómo se calcula?</summary>
@@ -712,6 +732,35 @@ function calcularEquilibrio(fijos, precio, variable, ventas) {
   return { margenUnitario, unidades, enPesos, holgura: ventas - enPesos, viable:true };
 }
 
+/* Escenarios sin mutar los registros ni los supuestos base guardados. */
+function simularDecision(base,cambios){
+  const valores=[base.fijos,base.precio,base.variable,base.ventas];
+  if(valores.some(v=>typeof v!=='number'||!Number.isFinite(v)||v<0)||base.precio<=0)return null;
+  const cambiosValidos=['precio','costo','volumen'].every(k=>typeof cambios[k]==='number'&&Number.isFinite(cambios[k])&&cambios[k]>=-100&&cambios[k]<=1000);
+  if(!cambiosValidos)return null;
+  const unidades=base.ventas/base.precio;
+  const precio=base.precio*(1+cambios.precio/100),costo=base.variable*(1+cambios.costo/100),cantidad=unidades*(1+cambios.volumen/100);
+  const actual={precio:base.precio,costo:base.variable,unidades,ventas:base.ventas,margen:base.precio-base.variable,resultado:unidades*(base.precio-base.variable)-base.fijos};
+  const escenario={precio,costo,unidades:cantidad,ventas:precio*cantidad,margen:precio-costo,resultado:cantidad*(precio-costo)-base.fijos};
+  return {actual,escenario,diferencia:escenario.resultado-actual.resultado};
+}
+function actualizarDecision(){
+  const tabla=$('escTabla'); if(!tabla)return;
+  const leer=id=>$(id).value.trim()===''?NaN:Number($(id).value);
+  const r=simularDecision(datos.equilibrio,{precio:leer('escPrecio'),costo:leer('escCosto'),volumen:leer('escVolumen')});tabla.textContent='';
+  if(!r){$('escLectura').textContent='Completa los tres cambios entre −100 % y 1.000 %. El precio base debe ser mayor que cero.';return;}
+  [['Precio por unidad','precio'],['Costo variable por unidad','costo'],['Unidades estimadas','unidades'],['Ventas','ventas'],['Margen por unidad','margen'],['Resultado operativo estimado','resultado']].forEach(([nombre,k])=>{
+    const tr=document.createElement('tr'),th=document.createElement('th');th.scope='row';th.textContent=nombre;tr.appendChild(th);
+    [r.actual,r.escenario].forEach(x=>{const td=document.createElement('td');td.textContent=k==='unidades'?x[k].toLocaleString('es-CL',{maximumFractionDigits:1}):pesos(x[k]);tr.appendChild(td);});tabla.appendChild(tr);
+  });
+  const diferencia=Math.abs(r.diferencia)<0.005?0:r.diferencia;
+  $('escLectura').textContent=(r.escenario.margen<=0?'El margen del escenario no es positivo: cada unidad no aporta a cubrir costos fijos. ':'')+
+    (diferencia===0?'Este escenario conserva el resultado base.':(diferencia>0?'Mejora':'Reduce')+' el resultado operativo en '+pesos(Math.abs(diferencia))+'.')+
+    ' El cambio de unidades es una hipótesis: vender más no garantiza ganar más.';
+}
+['escPrecio','escCosto','escVolumen'].forEach(id=>$(id).addEventListener('input',actualizarDecision));
+$('escRestablecer').addEventListener('click',()=>{['escPrecio','escCosto','escVolumen'].forEach(id=>$(id).value='0');actualizarDecision();});
+
 /* ============================ TABLAS (DOM) ============================ */
 /* Construir con createElement en vez de innerHTML es lo que impide que un
    texto con comillas rompa la tabla o inyecte código.                     */
@@ -895,6 +944,7 @@ function dibujarGraficoCaja(r) {
 
 /* ------------------------- Punto de equilibrio ------------------------- */
 function actualizarEquilibrio() {
+  actualizarDecision();
   const e = datos.equilibrio;
   const r = calcularEquilibrio(e.fijos, e.precio, e.variable, e.ventas);
 
@@ -1173,6 +1223,14 @@ const PRUEBAS = [
     }]
 ];
 
+PRUEBAS.push(
+ ['Un escenario neutro conserva el resultado',()=>{const r=simularDecision({fijos:480000,precio:2500,variable:1600,ventas:1400000},{precio:0,costo:0,volumen:0});return r.diferencia===0&&r.actual.resultado===24000;}],
+ ['Un descuento puede vender más y ganar menos',()=>{const r=simularDecision({fijos:480000,precio:2500,variable:1600,ventas:1400000},{precio:-10,costo:0,volumen:20});return r.escenario.ventas>r.actual.ventas&&r.diferencia<0;}],
+ ['El escenario no modifica la base',()=>{const b={fijos:100,precio:20,variable:10,ventas:200};const antes=JSON.stringify(b);simularDecision(b,{precio:10,costo:0,volumen:0});return JSON.stringify(b)===antes;}],
+ ['Precio base cero y cambios incompletos no calculan',()=>simularDecision({fijos:100,precio:0,variable:0,ventas:0},{precio:0,costo:0,volumen:0})===null&&simularDecision(DATOS_INICIALES.equilibrio,{precio:NaN,costo:0,volumen:0})===null],
+ ['Cero ventas conserva la pérdida de costos fijos',()=>simularDecision({fijos:100,precio:20,variable:10,ventas:0},{precio:0,costo:0,volumen:0}).escenario.resultado===-100]
+);
+
 function correrPruebas() {
   const fallidas = [];
   PRUEBAS.forEach(([nombre, prueba]) => {
@@ -1276,4 +1334,3 @@ byId('feria-check').addEventListener('click',()=>{
 </script>
 </body>
 </html>
-

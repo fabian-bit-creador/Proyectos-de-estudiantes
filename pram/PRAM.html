@@ -147,6 +147,12 @@
       .nav{position:static}
     }
   </style>
+<style>
+/* Textos largos y tarjetas deben caber sin desplazar toda la página. */
+.contact-list b{min-width:0;overflow-wrap:anywhere}
+.menu-group{min-width:0;overflow-wrap:anywhere}
+@media(max-width:760px){.contact-list a,.contact-list a.location{grid-template-columns:85px minmax(0,1fr) 15px}.menu-groups{grid-template-columns:minmax(0,1fr)}.menu-item summary{flex-wrap:wrap}.menu-item .price{white-space:normal}}
+</style>
 </head>
 <body>
   <header class="nav"><a class="brand" href="#inicio">PRAM <small>PROYECTO</small></a><button class="hamburger" id="menu" aria-label="Abrir menú" aria-expanded="false">☰</button><nav class="navlinks" id="links" aria-label="Navegación"><a href="#proyecto">Proyecto</a><a href="#triangulo">Triángulo</a><a href="#carta">Carta</a><a href="#protocolos">Protocolos</a><a href="#resenas">Reseñas</a><a href="#experiencias">Experiencias</a><a href="#quienes-somos">Quiénes somos</a><a href="#herramienta">Herramienta</a><a href="#casos">Casos</a><a href="#metas">Metas</a><a href="#contacto">Contacto</a></nav><a class="nav-cta" href="#carta">Ver carta ↘</a></header>

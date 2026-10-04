@@ -211,8 +211,12 @@ tr:last-child td{border-bottom:0}
 .pie__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.2rem}
 .pie__nota{margin-top:1.4rem;text-align:center;font-size:.78rem;color:var(--secundario);line-height:1.7}
 
+.texto-impresion{display:none}
 @media print{
   .no-imprimir{display:none!important}
+  .entrada-con-impresion{display:none!important}
+  .texto-impresion{display:block;white-space:pre-wrap;overflow-wrap:anywhere;margin:.25rem 0 .7rem;padding:.4rem;border:1px solid var(--linea);font-weight:400}
+  #planMejora .tarjeta{break-inside:avoid}
   body{background:#fff;font-size:11pt}
   /* Sin esto el navegador descarta los fondos y la pauta impresa pierde
      el nivel marcado, la barra por ambito y los cortes objetivos. */
@@ -234,7 +238,7 @@ tr:last-child td{border-bottom:0}
 </head>
 <body>
 
-<a class="saltar" href="#evaluacion">Saltar a la evaluación</a>
+<a class="saltar" href="#v-evaluacion" data-ir="evaluacion">Saltar a la evaluación</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
@@ -280,7 +284,7 @@ tr:last-child td{border-bottom:0}
   <div class="wrap">
     <div class="hero">
       <p class="dato">Colegio Cardenal José María Caro · Fundación Belén Educa</p>
-      <h1>La evaluación de desempeño, con la fórmula que el colegio realmente usa.</h1>
+      <h1>Del desempeño observado a una mejora concreta.</h1>
       <p>Elige un cargo, califica cada estándar en sus niveles de desarrollo y obtén el porcentaje de logro ponderado. Después imprime la pauta o descárgala en Excel.</p>
     </div>
 
@@ -332,7 +336,7 @@ tr:last-child td{border-bottom:0}
     <div class="cab no-imprimir">
       <span class="eyebrow">01 / Instrumento</span>
       <h2>Pauta de evaluación por cargo</h2>
-      <p>Selecciona el cargo, completa los datos y califica cada estándar. El resultado se recalcula solo.</p>
+      <p>Selecciona el cargo, registra evidencia y califica cada estándar. Luego acuerda acciones para las prioridades detectadas.</p>
     </div>
 
     <div class="encabezado-impresion" hidden>
@@ -345,7 +349,7 @@ tr:last-child td{border-bottom:0}
     <div class="tarjeta" style="margin-top:1.4rem">
       <div class="form3">
         <label class="campo"><span>Cargo evaluado</span><select id="selCargo"></select></label>
-        <label class="campo"><span>Nombre de la persona evaluada</span><input type="text" id="fNombre" placeholder="Nombre y apellido" autocomplete="off"></label>
+        <label class="campo"><span>Nombre de la persona evaluada</span><input type="text" id="fNombre" placeholder="Alias ficticio para la demostración" autocomplete="off"></label>
         <label class="campo"><span>Evaluador o evaluadora</span><input type="text" id="fEvaluador" placeholder="Cargo de la jefatura" autocomplete="off"></label>
         <label class="campo"><span>Ciclo o nivel</span><input type="text" id="fCiclo" placeholder="Ej.: Prekínder A" autocomplete="off"></label>
         <label class="campo"><span>Período evaluado</span><input type="text" id="fPeriodo" placeholder="Ej.: Primer semestre 2026" autocomplete="off"></label>
@@ -356,6 +360,12 @@ tr:last-child td{border-bottom:0}
 
     <div id="zonaAmbitos"></div>
 
+    <section class="tarjeta" id="planMejora" aria-labelledby="tituloPlan" style="margin-top:1.4rem">
+      <h3 id="tituloPlan">De la pauta a la mejora</h3>
+      <p class="fina">Dos prioridades sugeridas según la distancia hasta «Meta» y el peso del estándar. Acuerda una acción observable; la sugerencia no reemplaza la conversación ni la evidencia.</p>
+      <p id="estadoPlan" role="status" class="nota nota--info"></p>
+      <div id="prioridadesPlan"></div>
+    </section>
     <div class="marcador" id="marcador">
       <div class="marcador__fila">
         <div>
@@ -589,7 +599,7 @@ function pesoEstandar(cargo, ambitoId){
    valga menos que uno de cuatro solo por tener menos opciones. */
 function logroEstandar(nivel, niveles){
   var v=Number(nivel), n=Number(niveles);
-  if(!(v>=1) || !(n>=1) || v>n) return null;
+  if(!(v>=1) || !(n>=1) || v>n || !Number.isInteger(v) || !Number.isInteger(n)) return null;
   return v/n;
 }
 
@@ -602,6 +612,7 @@ function ponderadoEstandar(nivel, niveles, peso){
 function nivelPorCorte(tipo, porcentaje){
   var c=CORTES[tipo];
   if(!c) return null;
+  if(porcentaje===null || porcentaje===undefined || typeof porcentaje==='boolean' || String(porcentaje).trim()==='') return null;
   var p=Number(porcentaje);
   if(!(p>=0 && p<=100)) return null;
   for(var i=0;i<c.tramos.length;i++){ if(p < c.tramos[i].hasta) return c.tramos[i].nivel; }
@@ -668,7 +679,8 @@ function csvSeguro(v){
   return '"'+s.replace(/"/g,'""')+'"';
 }
 
-function aCSV(cargo, respuestas, meta, res, pcts){
+function aCSV(cargo, respuestas, meta, res, pcts, evidencias, compromisos){
+  evidencias=evidencias||{}; compromisos=compromisos||{};
   pcts = pcts || {};
   var L=[];
   L.push(['DocentePro · pauta de evaluación de desempeño'].map(csvSeguro).join(';'));
@@ -680,14 +692,14 @@ function aCSV(cargo, respuestas, meta, res, pcts){
   L.push(['Período', meta.periodo||''].map(csvSeguro).join(';'));
   L.push(['Fecha', meta.fecha||''].map(csvSeguro).join(';'));
   L.push('');
-  L.push(['Ámbito','Estándar','Peso %','Niveles','Dato objetivo %','Nivel obtenido','Logro %','Ponderado %','Medio de verificación'].map(csvSeguro).join(';'));
+  L.push(['Ámbito','Estándar','Peso %','Niveles','Dato objetivo %','Nivel obtenido','Logro %','Ponderado %','Medio de verificación','Evidencia observada','Acción acordada','Responsable','Fecha de revisión','Evidencia de cumplimiento'].map(csvSeguro).join(';'));
   cargo.estandares.forEach(function(e,i){
     var peso=pesoEstandar(cargo,e.a), l=logroEstandar(respuestas[i], e.niveles);
     var amb=''; AMBITOS.forEach(function(a){ if(a.id===e.a) amb=a.nombre; });
     var nom=''; NIVELES.forEach(function(n){ if(n.n===Number(respuestas[i])) nom=n.nombre; });
     var dato = e.corte && pcts[i]!==undefined && pcts[i]!=='' ? Number(pcts[i]) : '';
     L.push([amb, e.t, peso, e.niveles, dato, (respuestas[i]?respuestas[i]+' · '+nom:'sin evaluar'),
-            (l===null?'':l*100), (l===null?'':l*peso), e.mv||''].map(csvSeguro).join(';'));
+            (l===null?'':l*100), (l===null?'':l*peso), e.mv||'', evidencias[i]||'', (compromisos[i]||{}).accion||'', (compromisos[i]||{}).responsable||'', (compromisos[i]||{}).fecha||'', (compromisos[i]||{}).evidencia||''].map(csvSeguro).join(';'));
   });
   L.push('');
   AMBITOS.forEach(function(a){
@@ -815,6 +827,14 @@ var PRUEBAS=[
  }]
 ];
 
+PRUEBAS.push(
+ ['Borrar un porcentaje deja el criterio sin evaluar', function(){return ['', '   ', null, undefined, false].every(function(v){return nivelPorCorte('asistencia',v)===null;}) && nivelPorCorte('asistencia',0)===1;}],
+ ['Los niveles deben ser enteros', function(){return logroEstandar(1.5,4)===null;}],
+ ['Las prioridades ignoran pendientes y estándares en Meta', function(){var c=cargoPorId('asistente-aula'); var r=[];r[0]=3;r[1]=2;var p=prioridadesMejora(c,r);return p.length===1 && p[0].indice===1;}],
+ ['Las prioridades usan el peso y solo devuelven dos', function(){var c=cargoPorId('asistente-aula');var p=prioridadesMejora(c,minimas(c));return p.length===2 && p[0].brecha>=p[1].brecha;}],
+ ['Evidencia y acuerdos se exportan como texto seguro',function(){var c=cargoPorId('asistente-aula');var t=aCSV(c,maximas(c),{},calcular(c,maximas(c)),{},{0:'=1+1'},{0:{accion:'Practicar registro',responsable:'Rol',fecha:'2026-10-08',evidencia:'Lista de cotejo'}});return t.indexOf("'"+'=1+1')>=0 && t.indexOf('Practicar registro')>=0 && t.indexOf('Lista de cotejo')>=0;}]
+);
+
 function correrPruebas(){
   var ok=0, fallos=[];
   for(var i=0;i<PRUEBAS.length;i++){
@@ -828,6 +848,13 @@ function correrPruebas(){
 /* ============================== 4. INTERFAZ ============================== */
 function $(id){ return document.getElementById(id); }
 function ce(t,c){ var e=document.createElement(t); if(c) e.className=c; return e; }
+/* Texto completo en PDF: los controles de una línea recortan los acuerdos largos. */
+function textoParaImprimir(control){
+  control.classList.add('entrada-con-impresion');
+  var texto=ce('p','texto-impresion'); texto.setAttribute('aria-hidden','true');
+  function sincronizar(){texto.textContent=control.value.trim() || 'Sin registrar.';}
+  control.addEventListener('input',sincronizar); sincronizar(); return texto;
+}
 function ico(href,tam){
   var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
   s.setAttribute('width',tam||17); s.setAttribute('height',tam||17); s.setAttribute('aria-hidden','true');
@@ -837,7 +864,7 @@ function ico(href,tam){
 function pct(n,d){ return Number(n).toLocaleString('es-CL',{minimumFractionDigits:d===undefined?1:d,maximumFractionDigits:d===undefined?1:d})+' %'; }
 
 var VISTAS=[['panel','Panel'],['evaluacion','Evaluación'],['indicadores','Cortes objetivos'],['sello','Sello Belén'],['metodo','Método']];
-var estado={cargo:CARGOS[0].id, respuestas:[], meta:{}, pcts:{}};
+var estado={cargo:CARGOS[0].id, respuestas:[], meta:{}, pcts:{}, evidencias:{}, compromisos:{}};
 
 function guardar(){ try{ localStorage.setItem(LS_CLAVE, JSON.stringify(estado)); }catch(e){} }
 function leer(){
@@ -848,6 +875,8 @@ function leer(){
     if(Object.prototype.toString.call(d.respuestas)==='[object Array]') estado.respuestas=d.respuestas;
     if(d.meta && typeof d.meta==='object') estado.meta=d.meta;
     if(d.pcts && typeof d.pcts==='object') estado.pcts=d.pcts;
+    ['evidencias','compromisos'].forEach(function(k){ if(d[k] && typeof d[k]==='object' && !Array.isArray(d[k])) estado[k]=d[k]; });
+    cargoPorId(estado.cargo).estandares.forEach(function(e,i){ if(e.corte) estado.respuestas[i]=nivelPorCorte(e.corte,estado.pcts[i]) || undefined; });
   }catch(e){}
 }
 
@@ -916,6 +945,12 @@ function pintarAmbitos(){
       }
       var mv=ce('p','estandar__mv'); mv.textContent='Medio de verificación: '+e.mv;
       fs.appendChild(mv);
+      var evlab=ce('label','campo'); evlab.style.marginTop='.6rem';
+      var evt=ce('span'); evt.textContent='Evidencia observada (ejemplo anónimo)'; evlab.appendChild(evt);
+      var ev=ce('textarea'); ev.rows=2; ev.maxLength=600; ev.value=typeof estado.evidencias[i]==='string'?estado.evidencias[i]:'';
+      ev.placeholder='Qué se observó, en qué actividad y cómo respalda el nivel.';
+      ev.addEventListener('input',function(){ estado.evidencias[i]=ev.value; guardar(); });
+      evlab.appendChild(ev); fs.appendChild(evlab); fs.appendChild(textoParaImprimir(ev));
       caja.appendChild(fs);
       bloque.appendChild(caja);
     });
@@ -983,6 +1018,45 @@ function actualizar(){
   $('kpiEst').textContent=String(cargo.estandares.length);
   $('kpiEstDet').textContent=cargo.nombre;
   $('btnExcel').disabled = res.evaluados===0;
+  pintarPlanMejora(cargo,res);
+}
+
+/* Distancia hasta Meta, ponderada por el peso real del estándar. Los criterios
+   pendientes no se interpretan como insuficientes ni generan una prioridad. */
+function prioridadesMejora(cargo,respuestas){
+  return cargo.estandares.map(function(e,i){
+    var logro=logroEstandar(respuestas[i],e.niveles), meta=Math.min(3,e.niveles);
+    return {indice:i, estandar:e, nivel:Number(respuestas[i]), meta:meta,
+      brecha:logro===null?0:Math.max(0,(meta-Number(respuestas[i]))/e.niveles)*pesoEstandar(cargo,e.a)};
+  }).filter(function(p){return p.brecha>0;})
+    .sort(function(a,b){return b.brecha-a.brecha || a.indice-b.indice;}).slice(0,2);
+}
+
+function pintarPlanMejora(cargo,res){
+  var prioridades=prioridadesMejora(cargo,estado.respuestas), zona=$('prioridadesPlan');
+  $('estadoPlan').textContent=!res.evaluados ? 'Completa la pauta para identificar prioridades.' :
+    (!prioridades.length ? 'Los estándares evaluados alcanzan Meta. Revisa la evidencia y conserva las buenas prácticas.' :
+    'Prioridades sobre '+res.evaluados+' estándares evaluados. '+(res.completo?'Pauta completa.':'La selección puede cambiar al completar la pauta.'));
+  zona.textContent='';
+  prioridades.forEach(function(p,orden){
+    var acuerdo=estado.compromisos[p.indice] || {};
+    var bloque=ce('article','tarjeta'); bloque.style.marginTop='.8rem';
+    var h=ce('h4'); h.textContent=(orden+1)+'. '+p.estandar.t; bloque.appendChild(h);
+    var info=ce('p','fina'); info.textContent='Nivel actual: '+p.nivel+' de '+p.estandar.niveles+
+      ' · Meta de referencia: '+p.meta+' · Verificar con: '+p.estandar.mv; bloque.appendChild(info);
+    [['accion','Acción concreta','text'],['responsable','Responsable (rol o alias)','text'],
+      ['fecha','Fecha de revisión','date'],['evidencia','Cómo se comprobará la mejora','text']].forEach(function(campo){
+      var lab=ce('label','campo'); var tit=ce('span'); tit.textContent=campo[1]; lab.appendChild(tit);
+      var inp=ce('input'); inp.type=campo[2]; inp.maxLength=400;
+      inp.value=typeof acuerdo[campo[0]]==='string'?acuerdo[campo[0]]:'';
+      inp.addEventListener('input',function(){
+        if(!estado.compromisos[p.indice] || typeof estado.compromisos[p.indice]!=='object') estado.compromisos[p.indice]={};
+        estado.compromisos[p.indice][campo[0]]=inp.value; guardar();
+      });
+      lab.appendChild(inp); bloque.appendChild(lab); bloque.appendChild(textoParaImprimir(inp));
+    });
+    zona.appendChild(bloque);
+  });
 }
 
 function pintarCortes(){
@@ -1108,7 +1182,7 @@ function iniciar(){
     n.querySelector('span').textContent=c.nota;
   }
   sel.addEventListener('change', function(){
-    estado.cargo=sel.value; estado.respuestas=[]; estado.pcts={};
+    estado.cargo=sel.value; estado.respuestas=[]; estado.pcts={}; estado.evidencias={}; estado.compromisos={};
     guardar(); notaDelCargo(); pintarAmbitos(); actualizar();
   });
 
@@ -1122,14 +1196,14 @@ function iniciar(){
   $('btnImprimir').addEventListener('click', function(){ window.print(); });
   $('btnExcel').addEventListener('click', function(){
     var c=cargoPorId(estado.cargo), res=calcular(c, estado.respuestas);
-    var csv=aCSV(c, estado.respuestas, estado.meta, res, estado.pcts);
+    var csv=aCSV(c, estado.respuestas, estado.meta, res, estado.pcts, estado.evidencias, estado.compromisos);
     var n='DocentePro-'+c.id+'-'+(new Date().toISOString().slice(0,10))+'.csv';
     if(!descargar(n,'\uFEFF'+csv,'text/csv;charset=utf-8'))
       window.alert('Este navegador no permitió la descarga. Prueba desde el sitio publicado.');
   });
   $('btnLimpiar').addEventListener('click', function(){
-    if(!window.confirm('Se van a borrar los niveles marcados y los datos del encabezado. ¿Continuar?')) return;
-    estado.respuestas=[]; estado.pcts={}; estado.meta={};
+    if(!window.confirm('Se van a borrar los niveles, evidencias, acuerdos y datos del encabezado guardados en este dispositivo. ¿Continuar?')) return;
+    estado.respuestas=[]; estado.pcts={}; estado.meta={}; estado.evidencias={}; estado.compromisos={};
     ['Nombre','Evaluador','Ciclo','Periodo','Fecha'].forEach(function(k){ $('f'+k).value=''; });
     guardar(); pintarAmbitos(); actualizar();
   });

@@ -78,3 +78,7 @@ piden solo los datos necesarios para responder y se borran al cerrar el caso.
 1. En «Medir para mejorar», evaluar con 2 estrellas y contar qué pasó con un pedido.
 2. En «Libro de casos», asignar responsable, abrir la respuesta y marcar como respondido.
 3. Cerrar el caso con lo que se hizo y la parte del triángulo: el panel de «Metas» se actualiza solo.
+
+## Ajuste para celular · 4 de octubre de 2026
+
+Corregido el desborde horizontal causado por el correo de contacto y los precios largos de la carta. Las tarjetas y los enlaces se ajustan al ancho disponible.

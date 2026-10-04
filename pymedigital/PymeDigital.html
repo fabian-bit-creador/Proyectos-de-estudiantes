@@ -910,8 +910,15 @@ header.con-sombra{ box-shadow: 0 6px 18px rgba(0,0,0,.22); }
   *{ transition:none !important; animation:none !important; }
 }
 </style>
+<style>
+/* Las reglas base posteriores anulaban las columnas móviles. */
+.solucion-grid > *, .servicios-precio-grid > *{min-width:0}
+.testimonios-pista-wrap{min-width:0}
+@media(max-width:960px){.servicios-precio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.solucion-grid,.servicios-precio-grid{grid-template-columns:minmax(0,1fr)}.servicio-precio .precio{flex-wrap:wrap}}
+</style>
 </head>
-<body>
+<body id="inicio">
 
 <div class="progreso-scroll" id="progresoScroll"></div>
 <p id="avisoVivo" role="status" aria-live="polite" class="solo-lectores"></p>
@@ -1167,7 +1174,7 @@ header.con-sombra{ box-shadow: 0 6px 18px rgba(0,0,0,.22); }
   <div class="contenedor">
     <span class="etiqueta">Catálogo</span>
     <h2 class="seccion-titulo">Nuestros servicios</h2>
-    <p class="seccion-intro">Estos son los servicios que Pymedigital Ltda. ofrece a las pymes de La Pintana, con su descripción y valor.</p>
+    <p class="seccion-intro">Propuesta de servicios del proyecto escolar para pymes de La Pintana. Los montos son referenciales para discutir el modelo; no constituyen una cotización ni acreditan servicios ya vendidos.</p>
 
     <div class="servicios-precio-grid">
       <div class="servicio-precio">

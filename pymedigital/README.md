@@ -135,3 +135,8 @@ los datos en un computador prestado.
   poner una foto propia, y debe ser propia por derechos de autor.
 - Los testimonios están marcados «(ejemplo)». Si consiguen testimonios reales, hay que pedir
   autorización escrita para publicarlos.
+
+## Ajustes de uso · 4 de octubre de 2026
+
+- Corregido el catálogo de servicios y la sección de soluciones en celular: las reglas de escritorio estaban anulando las columnas móviles.
+- Reparado el enlace del logo al inicio. Los montos se identifican como referenciales del proyecto escolar, pendientes de validación comercial.

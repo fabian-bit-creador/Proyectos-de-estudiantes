@@ -183,3 +183,7 @@ recuperar si el equipo la quiere en el stand.
 La **versión 1** corrigió la página original: la respuesta correcta siempre era la primera, el logo
 repetido pesaba 1,5 MB, el ícono de la pestaña era ilegible y en celular la página se salía hacia el
 lado.
+
+## Alcance del código QR · 4 de octubre de 2026
+
+La pantalla y la ayuda distinguen la coincidencia del código de control de la autenticación del emisor. El código es público: detecta cambios accidentales, pero no prueba por sí solo identidad ni aprobación. Se mantienen el QR, el certificado y las 51 pruebas existentes.

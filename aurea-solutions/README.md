@@ -139,3 +139,10 @@ pidiendo a base44 que declare `lang="es"`.
 La guía incluye además una recomendación sobre **base44 frente al archivo HTML**: quedarse con el
 HTML como versión principal, porque una página alojada en base44 no abre si el día de la feria no
 hay wifi.
+
+## Mejora de orientación · 4 de octubre de 2026
+
+- Práctica anónima con cinco situaciones antes y después del Mapa Caro; muestra aciertos y cambio en puntos porcentuales.
+- Cada resultado enlaza la ficha que permite reforzar lo aprendido. Exportación CSV de la sesión, sin nombres.
+- No sustituye la validación de procedimientos, fotos y ubicaciones con el colegio. El resultado mide el ejercicio, no impacto permanente.
+- El motor incorpora cuatro verificaciones nuevas (57 en total).
