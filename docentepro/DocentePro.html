@@ -45,6 +45,7 @@ code{font-family:var(--mono);font-size:.86em;background:var(--suave);border-radi
 .saltar{position:absolute;left:-9999px;top:0;z-index:200;background:var(--primario);color:#fff;
         padding:.8rem 1.3rem;font-weight:700;border-radius:0 0 12px 0}
 .saltar:focus{left:0}
+.vista:focus{outline:none}
 .oculto{display:none!important}
 .wrap{max-width:1180px;margin:0 auto;padding:0 1.3rem}
 .wrap--angosto{max-width:58rem}
@@ -1165,8 +1166,15 @@ function iniciar(){
     var ab=nav.classList.toggle('abierto');
     this.setAttribute('aria-expanded', ab?'true':'false');
   });
+  /* El foco va a la vista nueva: si quedara en un botón que se oculta, quien usa
+     teclado o lector de pantalla perdería su lugar (también con «Saltar a la evaluación»). */
   document.querySelectorAll('[data-ir]').forEach(function(b){
-    b.addEventListener('click', function(){ mostrarVista(b.dataset.ir); });
+    b.addEventListener('click', function(ev){
+      if(b.tagName==='A') ev.preventDefault();
+      mostrarVista(b.dataset.ir);
+      var destino=$('v-'+b.dataset.ir);
+      if(destino){ destino.setAttribute('tabindex','-1'); destino.focus({preventScroll:true}); }
+    });
   });
 
   var sel=$('selCargo');

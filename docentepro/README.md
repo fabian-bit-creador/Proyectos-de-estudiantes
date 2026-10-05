@@ -99,3 +99,4 @@ demostración de la feria. Para mostrarla, usar un nombre ficticio.
 - Acuerdos con acción, responsable, fecha y evidencia de cumplimiento; se conservan al recargar y se incluyen en CSV e impresión.
 - Corregido: borrar asistencia o puntualidad deja el criterio pendiente; ya no asigna un nivel por interpretar el vacío como cero. También se rechazan niveles fraccionarios.
 - Se conserva la ponderación existente. La herramienta continúa siendo un ejercicio formativo. 31 verificaciones del motor.
+- Ajuste del 5 de octubre: «Saltar a la evaluación» y los botones que cambian de sección llevan el foco del teclado a la sección nueva.

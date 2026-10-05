@@ -146,3 +146,4 @@ hay wifi.
 - Cada resultado enlaza la ficha que permite reforzar lo aprendido. Exportación CSV de la sesión, sin nombres.
 - No sustituye la validación de procedimientos, fotos y ubicaciones con el colegio. El resultado mide el ejercicio, no impacto permanente.
 - El motor incorpora cuatro verificaciones nuevas (57 en total).
+- Ajuste del 5 de octubre: el CSV muestra los nombres de los espacios (no sus claves internas), marca cada respuesta como correcta o no y usa la hora local. Una verificación más (58 en total).

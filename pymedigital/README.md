@@ -140,3 +140,4 @@ los datos en un computador prestado.
 
 - Corregido el catálogo de servicios y la sección de soluciones en celular: las reglas de escritorio estaban anulando las columnas móviles.
 - Reparado el enlace del logo al inicio. Los montos se identifican como referenciales del proyecto escolar, pendientes de validación comercial.
+- Ajuste del 5 de octubre: el buscador de la cabecera y los botones del diagnóstico también caben en teléfonos de 320 px.

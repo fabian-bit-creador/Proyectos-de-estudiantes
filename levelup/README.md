@@ -143,8 +143,8 @@ certificados» de ese teléfono. El nombre viaja solo dentro del enlace del cert
   - El QR se leyó con un decodificador real (jsQR) desde la pantalla, desde la imagen descargada y desde
     el PDF. Los tres dan el mismo enlace.
   - El PDF es una página A4 horizontal, y la impresión sale en una sola hoja.
-  - El enlace abierto en un celular muestra «Certificado verificado». Si se altera el puntaje, avisa que
-    fue modificado.
+  - El enlace abierto en un celular muestra que los datos coinciden con el folio (antes decía
+    «Certificado verificado»; ver «Alcance del código QR»). Si se altera el puntaje, avisa que fue modificado.
 - **17 comprobaciones más:**
   - modo stand;
   - tema oscuro;
@@ -187,3 +187,5 @@ lado.
 ## Alcance del código QR · 4 de octubre de 2026
 
 La pantalla y la ayuda distinguen la coincidencia del código de control de la autenticación del emisor. El código es público: detecta cambios accidentales, pero no prueba por sí solo identidad ni aprobación. Se mantienen el QR, el certificado y las 51 pruebas existentes.
+
+Ajuste del 5 de octubre: el aviso en pantalla dice «Los datos coinciden con el folio …» y aclara que es un reconocimiento del proyecto escolar, no un certificado oficial. La explicación técnica queda en la pregunta frecuente «¿Cómo se verifica un certificado?».

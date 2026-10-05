@@ -3310,8 +3310,8 @@ function pintarVistaEnlace(r) {
   if (r.integro && cert.d) estadoCaja = notaEjemplo();
   else if (r.integro) {
     estadoCaja = el('div', { class: 'estado-cert ok' }, ico('check-circulo'), el('div', null,
-      el('strong', { text: 'Código de control coincidente' }),
-      el('span', { text: 'Los datos coinciden con el código del folio ' + folio(cert.k) + '. Es una comprobación de coherencia, no una autenticación del emisor.' })));
+      el('strong', { text: 'Los datos coinciden con el folio ' + folio(cert.k) }),
+      el('span', { text: 'El nombre, la fecha y el puntaje corresponden a su código de control. Reconoce una capacitación del proyecto escolar LevelUp; no es un certificado oficial.' })));
   } else if (!r.errores.length) {
     estadoCaja = el('div', { class: 'estado-cert mal' }, ico('alerta'), el('div', null,
       el('strong', { text: 'Este enlace fue modificado' }),

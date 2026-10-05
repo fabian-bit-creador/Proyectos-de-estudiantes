@@ -779,7 +779,7 @@ section[id],main[id]{scroll-margin-top:6rem}
   </div>
 </section>
 
-<!-- ========================== RUTA POR CARGO ========================== -->
+<!-- ===================== PRÁCTICA DE ORIENTACIÓN ===================== -->
 <section id="practica" aria-labelledby="tituloPractica" style="background:var(--crema)">
   <div class="wrap">
     <span class="eyebrow">Mapa Caro · práctica de orientación</span>
@@ -798,6 +798,7 @@ section[id],main[id]{scroll-margin-top:6rem}
   </div>
 </section>
 
+<!-- ========================== RUTA POR CARGO ========================== -->
 <section id="ruta" style="background:linear-gradient(180deg,var(--crema),var(--arena) 70%)">
   <div class="wrap">
     <div class="cab centrado">
@@ -2281,6 +2282,18 @@ function evaluarOrientacion(respuestas){
   var aciertos=respuestas.reduce(function(n,id,i){return n+(id===MISIONES[i].parada?1:0);},0);
   return {aciertos:aciertos,total:MISIONES.length,porcentaje:aciertos/MISIONES.length*100};
 }
+/* Filas del CSV: nombres de los espacios (no sus claves internas) y hora local. */
+function nombreParada(id){var p=PARADAS.filter(function(x){return x.id===id;})[0];return p?p.nombre:String(id||'');}
+function filasCsvPractica(antes,despues,fecha){
+  var a=evaluarOrientacion(antes),d=evaluarOrientacion(despues);
+  if(!a||!d) return null;
+  var dos=function(n){return (n<10?'0':'')+n;};
+  var cuando=fecha.getFullYear()+'-'+dos(fecha.getMonth()+1)+'-'+dos(fecha.getDate())+' '+dos(fecha.getHours())+':'+dos(fecha.getMinutes());
+  var filas=[['Áurea Solutions','Práctica anónima de orientación'],['Fecha y hora',cuando],['Etapa','Aciertos','Total','Porcentaje'],['Inicial',a.aciertos,a.total,a.porcentaje],['Después',d.aciertos,d.total,d.porcentaje],['Cambio en puntos porcentuales',d.porcentaje-a.porcentaje],['Situación','Respuesta inicial','¿Correcta?','Respuesta posterior','¿Correcta?','Espacio de referencia']];
+  MISIONES.forEach(function(m,i){filas.push([i+1,nombreParada(antes[i]),antes[i]===m.parada?'Sí':'No',nombreParada(despues[i]),despues[i]===m.parada?'Sí':'No',nombreParada(m.parada)]);});
+  filas.push(['Alcance','Ejercicio formativo de una sesión; no demuestra impacto permanente.']);
+  return filas;
+}
 var practica={fase:'inicio',indice:0,antes:[],despues:[]};
 function pintarPractica(){
   var zona=$('practicaContenido'), btn=$('practicaContinuar');zona.textContent='';btn.hidden=false;
@@ -2332,10 +2345,7 @@ function iniciarPractica(){
   });
   $('practicaExportar').addEventListener('click',function(){
     if(practica.fase!=='resultado')return;
-    var a=evaluarOrientacion(practica.antes),d=evaluarOrientacion(practica.despues);
-    var filas=[['Áurea Solutions','Práctica anónima de orientación'],['Fecha',new Date().toISOString()],['Etapa','Aciertos','Total','Porcentaje'],['Inicial',a.aciertos,a.total,a.porcentaje],['Después',d.aciertos,d.total,d.porcentaje],['Cambio en puntos porcentuales',d.porcentaje-a.porcentaje],['Situación','Respuesta inicial','Respuesta posterior','Espacio de referencia']];
-    MISIONES.forEach(function(m,i){filas.push([i+1,practica.antes[i],practica.despues[i],m.parada]);});
-    filas.push(['Alcance','Ejercicio formativo de una sesión; no demuestra impacto permanente.']);
+    var filas=filasCsvPractica(practica.antes,practica.despues,new Date());
     var csv=filas.map(function(f){return f.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(';');}).join('\r\n');
     descargarArchivo('Aurea-practica-orientacion.csv','\uFEFF'+csv,'text/csv;charset=utf-8');
   });
@@ -2345,7 +2355,11 @@ PRUEBAS.push(
  ['La práctica no puntúa una ronda incompleta',function(){return evaluarOrientacion([])===null && evaluarOrientacion(['x','x','x','x','x'])===null;}],
  ['La práctica calcula cinco aciertos sobre cinco',function(){return evaluarOrientacion(MISIONES.map(function(m){return m.parada;})).porcentaje===100;}],
  ['Una ronda sin aciertos da cero, no un resultado vacío',function(){return evaluarOrientacion(MISIONES.map(function(){return 'musica';})).aciertos===0;}],
- ['Cada misión apunta a una parada real del catálogo',function(){return MISIONES.every(function(m){return PARADAS.some(function(p){return p.id===m.parada;});});}]
+ ['Cada misión apunta a una parada real del catálogo',function(){return MISIONES.every(function(m){return PARADAS.some(function(p){return p.id===m.parada;});});}],
+ ['El CSV de la práctica usa los nombres de los espacios y marca cada acierto',function(){
+   var bien=MISIONES.map(function(m){return m.parada;}), f=filasCsvPractica(bien,bien,new Date(2026,9,8,10,5));
+   var fila=f[7], primera=PARADAS.filter(function(p){return p.id===MISIONES[0].parada;})[0];
+   return f[1][1]==='2026-10-08 10:05' && fila[1]===primera.nombre && fila[2]==='Sí' && fila[5]===primera.nombre && filasCsvPractica([],bien,new Date())===null;}]
 );
 
 function correrPruebas(){
